@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大美新疆</title>
+  <!-- 引入外部资源 -->
+  <script src="./js/tailwindcss.js"></script>
+
+  <link rel="stylesheet" href="./css/css2.css">
+  <!-- 配置Tailwind -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0F172A', // 深蓝主色
+            secondary: '#3B82F6', // 亮蓝强调色
+            accent: '#1E40AF', // 深蓝强调色
+            dark: '#030712', // 近黑色
+            light: '#F8FAFC', // 浅灰色文本
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            display: ['Montserrat', 'sans-serif'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.8s ease-in-out',
+            'slide-up': 'slideUp 0.8s ease-out',
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            slideUp: {
+              '0%': { transform: 'translateY(30px)', opacity: '0' },
+              '100%': { transform: 'translateY(0)', opacity: '1' },
+            }
+          }
+        },
+      }
+    }
+  </script>
+
+  <!-- 自定义样式 -->
+  <style type="text/tailwindcss">
+    .but_acitve{
+      background-color: #3576e0;
+      border-radius: 20px;
+    }
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      }
+      .bg-gradient-overlay {
+        background: linear-gradient(to bottom, rgba(3,7,18,0) 0%, rgba(3,7,18,1) 100%);
+      }
+      .hover-scale {
+        transition: transform 0.3s ease;
+      }
+      .hover-scale:hover {
+        transform: scale(1.03);
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    }
+      /* 修复：类名不以数字开头（关键！） */
+        .text-3d-container {
+            perspective: 1000px; /* 3D透视核心 */
+            cursor: pointer;
+            /* 兼容旧浏览器 */
+            -webkit-perspective: 800px;
+        }
+
+        .text-3d {
+            font-size: 80px;
+            font-weight: 900;
+            color: #ffffff;
+            transform-style: preserve-3d;
+            -webkit-transform-style: preserve-3d; /* 兼容webkit内核 */
+
+            /* 多层阴影模拟3D立体 */
+
+            /* 过渡动画（兼容前缀） */
+            transition: all 0.5s ease;
+            -webkit-transition: all 0.5s ease;
+        }
+
+        /* 鼠标移入倾斜效果 */
+        .text-3d-container:hover .text-3d {
+          /* 转换 */
+            transform: translateZ(5px) rotateX(5deg) rotateY(-5deg);
+            /* -webkit-transform: translateZ(40px) rotateX(15deg) rotateY(-15deg); */
+            /* 增强阴影配合倾斜 */
+            text-shadow: 
+                0 1px 0 #ccc,
+                0 2px 0 #c9c9c9,
+                0 3px 0 #bbb,
+                0 4px 0 #b9b9b9,
+                0 5px 0 #aaa,
+                0 6px 1px rgba(0,0,0,.1),
+                0 0 5px rgba(0,0,0,.1),
+                0 1px 3px rgba(0,0,0,.3),
+                0 3px 5px rgba(0,0,0,.2),
+                0 5px 10px rgba(0,0,0,.25),
+                0 10px 10px rgba(0,0,0,.2),
+                0 20px 20px rgba(0,0,0,.15),
+                5px 5px 20px rgba(0,0,0,0.5);
+        }
+        .span_text{
+          display: inline-block;
+          width: 0px;
+          height: 30px;
+          line-height: 30px;
+          /* 溢出部分隐藏 */
+          overflow: hidden;
+          /* 调用动画    forwards 执行一次 停留在最后的状态*/
+          animation: daziji  4s  steps(24) infinite;
+        }
+        .span_xiahuaxian{
+          /* infinte: 无限次 */
+          animation: shanshuo 0.5s ease infinite;
+        }
+
+        /* 动画 关键帧 */
+        @keyframes daziji {
+            0%{
+              width: 0px;
+            }
+            70%,100%{
+              width: 500px;
+            }
+        }
+
+        @keyframes shanshuo {
+          0%{
+            opacity: 1;
+          }
+          100%{
+            opacity: 0;
+          }
+        }
+
+</style>
+
+
+
+<body class="bg-primary text-light font-sans antialiased ">
+  <!-- 导航栏 -->
+  <header id="navbar" class="fixed w-full z-50 transition-all duration-300">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="https://xj.chinadaily.com.cn/a/202508/04/WS689073dfa3105a871d62d79c.html"
+        class="flex items-center space-x-2">
+        <div class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center">
+          <i class="fa fa-film text-white text-xl"></i>
+        </div>
+        <div class="">
+          <span class="text-white font-bold text-xl ">大美新疆</span>
+        </div>
+
+      </a>
+
+      <!-- 桌面导航 -->
+      <nav class="hidden md:flex items-center space-x-8">
+        <a href="./主页.html" class="text-white hover:text-secondary transition-colors">首页</a>
+        <a href="https://wlt.xinjiang.gov.cn/" class="text-white hover:text-secondary transition-colors">旅游</a>
+        <a href="https://xj.chinadaily.com.cn/a/202508/04/WS689073dfa3105a871d62d79c.html"
+          class="text-white hover:text-secondary transition-colors">美食</a>
+        <a href="#team" class="text-white hover:text-secondary transition-colors">团队</a>
+        <a href="#contact" class="text-white hover:text-secondary transition-colors">给我们投稿</a>
+        <a href="https://xj.chinadaily.com.cn/a/202508/04/WS689073dfa3105a871d62d79c.html"
+          class="bg-secondary hover:bg-secondary/90 text-white px-6 py-2 rounded-full transition-all hover:shadow-lg">
+          合作咨询
+        </a>
+      </nav>
+
+      <!-- 移动端菜单按钮 -->
+      <button id="menuBtn" class="md:hidden text-white text-2xl">
+        <i class="fa fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- 移动端导航菜单 -->
+    <div id="mobileMenu"
+      class="md:hidden bg-dark/95 backdrop-blur-lg absolute w-full left-0 top-full transform -translate-y-full opacity-0 transition-all duration-300 pointer-events-none">
+      <div class="container mx-auto px-4 py-6 flex flex-col space-y-4">
+        <a href="./主页.html"
+          class="text-white hover:text-secondary py-2 border-b border-gray-800 transition-colors">首页</a>
+        <a href="#works" class="text-white hover:text-secondary py-2 border-b border-gray-800 transition-colors">景点</a>
+        <a href="#services"
+          class="text-white hover:text-secondary py-2 border-b border-gray-800 transition-colors">美食</a>
+        <a href="#team" class="text-white hover:text-secondary py-2 border-b border-gray-800 transition-colors">团队</a>
+        <a href="#contact"
+          class="text-white hover:text-secondary py-2 border-b border-gray-800 transition-colors">和我们分享</a>
+        <a href=""
+          class="bg-secondary hover:bg-secondary/90 text-white px-6 py-3 rounded-full text-center transition-all">
+          给我们投稿
+        </a>
+      </div>
+    </div>
+  </header>
+
+
+
+  <!-- 作品展示区 -->
+  <section id="works" class="py-20 bg-dark">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16 animate-slide-up">
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold font-display mb-4">精选景点</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">我们收集了一些当地的特色旅游景点和美食</p>
+        <div class="w-20 h-1 bg-secondary mx-auto mt-6 rounded-full"></div>
+      </div>
+
+      <!-- 作品筛选 -->
+      <div class="flex flex-wrap justify-center gap-4 mb-12" id="buts">
+
+      </div>
+
+      <!-- 作品网格 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="lists">
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 页脚 -->
+  <footer class="bg-primary pt-16 pb-8">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div>
+          <a href="#" class="flex items-center space-x-2 mb-6">
+            <div class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center">
+              <i class="fa fa-film text-white text-xl"></i>
+            </div>
+            <span class="text-white font-bold text-xl">大美新疆</span>
+          </a>
+          <p class="text-gray-400 mb-6">用行动传递价值，用</p>
+          <div class="flex space-x-4">
+            <a href="#"
+              class="w-10 h-10 bg-dark rounded-full flex items-center justify-center hover:bg-secondary transition-colors">
+              <i class="fa fa-weibo text-white"></i>
+            </a>
+            <a href="#"
+              class="w-10 h-10 bg-dark rounded-full flex items-center justify-center hover:bg-secondary transition-colors">
+              <i class="fa fa-wechat text-white"></i>
+            </a>
+            <a href="#"
+              class="w-10 h-10 bg-dark rounded-full flex items-center justify-center hover:bg-secondary transition-colors">
+              <i class="fa fa-bilibili text-white"></i>
+            </a>
+            <a href="#"
+              class="w-10 h-10 bg-dark rounded-full flex items-center justify-center hover:bg-secondary transition-colors">
+              <i class="fa fa-youtube-play text-white"></i>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold text-lg mb-6">快速链接</h4>
+          <ul class="space-y-3">
+            <li><a href="网页设计比赛/主页.html" class="text-gray-400 hover:text-secondary transition-colors">首页</a></li>
+            <li><a href="#works" class="text-gray-400 hover:text-secondary transition-colors">作品</a></li>
+            <li><a href="#services" class="text-gray-400 hover:text-secondary transition-colors">服务</a></li>
+            <li><a href="#team" class="text-gray-400 hover:text-secondary transition-colors">团队</a></li>
+            <li><a href="#contact" class="text-gray-400 hover:text-secondary transition-colors">联系我们</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-bold text-lg mb-6">联系我们</h4>
+          <ul class="space-y-3">
+            <li class="flex items-start">
+              <i class="fa fa-map-marker text-secondary mt-1 mr-3">博职院信息工程学院</i>
+              <span class="text-gray-400"></span>
+            </li>
+            <li class="flex items-start">
+              <i class="fa fa-phone text-secondary mt-1 mr-3">6666@qq.com</i>
+              <span class="text-gray-400">抖音号：shuo6437</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fa fa-envelope text-secondary mt-1 mr-3"></i>
+              <span class="text-gray-400"></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-800 pt-8">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 大美新疆 版权所有</p>
+          <div class="flex space-x-6">
+            <a href="#" class="text-gray-500 text-sm hover:text-secondary transition-colors">隐私政策</a>
+            <a href="#" class="text-gray-500 text-sm hover:text-secondary transition-colors">服务条款</a>
+            <a href="https://cn.bing.com/maps?mepi=60%7E%7EEmbedded%7ELargeMapLink&ty=18&q=%E6%96%B0%E7%96%
+            86%E7%BB%B4%E5%90%BE%E5%B0%94%E8%87%AA%E6%B2%BB%E5%8C%BA&mb=49.179649%7E73.490921%7E34.332
+            5%7E96.389107&ppois=41.11827850341797_85.19352722167969_%E6%96%B0%E7%96%86%E7%BB%B4%E5%9
+            0%BE%E5%B0%94%E8%87%AA%E6%B2%BB%E5
+            %8C%BA_%7E&v=2&sV=1&FORM=MIRE&qpvt=%E6%96%B0%E7%96%86%E5%9C%B0%E5%9B%BE&cp=qnz550tq4k
+            tw&lvl=11.0" class="text-gray-500 text-sm hover:text-secondary transition-colors">网站地图</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script>
+    var buts = document.getElementById("buts")
+    var lists = document.getElementById("lists")
+
+    var data = [
+      {
+        "city": "喀纳斯",
+        "spots": [
+          {
+            "title": "喀纳斯湖",
+            "desc": "中国最深的冰碛堰塞湖，以神秘的“湖怪”传说和随季节变幻的湖水颜色（从碧蓝到乳白）而闻名世界，被誉为“人间仙境、神的花园”。",
+            "href": "https://baike.baidu.com/item/喀纳斯湖",
+            "img": "./asset/more/1.jpg",
+            "tag": "神的调色盘"
+          },
+          {
+            "title": "观鱼台",
+            "desc": "位于哈拉开特山顶，是俯瞰喀纳斯湖全景的最佳地点。登顶需攀登1068级台阶，沿途及山顶景色极为壮阔，湖光山色尽收眼底。",
+            "href": "https://baike.baidu.com/item/观鱼台",
+            "img": "./asset/more/2.jpg",
+            "tag": "俯瞰仙境之眼"
+          },
+          {
+            "title": "月亮湾",
+            "desc": "喀纳斯河在此划出一道优美的反“S”形弧线，犹如一弯新月落入林木葱茏的峡谷。是喀纳斯景区最具标志性的摄影点之一。",
+            "href": "https://baike.baidu.com/item/月亮湾",
+            "img": "./asset/more/3.jpg",
+            "tag": "镶嵌在峡谷中的新月"
+          },
+          {
+            "title": "禾木村",
+            "desc": "被誉为“中国第一村”，是图瓦人最大的聚居地。原始的木屋、袅袅的炊烟、清晨的晨雾与金色的白桦林，构成一幅童话般的乡村画卷。",
+            "href": "https://baike.baidu.com/item/禾木村",
+            "img": "./asset/more/4.jpg",
+            "tag": "神的自留地"
+          },
+          {
+            "title": "卧龙湾",
+            "desc": "河心滩酷似一条静卧的剑龙而得名。四周森林茂密，湖水碧蓝平静，是喀纳斯河最婉约秀美的一段。",
+            "href": "https://baike.baidu.com/item/卧龙湾",
+            "img": "./asset/more/5.jpg",
+            "tag": "静卧河谷的龙"
+          },
+          {
+            "title": "白哈巴村",
+            "desc": "西北第一村，与哈萨克斯坦接壤。村庄宁静古朴，秋季层林尽染，犹如被打翻的调色盘，是体验边境风情和拍摄大片的绝佳地点。",
+            "href": "https://baike.baidu.com/item/白哈巴村",
+            "img": "./asset/more/6.jpg",
+            "tag": "西北边境的宁静童话"
+          }
+        ]
+      },
+      {
+        "city": "伊犁",
+        "spots": [
+          {
+            "title": "那拉提草原",
+            "desc": "世界四大高山河谷草原之一。这里丘陵起伏，绿草如茵，溪流纵横，毡房点点，既有辽阔的草原风光，又有迷人的哈萨克民族风情。",
+            "href": "https://baike.baidu.com/item/那拉提草原",
+            "img": "./asset/more/7.jpg",
+            "tag": "空中草原，骏马乐园"
+          },
+          {
+            "title": "霍城薰衣草花田",
+            "desc": "中国的“普罗旺斯”，每年6-7月，上万亩薰衣草竞相绽放，形成一片极其壮观的紫色海洋，空气中弥漫着浪漫的芬芳。",
+            "href": "https://baike.baidu.com/item/霍城薰衣草",
+            "img": "./asset/more/8.jpg",
+            "tag": "东方的紫色浪漫"
+          },
+          {
+            "title": "喀拉峻草原",
+            "desc": "“立体草原”的典范，地貌起伏跌宕，形成优美的“人体草原”曲线。鲜花台、猎鹰台等景点各具特色，是徒步和摄影的天堂。",
+            "href": "https://baike.baidu.com/item/喀拉峻草原",
+            "img": "./asset/more/9.jpg",
+            "tag": "大地的艺术曲线"
+          },
+          {
+            "title": "果子沟大桥",
+            "desc": "一座穿行于天山峡谷中的双塔双索面钢桁梁斜拉桥，气势如虹，与周围的雪山、松林共同构成一幅现代工程与自然美景交融的奇观。",
+            "href": "https://baike.baidu.com/item/果子沟大桥",
+            "img": "./asset/more/10.jpg",
+            "tag": "天堑上的钢铁彩虹"
+          },
+          {
+            "title": "夏塔古道",
+            "desc": "古代沟通天山南北的重要通道，玄奘曾由此穿越。沿途有雪山、冰川、峡谷、温泉和草原，是一条极富传奇色彩和挑战性的徒步路线。",
+            "href": "https://baike.baidu.com/item/夏塔古道",
+            "img": "./asset/more/11.jpg",
+            "tag": "穿越天山的玄奘之路"
+          },
+          {
+            "title": "伊犁河风景区",
+            "desc": "伊犁河是中国唯一自东向西流的国际河流。这里的落日景观极为著名，长河落日与大桥、芦苇荡相映成趣，充满诗意。",
+            "href": "https://baike.baidu.com/item/伊犁河",
+            "img": "./asset/more/12.jpg",
+            "tag": "西去的河流，辉煌的落日"
+          }
+        ]
+      },
+      {
+        "city": "吐鲁番",
+        "spots": [
+          {
+            "title": "火焰山",
+            "desc": "《西游记》中孙悟空三借芭蕉扇的故事发生地。因山体呈赤红色，在烈日照射下如熊熊燃烧的火焰而得名，夏季地表温度可达70℃以上。",
+            "href": "https://baike.baidu.com/item/火焰山",
+            "img": "./asset/more/13.jpg",
+            "tag": "中国最热的地方"
+          },
+          {
+            "title": "葡萄沟",
+            "desc": "火焰山峡谷中的一片绿洲，以盛产优质葡萄闻名。溪流潺潺，葡萄藤蔓交织成巨大的绿荫长廊，是体验维吾尔风情和品尝瓜果的乐园。",
+            "href": "https://baike.baidu.com/item/葡萄沟",
+            "img": "./asset/more/14.jpg",
+            "tag": "火洲中的甜蜜绿洲"
+          },
+          {
+            "title": "交河故城",
+            "desc": "世界上最大、最古老、保存最完好的生土建筑城市遗址，由车师人始建于公元前2世纪，见证了丝绸之路的历史沧桑。",
+            "href": "https://baike.baidu.com/item/交河故城",
+            "img": "./asset/more/15.jpg",
+            "tag": "悬崖上的千年古城"
+          },
+          {
+            "title": "坎儿井",
+            "desc": "与长城、大运河并称中国古代三大工程，是荒漠地区的特殊灌溉系统。地下暗渠巧妙地引来了天山雪水，造就了吐鲁番的绿洲文明。",
+            "href": "https://baike.baidu.com/item/坎儿井",
+            "img": "./asset/more/16.jpg",
+            "tag": "地下的万里长城"
+          },
+          {
+            "title": "高昌故城",
+            "desc": "西域最大的古城遗址，曾是丝绸之路上的重要枢纽。玄奘西行时曾在此讲经月余。庞大的废墟群在夕阳下格外苍凉壮观。",
+            "href": "https://baike.baidu.com/item/高昌故城",
+            "img": "./asset/more/17.jpg",
+            "tag": "丝路重镇的千年回响"
+          },
+          {
+            "title": "柏孜克里克千佛洞",
+            "desc": "西域著名的佛教石窟寺遗址之一，壁画内容丰富，色彩鲜艳，是研究回鹘佛教艺术和文化的宝库，虽经破坏仍不失其辉煌。",
+            "href": "https://baike.baidu.com/item/柏孜克里克千佛洞",
+            "img": "./asset/more/18.jpg",
+            "tag": "火焰山麓的佛教画廊"
+          }
+        ]
+      },
+      {
+        "city": "喀什",
+        "spots": [
+          {
+            "title": "喀什古城",
+            "desc": "中国唯一的以伊斯兰文化为特色的迷宫式城市街区，拥有2100多年历史。土黄色的生土建筑、纵横交错的小巷，充满了浓郁的中亚风情。",
+            "href": "https://baike.baidu.com/item/喀什古城",
+            "img": "./asset/more/19.jpg",
+            "tag": "活着的西域化石"
+          },
+          {
+            "title": "艾提尕尔清真寺",
+            "desc": "新疆规模最大、地位最重要的清真寺，也是中亚地区有影响力的清真寺。其宏大的门楼和庄严的礼拜殿是喀什的地标性建筑。",
+            "href": "https://baike.baidu.com/item/艾提尕尔清真寺",
+            "img": "./asset/more/20.jpg",
+            "tag": "西域穆斯林的精神中心"
+          },
+          {
+            "title": "香妃墓",
+            "desc": "（阿帕克霍加墓）一座极具伊斯兰建筑艺术特色的陵墓，琉璃砖墙华丽精美。因传说乾隆皇帝的香妃安葬于此而闻名。",
+            "href": "https://baike.baidu.com/item/香妃墓",
+            "img": "./asset/more/21.jpg",
+            "tag": "琉璃镶嵌的传奇"
+          },
+          {
+            "title": "喀什大巴扎（中西亚国际贸易市场）",
+            "desc": "我国西北地区最大的国际贸易市场，商品种类包罗万象，从手工地毯、英吉沙小刀到干果香料，是体验丝路商贸活力的最佳场所。",
+            "href": "https://baike.baidu.com/item/喀什大巴扎",
+            "img": "./asset/more/22.jpg",
+            "tag": "帕米尔脚下的万国商城"
+          },
+          {
+            "title": "高台民居",
+            "desc": "喀什古城东端一处建于高40多米土崖上的维吾尔族聚居区，房屋依崖而建，层层叠叠，家族人口增多便在祖辈房上加盖，形成独特的建筑奇观。",
+            "href": "https://baike.baidu.com/item/高台民居",
+            "img": "./asset/more/23.jpg",
+            "tag": "崖壁上的生土城堡"
+          },
+          {
+            "title": "百年老茶馆",
+            "desc": "喀什古城里的文化地标，当地维吾尔族老人聚集于此，一壶茶、一块馕，弹着热瓦普，聊着天，是体验喀什慢生活和市井文化的最佳窗口。",
+            "href": "https://baike.baidu.com/item/百年老茶馆",
+            "img": "./asset/more/24.jpg",
+            "tag": "古城的时光客厅"
+          }
+        ]
+      },
+      {
+        "city": "库尔勒",
+        "spots": [
+          {
+            "title": "博斯腾湖",
+            "desc": "中国最大的内陆淡水吞吐湖，被誉为“西海”。水域辽阔，芦苇茂密，荷花绽放，是新疆重要的渔业基地和风景优美的生态旅游区。",
+            "href": "https://baike.baidu.com/item/博斯腾湖",
+            "img": "./asset/more/25.jpg",
+            "tag": "沙漠边缘的西海"
+          },
+          {
+            "title": "铁门关",
+            "desc": "中国古代二十六名关之一，孔雀河从陡峭的峡谷中穿过，地势险要，曾是南北疆交通的天险要冲，留有丰富的历史文化遗迹。",
+            "href": "https://baike.baidu.com/item/铁门关",
+            "img": "./asset/more/26.jpg",
+            "tag": "一夫当关，万夫莫开"
+          },
+          {
+            "title": "罗布人村寨",
+            "desc": "位于塔克拉玛干沙漠边缘，居住着最后的罗布人后裔。景区集沙漠、湖泊、胡杨、罗布文化于一体，可体验骑骆驼、滑沙等沙漠项目。",
+            "href": "https://baike.baidu.com/item/罗布人村寨",
+            "img": "./asset/more/27.jpg",
+            "tag": "沙漠瀚海中的活化石"
+          },
+          {
+            "title": "库尔勒园艺场",
+            "desc": "库尔勒是著名的“梨城”，每到春天，万亩梨花盛开，如雪如云。秋季则可体验采摘正宗的库尔勒香梨，皮薄多汁，香甜可口。",
+            "href": "https://baike.baidu.com/item/库尔勒香梨园",
+            "img": "./asset/more/28.jpg",
+            "tag": "梨花飞雪，香梨飘香"
+          },
+          {
+            "title": "巴音布鲁克草原",
+            "desc": "中国第二大草原，地势起伏，水草丰美。著名的“九曲十八弯”开都河在辽阔的草原上蜿蜒如巨龙，日落时分常能拍到“九个太阳”的奇景。",
+            "href": "https://baike.baidu.com/item/巴音布鲁克草原",
+            "img": "./asset/more/29.jpg",
+            "tag": "天鹅故乡，九曲仙境"
+          },
+          {
+            "title": "天鹅河景区",
+            "desc": "穿城而过的孔雀河及其支流天鹅河，经过精心打造，形成了风景优美的城市滨水景观带。夜晚灯光璀璨，音乐喷泉绚丽，充满现代气息。",
+            "href": "https://baike.baidu.com/item/天鹅河",
+            "img": "./asset/more/30.jpg",
+            "tag": "流淌在城市的风景画"
+          }
+        ]
+      }
+    ]
+    function initButs() {
+      var html_buts = `<button
+          class="px-6 py-2 rounded-full bg-gray-800 but_acitve  text-white hover:bg-secondary/90 transition-colors" onclick="changeIndex(-1)">全部</button>`
+      data.forEach((item, index) => {
+        html_buts += `<button
+          class="px-6 py-2 rounded-full bg-gray-800 text-white hover:bg-secondary/90 transition-colors" onclick="changeIndex(${index + 1})">${item.city}</button>`
+      })
+      buts.innerHTML = html_buts
+    }
+    initButs()
+    function changeIndex(i) {
+      var child = buts.querySelectorAll("button")
+      child.forEach(item => {
+        item.classList.remove("but_acitve")
+      })
+      i = i > -1 ? i : 0
+      child[i].classList.add("but_acitve")
+      initList(i - 1)
+    }
+
+
+    function initList(i) {
+      console.log("======", i)
+      var html_ = ``
+      if (i == -1) {
+        for (var i = 0; i < data.length; i++) {
+          data[i].spots.forEach((item, index) => {
+            html_ += ` <div class="group relative rounded-xl overflow-hidden hover-scale">
+          <div class="aspect-video overflow-hidden">
+            <img src="${item.img}" alt="石河子"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <div
+            class="absolute inset-0 bg-gradient-overlay flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <span class="text-secondary text-sm font-medium mb-2">${item.tag}</span>
+            <h3 class="text-white text-xl font-bold mb-2">${item.title}</h3>
+            <p class="text-gray-300 text-sm mb-4">${item.desc}
+            </p>
+            <a href="${item.href}"
+              class="inline-flex items-center text-white hover:text-secondary transition-colors">
+              查看详情 <i class="fa fa-arrow-right ml-2"></i>
+
+            </a>
+          </div>
+        </div>`
+          })
+
+        }
+      } else {
+
+        var html_ = ``
+        data[i].spots.forEach((item, index) => {
+          html_ += ` <div class="group relative rounded-xl overflow-hidden hover-scale">
+          <div class="aspect-video overflow-hidden">
+            <img src="${item.img}" alt="石河子"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <div
+            class="absolute inset-0 bg-gradient-overlay flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <span class="text-secondary text-sm font-medium mb-2">${item.tag}</span>
+            <h3 class="text-white text-xl font-bold mb-2">${item.title}</h3>
+            <p class="text-gray-300 text-sm mb-4">${item.desc}
+            </p>
+            <a href="${item.href}"
+              class="inline-flex items-center text-white hover:text-secondary transition-colors">
+              查看详情 <i class="fa fa-arrow-right ml-2"></i>
+
+            </a>
+          </div>
+        </div>`
+        })
+
+      }
+
+
+      lists.innerHTML = html_
+    }
+    initList(-1)
+  </script>
+
+</body>
+
+</html>

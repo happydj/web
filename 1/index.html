@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大美新疆</title>
+  <!-- 引入外部资源 -->
+  <script src="./js/tailwindcss.js"></script>
+
+  <link rel="stylesheet" href="./css/css2.css">
+  <!-- 配置Tailwind -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0F172A', // 深蓝主色
+            secondary: '#3B82F6', // 亮蓝强调色
+            accent: '#1E40AF', // 深蓝强调色
+            dark: '#030712', // 近黑色
+            light: '#F8FAFC', // 浅灰色文本
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            display: ['Montserrat', 'sans-serif'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.8s ease-in-out',
+            'slide-up': 'slideUp 0.8s ease-out',
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            slideUp: {
+              '0%': { transform: 'translateY(30px)', opacity: '0' },
+              '100%': { transform: 'translateY(0)', opacity: '1' },
+            }
+          }
+        },
+      }
+    }
+  </script>
+
+  <!-- 自定义样式 -->
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      }
+      .bg-gradient-overlay {
+        background: linear-gradient(to bottom, rgba(3,7,18,0) 0%, rgba(3,7,18,1) 100%);
+      }
+      .hover-scale {
+        transition: transform 0.3s ease;
+      }
+      .hover-scale:hover {
+        transform: scale(1.03);
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    }
+      /* 修复：类名不以数字开头（关键！） */
+        .text-3d-container {
+            perspective: 1000px; /* 3D透视核心 */
+            cursor: pointer;
+            /* 兼容旧浏览器 */
+            -webkit-perspective: 800px;
+        }
+
+        .text-3d {
+            font-size: 80px;
+            font-weight: 900;
+            color: #ffffff;
+            transform-style: preserve-3d;
+            -webkit-transform-style: preserve-3d; /* 兼容webkit内核 */
+
+            /* 多层阴影模拟3D立体 */
+
+            /* 过渡动画（兼容前缀） */
+            transition: all 0.5s ease;
+            -webkit-transition: all 0.5s ease;
+        }
+
+        /* 鼠标移入倾斜效果 */
+        .text-3d-container:hover .text-3d {
+          /* 转换 */
+            transform: translateZ(5px) rotateX(5deg) rotateY(-5deg);
+            /* -webkit-transform: translateZ(40px) rotateX(15deg) rotateY(-15deg); */
+            /* 增强阴影配合倾斜 */
+            text-shadow: 
+                0 1px 0 #ccc,
+                0 2px 0 #c9c9c9,
+                0 3px 0 #bbb,
+                0 4px 0 #b9b9b9,
+                0 5px 0 #aaa,
+                0 6px 1px rgba(0,0,0,.1),
+                0 0 5px rgba(0,0,0,.1),
+                0 1px 3px rgba(0,0,0,.3),
+                0 3px 5px rgba(0,0,0,.2),
+                0 5px 10px rgba(0,0,0,.25),
+                0 10px 10px rgba(0,0,0,.2),
+                0 20px 20px rgba(0,0,0,.15),
+                5px 5px 20px rgba(0,0,0,0.5);
+        }
+        .span_text{
+          display: inline-block;
+          width: 0px;
+          height: 30px;
+          line-height: 30px;
+          /* 溢出部分隐藏 */
+          overflow: hidden;
+          /* 调用动画    forwards 执行一次 停留在最后的状态*/
+          animation: daziji  4s  steps(24) infinite;
+        }
+        .span_xiahuaxian{
+          /* infinte: 无限次 */
+          animation: shanshuo 0.5s ease infinite;
+        }
+
+        /* 动画 关键帧 */
+        @keyframes daziji {
+            0%{
+              width: 0px;
+            }
+            70%,100%{
+              width: 500px;
+            }
+        }
+
+        @keyframes shanshuo {
+          0%{
+            opacity: 1;
+          }
+          100%{
+            opacity: 0;
+          }
+        }
+
+</style>
+
+
+
+<body class="bg-primary text-light font-sans antialiased ">
+  <!-- 导航栏 -->
+  <header id="navbar" class="fixed w-full z-50 transition-all duration-300">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="#" class="flex items-center space-x-2">
+        <div class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center">
+          <i class="fa fa-film text-white text-xl"></i>
+        </div>
+        <div class="">
+          <span class="text-white font-bold text-xl ">大美新疆</span>
+        </div>
+
+      </a>
+
+      <!-- 桌面导航 -->
+      <nav class="hidden md:flex items-center space-x-8">
+        <a href="#home" class="text-white hover:text-secondary transition-colors">首页</a>
+        <a href="#works" class="text-white hover:text-secondary transition-colors">旅游推荐</a>
+        <a href="#services" class="text-white hover:text-secondary transition-colors">美食</a>
+        <a href="#team" class="text-white hover:text-secondary transition-colors">团队</a>
+        <a href="#contact" class="text-white hover:text-secondary transition-colors">给我们投稿</a>
+        <a href="#"
+          class="bg-secondary hover:bg-secondary/90 text-white px-6 py-2 rounded-full transition-all hover:shadow-lg">
+          联系我们
+        </a>
+      </nav>
+
+      <!-- 移动端菜单按钮 -->
+      <button id="menuBtn" class="md:hidden text-white text-2xl">
+        <i class="fa fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- 移动端导航菜单 -->
+    <div id="mobileMenu"
+      class="md:hidden bg-dark/95 backdrop-blur-lg absolute w-full left-0 top-full transform -translate-y-full opacity-0 transition-all duration-300 pointer-events-none">
+      <div class="container mx-auto px-4 py-6 flex flex-col space-y-4">
+        <a href="#home" class="text-white hover:text-secondary py-2 border-b border-gray-800 transition-colors">首页</a>
+        <a href="#works"
+          class="text-white hover:text-secondary py-2 border-b border-gray-800 transition-colors">旅游推荐</a>
+        <a href="#services"
+          class="text-white hover:text-secondary py-2 border-b border-gray-800 transition-colors">美食</a>
+        <a href="#team" class="text-white hover:text-secondary py-2 border-b border-gray-800 transition-colors">团队</a>
+        <a href="#contact"
+          class="text-white hover:text-secondary py-2 border-b border-gray-800 transition-colors">和我们分享</a>
+        <a href="#"
+          class="bg-secondary hover:bg-secondary/90 text-white px-6 py-3 rounded-full text-center transition-all">
+          给我们投稿
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 英雄区 -->
+  <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+    <!-- 视频背景（替换为你的视频链接） -->
+    <video class="absolute w-full h-full object-cover opacity-70" src="./asset/fj.mp4" autoplay loop muted playsinline>
+    </video>
+    <!-- 内容 -->
+    <div class="container mx-auto px-4 z-20 pt-20">
+      <div class="max-w-4xl mx-auto text-center animate-fade-in text-3d-container">
+        <h1
+          class="text-3d text-[clamp(2.5rem,8vw,5rem)] font-bold font-display text-white leading-tight text-shadow mb-6">
+          用行动<span class="text-secondary"><a href="https://www.bilibili.com/video/BV1x7j4zCEwf?t=11.0">传递新疆的美</a></span>
+        </h1>
+        <p class="text-[clamp(1rem,3vw,1.25rem)] text-gray-300 mb-10 max-w-3xl mx-auto">
+          <span class="span_text"> 大学生网页创作，以行动展新疆风光，品地道美食之美! </span>
+          <span class="span_xiahuaxian">_</span>
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4 mb-16">
+          <a href="#works"
+            class="bg-secondary hover:bg-secondary/90 text-white px-8 py-3 rounded-full transition-all hover:shadow-lg text-lg">
+            查看作品
+          </a>
+          <a href="#contact"
+            class="bg-transparent border-2 border-white hover:border-secondary hover:text-secondary text-white px-8 py-3 rounded-full transition-all text-lg">
+            联系我们
+          </a>
+        </div>
+      </div>
+
+      <!-- 滚动指示器 -->
+      <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <a href="#works" class="text-white text-3xl opacity-80 hover:opacity-100 transition-opacity">
+          <i class="fa fa-angle-down"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 作品展示区 -->
+  <section id="works" class="py-20 bg-dark">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16 animate-slide-up">
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold font-display mb-4">精选景点</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">我们收集了一些当地的特色旅游景点和美食</p>
+        <div class="w-20 h-1 bg-secondary mx-auto mt-6 rounded-full"></div>
+      </div>
+
+
+
+      <!-- 作品网格 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- 作品卡片1 -->
+        <div class="group relative rounded-xl overflow-hidden hover-scale">
+          <div class="aspect-video overflow-hidden">
+            <img src="./asset/伊犁.jpg" alt="伊犁"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <div
+            class="absolute inset-0 bg-gradient-overlay flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <span class="text-secondary text-sm font-medium mb-2">中国的 “塞外江南”</span>
+            <h3 class="text-white text-xl font-bold mb-2">伊犁</h3>
+            <p class="text-gray-300 text-sm mb-4">中国的世界级草原旅游胜地</p>
+            <a href="https://baike.baidu.com/item/%E4%BC%8A%E7%8A%81%E5%93%88%E8%90%A8%E5%85%8B%E8%87%AA%E6%B2%BB%E5%B7%9E/4328230"
+              class="inline-flex items-center text-white hover:text-secondary transition-colors">
+              查看详情 <i class="fa fa-arrow-right ml-2"></i>
+
+            </a>
+          </div>
+        </div>
+
+        <!-- 作品卡片2 -->
+        <div class="group relative rounded-xl overflow-hidden hover-scale">
+          <div class="aspect-video overflow-hidden">
+            <img src="./asset/阿勒泰.jpg" alt="纪录片作品"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <div
+            class="absolute inset-0 bg-gradient-overlay flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <span class="text-secondary text-sm font-medium mb-2">中国的 “人类滑雪起源地”</span>
+            <h3 class="text-white text-xl font-bold mb-2">阿勒泰</h3>
+            <p class="text-gray-300 text-sm mb-4">地处世界滑雪黄金纬度带，雪质雪量世界一流</p>
+            <a href="https://baike.baidu.com/item/%E9%98%BF%E5%8B%92%E6%B3%B0%E5%9C%B0%E5%8C%BA/11029769"
+              class="inline-flex items-center text-white hover:text-secondary transition-colors">
+              查看详情 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- 作品卡片3 -->
+        <div class="group relative rounded-xl overflow-hidden hover-scale">
+          <div class="aspect-video overflow-hidden">
+            <img src="./asset/阿克苏.jpg" alt="电影短片作品"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <div
+            class="absolute inset-0 bg-gradient-overlay flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <span class="text-secondary text-sm font-medium mb-2">西域龟兹、姑墨等古国故地</span>
+            <h3 class="text-white text-xl font-bold mb-2">阿克苏</h3>
+            <p class="text-gray-300 text-sm mb-4">中国的古龟兹文化核心传承地</p>
+            <a href="https://baike.baidu.com/item/%E9%98%BF%E5%85%8B%E8%8B%8F%E5%9C%B0%E5%8C%BA?fromModule=lemma_search-box"
+              class="inline-flex items-center text-white hover:text-secondary transition-colors">
+              查看详情 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- 作品卡片4 -->
+        <div class="group relative rounded-xl overflow-hidden hover-scale">
+          <div class="aspect-video overflow-hidden">
+            <img src="./asset/喀什.jpg" alt="品牌故事作品"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <div
+            class="absolute inset-0 bg-gradient-overlay flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <span class="text-secondary text-sm font-medium mb-2">中国最西端的城市</span>
+            <h3 class="text-white text-xl font-bold mb-2">喀什</h3>
+            <p class="text-gray-300 text-sm mb-4">中国的“丝路明珠” </p>
+            <a href="https://baike.baidu.com/item/%E5%96%80%E4%BB%80%E5%9C%B0%E5%8C%BA?fromModule=lemma_search-box"
+              class="inline-flex items-center text-white hover:text-secondary transition-colors">
+              查看详情 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- 作品卡片5 -->
+        <div class="group relative rounded-xl overflow-hidden hover-scale">
+          <div class="aspect-video overflow-hidden">
+            <img src="./asset/楼兰古.jpg" alt="商业广告作品"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <div
+            class="absolute inset-0 bg-gradient-overlay flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <span class="text-secondary text-sm font-medium mb-2">中国的内陆淡水湖与高山草原富集地</span>
+            <h3 class="text-white text-xl font-bold mb-2">巴音敦楞</h3>
+            <p class="text-gray-300 text-sm mb-4">中国的丝路文明与东归文化交融地,古丝绸之路南中两道横贯全境</p>
+            <a href="https://baike.baidu.com/item/%E5%B7%B4%E9%9F%B3%E6%95%A6%E6%A5%9E?fromModule=lemma_search-box"
+              class="inline-flex items-center text-white hover:text-secondary transition-colors">
+              查看详情 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- 作品卡片6 -->
+        <div class="group relative rounded-xl overflow-hidden hover-scale">
+          <div class="aspect-video overflow-hidden">
+            <img src="./asset/昌吉.jpg" alt="纪录片作品"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <div
+            class="absolute inset-0 bg-gradient-overlay flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <span class="text-secondary text-sm font-medium mb-2">中国唯一拥有 “双世界遗产” 的地州</span>
+            <h3 class="text-white text-xl font-bold mb-2">昌吉</h3>
+            <p class="text-gray-300 text-sm mb-4">中国的北疆生态休闲宜居地。拥有庭州生态绿谷</p>
+            <a href="https://baike.baidu.com/item/%E6%98%8C%E5%90%89%E5%9B%9E%E6%97%8F%E8%87%AA%E6%B2%BB%E5%B7%9E/2283504"
+              class="inline-flex items-center text-white hover:text-secondary transition-colors">
+              查看详情 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 查看更多按钮 -->
+      <div class="text-center mt-12">
+        <a href="./more.html"
+          class="inline-flex items-center bg-gray-800 hover:bg-gray-700 text-white px-8 py-3 rounded-full transition-all">
+          了解新疆的更多 <i class="fa fa-long-arrow-right ml-2"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 服务板块 -->
+  <section id="services" class="py-20 bg-primary">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16 animate-slide-up">
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold font-display mb-4">特色美食</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">多元民族汇聚，烤炖煮焖皆成佳肴，藏尽新疆独特食韵!</p>
+        <div class="w-20 h-1 bg-secondary mx-auto mt-6 rounded-full"></div>
+      </div>
+
+      <!-- 服务卡片 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- 服务卡片1 -->
+        <!-- 核心：添加背景图样式 + 相对定位 + 遮罩层，保证内容层级 -->
+        <div class="bg-dark/50 rounded-xl p-8 hover-scale border border-gray-800 
+relative  /* 作为子元素定位参考 */
+bg-cover  /* 图片覆盖整个容器 */
+bg-center /* 图片居中显示 */
+bg-no-repeat /* 防止图片重复 */
+overflow-hidden /* 避免图片溢出圆角 */
+" style="background-image: url('./asset/抓饭.jpg');"> <!-- 替换为实际图片路径 -->
+          <!-- 遮罩层：提升文字与图片的对比度（关键） -->
+          <div class="absolute inset-0 bg-dark/70 rounded-xl"></div>
+
+          <!-- 所有内容包裹在相对定位层，保证层级高于背景/遮罩 -->
+          <div class="relative z-10">
+            <div class="">
+              <i class=""></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">抓饭</h3>
+            <p class="text-gray-400 mb-6">最经典的做法，只有羊肉、胡萝卜、洋葱、大米，咸香适口，油而不腻，是新疆人最爱的 “家常味”。</p>
+            <a href="https://baike.baidu.com/item/%E6%96%B0%E7%96%86%E6%8A%93%E9%A5%AD/5756522"
+              class="text-secondary hover:text-secondary/80 inline-flex items-center transition-colors">
+              了解更多 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        <!-- 服务卡片2 -->
+        <div class="bg-dark/50 rounded-xl p-8 hover-scale border border-gray-800 
+relative  /* 关键：让内容相对该容器定位 */
+bg-cover  /* 图片覆盖整个容器 */
+bg-center /* 图片居中显示 */
+bg-no-repeat /* 防止图片重复 */
+overflow-hidden /* 防止图片溢出圆角 */
+" style="background-image: url('./asset/羊肉串.jpg');"> <!-- 替换为实际图片路径 -->
+          <!-- 遮罩层：解决图片和文字对比度问题（可选但推荐） -->
+          <div class="absolute inset-0 bg-dark/70 rounded-xl"></div>
+          <div class="relative z-10">
+            <div class="">
+              <i class=""></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">烤羊肉串</h3>
+            <p class="text-gray-400 mb-6">新疆广袤的草原上生长着碱草、针茅等优质牧草，当地的绵羊和山羊以这些天然牧草为食，
+              喝的是天山水，肉质鲜嫩紧实，自带奶香，毫无腥膻之气，为烤羊肉串提供了绝佳的食材基础。</p>
+            <a href="https://baike.baidu.com/item/%E6%96%B0%E7%96%86%E7%BE%8A%E8%82%89%E4%B8%B2?fromModule=lemma_search-box"
+              class="text-secondary hover:text-secondary/80 inline-flex items-center transition-colors">
+              了解更多 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- 服务卡片3 -->
+
+        <!-- 外层容器：添加背景图核心样式 + 相对定位 -->
+        <div class="bg-dark/50 rounded-xl p-8 hover-scale border border-gray-800 
+relative          /* 作为遮罩/内容的定位参考 */
+bg-cover          /* 图片等比覆盖整个容器 */
+bg-center         /* 图片居中显示（避免关键画面裁剪） */
+bg-no-repeat      /* 防止图片重复 */
+overflow-hidden   /* 避免图片溢出圆角 */
+" style="background-image: url('./asset/手抓羊肉.jpg');"> <!-- 替换为实际图片路径 -->
+
+          <!-- 遮罩层：提升文字与图片的对比度（关键） -->
+          <div class="absolute inset-0 bg-dark/70 rounded-xl"></div>
+
+          <!-- 内容层：相对定位保证层级高于背景/遮罩 -->
+          <div class="relative z-10">
+            <div class="">
+              <i class=""></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">手抓羊肉</h3>
+            <p class="text-gray-400 mb-6">手抓羊肉是新疆各民族餐桌上的硬核硬菜，更是草原游牧文化的
+              饮食缩影。它做法质朴却滋味醇厚，凭借 “手抓而食” 的粗犷吃法
+              ，成为新疆招待贵客、节庆宴饮的标志性菜品，一口下去尽是草原的鲜香与豪迈。</p>
+            <a href="https://baike.baidu.com/item/%E6%89%8B%E6%8A%93%E7%BE%8A%E8%82%89/2738575?fromModule=search-result_lemma"
+              class="text-secondary hover:text-secondary/80 inline-flex items-center transition-colors">
+              了解更多 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- 服务卡片4 -->
+        <!-- 外层容器：添加背景图核心样式 + 相对定位 -->
+        <div class="bg-dark/50 rounded-xl p-8 hover-scale border border-gray-800 
+relative          /* 作为遮罩/内容的定位参考 */
+bg-cover          /* 图片等比覆盖整个容器 */
+bg-center         /* 图片核心区域居中显示 */
+bg-no-repeat      /* 防止图片重复 */
+overflow-hidden   /* 避免图片溢出圆角 */
+" style="background-image: url('./asset/烤包子.jpg');"> <!-- 替换为实际图片路径 -->
+
+          <!-- 遮罩层：提升文字与图片的对比度（关键） -->
+          <div class="absolute inset-0 bg-dark/70 rounded-xl"></div>
+
+          <!-- 内容层：相对定位保证层级高于背景/遮罩 -->
+          <div class="relative z-10">
+            <div class="">
+              <i class=""></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">烤包子</h3>
+            <p class="text-gray-400 mb-6">烤包子，新疆人称之为 “沙木萨”（Самса），是新疆街头
+              巷尾、巴扎集市里随处可见的经典小吃。它外皮金黄酥脆、内馅鲜嫩多汁，兼具面食
+              的焦香与羊肉的醇厚，是新疆饮食文化中 “烟火气” 与 “民族味” 融合的代表。</p>
+            <a href="https://baike.baidu.com/item/%E7%83%A4%E5%8C%85%E5%AD%90?fromModule=lemma_search-box"
+              class="text-secondary hover:text-secondary/80 inline-flex items-center transition-colors">
+              了解更多 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- 服务卡片5 -->
+        <!-- 外层容器增加背景图相关样式 + 相对定位 -->
+        <div class="bg-dark/50 rounded-xl p-8 hover-scale border border-gray-800 
+relative          /* 作为遮罩/内容的定位参考 */
+bg-cover          /* 图片等比覆盖整个容器 */
+bg-center         /* 图片核心区域居中 */
+bg-no-repeat      /* 防止图片重复 */
+overflow-hidden   /* 避免图片溢出圆角 */
+" style="background-image: url('./asset/大盘鸡.jpg');"> <!-- 替换为实际图片路径 -->
+
+          <!-- 半透明遮罩层：提升文字与图片的对比度（关键） -->
+          <div class="absolute inset-0 bg-dark/70 rounded-xl"></div>
+
+          <!-- 内容层：相对定位保证层级高于背景/遮罩 -->
+          <div class="relative z-10">
+            <div class="">
+              <i class=""></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">大盘鸡</h3>
+            <p class="text-gray-400 mb-6">大盘鸡，是新疆最具知名度的国民美食之一，凭借 “分量超大、荤素搭配、滋味
+              浓郁” 的特点，从新疆的夜市、饭馆火遍全国。它
+              融合了新疆人豪放的饮食风格与多元的食材智慧，是一道能兼顾南北口味、老少咸宜的经典菜。</p>
+            <a href="https://baike.baidu.com/item/%E6%96%B0%E7%96%86%E5%A4%A7%E7%9B%98%E9%B8%A1?fromModule=lemma_search-box"
+              class="text-secondary hover:text-secondary/80 inline-flex items-center transition-colors">
+              了解更多 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- 服务卡片6 -->
+        <!-- 外层容器新增背景图核心样式 + 相对定位 -->
+        <div class="bg-dark/50 rounded-xl p-8 hover-scale border border-gray-800 
+relative          /* 作为遮罩/内容的定位基准 */
+bg-cover          /* 图片等比覆盖容器，无空白 */
+bg-center         /* 图片核心区域居中显示 */
+bg-no-repeat      /* 防止图片重复 */
+overflow-hidden   /* 避免图片溢出圆角 */
+" style="background-image: url('./asset/烤全羊.jpg');"> <!-- 替换为实际图片路径 -->
+
+          <!-- 半透明遮罩层：解决图片与文字对比度问题（关键） -->
+          <div class="absolute inset-0 bg-dark/70 rounded-xl"></div>
+
+          <!-- 内容层：相对定位保证层级高于背景/遮罩 -->
+          <div class="relative z-10">
+            <div class="">
+              <i class=""></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">烤全羊</h3>
+            <p class="text-gray-400 mb-6">烤全羊是新疆最具仪式感的顶级盛宴，是草原游牧民族饮食文化的巅峰之
+              作。它以整羊烤制、外皮金黄酥脆、内里鲜嫩多汁的特点，成为
+              节庆典礼、招待贵宾、大型聚会的压轴菜品，一口下去尽是新疆草原的豪迈与鲜香。</p>
+            <a href="https://baike.baidu.com/item/%E7%83%A4%E5%85%A8%E7%BE%8A?fromModule=lemma_search-box"
+              class="text-secondary hover:text-secondary/80 inline-flex items-center transition-colors">
+              了解更多 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+  </section>
+
+  <!-- 团队介绍 -->
+  <section id="team" class="py-20 bg-dark">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16 animate-slide-up">
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold font-display mb-4">制作团队</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">青春执笔做网页，用行动传新疆山河壮丽、美食飘香之韵~</p>
+        <div class="w-20 h-1 bg-secondary mx-auto mt-6 rounded-full"></div>
+      </div>
+
+      <!-- 团队成员 -->
+      <section>
+        <!-- 核心修改：
+             1. mx-auto：容器水平居中
+             2. max-w-7xl：限制最大宽度，避免宽屏分散
+             3. lg:grid-cols-3：大屏改为3列，适配3个卡片
+             4. justify-items-center：网格项在列内居中（兜底）
+             5. px-4：左右内边距，避免贴边
+        -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mx-auto max-w-7xl px-4 justify-items-center">
+          <!-- 团队成员1 -->
+          <div class="group w-full max-w-sm"> <!-- 限制卡片最大宽度，避免拉伸 -->
+            <div class="relative overflow-hidden rounded-xl mb-4 aspect-square">
+              <img src="./asset/小王.jpg" alt="团队成员"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+              <div
+                class="absolute inset-0 bg-dark/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                <div class="flex space-x-4">
+                  <a href="#"
+                    class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-secondary/80 transition-colors">
+                    <i class="fa fa-weibo text-white"></i>
+                  </a>
+                  <a href="#"
+                    class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-secondary/80 transition-colors">
+                    <i class="fa fa-wechat text-white"></i>
+                  </a>
+                  <a href="#"
+                    class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-secondary/80 transition-colors">
+                    <i class="fa fa-linkedin text-white"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <h3 class="text-xl font-bold mb-1">王瑞</h3>
+            <p class="text-secondary mb-2">团队成员</p>
+            <p class="text-gray-400 text-sm">敲得了代码，开得起玩笑，以有趣灵魂打造高颜值网页！</p>
+          </div>
+
+          <!-- 团队成员2 -->
+          <div class="group w-full max-w-sm">
+            <div class="relative overflow-hidden rounded-xl mb-4 aspect-square">
+              <img src="./asset/我自己.jpg" alt="团队成员"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+              <div
+                class="absolute inset-0 bg-dark/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                <div class="flex space-x-4">
+                  <a href="#"
+                    class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-secondary/80 transition-colors">
+                    <i class="fa fa-weibo text-white"></i>
+                  </a>
+                  <a href="#"
+                    class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-secondary/80 transition-colors">
+                    <i class="fa fa-wechat text-white"></i>
+                  </a>
+                  <a href="#"
+                    class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-secondary/80 transition-colors">
+                    <i class="fa fa-linkedin text-white"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <h3 class="text-xl font-bold mb-1">石朔南</h3>
+            <p class="text-secondary mb-2">团队成员</p>
+            <p class="text-gray-400 text-sm">饿了知道吃饭，下雨天还知道往家里跑，是个不折不扣的高端人才！</p>
+          </div>
+
+          <!-- 团队成员3 -->
+          <div class="group w-full max-w-sm">
+            <div class="relative overflow-hidden rounded-xl mb-4 aspect-square">
+              <img src="./asset/孙晨晨.jpg" alt="团队成员"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+              <div
+                class="absolute inset-0 bg-dark/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                <div class="flex space-x-4">
+                  <a href="#"
+                    class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-secondary/80 transition-colors">
+                    <i class="fa fa-weibo text-white"></i>
+                  </a>
+                  <a href="#"
+                    class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-secondary/80 transition-colors">
+                    <i class="fa fa-wechat text-white"></i>
+                  </a>
+                  <a href="#"
+                    class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-secondary/80 transition-colors">
+                    <i class="fa fa-linkedin text-white"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <h3 class="text-xl font-bold mb-1">孙晨晨</h3>
+            <p class="text-secondary mb-2">团队成员</p>
+            <p class="text-gray-400 text-sm">喜欢学习一切事物！除了跑步</p>
+          </div>
+        </div>
+      </section>
+      <!-- 联系我们 -->
+      <section id="contact" class="py-20 bg-dark">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-16 animate-slide-up">
+            <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold font-display mb-4">联系我们</h2>
+            <p class="text-gray-400 max-w-2xl mx-auto">用你的镜头发现新疆的美，投稿给我们让更多人了解新疆吧！</p>
+            <div class="w-20 h-1 bg-secondary mx-auto mt-6 rounded-full"></div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <!-- 联系信息 -->
+            <div>
+              <div class="bg-primary/50 rounded-xl p-8 border border-gray-800 h-full">
+                <h3 class="text-2xl font-bold mb-8">联系方式</h3>
+
+                <div class="space-y-6">
+                  <div class="flex items-start">
+                    <div
+                      class="w-12 h-12 bg-secondary/20 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                      <i class="fa fa-map-marker text-secondary text-xl"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-bold mb-1">公司地址</h4>
+                      <p class="text-gray-400">博尔塔拉职业技术学院新食堂二楼</p>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start">
+                    <div
+                      class="w-12 h-12 bg-secondary/20 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                      <i class="fa fa-phone text-secondary text-xl"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-bold mb-1">绿泡泡</h4>
+                      <p class="text-gray-400">S-----sn</p>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start">
+                    <div
+                      class="w-12 h-12 bg-secondary/20 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                      <i class="fa fa-envelope text-secondary text-xl"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-bold mb-1">电子邮箱</h4>
+                      <p class="text-gray-400">contact@ysjf.com</p>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start">
+                    <div
+                      class="w-12 h-12 bg-secondary/20 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                      <i class="fa fa-clock-o text-secondary text-xl"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-bold mb-1">干饭时间</h4>
+                      <p class="text-gray-400">每天 13:30 - 14:00</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-8">
+                  <h4 class="font-bold mb-4">关注我们</h4>
+                  <div class="flex space-x-4">
+                    <a href="#"
+                      class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-secondary/80 transition-colors">
+                      <i class="fa fa-weibo text-white"></i>
+                    </a>
+                    <a href="#"
+                      class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-secondary/80 transition-colors">
+                      <i class="fa fa-wechat text-white"></i>
+                    </a>
+                    <a href="#"
+                      class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-secondary/80 transition-colors">
+                      <i class="fa fa-bilibili text-white"></i>
+                    </a>
+                    <a href="#"
+                      class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-secondary/80 transition-colors">
+                      <i class="fa fa-youtube-play text-white"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 联系表单 -->
+            <div>
+              <div class="bg-primary/50 rounded-xl p-8 border border-gray-800 h-full">
+                <h3 class="text-2xl font-bold mb-8">发送消息</h3>
+
+                <form class="space-y-6">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                      <label for="name" class="block text-gray-300 mb-2">姓名</label>
+                      <input type="text" id="name"
+                        class="w-full bg-dark border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-secondary transition-colors"
+                        placeholder="您的姓名">
+                    </div>
+                    <div>
+                      <label for="phone" class="block text-gray-300 mb-2">电话</label>
+                      <input type="tel" id="phone"
+                        class="w-full bg-dark border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-secondary transition-colors"
+                        placeholder="您的联系电话">
+                    </div>
+                  </div>
+
+                  <div>
+                    <label for="email" class="block text-gray-300 mb-2">邮箱</label>
+                    <input type="email" id="email"
+                      class="w-full bg-dark border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-secondary transition-colors"
+                      placeholder="您的电子邮箱">
+                  </div>
+
+                  <div>
+                    <label for="subject" class="block text-gray-300 mb-2">主题</label>
+                    <select id="subject"
+                      class="w-full bg-dark border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-secondary transition-colors">
+                      <option value="">请选择咨询类型</option>
+                      <option value="commercial">商业广告合作</option>
+                      <option value="documentary">纪录片制作</option>
+                      <option value="shortfilm">短片创作</option>
+                      <option value="other">其他合作</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label for="message" class="block text-gray-300 mb-2">留言内容</label>
+                    <textarea id="message" rows="5"
+                      class="w-full bg-dark border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-secondary transition-colors"
+                      placeholder="请详细描述您的需求..."></textarea>
+                  </div>
+
+                  <button type="submit"
+                    class="w-full bg-secondary hover:bg-secondary/90 text-white font-medium px-6 py-3 rounded-lg transition-all hover:shadow-lg">
+                    发送消息
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 页脚 -->
+      <footer class="bg-primary pt-16 pb-8">
+        <div class="container mx-auto px-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            <div>
+              <a href="#" class="flex items-center space-x-2 mb-6">
+                <div class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center">
+                  <i class="fa fa-film text-white text-xl"></i>
+                </div>
+                <span class="text-white font-bold text-xl">ap工作室</span>
+              </a>
+              <p class="text-gray-400 mb-6">用行动传递价值，用手指创造精彩</p>
+              <div class="flex space-x-4">
+                <a href="#"
+                  class="w-10 h-10 bg-dark rounded-full flex items-center justify-center hover:bg-secondary transition-colors">
+                  <i class="fa fa-weibo text-white"></i>
+                </a>
+                <a href="#"
+                  class="w-10 h-10 bg-dark rounded-full flex items-center justify-center hover:bg-secondary transition-colors">
+                  <i class="fa fa-wechat text-white"></i>
+                </a>
+                <a href="#"
+                  class="w-10 h-10 bg-dark rounded-full flex items-center justify-center hover:bg-secondary transition-colors">
+                  <i class="fa fa-bilibili text-white"></i>
+                </a>
+                <a href="#"
+                  class="w-10 h-10 bg-dark rounded-full flex items-center justify-center hover:bg-secondary transition-colors">
+                  <i class="fa fa-youtube-play text-white"></i>
+                </a>
+              </div>
+            </div>
+
+            <div>
+              <h4 class="text-white font-bold text-lg mb-6">快速链接</h4>
+              <ul class="space-y-3">
+                <li><a href="#home" class="text-gray-400 hover:text-secondary transition-colors">首页</a></li>
+                <li><a href="#works" class="text-gray-400 hover:text-secondary transition-colors">作品</a></li>
+                <li><a href="#services" class="text-gray-400 hover:text-secondary transition-colors">服务</a></li>
+                <li><a href="#team" class="text-gray-400 hover:text-secondary transition-colors">团队</a></li>
+                <li><a href="#contact" class="text-gray-400 hover:text-secondary transition-colors">联系我们</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="text-white font-bold text-lg mb-6">联系我们</h4>
+              <ul class="space-y-3">
+                <li class="flex items-start">
+                  <i class="fa fa-map-marker text-secondary mt-1 mr-3">博职院信息工程学院</i>
+                  <span class="text-gray-400"></span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fa fa-phone text-secondary mt-1 mr-3">6666@qq.com</i>
+                  <span class="text-gray-400">抖音号：shuo6437</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fa fa-envelope text-secondary mt-1 mr-3"></i>
+                  <span class="text-gray-400"></span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="border-t border-gray-800 pt-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+              <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 大美新疆 版权所有</p>
+              <div class="flex space-x-6">
+                <a href="#" class="text-gray-500 text-sm hover:text-secondary transition-colors">隐私政策</a>
+                <a href="#" class="text-gray-500 text-sm hover:text-secondary transition-colors">服务条款</a>
+                <a href="#" class="text-gray-500 text-sm hover:text-secondary transition-colors">网站地图</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+
+
+
+</body>
+
+</html>
