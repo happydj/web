@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>烤全羊照片与特点 - 土色风格</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            background-image: url("./img/艾特莱斯1.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(222, 210, 188, 0.95);
+            /* 浅土色背景 */
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(100, 80, 50, 0.3);
+            /* 土色阴影 */
+            overflow: hidden;
+        }
+
+        header {
+            background: #a07850;
+            /* 深土色 */
+            color: #fff8e0;
+            /* 浅米黄色文字 */
+            padding: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(50, 40, 20, 0.4);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .photos {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .photos img {
+            width: 350px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(100, 80, 50, 0.2);
+            /* 土色阴影 */
+            cursor: default;
+            /* 鼠标样式改为默认 */
+        }
+
+        .features {
+            padding: 30px;
+        }
+
+        .feature-item {
+            background: #e0d0b8;
+            /* 浅土黄色 */
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(100, 80, 50, 0.2);
+            /* 土色阴影 */
+        }
+
+        .feature-title {
+            background: #b08c60;
+            /* 中棕色 */
+            color: #fff8e0;
+            /* 浅米黄色文字 */
+            padding: 15px 20px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .feature-title::after {
+            content: "+";
+            font-size: 1.5rem;
+        }
+
+        .feature-item.active .feature-title::after {
+            content: "-";
+        }
+
+        .feature-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item.active .feature-content {
+            padding: 20px;
+            max-height: 1000px;
+        }
+
+        .feature-content p {
+            line-height: 1.8;
+            color: #5d4037;
+            /* 深棕色文字 */
+            font-size: 1rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #8d6e63;
+            /* 棕色文字 */
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .feature-title {
+                font-size: 1.1rem;
+            }
+
+            .photos img {
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>烤全羊照片与特点</h1>
+            <p>色香味形俱全的地方特色菜肴</p>
+        </header>
+
+        <!-- 照片展示 -->
+        <div class="photos">
+            <img src="./img/烤全羊1.JPG" alt="烤全羊照片1">
+            <img src="./img/烤全羊2.JPG" alt="烤全羊照片2">
+            <img src="./img/烤全羊4.JPG" alt="烤全羊照片3">
+            <img src="./img/烤全羊3.JPG" alt="烤全羊照片4">
+            <img src="./img/烤包子6.JPG" alt="烤包子照片">
+        </div>
+
+        <!-- 特点展示 -->
+        <div class="features">
+            <div class="feature-item">
+                <div class="feature-title">口感丰富</div>
+                <div class="feature-content">
+                    <p>烤全羊的外皮烤至金黄酥脆，呈深琥珀色至棕红色，油光锃亮，部分带微焦的炭烤痕迹，用手轻掰能感觉到明显的脆感，甚至能听到表皮断裂的 “咔嚓”
+                        声。而内部肉质则鲜嫩多汁，呈浅粉色，纤维清晰但不粗糙，轻轻一撕就能将肉从骨头上分离，烤制火候恰到好处，既熟透又保留了肉汁。脂肪分布均匀的部位，烤后呈半透明的 “凝脂”
+                        状，几乎入口即化，羊腿关节处的筋，既有嚼劲又不粘牙。</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-title">香气浓郁</div>
+                <div class="feature-content">
+                    <p>在腌制过程中，通常会使用孜然、辣椒粉、胡椒、花椒、盐、蒜泥、洋葱等多种香料，这些香料不仅能去除羊肉的膻味，还赋予其浓郁的香气。烤制过程中，羊肉本身的香味与香料的味道相互交融，香气四溢，令人垂涎欲滴。
+                    </p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-title">营养丰富</div>
+                <div class="feature-content">
+                    <p>烤全羊富含蛋白质、锌和维生素 B 族，其中烟酸、维生素 B2 和维生素 B12
+                        的含量尤其丰富，镁、钾和磷的含量也较高，并且易于吸收。同时，其钙、铁的含量显著地超过了牛肉和猪肉的含量，且胆固醇含量低，是滋补身体的佳品。</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-title">制作工艺复杂</div>
+                <div class="feature-content">
+                    <p>烤全羊的制作从选羊开始就大有讲究，通常要挑选膘肥体壮、年龄适中的绵羊。选好羊后，需进行清洗、去内脏、划刀花等处理，然后用多种香料进行长时间腌制，最后放入特制的烤炉中，用果木炭火慢慢烤制，烤制过程中要不断翻转，确保受热均匀，整个过程耗时数小时。
+                    </p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-title">文化意义深厚</div>
+                <div class="feature-content">
+                    <p>烤全羊在少数民族文化中具有重要地位，是节日、婚礼、庆典等重要场合不可或缺的美食，代表着团结、热情和好客。例如在蒙古族的那达慕大会、新疆的维吾尔族传统节日中，烤全羊都是主角，体现了民族的文化和精神。
+                    </p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-title">食用仪式感强</div>
+                <div class="feature-content">
+                    <p>品尝烤全羊时通常有独特的仪式，比如主人会邀请尊贵的客人用刀划开羊背，寓意着吉祥如意。之后，人们会将烤全羊切割成块，通常可以直接用手撕着吃，搭配上当地的特色配菜，如新疆的馕、蒙古族的韭菜花酱等，享受豪迈的用餐体验。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 点击展开/收起
+        document.querySelectorAll('.feature-title').forEach(title => {
+            title.addEventListener('click', () => {
+                const item = title.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+
+</html>

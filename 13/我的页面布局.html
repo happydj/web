@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人中心</title>
+    <style>
+        /* 全局样式：清除默认边距、统一字体 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "微软雅黑", sans-serif;
+            text-decoration: none;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            /* 页面背景色 */
+        }
+
+        /* 顶部背景区：包含地球背景图和“个人中心”标题 */
+        .top-header {
+            width: 100%;
+            height: 200px;
+            background: url("./我的照片.jpg/我的背景.jpg") no-repeat center;
+            background-size: cover;
+            /* 背景图铺满容器 */
+            position: relative;
+        }
+
+        .top-header h1 {
+            color: white;
+            font-size: 20px;
+            padding: 20px;
+            /* 标题内边距 */
+        }
+
+        /* 用户信息区：头像 + 登录按钮 */
+        .user-info {
+            position: relative;
+            top: -45px;
+            /* 向上偏移，覆盖在背景区下方 */
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            padding: 0 20px;
+            height: 70px;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            /* 头像圆形 */
+            background: url("./我的照片.jpg/头像.png") no-repeat center;
+            background-size: cover;
+        }
+
+        .login-btn {
+            padding: 8px 20px;
+            background-color: #ffd100;
+            /* 按钮黄色背景 */
+            border: none;
+            border-radius: 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* 功能按钮区：我的订单、我的优惠等 */
+        .func-buttons {
+            display: flex;
+            /* 横向排列 */
+            justify-content: space-around;
+            /* 均匀分布 */
+            padding: 0 20px;
+            margin-top: -20px;
+        }
+
+        .func-item {
+            text-align: center;
+            /* 文字居中 */
+        }
+
+        .func-icon {
+            border-radius: 10px;
+            margin: 0 auto 5px;
+            /* 图标居中 + 下方间距 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .func-item img {
+            border-radius: 10px;
+        }
+
+        .func-item p {
+            font-size: 14px;
+            color: #333;
+        }
+
+        /* 旅行记录模块 */
+        .travel-record {
+            background-color: white;
+            margin: 20px;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .record-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .record-title h2 {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .publish-btn {
+            padding: 5px 15px;
+            background-color: #ffd100;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .record-desc {
+            font-size: 14px;
+            color: #999;
+        }
+
+        /* 我的足迹模块 */
+        .my-footprint {
+            background-color: white;
+            margin: 0 20px 20px;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            /* 内容间距 */
+        }
+
+        .footprint-text h3 {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .footprint-text p {
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* 底部导航栏 */
+        .bottom-nav {
+            position: fixed;
+            /* 固定在底部 */
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            border-top: 1px solid #eee;
+        }
+
+        .bottom-nav img {
+            border-radius: 10px;
+            width: 30px;
+        }
+
+        .nav-item {
+            text-align: center;
+            color: #999;
+        }
+
+        .nav-item.active {
+            color: rgb(3, 3, 3);
+
+            /* 当前页面（我的）高亮 */
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 5px;
+
+        }
+
+        .nav-item p {
+            font-size: 12px;
+            text-decoration: none;
+
+        }
+
+        .nav-item a {
+            text-decoration: none;
+            color: #000000;
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #fff;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            border-top: 1px solid #eee;
+        }
+
+        .footer-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .footer-nav img {
+            border-radius: 10px;
+        }
+
+        .footer-icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 4px;
+
+        }
+
+        .footer-active {
+            color: rgb(0, 0, 0);
+
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 顶部背景区：包含“个人中心”标题 -->
+    <div class="top-header">
+        <h1>个人中心</h1>
+    </div>
+
+    <!-- 用户信息区：头像 + 登录按钮 -->
+    <div class="user-info">
+        <div class="avatar"></div>
+        <button class="login-btn">登录/注册</button>
+    </div>
+
+    <!-- 功能按钮区：我的订单、我的优惠等 -->
+    <div class="func-buttons">
+        <div class="func-item">
+            <div class="func-icon">
+                <img src="./我的照片.jpg/1.png" width="45px" ;>
+            </div>
+            <p>我的订单</p>
+        </div>
+        <div class="func-item">
+            <div class="func-icon">
+                <img src="./我的照片.jpg/2.png" width="45px" ;>
+            </div>
+            <p>我的优惠</p>
+        </div>
+        <div class="func-item">
+            <div class="func-icon">
+                <img src="./我的照片.jpg/3.png" width="45px" ;>
+            </div>
+            <p>福利中心</p>
+        </div>
+        <div class="func-item">
+            <div class="func-icon">
+                <img src="./我的照片.jpg/4.png" width="45px" ;>
+            </div>
+            <p>我的收藏</p>
+        </div>
+    </div>
+
+    <!-- 旅行记录模块 -->
+    <div class="travel-record">
+        <div class="record-title">
+            <h2>旅行记录</h2>
+            <button class="publish-btn">立即发布</button>
+        </div>
+        <p class="record-desc">分享你的专属旅行记忆</p>
+    </div>
+
+    <!-- 我的足迹模块 -->
+    <div class="my-footprint">
+        <div class="footprint-text">
+            <h3>我的足迹</h3>
+            <p>点亮足迹 记录旅行</p>
+        </div>
+        <div class="footprint-icon"></div>
+    </div>
+
+    <div class="footer-nav">
+        <a href="./index.html"> <img class="footer-icon" src="./商场图片/攻略.png" alt="攻略">
+            <div class="footer-item">
+
+                <div>攻略</div>
+
+            </div>
+        </a>
+        <a href="./商城.HTML">
+            <div class="footer-item ">
+                <img class="footer-icon" src="./商场图片/商城.png" alt="商城">
+                <div>商城</div>
+            </div>
+        </a>
+
+
+        <a href="./我的页面布局.html">
+            <div class="footer-item footer-active">
+                <img class="footer-icon" src="./商场图片/我的.png" alt="我的">
+                <div><strong>我的</strong></div>
+            </div>
+        </a>
+
+    </div>
+
+
+    </div>
+</body>
+
+</html>

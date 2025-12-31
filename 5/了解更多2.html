@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>抓饭照片与特点 - 土色风格</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            background-image: url("./img/艾特莱斯1.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(230, 210, 180, 0.95);
+            /* 浅土黄色背景 */
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(100, 80, 50, 0.3);
+            /* 土色阴影 */
+            overflow: hidden;
+        }
+
+        header {
+            background: #b07d3f;
+            /* 深土黄色 */
+            color: #fff8e0;
+            /* 浅米黄色文字 */
+            padding: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(50, 40, 20, 0.4);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .photos {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .photos img {
+            width: 350px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(100, 80, 50, 0.2);
+            /* 土色阴影 */
+            cursor: default;
+            /* 鼠标样式改为默认 */
+        }
+
+        .features {
+            padding: 30px;
+        }
+
+        .feature-item {
+            background: #e6d0a0;
+            /* 浅土黄色 */
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(100, 80, 50, 0.2);
+            /* 土色阴影 */
+        }
+
+        .feature-title {
+            background: #c08c40;
+            /* 中棕色 */
+            color: #fff8e0;
+            /* 浅米黄色文字 */
+            padding: 15px 20px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .feature-title::after {
+            content: "+";
+            font-size: 1.5rem;
+        }
+
+        .feature-item.active .feature-title::after {
+            content: "-";
+        }
+
+        .feature-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item.active .feature-content {
+            padding: 20px;
+            max-height: 1000px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #8d6e63;
+            /* 棕色文字 */
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .feature-title {
+                font-size: 1.1rem;
+            }
+
+            .photos img {
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>抓饭照片与特点</h1>
+            <p>色香味俱全的新疆特色美食</p>
+        </header>
+
+        <!-- 照片展示 -->
+        <div class="photos">
+            <img src="./img/手抓饭1.JPG" alt="抓饭照片1">
+            <img src="./img/手抓饭2.JPG" alt="抓饭照片2">
+            <img src="./img/手抓饭3.JPG" alt="抓饭照片3">
+            <img src="./img/手抓饭4.JPG" alt="抓饭照片4">
+            <img src="./img/手抓饭5.JPG" alt="搭配小菜">
+        </div>
+
+        <!-- 特点展示 -->
+        <div class="features">
+            <div class="feature-item">
+                <div class="feature-title">色泽金黄</div>
+                <div class="feature-content">
+                    <p>抓饭以金黄的米粒包裹肉块，胡萝卜与洋葱的色彩点缀其中，整体色泽鲜艳，看起来非常有食欲。</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-title">香气四溢</div>
+                <div class="feature-content">
+                    <p>抓饭在烹饪过程中加入了洋葱、胡萝卜、孜然等香料，使得米饭吸收了各种食材的香味，开盖时香气扑鼻，令人垂涎欲滴。</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-title">口感丰富</div>
+                <div class="feature-content">
+                    <p>抓饭的米粒饱满油润，羊肉鲜嫩多汁，胡萝卜和洋葱软烂香甜，多种口感交织在一起，让人回味无穷。</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-title">营养丰富</div>
+                <div class="feature-content">
+                    <p>抓饭中含有丰富的蛋白质（来自羊肉）、碳水化合物（来自米饭）、维生素（来自胡萝卜和洋葱）以及健康的脂肪，是一道营养均衡的美食。</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-title">文化意义</div>
+                <div class="feature-content">
+                    <p>抓饭是新疆各民族喜爱的传统美食，也是新疆饮食文化的重要代表。在新疆，无论是家庭聚餐还是招待客人，抓饭都是必不可少的佳肴，体现了新疆各族人民热情好客的民族风情。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 点击展开/收起
+        document.querySelectorAll('.feature-title').forEach(title => {
+            title.addEventListener('click', () => {
+                const item = title.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+
+</html>

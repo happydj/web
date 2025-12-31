@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>烤包子照片与特点 - 土色风格</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            background-image: url("./img/艾特莱斯1.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(230, 210, 180, 0.95);
+            /* 浅土黄色背景 */
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(100, 80, 50, 0.3);
+            /* 土色阴影 */
+            overflow: hidden;
+        }
+
+        header {
+            background: #b07d3f;
+            /* 深土黄色 */
+            color: #fff8e0;
+            /* 浅米黄色文字 */
+            padding: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(50, 40, 20, 0.4);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .photos {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .photos img {
+            width: 350px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(100, 80, 50, 0.2);
+            /* 土色阴影 */
+            cursor: default;
+            /* 鼠标样式改为默认 */
+        }
+
+        .features {
+            padding: 30px;
+        }
+
+        .feature-item {
+            background: #e6d0a0;
+            /* 浅土黄色 */
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(100, 80, 50, 0.2);
+            /* 土色阴影 */
+        }
+
+        .feature-title {
+            background: #c08c40;
+            /* 中棕色 */
+            color: #fff8e0;
+            /* 浅米黄色文字 */
+            padding: 15px 20px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .feature-title::after {
+            content: "+";
+            font-size: 1.5rem;
+        }
+
+        .feature-item.active .feature-title::after {
+            content: "-";
+        }
+
+        .feature-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item.active .feature-content {
+            padding: 20px;
+            max-height: 1000px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #8d6e63;
+            /* 棕色文字 */
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .feature-title {
+                font-size: 1.1rem;
+            }
+
+            .photos img {
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>烤包子照片与特点</h1>
+            <p>新疆街头巷尾的特色风味小吃</p>
+        </header>
+
+        <!-- 照片展示 -->
+        <div class="photos">
+            <img src="./img/烤包子1.JPG" alt="烤包子照片1">
+            <img src="./img/烤包子2.JPG" alt="烤包子照片2">
+            <img src="./img/烤包子3.JPG" alt="烤包子照片3">
+            <img src="./img/烤包子4.JPG" alt="烤包子照片4">
+            <img src="./img/烤包子5.JPG" alt="烤包子特写">
+        </div>
+
+        <!-- 特点展示 -->
+        <div class="features">
+            <div class="feature-item">
+                <div class="feature-title">外皮金黄酥脆</div>
+                <div class="feature-content">
+                    <p>烤包子的外皮由特制的面粉和清油制成，在馕坑里经过高温烘烤后，变得金黄酥脆，咬一口“咔嚓”作响，香气十足。</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-title">馅料鲜嫩多汁</div>
+                <div class="feature-content">
+                    <p>烤包子的馅料主要以肥瘦相间的羊肉丁为主，辅以洋葱丁、孜然、胡椒粉等调料。经过烘烤，羊肉的油脂融入馅料，使得包子馅鲜嫩多汁，风味浓郁。</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-title">风味独特</div>
+                <div class="feature-content">
+                    <p>烤包子是新疆少数民族喜爱的传统美食，它结合了烤、炸的烹饪工艺，将面食与肉食完美融合，既有面食的麦香，又有羊肉的鲜香，风味独特，让人回味无穷。</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-title">食用便捷</div>
+                <div class="feature-content">
+                    <p>烤包子体积小巧，便于携带和食用，是新疆各族人民日常生活中非常方便的一种快餐食品，也是游客品尝新疆风味的首选小吃之一。</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-title">文化象征</div>
+                <div class="feature-content">
+                    <p>烤包子不仅是一种美食，更是新疆饮食文化的缩影。它的制作和食用方式，体现了新疆各族人民热情、豪放的性格和对生活的热爱。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 点击展开/收起
+        document.querySelectorAll('.feature-title').forEach(title => {
+            title.addEventListener('click', () => {
+                const item = title.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+
+</html>

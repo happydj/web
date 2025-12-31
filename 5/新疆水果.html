@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新疆特色水果</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft YaHei", sans-serif;
+            background-image: url("./img/艾特莱斯1.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 30px 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            backdrop-filter: blur(10px);
+            /* 毛玻璃效果 */
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .video-container {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .video-title {
+            font-size: 24px;
+            color: #f5d76e;
+            /* 金色文字 */
+            margin-bottom: 15px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .video-player {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .fruit-text {
+            flex: 1;
+            min-width: 300px;
+            color: #eaeaea;
+            /* 浅灰文字 */
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        .fruit-text p {
+            margin-bottom: 12px;
+            padding-left: 10px;
+            border-left: 3px solid #f5d76e;
+            /* 金色左边线 */
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="video-container">
+            <div class="video-title">新疆特色水果</div>
+            <video class="video-player" controls preload="metadata">
+                <source src="./img/水果1.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="fruit-text">
+            <p>葡萄：甜分高、果香明显，肉质有脆有软；耐储运的品种也多。</p>
+            <p>哈密瓜（甜瓜）：甜度高、香气浓，果肉细腻；不少品种耐储存。</p>
+            <p>香梨：皮薄、汁多、肉细，清甜带香，口感脆爽。</p>
+            <p>苹果：口感脆甜或甜中带酸，汁多；部分品种果核附近糖心明显。</p>
+            <p>石榴：籽多汁多、酸甜适口；有的籽粒晶莹饱满。</p>
+            <p>无花果：果肉细软、味甜带香，糖分高，口感绵密。</p>
+            <p>杏：香味浓、酸甜多汁；做成“树上干杏”后更甜更耐放。</p>
+            <p>蟠桃：果肉细腻、汁多味甜，香气足，果形扁圆。</p>
+            <p>红枣：肉厚核小、甜味浓，耐储存；可鲜食也适合干制。</p>
+            <p>沙棘：酸味突出、维C含量高，常做饮品或加工品。</p>
+            <p>樱桃李（野酸梅）：酸香明显、风味独特，多用于加工果汁/果酱。</p>
+            <p>西瓜：瓤沙或脆，汁多清甜，解暑性强。</p>
+            <p>桑葚：甜中带微酸，汁多色深，果香浓郁。</p>
+            <p>核桃：仁饱满、油脂香，口感脆；常作坚果零食或入馔。</p>
+            <p>巴旦木（扁桃仁）：香味浓、口感脆，油脂丰富，适合烘焙与零食。</p>
+            <p>阿月浑子（开心果）：脆香咸鲜或原味，适合直接食用。</p>
+        </div>
+    </div>
+</body>
+
+</html>

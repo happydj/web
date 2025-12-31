@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校园导航 </title>
+    <!-- 引入Tailwind CSS -->
+    <script src="./js/tailwindcss.js"></script>
+    <!-- 引入Font Awesome图标 -->
+    <link rel="stylesheet" href="./css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/all.min.css">
+    <!-- 引入地图API（示例使用高德地图，需替换为自己的key） -->
+    <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
+    <!-- 自定义Tailwind配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF', // 主色调（校园蓝）
+                        secondary: '#36B37E', // 辅助色（校园绿）
+                        neutral: '#F5F7FA', // 中性色
+                        dark: '#1D2129', // 深色文本
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+
+    </script>
+
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .nav-shadow {
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            }
+            .card-hover {
+                transition: all 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 24px rgba(22, 93, 255, 0.12);
+            }
+        }
+
+
+        .dingwei{
+            top: 270px;
+            right: 190px;
+            /* 使用功能动画   动画名字  时间  运动曲线  次数infinite 无限次*/
+            animation: tiaodong 1s ease infinite;
+        }
+        /* 定义关键帧 */
+        @keyframes tiaodong {
+            0%,100%{
+                /* 动画，平移 */
+                transform: translateY(0px);
+            }
+            50%{
+                transform: translateY(-15px);
+            }
+        }
+        
+    </style>
+</head>
+
+<body class="bg-neutral font-sans text-dark">
+    <!-- 顶部导航栏 -->
+    <header class="sticky top-0 z-50 bg-white nav-shadow">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <!-- 校徽+校名 -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white">
+                    <i class="fa-solid fa-school text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-primary">博尔塔拉职业技术学院</h1>
+                    <p class="text-xs text-gray-500">校园导航系统</p>
+                </div>
+            </div>
+
+            <!-- 导航菜单 - 桌面端 -->
+            <nav class="hidden md:flex items-center gap-6">
+                <a href="#map" class="text-dark hover:text-primary transition-colors font-medium">校园地图</a>
+                <a href="#buildings" class="text-dark hover:text-primary transition-colors font-medium">楼宇导航</a>
+                <a href="#services" class="text-dark hover:text-primary transition-colors font-medium">校园服务</a>
+                <a href="#news" class="text-dark hover:text-primary transition-colors font-medium">校园资讯</a>
+                <a href="#contact" class="text-dark hover:text-primary transition-colors font-medium">联系我们</a>
+            </nav>
+
+            <!-- 搜索框 -->
+            <div class="hidden md:flex items-center bg-neutral rounded-full px-3 py-1.5 gap-2">
+                <i class="fa-solid fa-search text-gray-400"></i>
+                <input type="text" placeholder="搜索楼宇/服务..." class="bg-transparent outline-none text-sm w-40">
+            </div>
+
+            <!-- 移动端菜单按钮 -->
+            <button class="md:hidden text-dark text-xl" id="menuBtn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- 移动端导航菜单 -->
+        <div class="md:hidden hidden bg-white absolute w-full left-0 top-full py-4 px-4 shadow-lg" id="mobileMenu">
+            <nav class="flex flex-col gap-4">
+                <a href="#map"
+                    class="text-dark hover:text-primary transition-colors font-medium py-2 border-b border-gray-100">校园地图</a>
+                <a href="#buildings"
+                    class="text-dark hover:text-primary transition-colors font-medium py-2 border-b border-gray-100">楼宇导航</a>
+                <a href="#services"
+                    class="text-dark hover:text-primary transition-colors font-medium py-2 border-b border-gray-100">校园服务</a>
+                <a href="#news"
+                    class="text-dark hover:text-primary transition-colors font-medium py-2 border-b border-gray-100">校园资讯</a>
+                <a href="#contact" class="text-dark hover:text-primary transition-colors font-medium py-2">联系我们</a>
+            </nav>
+            <!-- 移动端搜索框 -->
+            <div class="mt-4 flex items-center bg-neutral rounded-full px-3 py-2 gap-2">
+                <i class="fa-solid fa-search text-gray-400"></i>
+                <input type="text" placeholder="搜索楼宇/服务..." class="bg-transparent outline-none text-sm flex-1">
+            </div>
+        </div>
+    </header>
+
+    <!-- 英雄区 -->
+    <section class="bg-primary/5 py-12 md:py-20">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="md:w-1/2">
+                    <h2 class="text-[clamp(1.8rem,4vw,2.8rem)] font-bold text-dark leading-tight mb-4">
+                        轻松导航<br><span class="text-primary">智慧校园</span>
+                    </h2>
+                    <p class="text-gray-600 mb-6 text-lg">
+                        提供校园楼宇导航、设施查询、服务指引等一站式校园导航服务，让你的校园生活更便捷。
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#map"
+                            class="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors">
+                            <i class="fa-solid fa-map-marker-alt mr-2"></i>查看校园地图
+                        </a>
+                        <a href="#buildings"
+                            class="border border-primary text-primary px-6 py-3 rounded-lg font-medium hover:bg-primary/5 transition-colors">
+                            <i class="fa-solid fa-building mr-2"></i>楼宇导航
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <img src=img/lQDPJwRrQmnj_GvNAiTNBDiwrLHTfrEBAS0JJHO0ErI-AA_1080_548.jpg alt="校园全景"
+                        class="rounded-xl shadow-lg w-full h-auto object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 校园地图区域 -->
+    <section id="map" class="py-12" style="background-color: #5c9284;">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-8">
+                <h3 class="text-2xl md:text-3xl font-bold mb-3">校园地图</h3>
+                <p class="text-gray-600 max-w-2xl mx-auto">还在完善中.............. ,不对外开放。</p>
+            </div>
+
+            <!-- 地图容器 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="flex flex-col md:flex-row">
+                    <!-- 地图侧边栏 -->
+                    <div class="md:w-1/4 p-4 bg-gray-50 border-r border-gray-200">
+                        <h4 class="font-bold mb-3 text-lg">快速定位</h4>
+                        <div class="space-y-2 mb-6">
+                            <button onclick="dingwei(0)"
+                                class="w-full text-left px-3 py-2 rounded hover:bg-primary/5 transition-colors text-sm"
+                                data-location="教学楼">
+                                <i class="fa-solid fa-school mr-2 text-primary"></i>教学楼
+                            </button>
+                            <button onclick="dingwei(1)"
+                                class="w-full text-left px-3 py-2 rounded hover:bg-primary/5 transition-colors text-sm"
+                                data-location="图书馆">
+                                <i class="fa-solid fa-book mr-2 text-primary"></i>图书馆
+                            </button>
+                            <button onclick="dingwei(2)"
+                                class="w-full text-left px-3 py-2 rounded hover:bg-primary/5 transition-colors text-sm"
+                                data-location="食堂">
+                                <i class="fa-solid fa-utensils mr-2 text-primary"></i>食堂
+                            </button>
+                            <button onclick="dingwei(3)"
+                                class="w-full text-left px-3 py-2 rounded hover:bg-primary/5 transition-colors text-sm"
+                                data-location="宿舍区">
+                                <i class="fa-solid fa-bed mr-2 text-primary"></i>宿舍区
+                            </button>
+                            <button onclick="dingwei(4)"
+                                class="w-full text-left px-3 py-2 rounded hover:bg-primary/5 transition-colors text-sm"
+                                data-location="体育馆">
+                                <i class="fa-solid fa-dumbbell mr-2 text-primary"></i>体育馆
+                            </button>
+                        </div>
+                        <h4 class="font-bold mb-3 text-lg">路线规划</h4>
+                        <div class="bg-white rounded-lg p-3 border border-gray-200">
+                            <div class="flex flex-col gap-3">
+                                <!-- <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-location-dot text-primary"></i>
+                                    <input type="text" placeholder="起点"
+                                        class="border border-gray-200 rounded px-3 py-2 text-sm flex-1 outline-none focus:border-primary">
+                                </div> -->
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-flag text-red-500"></i>
+                                    <input type="text" placeholder="目的地"
+                                        class="border border-gray-200 rounded px-3 py-2 text-sm flex-1 outline-none focus:border-primary">
+                                </div>
+                                <button
+                                    class="bg-primary text-white rounded px-3 py-2 text-sm hover:bg-primary/90 transition-colors">
+                                    <i class="fa-solid fa-route mr-1"></i> 查找
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- 地图显示区域 -->
+                    <div class="md:w-3/4 h-[500px] relative" id="campusMap">
+
+
+                        <!-- 高德地图将加载到这里 -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-gray-100">
+                            <div class="absolute  overflow-hidden">
+                                <div class="absolute dingwei " id="dingwei">
+                                    <svg t="1765944916441" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                        xmlns="http://www.w3.org/2000/svg" p-id="4836" width="30" height="30">
+                                        <path
+                                            d="M620.8 339.2c0-51.2-38.4-89.6-89.6-89.6s-89.6 38.4-89.6 89.6 38.4 89.6 89.6 89.6 89.6-38.4 89.6-89.6zM928 819.2c-12.8-12.8-38.4-19.2-70.4-25.6-19.2-6.4-57.6-6.4-83.2-6.4h-6.4c-12.8 0-19.2 12.8-19.2 25.6s12.8 25.6 25.6 25.6h25.6c51.2 6.4 76.8 12.8 83.2 25.6 6.4 6.4 12.8 19.2 12.8 25.6 0 12.8-25.6 32-89.6 51.2-70.4 19.2-166.4 25.6-275.2 25.6-115.2 0-204.8-6.4-275.2-25.6-76.8-19.2-96-44.8-96-51.2 0-12.8 6.4-19.2 12.8-25.6 12.8-6.4 32-12.8 70.4-19.2h32c12.8 0 25.6-12.8 25.6-25.6s-6.4-19.2-19.2-25.6h-6.4c-64 0-102.4 12.8-134.4 25.6-25.6 19.2-44.8 44.8-44.8 76.8 0 25.6 12.8 51.2 44.8 70.4 19.2 12.8 51.2 25.6 89.6 32 70.4 19.2 172.8 25.6 288 25.6 121.6 0 204.8-6.4 275.2-25.6 44.8-6.4 83.2-25.6 102.4-38.4 25.6-19.2 44.8-38.4 51.2-64 12.8-38.4 6.4-51.2-19.2-76.8z"
+                                            fill="#FF6600" p-id="4837"></path>
+                                        <path
+                                            d="M486.4 851.2c12.8 12.8 25.6 19.2 44.8 19.2 12.8 0 32-6.4 44.8-19.2 57.6-76.8 102.4-147.2 166.4-249.6 70.4-115.2 115.2-211.2 115.2-275.2 0-83.2-32-166.4-89.6-224-64-64-140.8-96-224-96h-12.8c-83.2 0-160 32-224 96s-96 147.2-89.6 224c-6.4 64 32 166.4 102.4 275.2 64 108.8 115.2 172.8 166.4 249.6z m-128-704c51.2-51.2 115.2-76.8 172.8-76.8 64 0 128 25.6 172.8 76.8 51.2 51.2 76.8 102.4 76.8 172.8 0 32-19.2 89.6-64 172.8-44.8 76.8-96 160-172.8 268.8 0 6.4-6.4 6.4-12.8 6.4s-12.8 0-12.8-6.4c-147.2-204.8-236.8-371.2-236.8-441.6 0-70.4 25.6-121.6 76.8-172.8z"
+                                            fill="#FF6600" p-id="4838"></path>
+                                    </svg>
+                                </div>
+                                <img src=img/lQDPJwgU8tGibCfNAuzNAzywxRgk_oTwggMJG4Ky6ODSAA_828_748.jpg
+                                    class="object-cover" style="height: 500px;">
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 楼宇导航区域 -->
+    <section id="buildings" class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-8">
+                <h3 class="text-2xl md:text-3xl font-bold mb-3">楼宇导航</h3>
+                <p class="text-gray-600 max-w-2xl mx-auto">校园主要楼宇信息，包含功能介绍、位置指引、联系方式等</p>
+            </div>
+
+            <!-- 楼宇分类标签 -->
+            <!-- <div class="flex flex-wrap justify-center gap-2 mb-8">
+                <button="px-4 py-2 rounded-full bg-primary text-white text-sm font-medium">全部</button>
+                <button
+                    class="px-4 py-2 rounded-full bg-gray-100 hover:bg-primary/10 transition-colors text-sm font-medium">教学区</button>
+                <button  
+                    class="px-4 py-2 rounded-full bg-gray-100 hover:bg-primary/10 transition-colors text-sm font-medium">生活区</button>
+                <button
+                    class="px-4 py-2 rounded-full bg-gray-100 hover:bg-primary/10 transition-colors text-sm font-medium">运动区</button>
+                <button
+                    class="px-4 py-2 rounded-full bg-gray-100 hover:bg-primary/10 transition-colors text-sm font-medium">办公区</button>
+                <button
+                    class="px-4 py-2 rounded-full bg-gray-100 hover:bg-primary/10 transition-colors text-sm font-medium">服务区</button>
+            </div> -->
+
+
+
+            <!-- 楼宇卡片列表 -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 楼宇卡片1 -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden card-hover">
+                    <img src=img/lQDPJx898eTdmhvNAX_NAzywg4gm1W-v3LQJHgN4R-PtAA_828_383.jpg alt="第一教学楼"
+                        class="w-full h-40 object-cover">
+                    <div class="p-5">
+                        <h4 class="font-bold text-lg mb-2">第一教学楼</h4>
+                        <p class="text-gray-600 text-sm mb-4">主要承担理工科课程教学，配备多媒体教室、实验室等设施</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-gray-500"><i
+                                    class="fa-solid fa-location-dot mr-1 text-primary"></i> 校园东区</span>
+                            <a href="#" class="text-primary text-sm font-medium hover:underline">
+
+                                <!-- 点击“查看详情”跳转 -->
+                                <a href="building-detail.html"
+                                    class="text-primary hover:text-secondary transition-colors">
+                                    查看详情
+                                </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 楼宇卡片2 -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden card-hover">
+                    <img src=img/lQDPJwUrKbNMJpfNA8DNBQCwMgs7AbGCx3cJGiuHCcCmAA_1280_960.jpg alt="图书馆"
+                        class="w-full h-40 object-cover">
+                    <div class="p-5">
+                        <h4 class="font-bold text-lg mb-2">图书馆</h4>
+                        <p class="text-gray-600 text-sm mb-4">馆藏图书200万册，提供自习室、电子阅览室、研讨室等服务</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-gray-500"><i
+                                    class="fa-solid fa-location-dot mr-1 text-primary"></i> 校园中心区</span>
+                            <a href="#" class="text-primary text-sm font-medium hover:underline"></a>
+
+                            <!-- 点击“查看详情”跳转 -->
+                            <a href="tushuguan-detail.html" class="text-primary hover:text-secondary transition-colors">
+                                查看详情 →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 楼宇卡片3 -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden card-hover">
+                    <img src=img/lQDPJxda3eEb5RfNBQDNA8CwExck_tfELLcJGiuBV0c3AA_960_1280.jpg alt="第一食堂"
+                        class="w-full h-40 object-cover">
+                    <div class="p-5">
+                        <h4 class="font-bold text-lg mb-2">第一食堂</h4>
+                        <p class="text-gray-600 text-sm mb-4">提供各地特色美食，支持校园卡、移动支付，可容纳800人同时就餐</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-gray-500"><i
+                                    class="fa-solid fa-location-dot mr-1 text-primary"></i> 宿舍区旁</span>
+                            <a href="#" class="text-primary text-sm font-medium hover:underline">
+
+                                <!-- 点击“查看详情”跳转 -->
+                                <a href="building-detail.html?id=teaching-1"
+                                    class="text-primary hover:text-secondary transition-colors">
+                                    查看详情 →
+
+                                </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 楼宇卡片4 -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden card-hover">
+                    <img src=img/lQDPJwTSCDOQdNfNBQDNA8CwYnhou9Rt6fgJGjJXGlu8AA_960_1280.jpg alt="体育馆"
+                        class="w-full h-40 object-cover">
+                    <div class="p-5">
+                        <h4 class="font-bold text-lg mb-2">体育馆</h4>
+                        <p class="text-gray-600 text-sm mb-4">包含篮球场、羽毛球场、游泳馆等设施，提供体育课程和活动场地</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-gray-500"><i
+                                    class="fa-solid fa-location-dot mr-1 text-primary"></i> 校园西区</span>
+                            <a href="#" class="text-primary text-sm font-medium hover:underline">
+
+                                <!-- 点击“查看详情”跳转 -->
+                                <a href="building-detail.html?id=teaching-1"
+                                    class="text-primary hover:text-secondary transition-colors">
+                                    查看详情 →
+                                </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 楼宇卡片5 -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden card-hover">
+                    <img src=img/lQDPKIHgnWGWIpfNA8DNBQCwExx3xxBqguQJGiuC9NhaAA_1280_960.jpg alt="行政楼"
+                        class="w-full h-40 object-cover">
+                    <div class="p-5">
+                        <h4 class="font-bold text-lg mb-2">行政楼</h4>
+                        <p class="text-gray-600 text-sm mb-4">学校行政管理中心，包含教务处、学生处、财务处等职能部门</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-gray-500"><i
+                                    class="fa-solid fa-location-dot mr-1 text-primary"></i> 校园中心区</span>
+                            <a href="#" class="text-primary text-sm font-medium hover:underline">
+
+                                <!-- 点击“查看详情”跳转 -->
+                                <a href="building-detail.html?id=teaching-1"
+                                    class="text-primary hover:text-secondary transition-colors">
+                                    查看详情 →
+
+                                </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 楼宇卡片6 -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden card-hover">
+                    <img src=img/lQDPJx9-hL8fZZfNA8DNBQCwpxyZ07sq2wsJGiuF_yufAA_1280_960.jpg alt="校医院"
+                        class="w-full h-40 object-cover">
+                    <div class="p-5">
+                        <h4 class="font-bold text-lg mb-2">校医院</h4>
+                        <p class="text-gray-600 text-sm mb-4">提供基础医疗服务、疫苗接种、健康体检等，24小时急诊服务</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-gray-500"><i
+                                    class="fa-solid fa-location-dot mr-1 text-primary"></i> 校园北区</span>
+                            <a href="#" class="text-primary text-sm font-medium hover:underline">
+
+                                <!-- 点击“查看详情”跳转 -->
+                                <a href="building-detail.html?id=teaching-1"
+                                    class="text-primary hover:text-secondary transition-colors">
+                                    查看详情 →
+
+                                </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 查看更多按钮 -->
+            <div class="text-center mt-10">
+                <a href="louyu.html"
+                    class="inline-flex items-center px-6 py-3 border border-primary text-primary rounded-lg font-medium hover:bg-primary/5 transition-colors">
+                    查看更多楼宇 <i class="fa-solid fa-chevron-right ml-2 text-xs"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 校园服务区域 -->
+    <section id="services" class="py-12 bg-neutral " style="background-color: #eafaff;">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-8">
+                <h3 class="text-2xl md:text-3xl font-bold mb-3">校园服务</h3>
+                <p class="text-gray-600 max-w-2xl mx-auto">校园常用服务导航，一键直达各类校园服务入口</p>
+            </div>
+
+            <!-- 服务卡片网格 -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <!-- 服务卡片1 -->
+                <div class="bg-white rounded-xl p-5 text-center card-hover">
+                    <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-graduation-cap text-primary text-xl"></i>
+                    </div>
+                    <h5 class="font-medium mb-1">教务系统</h5>
+                    <p class="text-xs text-gray-500">选课/成绩/课表</p>
+                </div>
+
+                <!-- 服务卡片2 -->
+                <div class="bg-white rounded-xl p-5 text-center card-hover">
+                    <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-book-open text-primary text-xl"></i>
+                    </div>
+                    <h5 class="font-medium mb-1">图书馆</h5>
+                    <p class="text-xs text-gray-500">借书/续借/预约</p>
+                </div>
+
+                <!-- 服务卡片3 -->
+                <div class="bg-white rounded-xl p-5 text-center card-hover">
+                    <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-wifi text-primary text-xl"></i>
+                    </div>
+                    <h5 class="font-medium mb-1">校园网</h5>
+                    <p class="text-xs text-gray-500">认证/缴费/报修</p>
+                </div>
+
+                <!-- 服务卡片4 -->
+                <div class="bg-white rounded-xl p-5 text-center card-hover">
+                    <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-credit-card text-primary text-xl"></i>
+                    </div>
+                    <h5 class="font-medium mb-1">校园卡</h5>
+                    <p class="text-xs text-gray-500">充值/挂失/补办</p>
+                </div>
+
+
+
+                <!-- 服务卡片5 -->
+                <div class="bg-white rounded-xl p-5 text-center card-hover">
+                    <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-print text-primary text-xl"></i>
+                    </div>
+                    <h5 class="font-medium mb-1">打印服务</h5>
+                    <p class="text-xs text-gray-500">打印/复印/扫描</p>
+                </div>
+
+                <!-- 服务卡片6 -->
+                <div class="bg-white rounded-xl p-5 text-center card-hover">
+                    <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-utensils text-primary text-xl"></i>
+                    </div>
+                    <h5 class="font-medium mb-1">食堂充值</h5>
+                    <p class="text-xs text-gray-500">在线充值/消费查询</p>
+                </div>
+
+
+
+                <!-- 服务卡片7 -->
+                <div class="bg-white rounded-xl p-5 text-center card-hover">
+                    <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-lock text-primary text-xl"></i>
+                    </div>
+                    <h5 class="font-medium mb-1">失物招领</h5>
+                    <p class="text-xs text-gray-500">遗失/招领登记</p>
+                </div>
+
+                <!-- 服务卡片8 -->
+                <div class="bg-white rounded-xl p-5 text-center card-hover">
+                    <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-headphones text-primary text-xl"></i>
+                    </div>
+                    <h5 class="font-medium mb-1">校园热线</h5>
+                    <p class="text-xs text-gray-500">咨询/投诉/建议</p>
+                </div>
+
+                <!-- 服务卡片9 -->
+                <div class="bg-white rounded-xl p-5 text-center card-hover">
+                    <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-parking text-primary text-xl"></i>
+                    </div>
+                    <h5 class="font-medium mb-1">停车场</h5>
+                    <p class="text-xs text-gray-500"></p>
+                </div>
+
+                <!-- 服务卡片10 -->
+                <div class="bg-white rounded-xl p-5 text-center card-hover">
+                    <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-ellipsis text-primary text-xl"></i>
+                    </div>
+                    <h5 class="font-medium mb-1">更多服务</h5>
+                    <p class="text-xs text-gray-500">查看全部服务</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 校园资讯区域 -->
+    <section id="news" class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-8">
+                <h3 class="text-2xl md:text-3xl font-bold mb-3">校园资讯</h3>
+                <p class="text-gray-600 max-w-2xl mx-auto">最新校园动态、通知公告、活动信息</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- 资讯卡片1 -->
+                <div class="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm card-hover">
+                    <img src="img\lQLPJw2Wql5PbgfNAgTNAziwFwuigU762rUJG3h7U5n9AA_824_516.png" alt="校园活动"
+                        class="w-full h-40 object-cover">
+                    <div class="p-5">
+                        <div class="flex items-center text-xs text-gray-500 mb-2">
+                            <span><i class="fa-solid fa-calendar mr-1"></i> 2025-06-15</span>
+                            <span class="mx-2">|</span>
+                            <span><i class="fa-solid fa-tag mr-1"></i> 校园活动</span>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">校园升旗仪式</h4>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-3">
+                            我校每周星期一都升旗，全体领导，老师及学生都到齐参加
+                        </p>
+                        <a href="#" class="text-primary text-sm font-medium hover:underline">
+                            阅读更多 <i class="fa-solid fa-arrow-right text-xs ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 资讯卡片2 -->
+                <div class="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm card-hover">
+                    <img src=img\lQDPJwQQT3NJydfNAyTNBDCwmReBxvHEaHQJGjR4EpncAA_1072_804.jpg alt="风景校园"
+                        class="w-full h-40 object-cover">
+                    <div class="p-5">
+                        <div class="flex items-center text-xs text-gray-500 mb-2">
+                            <span><i class="fa-solid fa-calendar mr-1"></i> 2025-06-10</span>
+                            <span class="mx-2">|</span>
+                            <span><i class="fa-solid fa-tag mr-1"></i> 通知公告</span>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">校园日落图</h4>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-3">
+                            每当太阳落山时，都会留下最好看的风景，拍下照片收藏
+                        </p>
+                        <a href="#" class="text-primary text-sm font-medium hover:underline">
+                            阅读更多 <i class="fa-solid fa-arrow-right text-xs ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 资讯卡片3 -->
+                <div class="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm card-hover">
+                    <img src=img\lQDPKHJ0f4vi-FfNAyTNBCywVHyCWPw95tUJGjR5eX1XAA_1068_804.jpg alt="校园建设"
+                        class="w-full h-40 object-cover">
+                    <div class="p-5">
+                        <div class="flex items-center text-xs text-gray-500 mb-2">
+                            <span><i class="fa-solid fa-calendar mr-1"></i> 2025-06-05</span>
+                            <span class="mx-2">|</span>
+                            <span><i class="fa-solid fa-tag mr-1"></i> 校园建设</span>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">校园环境</h4>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-3">
+                            我校环境优美，给人一种舒适感
+                        </p>
+                        <a href="#" class="text-primary text-sm font-medium hover:underline">
+                            阅读更多 <i class="fa-solid fa-arrow-right text-xs ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 查看更多按钮 -->
+            <div class="text-center mt-10">
+                <a href="#"
+                    class="inline-flex items-center px-6 py-3 border border-primary text-primary rounded-lg font-medium hover:bg-primary/5 transition-colors">
+                    查看更多资讯 <i class="fa-solid fa-chevron-right ml-2 text-xs"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 表白墙 -->
+    <section id="biaob" class="py-12 " style="background-color: #ed90a1;">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-8">
+                <h3 class="text-2xl md:text-3xl font-bold mb-3 text-white">表白墙</h3>
+                <p class="text-gray-600 max-w-2xl mx-auto text-white">青春告白站·校园表白墙</p>
+            </div>
+
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <!-- 资讯卡片1 -->
+                <div class="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm card-hover">
+
+                    <div class="p-5">
+                        <div class="flex items-center justify-between  text-xs text-gray-500 mb-2">
+                            <h3 class="text-xl font-bold " style="color: #ed5b75;">我的眼里只有你</h3>
+                            <span><i class="fa-solid fa-calendar mr-1"></i> 2025-06-15</span>
+                        </div>
+                        <img src="img/lQDPJx-r_kHtbOPNBP7NAqCw7KzvTThi1gEJHzSL1hsUAA_672_1278.jpg" alt="校园活动"
+                            class="w-full h-40 object-cover">
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-3">
+                            想对3号楼自习室靠窗的那个男生说：每次抬头都能看到你认真的样子，真的很治愈～希望你考研顺利，一战成硕！
+                        </p>
+
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm card-hover">
+
+                    <div class="p-5">
+                        <div class="flex items-center justify-between  text-xs text-gray-500 mb-2">
+                            <h3 class="text-xl font-bold " style="color: #ed5b75;">春风十里，不如你</h3>
+                            <span><i class="fa-solid fa-calendar mr-1"></i> 2025-06-15</span>
+                        </div>
+                        <img src="img/lQDPKIOME88eK-PNBQDNAoWw1QE7jGSbX4UJHzSKrt_yAA_645_1280.jpg" alt="校园活动"
+                            class="w-full h-40 object-cover">
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-3">
+                            无论是藏在眼底的暗恋、热烈坦荡的喜欢，还是对挚友的感恩、对师长的敬意，都能在这里找到安放的空间。
+                        </p>
+
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm card-hover">
+
+                    <div class="p-5">
+                        <div class="flex items-center justify-between  text-xs text-gray-500 mb-2">
+                            <h3 class="text-xl font-bold " style="color: #ed5b75;">我对你一见钟情</h3>
+                            <span><i class="fa-solid fa-calendar mr-1"></i> 2025-06-15</span>
+                        </div>
+                        <img src="img/lQDPKGe50woWbCvNA1TNBDiwiKL9XPbpipUJJHwVwNCdAA_1080_852.jpg" alt="校园活动"
+                            class="w-full h-50 object-cover mb-2 " style="border-radius: 10px;">
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-3">
+                            这里是藏着无数心跳的角落，是青春里未说出口的独白栖息地。
+                        </p>
+
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm card-hover">
+
+                    <div class="p-5">
+                        <div class="flex items-center justify-between  text-xs text-gray-500 mb-2">
+                            <h3 class="text-xl font-bold " style="color: #ed5b75;">白玫瑰</h3>
+                            <span><i class="fa-solid fa-calendar mr-1"></i> 2025-06-15</span>
+                        </div>
+                        <img src="img/lQDPJxtomYJc_ivNBQDNAwew0nUg8N4XzscJJHwY7nM5AA_775_1280.jpg" alt="校园活动"
+                            class="w-full h-40 object-cover">
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-3">
+                            每一句告白都值得被认真对待，每一份心意都该被温柔传递——欢迎来到属于我们的表白墙。
+                        </p>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- 查看更多按钮 -->
+            <div class="text-center mt-10">
+                <a href="biaobaiqiang.html"
+                    class="inline-flex items-center px-6 py-3 border  text-white rounded-lg font-medium hover:bg-primary/5 transition-colors">
+                    查看更多资讯 <i class="fa-solid fa-chevron-right ml-2 text-xs"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- 联系我们区域 -->
+    <section id="contact" class="py-12 bg-primary/5" style="background-color: #7a7573;">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-8">
+                <h3 class="text-2xl md:text-3xl font-bold mb-3">联系我们</h3>
+                <p class="text-gray-600 max-w-2xl mx-auto">如有任何问题或建议，欢迎联系我们</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- 联系信息 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm">
+                    <h4 class="font-bold text-lg mb-4">联系方式</h4>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3">
+                            <div
+                                class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <i class="fa-solid fa-map-marker-alt text-primary"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-medium mb-1">学校地址</h5>
+                                <p class="text-gray-600 text-sm">博尔塔拉职业技术学院</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <div
+                                class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <i class="fa-solid fa-phone text-primary"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-medium mb-1">联系电话</h5>
+                                <p class="text-gray-600 text-sm">总机：0123-4567890<br>导航服务：0123-4567891</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <div
+                                class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <i class="fa-solid fa-envelope text-primary"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-medium mb-1">电子邮箱</h5>
+                                <p class="text-gray-600 text-sm">nav@university.edu.cn</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <div
+                                class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <i class="fa-solid fa-clock text-primary"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-medium mb-1">服务时间</h5>
+                                <p class="text-gray-600 text-sm">周一至周五：8:00-18:00<br>周六至周日：9:00-17:00</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 社交媒体 -->
+                    <div class="mt-6">
+                        <h5 class="font-medium mb-3">关注我们</h5>
+                        <div class="flex gap-3">
+                            <a href="#"
+                                class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+                                <i class="fa-weixin"></i>
+                            </a>
+                            <a href="#"
+                                class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+                                <i class="fa-weibo"></i>
+                            </a>
+                            <a href="#"
+                                class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+                                <i class="fa-qq"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 留言表单 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm">
+                    <h4 class="font-bold text-lg mb-4">留言反馈</h4>
+                    <form class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">姓名</label>
+                                <input type="text"
+                                    class="w-full px-3 py-2 border border-gray-200 rounded-lg outline-none focus:border-primary"
+                                    placeholder="请输入您的姓名">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">联系电话</label>
+                                <input type="tel"
+                                    class="w-full px-3 py-2 border border-gray-200 rounded-lg outline-none focus:border-primary"
+                                    placeholder="请输入您的电话">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">邮箱</label>
+                            <input type="email"
+                                class="w-full px-3 py-2 border border-gray-200 rounded-lg outline-none focus:border-primary"
+                                placeholder="请输入您的邮箱">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">留言内容</label>
+                            <textarea rows="4"
+                                class="w-full px-3 py-2 border border-gray-200 rounded-lg outline-none focus:border-primary resize-none"
+                                placeholder="请输入您的问题或建议"></textarea>
+                        </div>
+
+                        <button type="submit"
+                            class="w-full bg-primary text-white py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors">
+                            提交留言
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-10">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- 学校信息 -->
+                <div>
+                    <h5 class="font-bold text-lg mb-4">博尔塔拉职业技术学院</h5>
+                    <p class="text-gray-400 text-sm mb-4">
+                        立德树人，追求卓越
+                    </p>
+                    <p class="text-gray-400 text-xs">
+                        © 2025 博尔塔拉职业技术学院<br>
+
+                    </p>
+                </div>
+
+                <!-- 快速链接 -->
+                <div>
+                    <h5 class="font-bold text-lg mb-4">快速链接</h5>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">学校官网</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">教务处</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">学生处</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">招生办</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">就业指导中心</a></li>
+                    </ul>
+                </div>
+
+                <!-- 服务支持 -->
+                <div>
+                    <h5 class="font-bold text-lg mb-4">服务支持</h5>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">常见问题</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">使用指南</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">意见反馈</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">隐私政策</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">服务条款</a></li>
+                    </ul>
+                </div>
+
+                <!-- 下载APP -->
+                <div>
+                    <h5 class="font-bold text-lg mb-4">校园导航APP</h5>
+                    <p class="text-gray-400 text-sm mb-3">
+                        扫码下载APP，体验更多功能
+                    </p>
+                    <div class="w-28 h-28 bg-white rounded-lg p-1 mb-2">
+                        <img src="https://picsum.photos/100/100" alt="APP二维码" class="w-full h-full object-cover">
+                    </div>
+                    <p class="text-gray-400 text-xs">
+                        支持iOS/Android系统
+                    </p>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-xs">
+                本网站仅为校园导航使用，如有侵权请联系删除
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="backToTop"
+        class="fixed bottom-6 right-6 w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-primary/90">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+
+
+        function dingwei(i) {
+            //  0 教学楼
+            var map = {
+                "0": { x: 270, y: 190 },
+                "1": { x: 160, y: 240 },
+                "2": { x: 65, y: 361 },
+                "3": { x: 330, y: 317 },
+                "4": { x: 51, y: 478 }
+            }
+
+            var dingwei = document.getElementById("dingwei")
+            console.log(map[i].x)
+            dingwei.style.top = map[i].x + "px"
+            dingwei.style.right = map[i].y + "px"
+
+        }
+
+
+
+        // 移动端菜单切换
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            // 切换图标
+            const icon = menuBtn.querySelector('i');
+            if (icon.classList.contains('fa-bars')) {
+                icon.classList.replace('fa-bars', 'fa-times');
+            } else {
+                icon.classList.replace('fa-times', 'fa-bars');
+            }
+        });
+
+        // 高德地图初始化（需替换API Key）
+        window.onload = function () {
+            // 仅当API Key已替换时初始化地图
+            const mapContainer = document.getElementById('campusMap');
+            if (window.AMap && mapContainer) {
+                try {
+                    const map = new AMap.Map('campusMap', {
+                        zoom: 16,
+                        center: [116.397428, 39.90923] // 示例坐标，需替换为校园实际坐标
+                    });
+
+                    // 添加地图控件
+                    map.addControl(new AMap.Scale());
+                    map.addControl(new AMap.ToolBar());
+
+                    // 标记点示例
+                    const markers = [
+                        { position: [116.397428, 39.90923], title: '教学楼' },
+                        { position: [116.398428, 39.90823], title: '图书馆' },
+                        { position: [116.396428, 39.90723], title: '食堂' }
+                    ];
+
+                    markers.forEach(item => {
+                        const marker = new AMap.Marker({
+                            position: item.position,
+                            title: item.title,
+                            map: map
+                        });
+                    });
+
+                    // 绑定快速定位按钮事件
+                    document.querySelectorAll('[data-location]').forEach(btn => {
+                        btn.addEventListener('click', function () {
+                            const location = this.dataset.location;
+                            let position;
+                            switch (location) {
+                                case '教学楼': position = [116.397428, 39.90923]; break;
+                                case '图书馆': position = [116.398428, 39.90823]; break;
+                                case '食堂': position = [116.396428, 39.90723]; break;
+                                case '宿舍区': position = [116.395428, 39.90923]; break;
+                                case '体育馆': position = [116.399428, 39.90923]; break;
+                                default: position = [116.397428, 39.90923];
+                            }
+                            map.setCenter(position);
+                            map.setZoom(17);
+                        });
+                    });
+                } catch (e) {
+                    console.error('地图初始化失败:', e);
+                }
+            }
+        };
+
+        // 返回顶部按钮
+        const backToTopBtn = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.remove('opacity-0', 'invisible');
+                backToTopBtn.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopBtn.classList.add('opacity-0', 'invisible');
+                backToTopBtn.classList.remove('opacity-100', 'visible');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    // 关闭移动端菜单
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        const icon = menuBtn.querySelector('i');
+                        icon.classList.replace('fa-times', 'fa-bars');
+                    }
+
+                    // 平滑滚动到目标位置
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

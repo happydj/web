@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>伊犁 - 塞外江南 诗画伊犁</title>
+    <script src="./js/all.js"></script>
+    <link href="./css/all.css" rel="stylesheet">
+    <script>
+        // Tailwind 配置
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        yili: {
+                            green: '#4CAF50',    // 草原绿
+                            blue: '#2196F3',     // 天空蓝
+                            yellow: '#FFC107',   // 花海黄
+                            brown: '#795548',    // 人文棕
+                            snow: '#F8F9FA',     // 雪山白（优化更柔和）
+                            purple: '#9C27B0',   // 薰衣草紫
+                            orange: '#FF9800',   // 金秋橙
+                            dark: '#2D3748'      // 深色文本
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            }
+            .text-shadow-lg {
+                text-shadow: 0 4px 8px rgba(0,0,0,0.4);
+            }
+            .bg-blur {
+                backdrop-filter: blur(8px);
+            }
+            .scroll-smooth {
+                scroll-behavior: smooth;
+            }
+            .clip-path-slant {
+                clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            }
+            .text-gradient {
+                background-clip: text;
+                -webkit-background-clip: text;
+                color: transparent;
+                background-image: linear-gradient(to right, #4CAF50, #2196F3);
+            }
+            .hover-lift {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .hover-lift:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+            }
+            .card-shadow {
+                box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            }
+        }
+
+        /* 全局样式重置与基础设置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            scroll-behavior: smooth;
+            font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
+            color: theme('colors.yili.dark');
+            background-color: theme('colors.yili.snow');
+        }
+        
+        /* 图片懒加载过渡 */
+        img {
+            transition: opacity 0.5s ease;
+        }
+        
+        img.lazy {
+            opacity: 0;
+        }
+        
+        img.lazy.loaded {
+            opacity: 1;
+        }
+        
+        /* 轮播图动画优化 */
+        .carousel-item {
+            transition: opacity 1s ease-in-out;
+        }
+        
+        /* 季节卡片动画增强 */
+        .season-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .season-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        }
+        
+        /* 评价滑块动画优化 */
+        .review-slide-container {
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .review-slide {
+            display: flex;
+            animation: slide 25s linear infinite;
+        }
+        
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        /* 摄影指南标签动画优化 */
+        .photo-tag {
+            transition: all 0.3s ease;
+        }
+        .photo-tag:hover {
+            background-color: theme('colors.yili.green');
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.2);
+        }
+        
+        /* 数字统计动画优化 */
+        .counter {
+            animation: countUp 2s ease-out forwards;
+            opacity: 0;
+        }
+        
+        @keyframes countUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* 按钮交互反馈 */
+        .btn-primary {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .btn-primary:hover::after {
+            left: 100%;
+        }
+        
+        /* 模态框样式优化 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            max-width: 550px;
+            width: 92%;
+            position: relative;
+            animation: slideUp 0.4s ease-out;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        /* 导航栏下划线动画 */
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: theme('colors.yili.green');
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* 加载动画优化 */
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid theme('colors.yili.green');
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+
+
+
+<body>
+    <!-- 导航栏（优化交互与视觉） -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-white/95 bg-blur shadow-sm"
+        style="background: #ffffff9c;">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold text-yili-green flex items-center gap-2">
+                <i class="fa fa-leaf"></i>
+                <span>伊犁</span>
+                <span class="text-sm font-normal text-gray-500 hidden md:inline-block">塞外江南 · 诗画伊犁</span>
+            </a>
+
+            <!-- 桌面导航 -->
+            <div class="hidden md:flex items-center space-x-1">
+                <a href="#home" class="text-gray-700 hover:text-yili-green transition-colors nav-link px-4 py-2">首页</a>
+                <a href="#seasons"
+                    class="text-gray-700 hover:text-yili-green transition-colors nav-link px-4 py-2">四季风光</a>
+                <a href="#scenery"
+                    class="text-gray-700 hover:text-yili-green transition-colors nav-link px-4 py-2">自然风光</a>
+                <a href="#culture" class="text-gray-700 hover:text-yili-green transition-colors nav-link px-4 py-2"></a>
+                <a href="#intangible"
+                    class="text-gray-700 hover:text-yili-green transition-colors nav-link px-4 py-2"></a>
+                <a href="#food" class="text-gray-700 hover:text-yili-green transition-colors nav-link px-4 py-2"></a>
+                <a href="#specialty"
+                    class="text-gray-700 hover:text-yili-green transition-colors nav-link px-4 py-2"></a>
+                <a href="#photography"
+                    class="text-gray-700 hover:text-yili-green transition-colors nav-link px-4 py-2"></a>
+                <a href="#travel" class="text-gray-700 hover:text-yili-green transition-colors nav-link px-4 py-2"></a>
+                <a href="#reviews" class="text-gray-700 hover:text-yili-green transition-colors nav-link px-4 py-2"></a>
+                <a href="#contact"
+                    class="text-white bg-yili-green hover:bg-yili-green/90 transition-colors px-5 py-2 rounded-full ml-2 btn-primary">
+                    联系我们
+                </a>
+            </div>
+
+            <!-- 移动端菜单按钮 -->
+            <button id="menuBtn"
+                class="md:hidden text-gray-700 text-xl p-2 rounded-full hover:bg-gray-100 transition-colors">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- 移动端导航菜单（优化样式） -->
+        <div id="mobileMenu" class="md:hidden hidden bg-white shadow-lg absolute w-full animate-fade-in">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-1">
+                <a href="#home"
+                    class="text-gray-700 hover:text-yili-green py-3 px-4 rounded-lg hover:bg-gray-50 transition-colors mobile-nav-link">首页</a>
+                <a href="#seasons"
+                    class="text-gray-700 hover:text-yili-green py-3 px-4 rounded-lg hover:bg-gray-50 transition-colors mobile-nav-link">四季风光</a>
+                <a href="#scenery"
+                    class="text-gray-700 hover:text-yili-green py-3 px-4 rounded-lg hover:bg-gray-50 transition-colors mobile-nav-link">自然风光</a>
+                <a href="#culture"
+                    class="text-gray-700 hover:text-yili-green py-3 px-4 rounded-lg hover:bg-gray-50 transition-colors mobile-nav-link">人文风情</a>
+                <a href="#intangible"
+                    class="text-gray-700 hover:text-yili-green py-3 px-4 rounded-lg hover:bg-gray-50 transition-colors mobile-nav-link">非遗文化</a>
+                <a href="#food"
+                    class="text-gray-700 hover:text-yili-green py-3 px-4 rounded-lg hover:bg-gray-50 transition-colors mobile-nav-link">特色美食</a>
+                <a href="#specialty"
+                    class="text-gray-700 hover:text-yili-green py-3 px-4 rounded-lg hover:bg-gray-50 transition-colors mobile-nav-link">伊犁好物</a>
+                <a href="#photography"
+                    class="text-gray-700 hover:text-yili-green py-3 px-4 rounded-lg hover:bg-gray-50 transition-colors mobile-nav-link">摄影指南</a>
+                <a href="#travel"
+                    class="text-gray-700 hover:text-yili-green py-3 px-4 rounded-lg hover:bg-gray-50 transition-colors mobile-nav-link">旅游攻略</a>
+                <a href="#reviews"
+                    class="text-gray-700 hover:text-yili-green py-3 px-4 rounded-lg hover:bg-gray-50 transition-colors mobile-nav-link">游客评价</a>
+                <a href="#contact"
+                    class="text-white bg-yili-green hover:bg-yili-green/90 py-3 px-4 rounded-lg mt-2 text-center btn-primary">联系我们</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 首页轮播（优化视觉层次） -->
+    <section id="home">
+        <div class="relative h-[80vh] md:h-[92vh] overflow-hidden">
+            <!-- 轮播图片 -->
+            <div class="carousel-container h-full">
+                <div class="carousel-item absolute inset-0 opacity-100">
+                    <img src="./img/伊利的夏天.jpg" alt="伊犁草原" class="w-full h-full object-cover">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-transparent flex items-center justify-center">
+                        <div class="text-center text-white px-4 max-w-3xl animate-slide-up">
+                            <h1 class="text-[clamp(2.2rem,6vw,4.5rem)] font-bold mb-6 text-shadow-lg leading-tight">塞外江南
+                                · 诗画伊犁</h1>
+                            <p class="text-[clamp(1.1rem,2.5vw,1.6rem)] mb-10 text-shadow max-w-2xl mx-auto">
+                                这里有辽阔的草原、壮丽的雪山、绚烂的花海，是人间最美的净土</p>
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                                <a href="#scenery"
+                                    class="bg-yili-green hover:bg-yili-green/90 text-white px-8 py-3 rounded-full font-medium transition-all btn-primary nav-link">
+                                    探索伊犁之美
+                                </a>
+                                <a href="#travel"
+                                    class="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white border border-white/40 px-8 py-3 rounded-full font-medium transition-all nav-link">
+                                    旅游攻略
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item absolute inset-0 opacity-0">
+                    <img src="./img/img/霍城薰衣草/5.png" alt="伊犁花海" class="w-full h-full object-cover">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-transparent flex items-center justify-center">
+                        <div class="text-center text-white px-4 max-w-3xl animate-slide-up">
+                            <h1 class="text-[clamp(2.2rem,6vw,4.5rem)] font-bold mb-6 text-shadow-lg leading-tight">万亩花海
+                                · 浪漫伊犁</h1>
+                            <p class="text-[clamp(1.1rem,2.5vw,1.6rem)] mb-10 text-shadow max-w-2xl mx-auto">
+                                薰衣草、油菜花、杏花，四季花海轮番绽放，编织出最美的梦境</p>
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                                <a href="#scenery"
+                                    class="bg-yili-yellow hover:bg-yili-yellow/90 text-white px-8 py-3 rounded-full font-medium transition-all btn-primary nav-link">
+                                    邂逅花海
+                                </a>
+                                <a href="#photography"
+                                    class="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white border border-white/40 px-8 py-3 rounded-full font-medium transition-all nav-link">
+                                    摄影指南
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item absolute inset-0 opacity-0">
+                    <img src="./img/3.jpg" alt="伊犁雪山" class="w-full h-full object-cover">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-transparent flex items-center justify-center">
+                        <div class="text-center text-white px-4 max-w-3xl animate-slide-up">
+                            <h1 class="text-[clamp(2.2rem,6vw,4.5rem)] font-bold mb-6 text-shadow-lg leading-tight">雪山草原
+                                · 壮美伊犁</h1>
+                            <p class="text-[clamp(1.1rem,2.5vw,1.6rem)] mb-10 text-shadow max-w-2xl mx-auto">
+                                天山山脉的冰雪融水滋养着这片土地，构成了独一无二的自然画卷</p>
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                                <a href="#scenery"
+                                    class="bg-yili-blue hover:bg-yili-blue/90 text-white px-8 py-3 rounded-full font-medium transition-all btn-primary nav-link">
+                                    感受自然
+                                </a>
+                                <a href="#contact"
+                                    class="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white border border-white/40 px-8 py-3 rounded-full font-medium transition-all nav-link">
+                                    咨询预订
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 轮播控制按钮（优化样式） -->
+            <button
+                class="carousel-prev absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/60 text-white w-12 h-12 rounded-full flex items-center justify-center backdrop-blur-sm transition-all hover:scale-110">
+                <i class="fa fa-chevron-left text-xl"></i>
+            </button>
+            <button
+                class="carousel-next absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/60 text-white w-12 h-12 rounded-full flex items-center justify-center backdrop-blur-sm transition-all hover:scale-110">
+                <i class="fa fa-chevron-right text-xl"></i>
+            </button>
+
+            <!-- 轮播指示器（优化交互） -->
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex space-x-3">
+                <button
+                    class="carousel-dot w-3 h-3 md:w-4 md:h-4 rounded-full bg-white/60 hover:bg-white active:bg-yili-green transition-all"></button>
+                <button
+                    class="carousel-dot w-3 h-3 md:w-4 md:h-4 rounded-full bg-white/60 hover:bg-white transition-all"></button>
+                <button
+                    class="carousel-dot w-3 h-3 md:w-4 md:h-4 rounded-full bg-white/60 hover:bg-white transition-all"></button>
+            </div>
+        </div>
+
+        <!-- 数据统计（优化布局与动画） -->
+        <div class="bg-white py-16">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10 text-center">
+                    <div class="counter p-4 rounded-xl hover:bg-gray-50 transition-colors">
+                        <div class="text-4xl md:text-5xl font-bold text-yili-green mb-3 counter-value"
+                            data-target="8600">33306</div>
+                        <p class="text-gray-600 text-sm md:text-base">平方公里草原</p>
+                    </div>
+                    <div class="counter p-4 rounded-xl hover:bg-gray-50 transition-colors"
+                        style="animation-delay: 0.2s">
+                        <div class="text-4xl md:text-5xl font-bold text-yili-blue mb-3 counter-value" data-target="47">
+                            13</div>
+                        <p class="text-gray-600 text-sm md:text-base">个世居民族</p>
+                    </div>
+                    <div class="counter p-4 rounded-xl hover:bg-gray-50 transition-colors"
+                        style="animation-delay: 0.4s">
+                        <div class="text-4xl md:text-5xl font-bold text-yili-purple mb-3 counter-value"
+                            data-target="120">12</div>
+                        <p class="text-gray-600 text-sm md:text-base">种特色美食</p>
+                    </div>
+                    <div class="counter p-4 rounded-xl hover:bg-gray-50 transition-colors"
+                        style="animation-delay: 0.6s">
+                        <div class="text-4xl md:text-5xl font-bold text-yili-orange mb-3 counter-value"
+                            data-target="500">9000</div>
+                        <p class="text-gray-600 text-sm md:text-base">万+ 年接待游客</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 四季风光（优化卡片样式） -->
+    <section id="seasons" class="py-20 px-4 bg-gradient-to-b from-white to-yili-snow " style="background: beige;">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,3vw,2.8rem)] font-bold text-gray-800 mb-4">伊犁四季 · 各有风华</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg">伊犁的四季，每一帧都是绝美的画卷，不同的季节有不同的惊喜</p>
+                <div class="w-24 h-1.5 bg-yili-purple mx-auto mt-6 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <!-- 春季 -->
+                <div class="season-card bg-white rounded-xl overflow-hidden card-shadow">
+                    <div class="h-56 overflow-hidden relative">
+                        <img src="./img/春天.jpg" alt="伊犁之春"
+                            class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                        <div
+                            class="absolute top-4 left-4 bg-yellow-500 text-white text-sm font-medium px-3 py-1 rounded-full">
+                            4-5月</div>
+                    </div>
+                    <div class="p-6 bg-gradient-to-b from-white to-yellow-50">
+                        <h3 class="text-xl font-bold text-yellow-600 mb-3">伊犁之春</h3>
+                        <p class="text-gray-600 mb-5 leading-relaxed">杏花沟的野杏花漫山遍野，吐尔根的杏花林如云似霞，草原开始复苏，万物焕发生机。</p>
+                        <h4 class="text-sm font-semibold text-gray-700 mb-2">推荐景点：</h4>
+                        <ul class="space-y-2 text-sm text-gray-700 mb-6">
+                            <li class="flex items-center"><i class="fa fa-map-marker text-yellow-600 mr-2"></i>吐尔根杏花沟
+                            </li>
+                            <li class="flex items-center"><i class="fa fa-map-marker text-yellow-600 mr-2"></i>大西沟福寿山
+                            </li>
+                            <li class="flex items-center"><i class="fa fa-map-marker text-yellow-600 mr-2"></i>霍城大西沟
+                            </li>
+                        </ul>
+                        <button
+                            class="mt-2 w-full bg-yellow-100 hover:bg-yellow-200 text-yellow-800 py-3 rounded-lg transition-colors detail-btn flex items-center justify-center gap-2"
+                            data-season="spring">
+                            <i class="fa fa-calendar"></i> 春季旅游攻略
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 夏季 -->
+                <div class="season-card bg-white rounded-xl overflow-hidden card-shadow">
+                    <div class="h-56 overflow-hidden relative">
+                        <img src="./img/伊利的夏天.jpg" alt="伊犁之夏"
+                            class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                        <div
+                            class="absolute top-4 left-4 bg-yili-green text-white text-sm font-medium px-3 py-1 rounded-full">
+                            6-8月</div>
+                    </div>
+                    <div class="p-6 bg-gradient-to-b from-white to-green-50">
+                        <h3 class="text-xl font-bold text-yili-green mb-3">伊犁之夏</h3>
+                        <p class="text-gray-600 mb-5 leading-relaxed">霍城薰衣草花海盛放，草原如绿毯铺展，赛里木湖湖水湛蓝，是伊犁最美的季节。</p>
+                        <h4 class="text-sm font-semibold text-gray-700 mb-2">推荐景点：</h4>
+                        <ul class="space-y-2 text-sm text-gray-700 mb-6">
+                            <li class="flex items-center"><i class="fa fa-map-marker text-yili-green mr-2"></i>霍城薰衣草基地
+                            </li>
+                            <li class="flex items-center"><i class="fa fa-map-marker text-yili-green mr-2"></i>那拉提空中草原
+                            </li>
+                            <li class="flex items-center"><i class="fa fa-map-marker text-yili-green mr-2"></i>赛里木湖</li>
+                        </ul>
+                        <button
+                            class="mt-2 w-full bg-green-100 hover:bg-green-200 text-green-800 py-3 rounded-lg transition-colors detail-btn flex items-center justify-center gap-2"
+                            data-season="summer">
+                            <i class="fa fa-calendar"></i> 夏季旅游攻略
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 秋季 -->
+                <div class="season-card bg-white rounded-xl overflow-hidden card-shadow">
+                    <div class="h-56 overflow-hidden relative">
+                        <img src="./img/11.png" alt="伊犁之秋"
+                            class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                        <div
+                            class="absolute top-4 left-4 bg-yili-orange text-white text-sm font-medium px-3 py-1 rounded-full">
+                            9-10月</div>
+                    </div>
+                    <div class="p-6 bg-gradient-to-b from-white to-orange-50">
+                        <h3 class="text-xl font-bold text-yili-orange mb-3">伊犁之秋</h3>
+                        <p class="text-gray-600 mb-5 leading-relaxed">草原变成金色的海洋，河谷两岸的胡杨和桦林层林尽染，瓜果飘香，丰收的季节。</p>
+                        <h4 class="text-sm font-semibold text-gray-700 mb-2">推荐景点：</h4>
+                        <ul class="space-y-2 text-sm text-gray-700 mb-6">
+                            <li class="flex items-center"><i class="fa fa-map-marker text-yili-orange mr-2"></i>琼库什台
+                            </li>
+                            <li class="flex items-center"><i class="fa fa-map-marker text-yili-orange mr-2"></i>库尔德宁
+                            </li>
+                            <li class="flex items-center"><i class="fa fa-map-marker text-yili-orange mr-2"></i>恰西森林公园
+                            </li>
+                        </ul>
+                        <button
+                            class="mt-2 w-full bg-orange-100 hover:bg-orange-200 text-orange-800 py-3 rounded-lg transition-colors detail-btn flex items-center justify-center gap-2"
+                            data-season="autumn">
+                            <i class="fa fa-calendar"></i> 秋季旅游攻略
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 冬季 -->
+                <div class="season-card bg-white rounded-xl overflow-hidden card-shadow">
+                    <div class="h-56 overflow-hidden relative">
+                        <img src="./img/3.jpg" alt="伊犁之冬"
+                            class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                        <div
+                            class="absolute top-4 left-4 bg-yili-blue text-white text-sm font-medium px-3 py-1 rounded-full">
+                            11-3月</div>
+                    </div>
+                    <div class="p-6 bg-gradient-to-b from-white to-blue-50">
+                        <h3 class="text-xl font-bold text-yili-blue mb-3">伊犁之冬</h3>
+                        <p class="text-gray-600 mb-5 leading-relaxed">雪山皑皑，草原银装素裹，天鹅泉的天鹅嬉戏，冬日的伊犁静谧而纯净，宛如童话世界。</p>
+                        <h4 class="text-sm font-semibold text-gray-700 mb-2">推荐景点：</h4>
+                        <ul class="space-y-2 text-sm text-gray-700 mb-6">
+                            <li class="flex items-center"><i class="fa fa-map-marker text-yili-blue mr-2"></i>伊宁县天鹅泉
+                            </li>
+                            <li class="flex items-center"><i class="fa fa-map-marker text-yili-blue mr-2"></i>那拉提滑雪场
+                            </li>
+                            <li class="flex items-center"><i class="fa fa-map-marker text-yili-blue mr-2"></i>昭苏雪域草原
+                            </li>
+                        </ul>
+                        <button
+                            class="mt-2 w-full bg-blue-100 hover:bg-blue-200 text-blue-800 py-3 rounded-lg transition-colors detail-btn flex items-center justify-center gap-2"
+                            data-season="winter">
+                            <i class="fa fa-calendar"></i> 冬季旅游攻略
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 四季活动日历（优化响应式） -->
+            <div class="mt-18 bg-white rounded-xl shadow-md p-6 md:p-8 mt-8">
+                <h3 class="text-xl md:text-2xl font-bold mb-8 text-center text-gray-800">伊犁四季活动日历</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full min-w-[800px] text-sm text-left rounded-lg overflow-hidden">
+                        <thead class="bg-gray-100 text-gray-700">
+                            <tr>
+                                <th class="px-4 py-4 rounded-l-lg font-semibold">月份</th>
+                                <th class="px-4 py-4 font-semibold">核心活动</th>
+                                <th class="px-4 py-4 font-semibold">特色体验</th>
+                                <th class="px-4 py-4 rounded-r-lg font-semibold">推荐指数</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-4 py-4 font-medium">4月</td>
+                                <td class="px-4 py-4">杏花节、吐尔根杏花摄影</td>
+                                <td class="px-4 py-4">草原踏青、民俗家访</td>
+                                <td class="px-4 py-4"><i class="fa fa-star text-yellow-400"></i><i
+                                        class="fa fa-star text-yellow-400"></i><i
+                                        class="fa fa-star text-yellow-400"></i><i
+                                        class="fa fa-star text-yellow-400"></i></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-4 py-4 font-medium">6月</td>
+                                <td class="px-4 py-4">薰衣草文化节、那拉提草原节</td>
+                                <td class="px-4 py-4">花海摄影、草原骑马</td>
+                                <td class="px-4 py-4"><i class="fa fa-star text-yellow-400"></i><i
+                                        class="fa fa-star text-yellow-400"></i><i
+                                        class="fa fa-star text-yellow-400"></i><i
+                                        class="fa fa-star text-yellow-400"></i><i
+                                        class="fa fa-star text-yellow-400"></i></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-4 py-4 font-medium">7月</td>
+                                <td class="px-4 py-4">昭苏天马节、阿肯弹唱会</td>
+                                <td class="px-4 py-4">赛马、叼羊、民族歌舞</td>
+                                <td class="px-4 py-4"><i class="fa fa-star text-yellow-400"></i><i
+                                        class="fa fa-star text-yellow-400"></i><i
+                                        class="fa fa-star text-yellow-400"></i><i
+                                        class="fa fa-star text-yellow-400"></i><i
+                                        class="fa fa-star text-yellow-400"></i></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-4 py-4 font-medium">9月</td>
+                                <td class="px-4 py-4">葡萄采摘节、金秋摄影大赛</td>
+                                <td class="px-4 py-4">瓜果采摘、金秋摄影</td>
+                                <td class="px-4 py-4"><i class="fa fa-star text-yellow-400"></i><i
+                                        class="fa fa-star text-yellow-400"></i><i
+                                        class="fa fa-star text-yellow-400"></i><i
+                                        class="fa fa-star text-yellow-400"></i><i
+                                        class="fa fa-star-half-o text-yellow-400"></i></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-4 py-4 font-medium">1月</td>
+                                <td class="px-4 py-4">冰雪旅游节、天鹅泉观鸟</td>
+                                <td class="px-4 py-4">滑雪、冰雕、冬捕</td>
+                                <td class="px-4 py-4"><i class="fa fa-star text-yellow-400"></i><i
+                                        class="fa fa-star text-yellow-400"></i><i
+                                        class="fa fa-star text-yellow-400"></i><i
+                                        class="fa fa-star-half-o text-yellow-400"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-8 text-center">
+                    <a href="https://www.mafengwo.cn/" target="_blank"
+                        class="inline-flex items-center bg-yili-purple text-white px-6 py-3 rounded-lg hover:bg-yili-purple/90 transition-colors btn-primary">
+                        <i class="fa fa-external-link mr-2"></i>
+                        查看完整活动日历（官网）
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 自然风光（修复图片链接，优化卡片交互） -->
+    <section id="scenery" class="py-20 px-4">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,3vw,2.8rem)] font-bold text-gray-800 mb-4">自然风光</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg">伊犁的美，在于它的自然与纯粹，每一处风景都如诗如画</p>
+                <div class="w-24 h-1.5 bg-yili-green mx-auto mt-6 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 那拉提草原 -->
+                <div class="bg-white rounded-xl overflow-hidden card-shadow hover-lift">
+                    <div class="h-64 overflow-hidden">
+                        <img src="./img/草原.jpg" alt="那拉提草原" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">那拉提草原</h3>
+                        <div class="flex items-center text-sm text-gray-500 mb-4">
+                            <i class="fa fa-map-marker text-yili-green mr-1"></i>
+                            <span>新源县境内 | 国家5A级景区</span>
+                        </div>
+                        <p class="text-gray-600 mb-5 leading-relaxed">
+                            世界四大高山草原之一，素有"空中草原"之称。夏季绿草如茵，牛羊成群，雪山环抱，美不胜收。核心景点：空中草原、河谷草原、盘龙古道。</p>
+                        <div class="flex items-center text-yellow-500 mb-6">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <span class="ml-2 text-gray-500">5.0 (2.3万评价)</span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <a href="./那拉提.html" target="_blank"
+                                class="flex-1 text-center text-yili-green hover:text-white hover:bg-yili-green py-2.5 rounded-lg border border-yili-green transition-colors">
+                                <i class="fa fa-globe mr-1"></i>官网
+                            </a>
+                            <button
+                                class="flex-1 text-center text-white bg-yili-green hover:bg-yili-green/90 py-2.5 rounded-lg transition-colors book-btn btn-primary"
+                                data-scenic="nalati">
+                                <i class="fa fa-ticket mr-1"></i>订票
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 喀拉峻草原 -->
+                <div class="bg-white rounded-xl overflow-hidden card-shadow hover-lift">
+                    <div class="h-64 overflow-hidden">
+                        <img src="./img/img/喀拉峻草原/3.png" alt="喀拉峻草原" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">喀拉峻草原</h3>
+                        <div class="flex items-center text-sm text-gray-500 mb-4">
+                            <i class="fa fa-map-marker text-yili-green mr-1"></i>
+                            <span>特克斯县境内 | 世界自然遗产</span>
+                        </div>
+                        <p class="text-gray-600 mb-5 leading-relaxed">
+                            被誉为"人体草原"，起伏的草原曲线优美，夏季野花遍地，是摄影爱好者的天堂。核心景点：阔克苏大峡谷、猎鹰台、鲜花台。</p>
+                        <div class="flex items-center text-yellow-500 mb-6">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-half-o"></i>
+                            <span class="ml-2 text-gray-500">4.5 (1.8万评价)</span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <a href="./喀拉峻.html" target="_blank"
+                                class="flex-1 text-center text-yili-green hover:text-white hover:bg-yili-green py-2.5 rounded-lg border border-yili-green transition-colors">
+                                <i class="fa fa-globe mr-1"></i>官网
+                            </a>
+                            <button
+                                class="flex-1 text-center text-white bg-yili-green hover:bg-yili-green/90 py-2.5 rounded-lg transition-colors book-btn btn-primary"
+                                data-scenic="kelajun">
+                                <i class="fa fa-ticket mr-1"></i>订票
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 霍城薰衣草 -->
+                <div class="bg-white rounded-xl overflow-hidden card-shadow hover-lift">
+                    <div class="h-64 overflow-hidden">
+                        <img src="./img/5.png" alt="霍城薰衣草" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">霍城薰衣草</h3>
+                        <div class="flex items-center text-sm text-gray-500 mb-4">
+                            <i class="fa fa-map-marker text-yili-green mr-1"></i>
+                            <span>霍城县芦草沟镇 | 中国薰衣草之乡</span>
+                        </div>
+                        <p class="text-gray-600 mb-5 leading-relaxed">
+                            中国最大的薰衣草种植基地，每年6-7月，万亩薰衣草花海盛开，香气四溢。核心景点：解忧公主薰衣草园、65团薰衣草基地。</p>
+                        <div class="flex items-center text-yellow-500 mb-6">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <span class="ml-2 text-gray-500">5.0 (2.1万评价)</span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <a href="./薰衣草.html" target="_blank"
+                                class="flex-1 text-center text-yili-green hover:text-white hover:bg-yili-green py-2.5 rounded-lg border border-yili-green transition-colors">
+                                <i class="fa fa-globe mr-1"></i>官网
+                            </a>
+                            <button
+                                class="flex-1 text-center text-white bg-yili-green hover:bg-yili-green/90 py-2.5 rounded-lg transition-colors book-btn btn-primary"
+                                data-scenic="huocheng">
+                                <i class="fa fa-ticket mr-1"></i>订票
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 赛里木湖 -->
+                <div class="bg-white rounded-xl overflow-hidden card-shadow hover-lift">
+                    <div class="h-64 overflow-hidden">
+                        <img src="./img/赛里木湖 (5).jpg" alt="赛里木湖" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">赛里木湖</h3>
+                        <div class="flex items-center text-sm text-gray-500 mb-4">
+                            <i class="fa fa-map-marker text-yili-green mr-1"></i>
+                            <span>博州境内 | 国家5A级景区</span>
+                        </div>
+                        <p class="text-gray-600 mb-5 leading-relaxed">
+                            大西洋最后一滴眼泪，湖水湛蓝如宝石，环湖公路风景绝美，是新疆海拔最高的高山湖泊。核心景点：西海草原、亲水滩、点将台。</p>
+                        <div class="flex items-center text-yellow-500 mb-6">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-half-o"></i>
+                            <span class="ml-2 text-gray-500">4.8 (3.2万评价)</span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <a href="./赛里木湖.html" target="_blank"
+                                class="flex-1 text-center text-yili-green hover:text-white hover:bg-yili-green py-2.5 rounded-lg border border-yili-green transition-colors">
+                                <i class="fa fa-globe mr-1"></i>官网
+                            </a>
+                            <button
+                                class="flex-1 text-center text-white bg-yili-green hover:bg-yili-green/90 py-2.5 rounded-lg transition-colors book-btn btn-primary"
+                                data-scenic="sailimu">
+                                <i class="fa fa-ticket mr-1"></i>订票
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 夏塔古道 -->
+                <div class="bg-white rounded-xl overflow-hidden card-shadow hover-lift">
+                    <div class="h-64 overflow-hidden">
+                        <img src="./img/img/昭苏夏塔/2.png" alt="夏塔古道" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">夏塔古道</h3>
+                        <div class="flex items-center text-sm text-gray-500 mb-4">
+                            <i class="fa fa-map-marker text-yili-green mr-1"></i>
+                            <span>昭苏县境内 | 国家森林公园</span>
+                        </div>
+                        <p class="text-gray-600 mb-5 leading-relaxed">
+                            古代丝绸之路的重要通道，雪山、冰川、森林、草原融为一体，徒步爱好者的圣地。核心景点：夏塔温泉、木扎尔特冰川、夏塔古城。</p>
+                        <div class="flex items-center text-yellow-500 mb-6">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-o"></i>
+                            <span class="ml-2 text-gray-500">4.0 (1.1万评价)</span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <a href="./夏塔古道.html" target="_blank"
+                                class="flex-1 text-center text-yili-green hover:text-white hover:bg-yili-green py-2.5 rounded-lg border border-yili-green transition-colors">
+                                <i class="fa fa-globe mr-1"></i>官网
+                            </a>
+                            <button
+                                class="flex-1 text-center text-white bg-yili-green hover:bg-yili-green/90 py-2.5 rounded-lg transition-colors book-btn btn-primary"
+                                data-scenic="xiata">
+                                <i class="fa fa-ticket mr-1"></i>订票
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 琼库什台 -->
+                <div class="bg-white rounded-xl overflow-hidden card-shadow hover-lift">
+                    <div class="h-64 overflow-hidden">
+                        <img src="./img/img/琼库什台/10.png" alt="琼库什台" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">琼库什台</h3>
+                        <div class="flex items-center text-sm text-gray-500 mb-4">
+                            <i class="fa fa-map-marker text-yili-green mr-1"></i>
+                            <span>特克斯县境内 | 历史文化名村</span>
+                        </div>
+                        <p class="text-gray-600 mb-5 leading-relaxed">
+                            原生态的哈萨克村落，草原起伏如波浪，木屋错落有致，保留着最原始的自然风貌。核心体验：草原徒步、星空露营、民俗体验。</p>
+                        <div class="flex items-center text-yellow-500 mb-6">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-half-o"></i>
+                            <span class="ml-2 text-gray-500">4.7 (1.5万评价)</span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <a href="./" target="_blank"
+                                class="flex-1 text-center text-yili-green hover:text-white hover:bg-yili-green py-2.5 rounded-lg border border-yili-green transition-colors">
+                                <i class="fa fa-globe mr-1"></i>官网
+                            </a>
+                            <button
+                                class="flex-1 text-center text-white bg-yili-green hover:bg-yili-green/90 py-2.5 rounded-lg transition-colors book-btn btn-primary"
+                                data-scenic="qiongkushi">
+                                <i class="fa fa-ticket mr-1"></i>订票
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 更多景点按钮（优化样式） -->
+            <div class="text-center mt-16">
+                <a href="https://www.mafengwo.cn/" target="_blank"
+                    class="inline-flex items-center border-2 border-yili-green text-yili-green hover:bg-yili-green hover:text-white px-8 py-3 rounded-full font-medium transition-all btn-primary">
+                    查看更多景点 <i class="fa fa-angle-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们板块（优化表单样式） -->
+    <section id="contact" class="py-20 px-4 bg-gray-50" style="background: beige;">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,3vw,2.8rem)] font-bold text-gray-800 mb-4">联系我们</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg">如需了解更多伊犁旅游信息，欢迎联系我们</p>
+                <div class="w-24 h-1.5 bg-yili-blue mx-auto mt-6 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- 联系信息（优化布局） -->
+                <div class="bg-white p-8 rounded-xl shadow-md">
+                    <h3 class="text-xl font-bold mb-8 text-gray-800">联系方式</h3>
+                    <div class="space-y-8">
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-3 rounded-full mr-5">
+                                <i class="fa fa-phone text-yili-blue text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 mb-2">旅游咨询热线</h4>
+                                <p class="text-gray-600 text-lg">400-888-9999</p>
+                                <p class="text-gray-500 text-sm mt-1">工作时间：9:00-18:00（全年无休）</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-3 rounded-full mr-5">
+                                <i class="fa fa-envelope text-yili-blue text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 mb-2">邮箱</h4>
+                                <p class="text-gray-600 text-lg">tourism@yili.gov.cn</p>
+                                <p class="text-gray-500 text-sm mt-1">24小时内回复您的咨询</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-3 rounded-full mr-5">
+                                <i class="fa fa-map-marker text-yili-blue text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 mb-2">地址</h4>
+                                <p class="text-gray-600 text-lg">新疆伊犁哈萨克自治州伊宁市解放路1号</p>
+                                <p class="text-gray-500 text-sm mt-1">伊犁州文化体育广播电视和旅游局</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-3 rounded-full mr-5">
+                                <i class="fa fa-weixin text-yili-blue text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 mb-2">微信公众号</h4>
+                                <p class="text-gray-600 text-lg">伊犁旅游</p>
+                                <div
+                                    class="mt-3 w-36 h-36 bg-gray-100 flex items-center justify-center rounded-lg border border-gray-200">
+                                    <p class="text-gray-500 text-xs text-center">扫码关注<br>获取最新活动</p>
+                                    <img src="./img/1766975022305.jpeg" alt="霍城薰衣草" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 社交媒体链接（优化样式） -->
+                    <div class="mt-10">
+                        <h4 class="font-bold text-gray-800 mb-4">关注我们</h4>
+                        <div class="flex space-x-5">
+                            <a href="https://weibo.com/" target="_blank"
+                                class="w-12 h-12 rounded-full bg-red-500 text-white flex items-center justify-center hover:bg-red-600 transition-all hover:scale-110 shadow-md">
+                                <i class="fa fa-weibo text-lg"></i>
+                            </a>
+                            <a href="https://www.douyin.com/" target="_blank"
+                                class="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center hover:bg-gray-800 transition-all hover:scale-110 shadow-md">
+                                <i class="fa fa-music text-lg"></i>
+                            </a>
+                            <a href="https://www.mafengwo.cn/" target="_blank"
+                                class="w-12 h-12 rounded-full bg-orange-500 text-white flex items-center justify-center hover:bg-orange-600 transition-all hover:scale-110 shadow-md">
+                                <i class="fa fa-globe text-lg"></i>
+                            </a>
+                            <a href="https://www.xiaohongshu.com/" target="_blank"
+                                class="w-12 h-12 rounded-full bg-pink-500 text-white flex items-center justify-center hover:bg-pink-600 transition-all hover:scale-110 shadow-md">
+                                <i class="fa fa-heart text-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 留言表单（优化样式与交互） -->
+                <div class="bg-white p-8 rounded-xl shadow-md">
+                    <h3 class="text-xl font-bold mb-8 text-gray-800">在线留言</h3>
+                    <form id="contactForm" class="space-y-5">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">姓名 <span
+                                        class="text-red-500">*</span></label>
+                                <input type="text" id="name" name="name" required
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yili-blue focus:border-transparent transition-all"
+                                    placeholder="请输入您的姓名">
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">电话 <span
+                                        class="text-red-500">*</span></label>
+                                <input type="tel" id="phone" name="phone" required
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yili-blue focus:border-transparent transition-all"
+                                    placeholder="请输入您的手机号码">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">邮箱 <span
+                                    class="text-red-500">*</span></label>
+                            <input type="email" id="email" name="email" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yili-blue focus:border-transparent transition-all"
+                                placeholder="请输入您的邮箱地址">
+                        </div>
+
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">咨询主题 <span
+                                    class="text-red-500">*</span></label>
+                            <select id="subject" name="subject" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yili-blue focus:border-transparent transition-all">
+                                <option value="">请选择咨询主题</option>
+                                <option value="ticket">门票预订</option>
+                                <option value="route">线路咨询</option>
+                                <option value="accommodation">住宿预订</option>
+                                <option value="food">美食推荐</option>
+                                <option value="group">团队定制</option>
+                                <option value="other">其他咨询</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">留言内容 <span
+                                    class="text-red-500">*</span></label>
+                            <textarea id="message" name="message" rows="5" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yili-blue focus:border-transparent transition-all"
+                                placeholder="请详细描述您的咨询内容，以便我们更好地为您服务"></textarea>
+                        </div>
+
+                        <div class="flex items-start">
+                            <input type="checkbox" id="agreement" name="agreement" required
+                                class="h-4 w-4 text-yili-blue focus:ring-yili-blue border-gray-300 rounded mt-1">
+                            <label for="agreement" class="ml-3 block text-sm text-gray-700">
+                                我同意伊犁旅游局收集并处理我的个人信息用于回复咨询（我们将严格保护您的隐私）
+                            </label>
+                        </div>
+
+                        <button type="submit" id="submitBtn"
+                            class="w-full bg-yili-blue text-white py-3.5 rounded-lg hover:bg-yili-blue/90 transition-colors flex items-center justify-center btn-primary">
+                            <span>提交留言</span>
+                            <div class="loader ml-3"></div>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚（优化布局与样式） -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                        <i class="fa fa-leaf text-yili-green"></i>
+                        <span>伊犁旅游</span>
+                    </h3>
+                    <p class="text-gray-400 mb-6 leading-relaxed">塞外江南 · 诗画伊犁<br>一生一定要去一次的人间净土</p>
+                    <div class="flex space-x-4">
+                        <a href="https://weibo.com/" target="_blank"
+                            class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-weibo text-xl"></i>
+                        </a>
+                        <a href="https://www.douyin.com/" target="_blank"
+                            class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-music text-xl"></i>
+                        </a>
+                        <a href="https://www.mafengwo.cn/" target="_blank"
+                            class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-globe text-xl"></i>
+                        </a>
+                        <a href="https://www.xiaohongshu.com/" target="_blank"
+                            class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-heart text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold mb-6 text-gray-100">快速链接</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition-colors nav-link">首页</a>
+                        </li>
+                        <li><a href="#seasons"
+                                class="text-gray-400 hover:text-white transition-colors nav-link">四季风光</a></li>
+                        <li><a href="#scenery"
+                                class="text-gray-400 hover:text-white transition-colors nav-link">自然风光</a></li>
+                        <li><a href="#culture"
+                                class="text-gray-400 hover:text-white transition-colors nav-link">人文风情</a></li>
+                        <li><a href="#food" class="text-gray-400 hover:text-white transition-colors nav-link">特色美食</a>
+                        </li>
+                        <li><a href="#travel" class="text-gray-400 hover:text-white transition-colors nav-link">旅游攻略</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold mb-6 text-gray-100">实用信息</h3>
+                    <ul class="space-y-3">
+                        <li><a href="https://www.yili.gov.cn/travel/traffic/" target="_blank"
+                                class="text-gray-400 hover:text-white transition-colors">交通指南</a></li>
+                        <li><a href="https://www.yili.gov.cn/travel/accommodation/" target="_blank"
+                                class="text-gray-400 hover:text-white transition-colors">住宿推荐</a></li>
+                        <li><a href="https://www.yili.gov.cn/travel/safety/" target="_blank"
+                                class="text-gray-400 hover:text-white transition-colors">旅游安全</a></li>
+                        <li><a href="https://www.yili.gov.cn/travel/weather/" target="_blank"
+                                class="text-gray-400 hover:text-white transition-colors">天气预报</a></li>
+                        <li><a href="https://www.yili.gov.cn/travel/service/" target="_blank"
+                                class="text-gray-400 hover:text-white transition-colors">便民服务</a></li>
+                        <li><a href="https://www.yili.gov.cn/travel/faq/" target="_blank"
+                                class="text-gray-400 hover:text-white transition-colors">常见问题</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold mb-6 text-gray-100">官方网站</h3>
+                    <ul class="space-y-3">
+                        <li><a href="https://www.yili.gov.cn/" target="_blank"
+                                class="text-gray-400 hover:text-white transition-colors">伊犁州政府官网</a></li>
+                        <li><a href="https://www.yilily.com/" target="_blank"
+                                class="text-gray-400 hover:text-white transition-colors">伊犁旅游官网</a></li>
+                        <li><a href="https://www.xinjiang.gov.cn/" target="_blank"
+                                class="text-gray-400 hover:text-white transition-colors">新疆政府官网</a></li>
+                        <li><a href="https://www.xinjiangtour.gov.cn/" target="_blank"
+                                class="text-gray-400 hover:text-white transition-colors">新疆文旅厅</a></li>
+                        <li><a href="https://www.12301.cn/" target="_blank"
+                                class="text-gray-400 hover:text-white transition-colors">旅游投诉平台</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <div class="text-gray-500 text-sm mb-4 md:mb-0">
+                </div>
+                <div class="text-gray-500 text-sm flex flex-col md:flex-row gap-4 md:gap-8">
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- 轮播图控制脚本 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const carouselItems = document.querySelectorAll('.carousel-item');
+            const dots = document.querySelectorAll('.carousel-dot');
+            const prevBtn = document.querySelector('.carousel-prev');
+            const nextBtn = document.querySelector('.carousel-next');
+            let currentIndex = 0;
+            let slideInterval;
+
+            // 初始化函数，设置第一张为活动状态
+            function initCarousel() {
+                updateCarousel();
+                startAutoSlide();
+            }
+
+            // 更新轮播图显示
+            function updateCarousel() {
+                carouselItems.forEach((item, index) => {
+                    item.style.opacity = index === currentIndex ? '1' : '0';
+                });
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('bg-yili-green', index === currentIndex);
+                    dot.classList.toggle('bg-white/60', index !== currentIndex);
+                });
+            }
+
+            // 移动到下一张
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % carouselItems.length;
+                updateCarousel();
+            }
+
+            // 移动到上一张
+            function prevSlide() {
+                currentIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
+                updateCarousel();
+            }
+
+            // 开始自动轮播
+            function startAutoSlide() {
+                slideInterval = setInterval(nextSlide, 5000); // 每5秒切换一次
+            }
+
+            // 停止自动轮播
+            function stopAutoSlide() {
+                clearInterval(slideInterval);
+            }
+
+            // 为按钮添加事件监听器
+            nextBtn.addEventListener('click', function () {
+                stopAutoSlide();
+                nextSlide();
+                startAutoSlide();
+            });
+
+            prevBtn.addEventListener('click', function () {
+                stopAutoSlide();
+                prevSlide();
+                startAutoSlide();
+            });
+
+            // 为指示器添加事件监听器
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', function () {
+                    stopAutoSlide();
+                    currentIndex = index;
+                    updateCarousel();
+                    startAutoSlide();
+                });
+            });
+
+            // 鼠标悬停在轮播图上时停止自动播放
+            const carouselContainer = document.querySelector('.carousel-container').parentElement;
+            carouselContainer.addEventListener('mouseenter', stopAutoSlide);
+            carouselContainer.addEventListener('mouseleave', startAutoSlide);
+
+
+            // 启动轮播图
+            initCarousel();
+        });
+    </script>
+
+</body>
+
+</html>
+</body>
+<!-- 详情

@@ -1,0 +1,97 @@
+  <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新疆烤肉</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft YaHei", sans-serif;
+            background-image: url("./照片/艾特莱斯1.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 30px 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            backdrop-filter: blur(10px); /* 毛玻璃效果 */
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .video-container {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .video-title {
+            font-size: 24px;
+            color: #f5d76e; /* 金色文字 */
+            margin-bottom: 15px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .video-player {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .food-text {
+            flex: 1;
+            min-width: 300px;
+            color: #eaeaea; /* 浅灰文字 */
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        .food-text p {
+            margin-bottom: 12px;
+            padding-left: 10px;
+            border-left: 3px solid #f5d76e; /* 金色左边线 */
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="video-container">
+            <div class="video-title">新疆烤肉</div>
+            <video class="video-player" controls preload="metadata">
+                <source src="./照片/烤肉视频.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="food-text">
+            <p>新疆烤肉是新疆地区极具特色的美食，以下是其主要特点：</p>
+            <p>食材优质：新疆有广阔的牧场，羊肉品质优良，当地有“吃的是中草药，喝的是天山水”的说法，形容羊的生长环境优越，肉质鲜嫩、不膻不腻。</p>
+            <p>串大肉多：新疆烤肉的肉块通常较大，每串的份量很足，一般在150到200克左右，彰显出新疆人豪放的性格。</p>
+            <p>烤制方法多样：常见的有铁签子烤肉，也有用红柳枝串肉烤制的，红柳枝分泌的植物汁液能为烤肉增添独特风味。还有馕坑烤肉，将肉块用调料腌制后贴在馕坑内壁烤制，利用坑火的辐射热和坑壁的高温，使烤肉外脆里嫩。</p>
+            <p>调味独特：主要调料有盐、孜然、干辣椒面等，烤制时边烤边撒，让调料充分渗入肉中，烤出的肉味道微辣中带着鲜香，孜然香味浓郁。</p>
+            <p>口感丰富：经过炭火烤制的新疆烤肉，外皮焦香酥脆，内部鲜嫩多汁，咬下去汁水四溢，口感层次丰富，既有烤肉的焦香，又有羊肉本身的鲜嫩。</p>
+            <p>饮食文化浓郁：新疆烤肉不仅是一种美食，更是新疆饮食文化的重要代表，常与馕搭配食用，形成“馕包肉”的独特吃法，还可搭配冰镇乌苏啤酒，体现了新疆人热情豪放的生活态度。</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>星系</title>
+  <script src="./js/three.min.js"></script>
+  <script src="./js/OrbitControls.js"></script>
+  <link rel="stylesheet" href="./css/index.css">
+  <style>
+    /* 通用悬浮窗样式 */
+    .float-window {
+      position: fixed;
+      /* 固定定位，不随滚动移动 */
+      top: 50%;
+      /* 垂直居中 */
+      transform: translateY(-50%);
+      /* 修正垂直居中偏移 */
+      width: 200px;
+      padding: 20px;
+      background: rgba(14, 13, 13, 0.95);
+      /* 半透明白底 */
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      /* 阴影增强立体感 */
+      z-index: 9999;
+      /* 确保浮在最上层 */
+      box-sizing: border-box;
+    }
+
+    /* 左侧悬浮窗定位 */
+    .left-float {
+      left: 20px;
+    }
+
+    /* 右侧悬浮窗定位 */
+    .right-float {
+      right: 40px;
+    }
+
+    /* 浮窗内元素样式（可选） */
+    .float-window h3 {
+      margin: 0 0 15px 0;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .float-window p,
+    .float-window a {
+      font-size: 14px;
+      color: #666;
+      text-decoration: none;
+      line-height: 1.5;
+    }
+
+    .float-window a:hover {
+      color: #007bff;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div>
+    <canvas id="main"></canvas>
+    <script src="./js/其他星球/土星.js"></script>
+  </div>
+  <!-- 左侧悬浮窗 -->
+  <div class="float-window left-float" style="color: #007bff;">
+    <h3 style="font-size: 24px; color: gold;">简介</h3>
+    <span
+      style="font-size: 17px;">土星是太阳系八大行星中距太阳第六近的气态巨行星，与太阳平均距离约14.3亿千米，体积居太阳系行星第二位，质量排名第六，因拥有绝美耀眼的行星环，被誉为太阳系中最美丽的行星。它的公转周期约29.5个地球年，自转速度极快，一周仅需10小时33分钟，高速自转让其呈现出明显的赤道凸起、两极扁平的扁球状。土星的大气主要由氢和氦构成，
+
+    </span>
+  </div>
+
+  <!-- 右侧悬浮窗 -->
+  <div class="float-window right-float" style="color: #007bff;">
+    <span>
+      内部是岩石与冰组成的核心，平均密度仅0.69g/cm³，是太阳系中密度最小的行星，密度甚至低于液态水。土星最标志性的特征是环绕赤道的土星环，环带由无数冰块、岩石碎片和尘埃组成，宽超20万千米，厚度却不足10千米，在宇宙中折射出璀璨光芒；它拥有超140颗天然卫星，其中土卫六是太阳系第二大卫星，拥有浓厚大气层，也是太阳系中唯一存在稳定液态烃海洋的卫星。
+    </span>
+  </div>
+</body>
+
+</html>

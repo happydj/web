@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博尔塔拉职业技术学院 - 校园概况</title>
+    <!-- 外部资源 -->
+    <script src="./js/aaa.js"></script>
+    <link href="./css/all.min.css" rel="stylesheet">
+    <link href="./css/fontawesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./font_4vwvjjpxmig/iconfont.css">
+
+    <!-- Tailwind 配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5b7bda', // 博州蓝（主色调）
+                        secondary: '#5b7bda', // 草原绿（辅助色）
+                        accent: '#5b7bda', // 沙漠金（强调色）
+                        neutral: '#F8FAFC', // 背景色
+                        dark: '#1E293B', // 文本色
+                    },
+                    fontFamily: {
+                        sans: ['PingFang SC', 'Microsoft YaHei', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <!-- 自定义样式 -->
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            }
+            .hover-scale {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .hover-scale:hover {
+                transform: scale(1.02);
+                box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+            }
+            .bg-gradient-bor {
+                background: linear-gradient(135deg, #5b7bda 0%, #5b7bda 100%);
+            }
+        }
+        
+        /* 全局样式 */
+        body {
+            scroll-behavior: smooth;
+        }
+        
+        /* 导航栏滚动效果 */
+        .nav-fixed {
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+    </style>
+</head>
+
+<body class="bg-white text-dark font-sans">
+    <!-- 顶部通知栏 -->
+    <div class="bg-primary text-white py-2 px-4 text-center text-sm">
+        <p>博尔塔拉职业技术学院 © 2025 招生咨询热线：0909-2318888</p>
+    </div>
+
+    <!-- 导航栏 -->
+    <header id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300 bg-white/90 backdrop-blur-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <!-- 校徽+校名 -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white">
+                        <i class="fa fa-graduation-cap text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-lg md:text-xl font-bold text-primary">博尔塔拉职业技术学院</h1>
+                        <p class="text-xs text-gray-600 hidden sm:block">BORTALA VOCATIONAL AND TECHNICAL COLLEGE</p>
+                    </div>
+                </div>
+
+                <!-- 桌面端导航 -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#intro" class="text-dark hover:text-primary transition-colors font-medium">学院简介</a>
+                    <a href="#features" class="text-dark hover:text-primary transition-colors font-medium">办学特色</a>
+                    <a href="#departments" class="text-dark hover:text-primary transition-colors font-medium">院系设置</a>
+                    <a href="#campus" class="text-dark hover:text-primary transition-colors font-medium">校园环境</a>
+                    <a href="#employment" class="text-dark hover:text-primary transition-colors font-medium">招生就业</a>
+                    <a href="#contact"
+                        class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors font-medium">
+                        联系我们
+                    </a>
+                </nav>
+
+                <!-- 移动端菜单按钮 -->
+                <button id="menuBtn" class="md:hidden text-dark hover:text-primary">
+                    <i class="fa fa-bars text-xl"></i>
+                </button>
+            </div>
+
+            <!-- 移动端导航菜单 -->
+            <div id="mobileMenu" class="md:hidden hidden pb-4">
+                <div class="flex flex-col space-y-3 bg-white p-4 rounded-lg shadow-lg">
+                    <a href="#intro" class="text-dark hover:text-primary transition-colors font-medium py-2">学院简介</a>
+                    <a href="#features" class="text-dark hover:text-primary transition-colors font-medium py-2">办学特色</a>
+                    <a href="#departments"
+                        class="text-dark hover:text-primary transition-colors font-medium py-2">院系设置</a>
+                    <a href="#campus" class="text-dark hover:text-primary transition-colors font-medium py-2">校园环境</a>
+                    <a href="#employment"
+                        class="text-dark hover:text-primary transition-colors font-medium py-2">招生就业</a>
+                    <a href="#contact"
+                        class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors font-medium text-center">
+                        联系我们
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 首屏横幅 -->
+    <section class="pt-28 md:pt-32 pb-16 md:pb-24 relative h-[70vh] md:h-[85vh] overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://picsum.photos/id/158/1920/1080" alt="博尔塔拉职业技术学院校园全景" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-r from-primary/70 to-primary/30"></div>
+        </div>
+
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 h-full flex flex-col justify-center">
+            <div class="max-w-2xl text-white">
+                <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight mb-6 text-shadow">
+                    博尔塔拉职业技术学院
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 text-white/90">
+                    立足博州 · 服务新疆 · 面向全国 · 辐射中亚
+                </p>
+                <p class="mb-8 text-white/80 max-w-lg">
+                    学院是博尔塔拉蒙古自治州唯一的全日制公办普通高等职业院校，秉承"厚德强技、知行合一"的校训，培养适应区域经济社会发展需要的高素质技术技能人才。
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#intro"
+                        class="bg-white text-primary px-8 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
+                        了解学院 <i class="fa fa-arrow-right ml-2"></i>
+                    </a>
+                    <a href="#employment"
+                        class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-medium hover:bg-white/10 transition-colors">
+                        招生信息 <i class="fa fa-info-circle ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 学院简介 -->
+    <section id="intro" class="py-16 md:py-24 bg-neutral">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">学院简介</h2>
+                <div class="w-20 h-1 bg-secondary mx-auto"></div>
+                <p class="mt-4 text-gray-700 max-w-2xl mx-auto">
+                    博尔塔拉职业技术学院成立于2017年，是博州党委、政府整合全州职业教育资源组建的公办全日制普通高等职业院校
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <img src="tupian/主页.png" alt="博尔塔拉职业技术学院校园鸟瞰图" class="rounded-xl shadow-lg hover-scale w-full">
+                </div>
+                <div class="space-y-6">
+                    <p class="text-lg leading-relaxed text-gray-800">
+                        博尔塔拉职业技术学院坐落于美丽的博尔塔拉蒙古自治州博乐市，学院总占地面积182亩，建筑面积10.2万平方米，总投资5.3亿元。
+                    </p>
+                    <p class="leading-relaxed text-gray-700">
+                        学院现有教职工320人，其中专任教师285人，副高级以上职称教师68人，"双师型"教师占比达65%。全日制在校学生6000余人，开设高职专业23个，中职专业18个，形成了以工科为主，涵盖医卫、教育、财经、旅游、文化艺术等多门类协调发展的专业体系。
+                    </p>
+                    <p class="leading-relaxed text-gray-700">
+                        学院紧紧围绕博州及周边地区产业发展需求，深化产教融合、校企合作，与州内外80余家企业建立了稳定的合作关系，建成了多个校内实训中心和校外实习基地，毕业生就业率连续多年保持在95%以上。
+                    </p>
+
+                    <!-- 核心数据 -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
+                        <div class="bg-white p-4 rounded-lg text-center shadow-sm">
+                            <span class="block text-3xl font-bold text-primary">6000+</span>
+                            <span class="text-sm text-gray-600">在校学生</span>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg text-center shadow-sm">
+                            <span class="block text-3xl font-bold text-primary">23</span>
+                            <span class="text-sm text-gray-600">高职专业</span>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg text-center shadow-sm">
+                            <span class="block text-3xl font-bold text-primary">320</span>
+                            <span class="text-sm text-gray-600">教职工</span>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg text-center shadow-sm">
+                            <span class="block text-3xl font-bold text-primary">95%+</span>
+                            <span class="text-sm text-gray-600">就业率</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 办学定位 -->
+            <div class="mt-16 bg-white rounded-xl shadow-md p-8">
+                <h3 class="text-2xl font-bold text-primary mb-6 text-center">办学定位</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="border-l-4 border-primary pl-4">
+                        <h4 class="font-bold text-lg mb-2">办学宗旨</h4>
+                        <p class="text-gray-700">
+                            为党育人、为国育才，立足博州产业发展需求，培养具有家国情怀、工匠精神和实践能力的高素质技术技能人才。
+                        </p>
+                    </div>
+                    <div class="border-l-4 border-secondary pl-4">
+                        <h4 class="font-bold text-lg mb-2">发展目标</h4>
+                        <p class="text-gray-700">
+                            建成区域特色鲜明、办学水平较高、服务能力较强的现代化高等职业院校，成为博州技能人才培养的主阵地。
+                        </p>
+                    </div>
+                    <div class="border-l-4 border-accent pl-4">
+                        <h4 class="font-bold text-lg mb-2">服务面向</h4>
+                        <p class="text-gray-700">
+                            立足博州，服务丝绸之路经济带核心区建设，面向新疆，辐射中亚，为区域经济社会发展提供人才支撑和智力保障。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 办学特色 -->
+    <section id="features" class="py-16 md:py-24">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">办学特色</h2>
+                <div class="w-20 h-1 bg-secondary mx-auto"></div>
+                <p class="mt-4 text-gray-700 max-w-2xl mx-auto">
+                    学院结合地域特点和产业需求，形成了独具特色的办学模式和人才培养体系
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 特色1：产教融合 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden hover-scale">
+                    <div class="h-48 bg-primary/10 flex items-center justify-center">
+                        <img src="tupian/校企合作.png" alt="产教融合" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-primary mb-3 flex items-center">
+                            <i class="fa fa-industry mr-2"></i> 产教融合 校企合作
+                        </h3>
+                        <p class="text-gray-700">
+                            与博州工业园区、阿拉山口口岸等企业深度合作，建立"订单班"、"现代学徒制"等培养模式，实现教学过程与生产过程无缝对接。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 特色2：双语教学 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden hover-scale">
+                    <div class="h-48 bg-primary/10 flex items-center justify-center">
+                        <img src="tupian/爱国.png" alt="双语教学" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-primary mb-3 flex items-center">
+                            <i class="fa fa-language mr-2"></i>爱国敬业 文化传承
+                        </h3>
+                        <p class="text-gray-700">
+                            定期举办爱国爱党教育，并且以实践的方式带领学生，让同学们的爱国精神刻在骨子里。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 特色3：技能培养 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden hover-scale">
+                    <div class="h-48 bg-primary/10 flex items-center justify-center">
+                        <img src="tupian/实践.png" alt="技能培养" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-primary mb-3 flex items-center">
+                            <i class="fa fa-cogs mr-2"></i> 技能为本 实践育人
+                        </h3>
+                        <p class="text-gray-700">
+                            建有各类实训中心28个，实训设备总值8000余万元，推行"岗课赛证"综合育人，学生在各级技能大赛中屡获佳绩。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 特色4：地域特色 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden hover-scale">
+                    <div class="h-48 bg-primary/10 flex items-center justify-center">
+                        <img src="tupian/01.png" alt="地域特色" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-primary mb-3 flex items-center">
+                            <i class="fa fa-map-marker mr-2"></i> 立足博州 服务地方
+                        </h3>
+                        <p class="text-gray-700">
+                            紧扣博州旅游、物流、农业、能源等支柱产业发展需求，开设旅游管理、边境贸易、畜牧兽医等特色专业，服务地方经济发展。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 特色5：就业导向 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden hover-scale">
+                    <div class="h-48 bg-primary/10 flex items-center justify-center">
+                        <img src="tupian/02.png" alt="就业导向" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-primary mb-3 flex items-center">
+                            <i class="fa fa-briefcase mr-2"></i> 就业导向 精准对接
+                        </h3>
+                        <p class="text-gray-700">
+                            建立就业服务体系，与疆内外企业建立就业合作关系，毕业生主要面向博州及北疆地区就业，部分优秀毕业生赴中西亚国家发展。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 特色6：国际交流 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden hover-scale">
+                    <div class="h-48 bg-primary/10 flex items-center justify-center">
+                        <img src="tupian/03.png" alt="国际交流" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-primary mb-3 flex items-center">
+                            <i class="fa fa-globe mr-2"></i> 面向中亚 开放办学
+                        </h3>
+                        <p class="text-gray-700">
+                            依托"一带一路"倡议，开展与哈萨克斯坦等中亚国家的教育交流合作，培养具备国际视野的技术技能人才。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 院系设置 -->
+    <section id="departments" class="py-16 md:py-24 bg-neutral">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">院系设置</h2>
+                <div class="w-20 h-1 bg-secondary mx-auto"></div>
+                <p class="mt-4 text-gray-700 max-w-2xl mx-auto">
+                    学院设有8个二级学院，开设23个高职专业，形成了多门类协调发展的专业体系
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- 机电工程学院 -->
+                <div class="bg-white rounded-xl shadow-md p-6 hover-scale">
+                    <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa fa-cogs text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-primary">机电工程学院</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>机电一体化技术</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>电气自动化技术</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>风力发电工程技术</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>工业互联网技术</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 医护学院 -->
+                <div class="bg-white rounded-xl shadow-md p-6 hover-scale">
+                    <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa fa-heartbeat text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-primary">卫生健康学院</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>护理</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>药学</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>康复治疗技术</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>老年保健与管理</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 教育科学学院 -->
+                <div class="bg-white rounded-xl shadow-md p-6 hover-scale">
+                    <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa fa-book text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-primary">教育学院</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>学前教育</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>早期教育</span>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <!-- 经济管理学院 -->
+                <div class="bg-white rounded-xl shadow-md p-6 hover-scale">
+                    <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                        <!-- <i class="fa a-burger text-2xl text-primary"></i> -->
+                        <span class="iconfont icon-shangwu"
+                            style="color:#5b7bda ;font-size: 30px;font-weight: bold;"></span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-primary">商学院</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>大数据与会计</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>电子商务</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>跨境电子商务</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>国际经济与贸易</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 生物工程学院 -->
+                <div class="bg-white rounded-xl shadow-md p-6 hover-scale">
+                    <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                        <span class="iconfont icon-qiche"
+                            style="color:#5b7bda ;font-size: 30px;font-weight: bold;"></span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-primary">交通学院</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>汽车技术服务与营销</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>汽车制造与试验技术</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>新能源汽车技术</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>智能网联汽车技术</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 信息技术学院 -->
+                <div class="bg-white rounded-xl shadow-md p-6 hover-scale">
+                    <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa fa-laptop text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-primary">信息工程学院</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>软件技术</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>物联网应用技术</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>信息安全技术应用</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>虚拟现实技术技术</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 旅游与酒店管理学院 -->
+                <div class="bg-white rounded-xl shadow-md p-6 hover-scale">
+                    <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa fa-plane text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-primary">旅游学院</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>酒店管理与数字化运营</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>旅游管理</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>空中乘务</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>研学旅行管理与服务</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 马克思主义学院 -->
+                <div class="bg-white rounded-xl shadow-md p-6 hover-scale">
+                    <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa fa-flag text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-primary">马克思主义学院</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>思想政治教育</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>公共事务管理</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>社区管理与服务</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-check text-secondary mr-2"></i>
+                            <span>社会工作</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 校园环境 -->
+    <section id="campus" class="py-16 md:py-24">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">校园环境</h2>
+                <div class="w-20 h-1 bg-secondary mx-auto"></div>
+                <p class="mt-4 text-gray-700 max-w-2xl mx-auto">
+                    学院坐落于美丽的博尔塔拉河畔，校园环境优美，设施完善，是学习生活的理想之地
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                <div class="rounded-xl overflow-hidden shadow-lg hover-scale">
+                    <img src="tupian/实训楼.png" alt="教学楼" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <h3 class="font-bold text-lg mb-2">教学实训楼</h3>
+                        <p class="text-gray-600 text-sm">建筑面积3.2万平方米，配备现代化教学设备和实训设施</p>
+                    </div>
+                </div>
+
+                <div class="rounded-xl overflow-hidden shadow-lg hover-scale">
+                    <img src="首页界面图片/图书股图片.png" alt="图书馆" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <h3 class="font-bold text-lg mb-2">图书馆</h3>
+                        <p class="text-gray-600 text-sm">馆藏图书20万册，电子资源丰富，提供舒适的阅读学习环境</p>
+                    </div>
+                </div>
+
+                <div class="rounded-xl overflow-hidden shadow-lg hover-scale">
+                    <img src="tupian/宿舍.png" alt="学生宿舍" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <h3 class="font-bold text-lg mb-2">学生公寓</h3>
+                        <p class="text-gray-600 text-sm">标准化学生宿舍，配备独立卫生间、暖气等设施</p>
+                    </div>
+                </div>
+
+                <div class="rounded-xl overflow-hidden shadow-lg hover-scale">
+                    <img src="tupian/食堂.png" alt="食堂" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <h3 class="font-bold text-lg mb-2">学生食堂</h3>
+                        <p class="text-gray-600 text-sm">可容纳2000人同时就餐，提供多样化的餐饮选择</p>
+                    </div>
+                </div>
+
+                <div class="rounded-xl overflow-hidden shadow-lg hover-scale">
+                    <img src="tupian/操场.png" alt="体育馆" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <h3 class="font-bold text-lg mb-2">体育场馆</h3>
+                        <p class="text-gray-600 text-sm">标准化运动场、篮球场、排球场等体育设施齐全</p>
+                    </div>
+                </div>
+
+                <div class="rounded-xl overflow-hidden shadow-lg hover-scale">
+                    <img src="tupian/环境2.jpg" alt="校园风光" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <h3 class="font-bold text-lg mb-2">校园风光</h3>
+                        <p class="text-gray-600 text-sm">绿化覆盖率达40%，四季分明，环境优美</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 校园生活 -->
+            <div class="bg-neutral rounded-xl p-8 md:p-10">
+                <h3 class="text-2xl font-bold text-primary mb-6 text-center">丰富多彩的校园生活</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-sm hover-scale">
+                        <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                            <i class="fa fa-users text-xl text-primary"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">学生社团</h4>
+                        <p class="text-gray-700">
+                            成立各类学生社团30余个，涵盖文艺、体育、科技、志愿服务等多个领域，丰富学生课余生活。
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-sm hover-scale">
+                        <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                            <i class="fa fa-trophy text-xl text-primary"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">技能竞赛</h4>
+                        <p class="text-gray-700">
+                            定期举办各类技能竞赛，以赛促学、以赛促练，提升学生专业技能水平和实践能力。
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-sm hover-scale">
+                        <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                            <i class="fa fa-heart text-xl text-primary"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">志愿服务</h4>
+                        <p class="text-gray-700">
+                            开展各类志愿服务活动，培养学生社会责任感和奉献精神，服务地方经济社会发展。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 招生就业 -->
+    <section id="employment" class="py-16 md:py-24 bg-neutral">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">招生就业</h2>
+                <div class="w-20 h-1 bg-secondary mx-auto"></div>
+                <p class="mt-4 text-gray-700 max-w-2xl mx-auto">
+                    学院坚持就业导向，深化产教融合，毕业生就业率连续多年保持在95%以上
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- 招生信息 -->
+                <div class="bg-white rounded-xl shadow-md p-8">
+                    <h3 class="text-2xl font-bold text-primary mb-6 border-b pb-4">2025年招生信息</h3>
+
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-bold text-lg mb-3 flex items-center">
+                                <i class="fa fa-list-alt text-primary mr-2"></i> 招生计划
+                            </h4>
+                            <p class="text-gray-700 mb-4">
+                                2025年学院计划招收全日制高职学生2000人，涵盖23个专业，面向新疆各地州及部分内地省份招生。
+                            </p>
+                            <a href="#" class="inline-block text-primary hover:text-primary/80 font-medium">
+                                查看详细招生计划 <i class="fa fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-lg mb-3 flex items-center">
+                                <i class="fa fa-calendar text-primary mr-2"></i> 招生时间
+                            </h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start">
+                                    <i class="fa fa-circle text-xs text-primary mt-1.5 mr-2"></i>
+                                    <span>报名时间：2025年6月10日-8月20日</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-circle text-xs text-primary mt-1.5 mr-2"></i>
+                                    <span>录取时间：2025年8月-9月</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-circle text-xs text-primary mt-1.5 mr-2"></i>
+                                    <span>报到时间：2025年9月中旬</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-lg mb-3 flex items-center">
+                                <i class="fa fa-graduation-cap text-primary mr-2"></i> 报考条件
+                            </h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start">
+                                    <i class="fa fa-check text-secondary mr-2 mt-1"></i>
+                                    <span>参加2025年普通高考或高职单招的应往届高中毕业生</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check text-secondary mr-2 mt-1"></i>
+                                    <span>参加2025年中职升高职考试的应往届中职毕业生</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check text-secondary mr-2 mt-1"></i>
+                                    <span>符合新疆教育考试院规定的其他报考条件</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-primary/5 p-4 rounded-lg">
+                            <h4 class="font-bold text-lg mb-2 text-primary">招生咨询方式</h4>
+                            <p class="text-gray-700 mb-2">咨询电话：0909-2318888、0909-2319999</p>
+                            <p class="text-gray-700">咨询邮箱：zsjy@bezy.edu.cn</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 就业情况 -->
+                <div class="bg-white rounded-xl shadow-md p-8">
+                    <h3 class="text-2xl font-bold text-primary mb-6 border-b pb-4">就业保障</h3>
+
+                    <div class="mb-8">
+                        <canvas id="employmentChart" width="400" height="200"></canvas>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-bold text-lg mb-3 flex items-center">
+                                <i class="fa fa-handshake-o text-primary mr-2"></i> 就业合作单位
+                            </h4>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">博州人民医院</span>
+                                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">阿拉山口海关</span>
+                                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">博州文旅集团</span>
+                                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">新疆众和股份</span>
+                                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">博乐市教育局</span>
+                                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">中粮屯河博州分公司</span>
+                                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">国网博州供电公司</span>
+                                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">博州工业园区企业</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-lg mb-3 flex items-center">
+                                <i class="fa fa-map-marker text-primary mr-2"></i> 主要就业去向
+                            </h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start">
+                                    <i class="fa fa-arrow-right text-secondary mr-2 mt-1"></i>
+                                    <span>博州各县市机关事业单位、国有企业（占比45%）</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-arrow-right text-secondary mr-2 mt-1"></i>
+                                    <span>博州及北疆地区各类企业（占比35%）</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-arrow-right text-secondary mr-2 mt-1"></i>
+                                    <span>自主创业、灵活就业（占比10%）</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-arrow-right text-secondary mr-2 mt-1"></i>
+                                    <span>升学、参军入伍及其他（占比10%）</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-lg mb-3 flex items-center">
+                                <i class="fa fa-shield text-primary mr-2"></i> 就业服务保障
+                            </h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start">
+                                    <i class="fa fa-check-circle text-secondary mr-2 mt-1"></i>
+                                    <span>建立就业指导中心，提供全程就业指导和服务</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check-circle text-secondary mr-2 mt-1"></i>
+                                    <span>举办校园招聘会，搭建就业对接平台</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check-circle text-secondary mr-2 mt-1"></i>
+                                    <span>开展就业技能培训，提升就业竞争力</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check-circle text-secondary mr-2 mt-1"></i>
+                                    <span>跟踪服务毕业生，提供就业帮扶</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系方式 -->
+    <section id="contact" class="py-16 md:py-24">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">联系我们</h2>
+                <div class="w-20 h-1 bg-secondary mx-auto"></div>
+                <p class="mt-4 text-gray-700 max-w-2xl mx-auto">
+                    欢迎咨询博尔塔拉职业技术学院相关事宜，我们将竭诚为您服务
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- 学校地址 -->
+                <div class="bg-white rounded-xl shadow-md p-8 hover-scale">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-map-marker text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">学校地址</h3>
+                    <p class="text-gray-700 mb-6">
+                        新疆博尔塔拉蒙古自治州博乐市<br>
+                        前程路1号（南城新校区）<br>
+                        邮政编码：833400
+                    </p>
+                    <div class="flex items-center text-gray-700 mb-3">
+                        <i class="fa fa-bus text-primary mr-2"></i>
+                        <span>市内乘坐1路、3路公交车到职业技术学院站下车</span>
+                    </div>
+                    <div class="flex items-center text-gray-700">
+                        <i class="fa fa-car text-primary mr-2"></i>
+                        <span>自驾导航：博尔塔拉职业技术学院</span>
+                    </div>
+                </div>
+
+                <!-- 联系方式 -->
+                <div class="bg-white rounded-xl shadow-md p-8 hover-scale">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-phone text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">联系方式</h3>
+
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-medium text-dark">招生就业处</h4>
+                            <p class="text-gray-700">0909-2318888（招生）</p>
+                            <p class="text-gray-700">0909-2319999（就业）</p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-medium text-dark">学院办公室</h4>
+                            <p class="text-gray-700">0909-2316666</p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-medium text-dark">教务处</h4>
+                            <p class="text-gray-700">0909-2317777</p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-medium text-dark">学生处</h4>
+                            <p class="text-gray-700">0909-2315555</p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-medium text-dark">官方邮箱</h4>
+                            <p class="text-gray-700">office@bezy.edu.cn</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 留言咨询 -->
+                <div class="bg-white rounded-xl shadow-md p-8 hover-scale">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-envelope text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">在线咨询</h3>
+
+                    <form class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1" for="contact-name">姓名</label>
+                            <input type="text" id="contact-name"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                                placeholder="请输入您的姓名">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1" for="contact-phone">联系电话</label>
+                            <input type="tel" id="contact-phone"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                                placeholder="请输入您的联系电话">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1"
+                                for="contact-message">咨询内容</label>
+                            <textarea id="contact-message" rows="4"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                                placeholder="请输入您想咨询的问题"></textarea>
+                        </div>
+
+                        <button type="submit"
+                            class="w-full bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors font-medium">
+                            提交咨询 <i class="fa fa-paper-plane ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 地图 -->
+            <div class="mt-12 rounded-xl overflow-hidden shadow-lg">
+                <img src="PPT图片/1765804982320.png" 校园地图 class="w-full h-80 object-cover">
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <!-- 学校信息 -->
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary">
+                            <i class="fa fa-graduation-cap text-lg"></i>
+                        </div>
+                        <span class="text-xl font-bold">博尔塔拉职业技术学院</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">
+                        厚德强技 · 知行合一
+                    </p>
+                    <p class="text-gray-500 text-sm">
+                        © 2025 博尔塔拉职业技术学院<br>
+                        新ICP备12345678号-1
+                    </p>
+                </div>
+
+                <!-- 快速链接 -->
+                <div>
+                    <h4 class="text-lg font-bold mb-4">快速链接</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#intro" class="hover:text-white transition-colors">学院简介</a></li>
+                        <li><a href="#features" class="hover:text-white transition-colors">办学特色</a></li>
+                        <li><a href="#departments" class="hover:text-white transition-colors">院系设置</a></li>
+                        <li><a href="#campus" class="hover:text-white transition-colors">校园环境</a></li>
+                        <li><a href="#employment" class="hover:text-white transition-colors">招生就业</a></li>
+                    </ul>
+                </div>
+
+                <!-- 服务支持 -->
+                <div>
+                    <h4 class="text-lg font-bold mb-4">服务支持</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">教务处</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">学生处</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">招生就业处</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">图书馆</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">校园服务</a></li>
+                    </ul>
+                </div>
+
+                <!-- 订阅 -->
+                <div>
+                    <h4 class="text-lg font-bold mb-4">关注我们</h4>
+                    <p class="text-gray-400 mb-4 text-sm">
+                        扫描二维码关注学院官方微信公众号
+                    </p>
+                    <div class="bg-gray-800 p-3 rounded-lg inline-block">
+                        <img src="https://picsum.photos/id/237/120/120" alt="微信公众号二维码" class="w-32 h-32">
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
+                <p>地址：新疆博尔塔拉蒙古自治州博乐市前程路1号 | 邮编：833400 | 电话：0909-2316666</p>
+                <p class="mt-2">网站建设：博尔塔拉职业技术学院信息中心</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="backToTop"
+        class="fixed bottom-8 right-8 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-primary/90 transition-colors opacity-0 invisible z-50">
+        <i class="fa fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // 导航栏滚动效果
+        const navbar = document.getElementById('navbar');
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-fixed');
+            } else {
+                navbar.classList.remove('nav-fixed');
+            }
+
+            // 返回顶部按钮显示/隐藏
+            if (window.scrollY > 300) {
+                backToTop.classList.remove('opacity-0', 'invisible');
+                backToTop.classList.add('opacity-100', 'visible');
+            } else {
+                backToTop.classList.add('opacity-0', 'invisible');
+                backToTop.classList.remove('opacity-100', 'visible');
+            }
+        });
+
+        // 移动端菜单切换
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        menuBtn.addEventListener('click', function () {
+            mobileMenu.classList.toggle('hidden');
+            // 切换图标
+            const icon = menuBtn.querySelector('i');
+            if (icon.classList.contains('fa-bars')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // 返回顶部功能
+        backToTop.addEventListener('click', function () {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 移动端菜单点击后关闭
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', function () {
+                mobileMenu.classList.add('hidden');
+                const icon = menuBtn.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+
+        // 表单提交处理
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                alert('提交成功！我们将尽快与您联系。');
+                form.reset();
+            });
+        });
+
+        // 就业数据图表
+        const ctx = document.getElementById('employmentChart').getContext('2d');
+        const employmentChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['2021届', '2022届', '2023届', '2024届'],
+                datasets: [{
+                    label: '就业率(%)',
+                    data: [92.5, 93.8, 95.2, 96.1],
+                    backgroundColor: [
+                        'rgba(15, 98, 146, 0.7)',
+                        'rgba(15, 98, 146, 0.7)',
+                        'rgba(15, 98, 146, 0.7)',
+                        'rgba(15, 98, 146, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(15, 98, 146, 1)',
+                        'rgba(15, 98, 146, 1)',
+                        'rgba(15, 98, 146, 1)',
+                        'rgba(15, 98, 146, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: '就业率(%)'
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '近四年毕业生就业率',
+                        font: {
+                            size: 16
+                        }
+                    },
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

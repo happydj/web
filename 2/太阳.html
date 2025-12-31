@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>星系</title>
+    <script src="./js/three.min.js"></script>
+    <script src="./js/OrbitControls.js"></script>
+    <link rel="stylesheet" href="./css/index.css">
+    <style>
+        /* 通用悬浮窗样式 */
+        .float-window {
+            position: fixed;
+            /* 固定定位，不随滚动移动 */
+            top: 50%;
+            /* 垂直居中 */
+            transform: translateY(-50%);
+            /* 修正垂直居中偏移 */
+            width: 200px;
+            padding: 20px;
+            background: rgba(14, 13, 13, 0.95);
+            /* 窗口背景*/
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            /* 阴影增强立体感 */
+            z-index: 9999;
+            /* 确保浮在最上层 */
+            box-sizing: border-box;
+        }
+
+        /* 左侧悬浮窗定位 */
+        .left-float {
+            left: 40px;
+        }
+
+        /* 右侧悬浮窗定位 */
+        .right-float {
+            right: 20px;
+        }
+
+        /* 浮窗内元素样式（可选） */
+        .float-window h3 {
+            margin: 0 0 15px 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .float-window p,
+        .float-window a {
+            font-size: 14px;
+            color: #666;
+            text-decoration: none;
+            line-height: 1.5;
+        }
+
+        .float-window a:hover {
+            color: #007bff;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <div>
+        <canvas id="main"></canvas>
+        <script src="./js/sun.js"></script>
+
+    </div>
+
+
+
+    <!-- 左侧悬浮窗 -->
+    <div class="float-window left-float" style="color: #007bff;">
+        <span>
+            <h1>简介</h1>
+            太阳是太阳系的中心天体，也是太阳系中唯一的恒星，
+            占据了太阳系总质量的99.86%，强大的引力束缚着八大行星、小行星、彗星等所有天体围绕其公转，
+            同时它也是地球生命赖以生存的能量源泉。
+        </span>
+    </div>
+
+    <!-- 右侧悬浮窗 -->
+    <div class="float-window right-float" style="color: #007bff;">
+        <span>太阳属于黄矮星，位于银河系猎户座旋臂,与地球的平均距离约1.5亿千米(天文单位AU),
+            其直径约139.2万千米,相当于地球直径的109倍,体积更是地球的130万倍。从内部到外层,
+            太阳可分为核反应区、辐射区、对流区三大内部结构，以及光球层、色球层、日冕层三层大气结构，
+            我们肉眼所见的明亮圆面，正是太阳的光球层。
+        </span>
+    </div>
+
+</html>

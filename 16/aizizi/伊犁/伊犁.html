@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>伊犁 · 塞外江南梦</title>
+<style>
+  /* ========== 伊犁专属色彩系统（极致优化） ========== */
+  :root {
+    --lavender: #A78BFA; /* 更柔和的薰衣草紫 */
+    --lavender-glow: rgba(167, 139, 250, 0.5);
+    --grassland: #34D399; /* 更鲜亮的草原绿 */
+    --grassland-glow: rgba(52, 211, 153, 0.4);
+    --ili-blue: #0EA5E9; /* 更清澈的伊犁河蓝 */
+    --apricot: #FB7185; /* 更温暖的杏花粉 */
+    --snow: #F8FAFC;
+    --glass: rgba(248, 250, 252, 0.12);
+    --glass-border: rgba(248, 250, 252, 0.2);
+    --blur: blur(30px);
+    --text-primary: #F8FAFC;
+    --shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+    --transition: all 0.8s cubic-bezier(0.37, 1.65, 0.54, 1);
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: linear-gradient(135deg, #4C1D95, #1E3A8A, #1E293B);
+    color: var(--text-primary);
+    font-family: 'Noto Serif SC', 'ZCOOL XiaoWei', 'Microsoft YaHei', serif;
+    overflow-x: hidden;
+    line-height: 2;
+  }
+  section {
+    width: 100%;
+    max-width: 2000px;
+    margin: 0 auto;
+    padding: 200px 60px;
+    position: relative;
+  }
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  /* ========== 顶部导航（极光效果） ========== */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: linear-gradient(to right, var(--glass), rgba(167, 139, 250, 0.25));
+    backdrop-filter: var(--blur);
+    border-bottom: 1px solid var(--glass-border);
+    transition: var(--transition);
+    padding: 25px 0;
+  }
+  nav.scrolled {
+    padding: 15px 0;
+    background: rgba(76, 29, 149, 0.95);
+  }
+  nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    gap: 60px;
+  }
+  nav a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 800;
+    padding: 18px 28px;
+    border-radius: 50px;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+    font-size: 1.2em;
+  }
+  nav a::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, var(--lavender-glow), transparent);
+    opacity: 0;
+    transition: var(--transition);
+    z-index: -1;
+  }
+  nav a:hover::before, nav a.active::before {
+    opacity: 1;
+  }
+  nav a:hover, nav a.active {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 15px 50px var(--lavender-glow);
+  }
+
+  /* ========== 粒子系统（动态杏花雨） ========== */
+  #particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 99;
+  }
+
+  /* ========== 首屏（动态拼贴+自动播放视频） ========== */
+  .hero {
+    height: 100vh;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 12px;
+    padding: 25px;
+    overflow: hidden;
+  }
+  .hero-tile {
+    position: relative;
+    border-radius: 25px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+  }
+  .hero-tile:hover {
+    transform: scale(1.08);
+    z-index: 10;
+  }
+  .hero-tile:nth-child(1) {
+    grid-column: 1 / 3;
+    grid-row: 1 / 3;
+    background: url(./景区素材/那拉提草原\ \(4\).jpg) center/cover;
+  }
+  /* 那拉提草原自动播放视频区域 */
+  .hero-video {
+    grid-column: 3 / 5;
+    grid-row: 2;
+    position: relative;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .hero-video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .video-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    transition: var(--transition);
+  }
+  .video-info {
+    padding: 30px;
+    text-align: center;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    width: 100%;
+  }
+  .video-info h3 {
+    font-size: 1.8em;
+    color: var(--apricot);
+    margin-bottom: 8px;
+  }
+  .video-info p {
+    font-size: 1em;
+    opacity: 0.9;
+  }
+  .hero-tile:nth-child(2) {
+    grid-column: 3 / 5;
+    background: url(./景区素材/天山花海11.jpg) center/cover;
+  }
+  .hero-tile:nth-child(3) {
+    grid-column: 3;
+    grid-row: 1;
+    background: url(./景区素材/天山花海11.jpg) center/cover;
+  }
+  .hero-tile:nth-child(4) {
+    grid-column: 4;
+    grid-row: 1;
+    background: url(./景区素材/杏花沟.jpeg) center/cover;
+  }
+  .hero-tile:nth-child(5) {
+    grid-column: 1 / 5;
+    grid-row: 3;
+    background: url(./景区素材/伊犁河谷.JPG) center/cover;
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    transition: var(--transition);
+    padding: 40px;
+    text-align: center;
+  }
+  .hero-tile:hover .hero-overlay {
+    opacity: 1;
+  }
+  .hero-overlay h2 {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+    color: var(--apricot);
+  }
+  .hero-overlay p {
+    font-size: 1.2em;
+    opacity: 0.9;
+  }
+  .hero-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    text-align: center;
+    pointer-events: none;
+  }
+  .hero-title h1 {
+    font-size: clamp(4em, 10vw, 8em);
+    letter-spacing: 15px;
+    text-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, var(--lavender), var(--apricot), var(--ili-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900;
+  }
+  .hero-title p {
+    font-size: clamp(1.4em, 3vw, 2.2em);
+    opacity: 0.95;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+  }
+
+  /* ========== 文化圆环（悬浮效果） ========== */
+  .culture-timeline {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 60px;
+    margin: 120px 0;
+    position: relative;
+  }
+  .culture-timeline::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 400px;
+    border: 2px dashed var(--lavender);
+    border-radius: 50%;
+    opacity: 0.2;
+    z-index: -1;
+  }
+  .culture-node {
+    background: var(--glass);
+    backdrop-filter: var(--blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    width: 300px;
+    height: 300px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: var(--transition);
+    position: relative;
+    margin: 0 auto;
+  }
+  .culture-node:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 30px 70px var(--lavender-glow);
+    border-color: var(--apricot);
+  }
+  .culture-node h3 {
+    font-size: 2em;
+    color: var(--apricot);
+    margin-bottom: 20px;
+  }
+  .culture-node p {
+    font-size: 1em;
+    opacity: 0.85;
+  }
+
+  /* ========== 景区3D马赛克 ========== */
+  .mosaic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-auto-rows: 300px;
+    gap: 30px;
+    grid-auto-flow: dense;
+    transform-style: preserve-3d;
+  }
+  .mosaic-item {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 25px;
+    overflow: hidden;
+    transition: var(--transition);
+    position: relative;
+    cursor: pointer;
+  }
+  .mosaic-item:hover {
+    transform: translateY(-20px) rotateX(5deg);
+    box-shadow: var(--shadow);
+  }
+  .mosaic-item.large {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  .mosaic-item.wide {
+    grid-column: span 2;
+  }
+  .mosaic-item.tall {
+    grid-row: span 2;
+  }
+  .mosaic-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .mosaic-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+    padding: 40px;
+    transform: translateY(100%);
+    transition: var(--transition);
+  }
+  .mosaic-item:hover .mosaic-info {
+    transform: translateY(0);
+  }
+  .mosaic-info h3 {
+    font-size: 1.8em;
+    color: var(--apricot);
+    margin-bottom: 10px;
+  }
+
+  /* ========== 美食自动轮播（水平3D旋转） ========== */
+  .food-carousel {
+    position: relative;
+    height: 450px;
+    margin: 100px 0;
+    perspective: 1200px;
+  }
+  .food-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: foodRotate 20s infinite linear;
+  }
+  @keyframes foodRotate {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(-360deg); }
+  }
+  .food-item {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .food-item:nth-child(1) { transform: rotateY(0deg) translateZ(500px); }
+  .food-item:nth-child(2) { transform: rotateY(45deg) translateZ(500px); }
+  .food-item:nth-child(3) { transform: rotateY(90deg) translateZ(500px); }
+  .food-item:nth-child(4) { transform: rotateY(135deg) translateZ(500px); }
+  .food-item:nth-child(5) { transform: rotateY(180deg) translateZ(500px); }
+  .food-item:nth-child(6) { transform: rotateY(225deg) translateZ(500px); }
+  .food-item:nth-child(7) { transform: rotateY(270deg) translateZ(500px); }
+  .food-item:nth-child(8) { transform: rotateY(315deg) translateZ(500px); }
+  .food-card {
+    width: 350px;
+    background: var(--glass);
+    backdrop-filter: var(--blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .food-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+  }
+  .food-content {
+    padding: 30px;
+  }
+  .food-content h3 {
+    font-size: 1.5em;
+    color: var(--lavender);
+    margin-bottom: 15px;
+  }
+
+  /* ========== 3D特产展台（悬浮效果） ========== */
+  .gift-showcase {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 50px;
+    margin: 100px 0;
+  }
+  .gift-item {
+    background: var(--glass);
+    backdrop-filter: var(--blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    padding: 40px;
+    text-align: center;
+    transition: var(--transition);
+    transform-style: preserve-3d;
+    position: relative;
+  }
+  .gift-item::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: linear-gradient(45deg, var(--lavender), var(--grassland));
+    border-radius: 30px;
+    opacity: 0;
+    transition: var(--transition);
+    z-index: -1;
+  }
+  .gift-item:hover::before {
+    opacity: 0.3;
+  }
+  .gift-item:hover {
+    transform: translateY(-20px) rotateX(10deg) rotateY(10deg);
+    box-shadow: 0 30px 70px var(--lavender-glow);
+  }
+  .gift-icon {
+    font-size: 4em;
+    margin-bottom: 25px;
+    color: var(--grassland);
+    transition: var(--transition);
+  }
+  .gift-item:hover .gift-icon {
+    transform: scale(1.2) rotate(15deg);
+  }
+  .gift-item h3 {
+    font-size: 1.8em;
+    color: var(--apricot);
+    margin-bottom: 20px;
+  }
+
+  /* ========== 交通光效卡片（霓虹灯效果） ========== */
+  .transport-new {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.15), rgba(52, 211, 153, 0.15));
+    border-radius: 50px;
+    padding: 120px 60px;
+    margin: 120px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .transport-new::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: linear-gradient(to right, var(--lavender), var(--grassland));
+    animation: glowFlow 3s ease-in-out infinite alternate;
+  }
+  @keyframes glowFlow {
+    from { box-shadow: 0 0 10px var(--lavender); }
+    to { box-shadow: 0 0 30px var(--grassland); }
+  }
+  .transport-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 50px;
+    position: relative;
+    z-index: 2;
+  }
+  .transport-card {
+    background: var(--glass);
+    backdrop-filter: var(--blur);
+    border: 2px solid var(--glass-border);
+    border-radius: 30px;
+    padding: 60px 30px;
+    text-align: center;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+  }
+  .transport-card::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(45deg, var(--lavender), var(--grassland));
+    border-radius: 30px;
+    opacity: 0;
+    transition: var(--transition);
+    z-index: -1;
+  }
+  .transport-card:hover::before {
+    opacity: 0.5;
+  }
+  .transport-card:hover {
+    transform: translateY(-25px) scale(1.08);
+    border-color: var(--lavender);
+    box-shadow: 0 25px 60px var(--lavender-glow);
+  }
+  .transport-icon {
+    font-size: 4.5em;
+    margin-bottom: 25px;
+    color: var(--apricot);
+    transition: var(--transition);
+  }
+  .transport-card:hover .transport-icon {
+    transform: scale(1.3) rotate(10deg);
+  }
+  .transport-card h3 {
+    font-size: 2.2em;
+    color: var(--lavender);
+    margin-bottom: 20px;
+  }
+  .transport-card p {
+    font-size: 1.1em;
+    line-height: 1.9;
+  }
+  .transport-card strong {
+    color: var(--apricot);
+    display: block;
+    margin: 20px 0 10px;
+    font-size: 1.2em;
+  }
+
+  /* ========== 页脚（动态光带） ========== */
+  footer {
+    text-align: center;
+    padding: 120px 40px;
+    background: linear-gradient(to top, #581C87, #0F172A);
+    border-top: 4px solid var(--lavender);
+    font-size: 1.3em;
+    margin-top: 150px;
+    position: relative;
+    overflow: hidden;
+  }
+  footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 25px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--lavender) 0px,
+      var(--apricot) 15px,
+      var(--grassland) 30px,
+      var(--ili-blue) 45px,
+      var(--lavender) 60px
+    );
+    animation: slide 15s linear infinite, glowFlow 2s ease-in-out infinite alternate;
+  }
+  footer p {
+    margin: 25px 0;
+    opacity: 0.9;
+    position: relative;
+    z-index: 2;
+  }
+  .social-links {
+    margin: 60px 0;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+  }
+  .social-links a {
+    width: 80px;
+    height: 80px;
+    background: var(--glass);
+    border: 3px solid var(--lavender);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    transition: var(--transition);
+    font-size: 2.5em;
+    text-decoration: none;
+    color: var(--lavender);
+    position: relative;
+    overflow: hidden;
+  }
+  .social-links a:hover {
+    background: var(--lavender-glow);
+    transform: translateY(-15px) scale(1.25);
+    color: white;
+    box-shadow: 0 20px 40px var(--lavender-glow);
+  }
+
+  /* ========== 响应式与动画 ========== */
+  @media (max-width: 1200px) {
+    .hero {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(5, 200px);
+    }
+    .hero-tile:nth-child(1) { grid-column: 1; grid-row: 1 / 3; }
+    .hero-video { grid-column: 1; grid-row: 3; }
+    .hero-tile:nth-child(2) { grid-column: 1; grid-row: 4; }
+    .hero-tile:nth-child(3) { grid-column: 1; grid-row: 5; }
+    .hero-tile:nth-child(4) { display: none; }
+    .hero-tile:nth-child(5) { display: none; }
+    .hero-title {
+      position: static;
+      transform: none;
+      margin-top: 50px;
+    }
+    .mosaic-grid {
+      grid-template-columns: 1fr;
+    }
+    .mosaic-item.large, .mosaic-item.wide, .mosaic-item.tall {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+    .food-carousel { height: 400px; }
+    .food-item { transform: none !important; }
+  }
+  @media (max-width: 768px) {
+    section {
+      padding: 100px 20px;
+    }
+    nav ul {
+      gap: 20px;
+    }
+    nav a {
+      padding: 12px 18px;
+      font-size: 0.9em;
+    }
+    .culture-node {
+      width: 250px;
+      height: 250px;
+      padding: 30px;
+    }
+    .transport-new {
+      padding: 60px 30px;
+    }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(150px) scale(0.8) rotate(-10deg);
+    transition: all 1.5s cubic-bezier(0.37, 1.65, 0.54, 1);
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+
+  /* ========== 加载动画（光效升级） ========== */
+  .loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #4C1D95, #1E3A8A);
+    z-index: 9999;
+    display: grid;
+    place-items: center;
+    transition: opacity 1.5s;
+  }
+  .loader.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .loader-yurt {
+    width: 120px;
+    height: 120px;
+    position: relative;
+    border-radius: 50%;
+    border: 6px solid transparent;
+    border-top: 6px solid var(--lavender);
+    border-bottom: 6px solid var(--grassland);
+    animation: build 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+    box-shadow: 0 0 30px var(--lavender-glow);
+  }
+  .loader-yurt::before {
+    content: '毡';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3em;
+    color: var(--snow);
+    text-shadow: 0 0 20px var(--lavender-glow);
+  }
+  @keyframes build {
+    0% { transform: rotate(0deg) scale(0.8); }
+    50% { transform: rotate(180deg) scale(1.3); }
+    100% { transform: rotate(360deg) scale(0.8); }
+  }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+<base target="_blank">
+</head>
+<body>
+
+<!-- 加载动画 -->
+<div class="loader" id="loader">
+  <div class="loader-yurt"></div>
+</div>
+
+<canvas id="particles"></canvas>
+
+<!-- 顶部导航 -->
+<nav id="navbar">
+  <ul>
+    <li><a href="#top" class="nav-link">🏔️ 天山花海</a></li>
+    <li><a href="#culture" class="nav-link">🎭 哈萨克风</a></li>
+    <li><a href="#scenery" class="nav-link">🌾 草原湖光</a></li>
+    <li><a href="#foods" class="nav-link">🥘 伊犁味道</a></li>
+    <li><a href="#travel" class="nav-link">🚗 行在伊犁</a></li>
+  </ul>
+</nav>
+
+<!-- 首屏 -->
+<div class="hero" id="top">
+  <div class="hero-tile">
+    <div class="hero-overlay">
+      <h2>那拉提草原</h2>
+      <p>空中草原，哈萨克牧民家园</p>
+    </div>
+  </div>
+  
+  <!-- 自动播放的那拉提草原视频 -->
+  <div class="hero-video">
+    <video id="naratyVideo" autoplay muted loop preload="metadata" 
+           poster="https://images.unsplash.com/photo-1519904981063-b0cf448d479e?auto=format&fit=crop&w=800&q=80">
+      <source src="./景区素材/那拉提.mp4" type="video/mp4">
+      <!-- 备用视频源 -->
+      <source src="./景区素材/那拉提.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay">
+      <div class="video-info">
+        <h3>那拉提草原风光</h3>
+        
+      </div>
+    </div>
+  </div>
+  
+  <div class="hero-tile">
+    <div class="hero-overlay">
+      <h2>薰衣草海</h2>
+      <p>紫色浪漫醉人心</p>
+    </div>
+  </div>
+  <div class="hero-tile">
+    <div class="hero-overlay">
+      <h2>杏花沟</h2>
+      <p>粉色花海漫山坡</p>
+    </div>
+  </div>
+  <div class="hero-tile">
+    <div class="hero-overlay">
+      <h2>伊犁河谷</h2>
+      <p>绿洲明珠生机盎然</p>
+    </div>
+  </div>
+  
+  <div class="hero-title">
+    <h1>伊犁 · 塞外江南梦</h1>
+    <p>薰衣草飘香的诗篇，天马驰骋的草原</p>
+  </div>
+</div>
+
+<!-- 哈萨克文化圆环 -->
+<section id="culture" class="fade-in">
+  <h2>🎭 哈萨克风 · 文化传承</h2>
+  <div class="culture-timeline">
+    <div class="culture-node">
+      <h3>🎵 阿肯弹唱</h3>
+      <p>哈萨克族即兴歌唱艺术，草原上的百科全书，代代相传</p>
+    </div>
+    <div class="culture-node">
+      <h3>🏇 天马文化</h3>
+      <p>昭苏天马故乡，汗血宝马驰骋，马背民族的精神象征</p>
+    </div>
+    <div class="culture-node">
+      <h3>🎨 刺绣艺术</h3>
+      <p>哈萨克妇女手工刺绣，色彩搭配绚丽，图案寓意吉祥</p>
+    </div>
+    <div class="culture-node">
+      <h3>🎪 转场文化</h3>
+      <p>四季游牧转场传统，人与自然和谐共生，草原生活智慧</p>
+    </div>
+  </div>
+</section>
+
+<!-- 景区马赛克 -->
+<section id="scenery" class="fade-in">
+  <h2>🌾 草原湖光 · 塞外江南</h2>
+  <div class="mosaic-grid">
+    <!-- 那拉提草原独立展示位置 -->
+    <div class="mosaic-item large">
+      <img class="mosaic-image" src="./景区素材/那拉提草原 (4).jpg" alt="那拉提草原">
+      <div class="mosaic-info">
+        <h3>那拉提草原</h3>
+        <p>国家5A级景区，空中草原，哈萨克牧民家园，天马驰骋之地</p>
+      </div>
+    </div>
+    <div class="mosaic-item wide">
+      <img class="mosaic-image" src="./景区素材/薰衣草花海.jpeg" alt="霍城薰衣草">
+      <div class="mosaic-info">
+        <h3>霍城薰衣草</h3>
+        <p>中国薰衣草之乡，紫色花海蔓延天际，浪漫至极</p>
+      </div>
+    </div>
+    <div class="mosaic-item tall">
+      <img class="mosaic-image" src="./景区素材/喀拉峻 (2).jpg" alt="喀拉峻草原">
+      <div class="mosaic-info">
+        <h3>喀拉峻草原</h3>
+        <p>世界自然遗产，人体草原曲线优美，五花草甸繁花似锦</p>
+      </div>
+    </div>
+    <div class="mosaic-item">
+      <img class="mosaic-image" src="./景区素材/昭苏湿地公园 (7).jpg" alt="昭苏天马">
+      <div class="mosaic-info">
+        <h3>昭苏天马</h3>
+        <p>汗血宝马故乡，万马奔腾，草原上的速度与激情</p>
+      </div>
+    </div>
+    <div class="mosaic-item wide">
+      <img class="mosaic-image" src="./景区素材/特克斯八卦城 (2).jpg" alt="特克斯八卦城">
+      <div class="mosaic-info">
+        <h3>特克斯八卦城</h3>
+        <p>世界唯一保存完整的八卦城，城市布局独具匠心</p>
+      </div>
+    </div>
+    <div class="mosaic-item">
+      <img class="mosaic-image" src="./景区素材/库尔德宁景区 (5).jpg" alt="库尔德宁">
+      <div class="mosaic-info">
+        <h3>库尔德宁</h3>
+        <p>雪岭云杉的故乡，原始森林茂密，负氧离子极高</p>
+      </div>
+    </div>
+    <div class="mosaic-item">
+      <img class="mosaic-image" src="./景区素材/伊犁河谷.JPG" alt="伊犁河谷">
+      <div class="mosaic-info">
+        <h3>伊犁河谷</h3>
+        <p>绿洲明珠，瓜果飘香，塞外江南的核心地带</p>
+      </div>
+    </div>
+    <div class="mosaic-item tall">
+      <img class="mosaic-image" src="./景区素材/吐尔根.jpg" alt="吐尔根杏花">
+      <div class="mosaic-info">
+        <h3>吐尔根杏花沟</h3>
+        <p>中世纪野杏林，春季粉色花海如潮，如梦似幻</p>
+      </div>
+    </div>
+    <div class="mosaic-item wide">
+      <img class="mosaic-image" src="./景区素材/果子沟.jpg" alt="果子沟大桥">
+      <div class="mosaic-info">
+        <h3>果子沟大桥</h3>
+        <p>中国最美公路桥，横亘峡谷，现代工程奇迹</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 美食自动轮播3D旋转 -->
+<section id="foods" class="fade-in">
+  <h2>🥘 伊犁味道 · 舌尖盛宴</h2>
+  <div class="food-carousel">
+    <div class="food-inner">
+      <div class="food-item">
+        <div class="food-card">
+          <img class="food-image" src="./伊犁美食/手抓肉.jpg" alt="手抓肉">
+          <div class="food-content">
+            <h3>哈萨克手抓肉</h3>
+            <p>草原羊肉清水炖煮，蘸盐、洋葱、皮牙子，肉质奶香四溢，是哈萨克待客最高礼遇</p>
+          </div>
+        </div>
+      </div>
+      <div class="food-item">
+        <div class="food-card">
+          <img class="food-image" src="./伊犁美食/那仁.jpg" alt="纳仁">
+          <div class="food-content">
+            <h3>那仁面</h3>
+            <p>手擀宽面配羊肉汤，撒皮牙子黑胡椒，一碗入魂，哈萨克传统面食</p>
+          </div>
+        </div>
+      </div>
+      <div class="food-item">
+        <div class="food-card">
+          <img class="food-image" src="./伊犁美食/马肠子.jpg" alt="熏马肠">
+          <div class="food-content">
+            <h3>熏马肠</h3>
+            <p>初冬宰马灌肠果木慢熏，切片蒸煮脂香四溢，伊犁冬季限定美味</p>
+          </div>
+        </div>
+      </div>
+      <div class="food-item">
+        <div class="food-card">
+          <img class="food-image" src="./伊犁美食/酸奶疙瘩.jpg" alt="酸奶疙瘩">
+          <div class="food-content">
+            <h3>奶疙瘩</h3>
+            <p>酸奶浓缩发酵，酸甜耐嚼，高蛋白零食，草原游牧能量补充</p>
+          </div>
+        </div>
+      </div>
+      <div class="food-item">
+        <div class="food-card">
+          <img class="food-image" src="./伊犁美食/伊犁囊.jpg" alt="伊犁馕">
+          <div class="food-content">
+            <h3>伊犁馕</h3>
+            <p>传统馕坑烤制，芝麻馕、油馕、奶子馕，外酥内软，便于保存</p>
+          </div>
+        </div>
+      </div>
+      <div class="food-item">
+        <div class="food-card">
+          <img class="food-image" src="./伊犁美食/大盘鸡.jpg" alt="大盘鸡">
+          <div class="food-content">
+            <h3>伊犁大盘鸡</h3>
+            <p>本地土鸡土豆辣椒，配皮带面，麻辣鲜香分量足</p>
+          </div>
+        </div>
+      </div>
+      <div class="food-item">
+        <div class="food-card">
+          <img class="food-image" src="./伊犁美食/奶茶.jpg" alt="奶茶">
+          <div class="food-content">
+            <h3>咸味奶茶</h3>
+            <p>砖茶牛奶盐熬制，配酥油炒面，驱寒暖胃，一日三顿不离手</p>
+          </div>
+        </div>
+      </div>
+      <div class="food-item">
+        <div class="food-card">
+          <img class="food-image" src="./伊犁美食/烤串.jpg" alt="烤羊肉串">
+          <div class="food-content">
+            <h3>伊犁烤串</h3>
+            <p>红柳枝串羊肉，果木炭火，孜然辣椒芝麻，外焦里嫩</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 特产3D展示 -->
+<section id="gifts" class="fade-in">
+  <h2>🎁 伊犁礼物 · 草原珍品</h2>
+  <div class="gift-showcase">
+    <div class="gift-item">
+      <div class="gift-icon">🧴</div>
+      <h3>薰衣草精油</h3>
+      <p>霍城薰衣草提炼，纯度极高，安神美容，伊犁紫色名片</p>
+    </div>
+    <div class="gift-item">
+      <div class="gift-icon">🍯</div>
+      <h3>黑蜂蜂蜜</h3>
+      <p>伊犁黑蜂采集野花，波美度极高，天然无添加，养生臻品</p>
+    </div>
+    <div class="gift-item">
+      <div class="gift-icon">☕</div>
+      <h3>马奶酒</h3>
+      <p>马奶发酵微醺饮品，酸甜爽口，富含维生素，草原特色</p>
+    </div>
+    <div class="gift-item">
+      <div class="gift-icon">🐎</div>
+      <h3>马具制品</h3>
+      <p>马鞍、马鞭手工制作，皮革精美，实用与收藏兼备</p>
+    </div>
+    <div class="gift-item">
+      <div class="gift-icon">🎨</div>
+      <h3>哈萨克刺绣</h3>
+      <p>手工刺绣挂毯、抱枕，色彩绚丽，民族特色浓郁</p>
+    </div>
+    <div class="gift-item">
+      <div class="gift-icon">🥃</div>
+      <h3>伊犁酒</h3>
+      <p>伊犁特曲、老窖，粮食酿造，口感醇厚，新疆名酒</p>
+    </div>
+  </div>
+</section>
+
+<!-- 交通光效卡片 -->
+<section id="travel" class="fade-in">
+  <h2>✈️ 抵达伊犁 · 丝路通途</h2>
+  <div class="transport-new">
+    <div class="transport-grid">
+      <div class="transport-card">
+        <div class="transport-icon">✈️</div>
+        <h3>空中丝路</h3>
+        <p><strong>伊宁机场</strong></p>
+        <p>乌鲁木齐、北京、西安、成都等直飞航线</p>
+        <p>机场大巴30分钟直达市区</p>
+        <p>租车服务便捷，开启自驾之旅</p>
+      </div>
+      <div class="transport-card">
+        <div class="transport-icon">🚄</div>
+        <h3>高铁丝路</h3>
+        <p><strong>伊宁站 / 奎屯站</strong></p>
+        <p>兰新高铁连接南北疆，乌鲁木齐3小时直达</p>
+        <p>车站租车、包车服务完善</p>
+        <p>城际列车串联伊犁各县城</p>
+      </div>
+      <div class="transport-card">
+        <div class="transport-icon">🚗</div>
+        <h3>天路自驾</h3>
+        <p><strong>独库公路 · 伊昭公路</strong></p>
+        <p>中国最美公路，6-10月开放，风景绝美</p>
+        <p>建议SUV或越野车，注意天气变化</p>
+        <p>沿途加油站少，提前加满油</p>
+      </div>
+      <div class="transport-card">
+        <div class="transport-icon">🚌</div>
+        <h3>城际巴士</h3>
+        <p><strong>伊犁客运中心</strong></p>
+        <p>乌鲁木齐、石河子、奎屯直达班车</p>
+        <p>伊宁市内景点旅游专线</p>
+        <p>县城间班车密集，票价实惠</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="social-links">
+    <a href="#">📱</a>
+    <a href="#">📷</a>
+    <a href="#">🎬</a>
+    <a href="#">📧</a>
+  </div>
+  <p>© 2025 伊犁哈萨克自治州文化体育广播电视和旅游局 · 塞外江南 魅力伊犁</p>
+  <p>客服热线：0999-12301 | 旅游投诉：0999-8023456</p>
+  <p>地址：新疆伊宁市解放路123号</p>
+</footer>
+
+<script>
+  // ========== 页面加载动画 ==========
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loader').classList.add('hidden');
+    }, 1500);
+  });
+
+  // ========== 杏花粒子系统（动态） ==========
+  const canvas = document.getElementById('particles'), ctx = canvas.getContext('2d');
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+  const petals = Array.from({length: 120}, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 5 + 2,
+    d: Math.random() * 2 + 0.5,
+    a: Math.random() * 2 - 1,
+    o: Math.random() * 0.7 + 0.3,
+    c: Math.random() > 0.5 ? '167, 139, 250' : '244, 114, 182'
+  }));
+  function drawPetals() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    petals.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${p.c}, ${p.o})`;
+      ctx.fill();
+      p.y += p.d;
+      p.x += p.a;
+      if (p.y > canvas.height) p.y = -10;
+      if (p.x > canvas.width) p.x = 0;
+      if (p.x < 0) p.x = canvas.width;
+    });
+  }
+  setInterval(drawPetals, 40);
+  addEventListener('resize', () => { canvas.width = innerWidth; canvas.height = innerHeight; });
+
+  // ========== 导航滚动效果 ==========
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    if (window.scrollY > 200) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  });
+
+  // ========== 随机路径动画 ==========
+  const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -200px 0px' };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // ========== 平滑滚动与高亮 ==========
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      if (pageYOffset >= sectionTop - 250) {
+        current = section.getAttribute('id');
+      }
+    });
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${current}`) {
+        link.classList.add('active');
+      }
+    });
+  });
+</script>
+
+</body></html>

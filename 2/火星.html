@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>星系</title>
+    <script src="./js/three.min.js"></script>
+    <script src="./js/OrbitControls.js"></script>
+    <link rel="stylesheet" href="./css/index.css">
+    <style>
+        /* 通用悬浮窗样式 */
+        .float-window {
+            position: fixed;
+            /* 固定定位，不随滚动移动 */
+            top: 50%;
+            /* 垂直居中 */
+            transform: translateY(-50%);
+            /* 修正垂直居中偏移 */
+            width: 200px;
+            padding: 20px;
+            background: rgba(14, 13, 13, 0.95);
+            /* 半透明白底 */
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            /* 阴影增强立体感 */
+            z-index: 9999;
+            /* 确保浮在最上层 */
+            box-sizing: border-box;
+        }
+
+        /* 左侧悬浮窗定位 */
+        .left-float {
+            left: 40px;
+        }
+
+        /* 右侧悬浮窗定位 */
+        .right-float {
+            right: 20px;
+        }
+
+        /* 浮窗内元素样式（可选） */
+        .float-window h3 {
+            margin: 0 0 15px 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .float-window p,
+        .float-window a {
+            font-size: 14px;
+            color: #666;
+            text-decoration: none;
+            line-height: 1.5;
+        }
+
+        .float-window a:hover {
+            color: #007bff;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div>
+        <canvas id="main"></canvas>
+        <script src="./js/其他星球/火星.js"></script>
+    </div>
+    <!-- 左侧悬浮窗 -->
+    <div class="float-window left-float" style="color: #007bff;">
+        <h3 style="font-size: 24px; color: gold;">简介</h3>
+        <span
+            style="font-size: 17px;">火星是太阳系八大行星中距离太阳第四近的行星，属于类地行星，与太阳平均距离约2.28亿千米，因地表富含氧化铁，通体呈现橘红色，也被称作“红色星球”，是人类深空探测的重点目标行星。
+
+            火星的公转周期约687个地球日，自转周期约24小时37分钟，与地球自转时长相近，且地轴倾斜角约25°，和地球的23.5°相差无几，因此火星也拥有和地球相似的四季更替，只是每个季节的时长约为地球的两倍
+        </span>
+    </div>
+
+    <!-- 右侧悬浮窗 -->
+    <div class="float-window right-float" style="color: #007bff;">
+        <span> 火星拥有稀薄的大气层，95%为二氧化碳，无法锁住热量，昼夜温差极大，地表平均温度约-63℃，白天最高约20℃，夜晚最低可达-140℃。
+
+            火星平均半径约3390千米，质量仅为地球的11%，地表地貌丰富多样，既有遍布陨石坑的古老高地，也有地势平缓的火山平原，其中奥林帕斯山是太阳系最高的火山，高达21千米；水手号峡谷是太阳系最大的峡谷，绵延超4000千米。火星拥有两颗天然卫星，分别为火卫一和火卫二，体积小巧且形状不规则。火星两极覆盖着由干冰和固态水组成的冰盖，地表还发现了液态水存在的痕迹，成为人类探索地外生命与星际移民的核心候选星球。
+        </span>
+    </div>
+</body>
+
+</html>

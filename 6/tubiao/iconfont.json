@@ -1,0 +1,65 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "990",
+      "name": "旅行",
+      "font_class": "lvxing",
+      "unicode": "f003d",
+      "unicode_decimal": 983101
+    },
+    {
+      "icon_id": "2076354",
+      "name": "商务",
+      "font_class": "shangwu",
+      "unicode": "e8b2",
+      "unicode_decimal": 59570
+    },
+    {
+      "icon_id": "5387383",
+      "name": "电脑",
+      "font_class": "diannao",
+      "unicode": "eac0",
+      "unicode_decimal": 60096
+    },
+    {
+      "icon_id": "6894500",
+      "name": "教师",
+      "font_class": "jiaoshi",
+      "unicode": "e658",
+      "unicode_decimal": 58968
+    },
+    {
+      "icon_id": "11749417",
+      "name": "齿轮",
+      "font_class": "chilun",
+      "unicode": "e674",
+      "unicode_decimal": 58996
+    },
+    {
+      "icon_id": "11819102",
+      "name": "旅游",
+      "font_class": "lvyou",
+      "unicode": "e6b9",
+      "unicode_decimal": 59065
+    },
+    {
+      "icon_id": "36845297",
+      "name": "党徽",
+      "font_class": "danghui",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "37828619",
+      "name": "红十字_red-cross",
+      "font_class": "hongshizi_red-cross",
+      "unicode": "e655",
+      "unicode_decimal": 58965
+    }
+  ]
+}

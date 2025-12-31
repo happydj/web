@@ -1,0 +1,322 @@
+/* 初始样式 */
+body {
+	margin: 0;
+	padding: 0;
+	background-image: url(./9856a8318bb74918bd02a5081471bdbb.jpeg);
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	color: #1e1e1e;
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+img {
+	max-width: 100%;
+}
+
+/* 主容器宽度 */
+.container {
+	width: 1150px;
+	margin: 0 auto;
+	background-color: white;
+}
+
+.topimg img {
+	width: 100%;
+	display: block;
+}
+
+/* 导航栏样式 */
+nav {
+	background-color: #0371e6;
+}
+
+nav ul {
+	display: flex;
+	justify-content: space-around;
+}
+
+nav ul li {
+	position: relative;
+	flex: 1;
+	text-align: center;
+}
+
+nav ul li a {
+	color: white;
+	padding: 15px 30px;
+	display: block;
+}
+
+nav ul li:not(:last-child) a::after {
+	content: '|';
+	color: white;
+	position: absolute;
+	right: 0;
+}
+
+/* 大图样式 */
+.banner {
+	padding: 15px;
+}
+
+.banner img {
+	width: 100%;
+}
+
+/* 首页三个简介样式 */
+.overviews {
+	display: flex;
+	justify-content: space-between;
+	padding: 15px;
+	padding-top: 0px;
+}
+
+.overview {
+	width: 31.8%;
+}
+
+.overview img {
+	width: 100%;
+}
+
+.overview h3 {
+	margin: 12px 0;
+	color: #0371e6;
+}
+
+.overview p {
+	color: #5a5a5a;
+	line-height: 28px;
+}
+
+.img_scale {
+	overflow: hidden;
+}
+
+.img_scale img {
+	width: 100%;
+	transition: transform 0.3s ease-in-out;
+}
+
+.img_scale img:hover {
+	transform: scale(1.2);
+}
+
+.img_box {
+	overflow: hidden;
+}
+
+.img_box img {
+	width: 100%;
+}
+
+/* 页脚样式 */
+footer {
+	padding: 25px 0;
+	background-color: #0371e6;
+	text-align: center;
+}
+
+.foot_title {
+	color: white;
+	margin: 0;
+}
+
+/* 人物简介 */
+main {
+	padding: 25px;
+}
+
+.page-title {
+	color: #0371e6;
+	padding-left: 10px;
+	line-height: 22px;
+	letter-spacing: 2px;
+	border-left: 5px solid #0371e6;
+	margin: 0;
+	margin-bottom: 15px;
+}
+
+.characters {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
+.character {
+	width: 30%;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.character h3 {
+	color: #0371e6;
+	margin: 10px;
+}
+
+.character p {
+	color: #5a5a5a;
+	line-height: 23px;
+}
+
+.character img {
+	border-radius: 10px;
+}
+
+/* 影片简介 */
+.film {
+	display: flex;
+	color: #363636;
+	line-height: 36px;
+}
+
+.film-thumb {
+	width: 45%;
+	margin-right: 3%;
+}
+
+.film-thumb img {
+	width: 100%;
+	height: 350px;
+}
+
+.film_info {
+	width: 52%;
+}
+
+.film-desc {
+	margin-top: 40px;
+}
+
+.film-desc p {
+	color: #3b3b3b;
+	text-indent: 2em;
+	line-height: 28px;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th,
+td {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: center;
+	line-height: 40px;
+}
+
+td:nth-child(2n+1) {
+	background-color: #f2f2f2;
+	width: 30%;
+}
+
+/* 精彩片段 */
+.reviews {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
+.review {
+	width: 48%;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.review h3 {
+	color: #0371e6;
+	margin: 5px 0;
+}
+
+/* 登录注册 */
+.login {
+	display: flex;
+	width: 80%;
+	margin: 50px auto;
+	align-items: center;
+}
+
+.login .left {
+	width: 48%;
+	margin-right: 5%;
+}
+
+.login .right {
+	width: 45%;
+}
+
+.form-row {
+	margin-bottom: 20px;
+	display: flex;
+	font-size: 18px;
+	align-items: center;
+}
+
+.form-row label {
+	width: 30%;
+}
+
+.form-row input {
+	line-height: 34px;
+	width: 70%;
+}
+
+.form-row button {
+	width: 70%;
+	margin-left: 30%;
+	padding: 8px;
+	font-size: 18px;
+	background-color: #0371e6;
+	color: white;
+	border: none;
+	cursor: pointer;
+}
+
+.form-row button:hover {
+	background-color: #e44944;
+}
+
+.main1 {
+	width: 100%;
+	max-width: 1200px;
+	padding: 20px;
+	margin: 0 auto;
+	background-color: rgba(255, 255, 255, 0.95);
+	border-radius: 10px;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+	overflow: hidden;
+}
+
+
+.banner{
+	height: 500px;
+	overflow: hidden;
+	margin-bottom: 25px;
+}
+
+.carousel-inner{
+	height: 500px;
+}
+
+.carousel-inner .item{
+	height: 500px;
+	
+}
+
+.banner .item img{
+	width: 100%;
+	height: 500px;
+	object-fit: cover;
+}

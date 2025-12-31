@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新疆羊棒骨</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft YaHei", sans-serif;
+            background-image: url("./img/艾特莱斯1.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 30px 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            backdrop-filter: blur(10px);
+            /* 毛玻璃效果 */
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .video-container {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .video-title {
+            font-size: 24px;
+            color: #f5d76e;
+            /* 金色文字 */
+            margin-bottom: 15px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .video-player {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .food-text {
+            flex: 1;
+            min-width: 300px;
+            color: #eaeaea;
+            /* 浅灰文字 */
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        .food-text p {
+            margin-bottom: 12px;
+            padding-left: 10px;
+            border-left: 3px solid #f5d76e;
+            /* 金色左边线 */
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="video-container">
+            <div class="video-title">新疆羊棒骨</div>
+            <video class="video-player" controls preload="metadata">
+                <source src="./img/羊棒骨视频.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="food-text">
+            <p>新疆羊棒骨的特点十分鲜明：</p>
+            <p>选料上多采用新鲜的羔羊棒骨，骨髓饱满，肉质紧实不柴，膻味很轻。</p>
+            <p>做法以清炖或红焖为主，清炖的羊棒骨汤色奶白，汤汁鲜醇，啃肉吸髓都很过瘾；红焖的则酱香浓郁，肉质软烂入味。</p>
+            <p>食用时兼具吃肉、吸髓、喝汤的多重体验，口感丰富，暖身又解馋，是秋冬季节很受欢迎的美食。</p>
+        </div>
+    </div>
+</body>
+
+</html>

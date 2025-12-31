@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅游小程序页面</title>
+    <script src="./js/all.js"></script>
+    <link rel="stylesheet" href="./css/all.css">
+    <style>
+        /* 自定义样式补充 */
+        body {
+            padding-bottom: 70px;
+        }
+
+        .nav-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .tag {
+            border-radius: 12px;
+            font-size: 12px;
+            padding: 2px 8px;
+        }
+
+        .lv_item img {
+            height: 200px;
+        }
+
+        .lvxing {
+            margin-top: 10px;
+            width: 100%;
+            /* 改成两列 */
+            column-count: 2;
+            column-fill: balance;
+        }
+
+        .lvxing .lv_item {
+            break-inside: avoid;
+            margin-top: 5px;
+            /* 阴影 */
+            box-shadow: 0 0 10px -7px rgb(22 21 21);
+            /* 圆角 */
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            /* 兼容老版本浏览器(如旧版Chrome/Firefox) */
+            margin-bottom: 15px;
+            /* 给每个卡片加底部间距，不会挤在一起 */
+            overflow: hidden;
+        }
+
+        .p.span {
+            color: #666;
+        }
+
+        .lv_item video {
+            max-width: 100%;
+            max-height: 220px;
+            /* height: auto; */
+            object-fit: cover;
+        }
+
+        .lv_item .lv_info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .lv_info_left {
+            display: flex;
+            width: 120px;
+            align-items: center;
+            font-size: 12px;
+            gap: 10px;
+        }
+
+        .lv_info_left img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #fff;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            border-top: 1px solid #eee;
+        }
+
+        .footer-nav img {
+            border-radius: 10px;
+        }
+
+        .footer-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .footer-icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 4px;
+        }
+
+        .footer-active {
+            color: rgb(0, 0, 0);
+        }
+
+        .a {
+            color: #666;
+        }
+
+        .chakan {
+            color: #666;
+        }
+    </style>
+    </style>
+</head>
+
+<body class="bg-gray-100 font-sans">
+    <!-- 顶部导航栏 -->
+    <header class="bg-white p-4 sticky top-0 z-10 shadow-sm">
+        <div class="flex items-center justify-between">
+            <!-- 搜索框 -->
+            <div class="relative flex-1 max-w-md">
+                <input type="text" placeholder="搜索目的地/景点/攻略"
+                    class="w-full py-2 px-4 pl-10 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            </div>
+            <!-- 右侧功能图标 -->
+            <div class="flex items-center gap-3">
+                <div class="relative">
+                    <img src="./攻略照片/签到.png" alt="签到" class="w-8 h-8">
+                    <span
+                        class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">签</span>
+                </div>
+                <div class="w-8 h-8 border border-gray-300 rounded-full flex items-center justify-center">
+                    <i class="fa-solid fa-ellipsis text-gray-500"></i>
+                </div>
+                <div class="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center">
+                    <i class="fa-solid fa-circle-notch"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- 功能入口区 -->
+    <section class="bg-white p-4 mt-2 rounded-lg mx-4 shadow-sm">
+        <!-- 一级功能图标 -->
+        <div class="flex justify-between mb-6">
+            <div class="text-center">
+                <div class="nav-icon bg-green-100 text-green-600 mb-1"><i class="fa-solid fa-ticket text-xl"></i></div>
+                <p class="text-sm">门票</p>
+            </div>
+            <div class="text-center">
+                <div class="nav-icon bg-purple-100 text-purple-600 mb-1"><i
+                        class="fa-solid fa-map-location-dot text-xl"></i></div>
+                <p class="text-sm">当地游</p>
+            </div>
+            <div class="text-center">
+                <div class="nav-icon bg-blue-100 text-blue-600 mb-1"><i class="fa-solid fa-hotel text-xl"></i></div>
+                <p class="text-sm">酒店</p>
+            </div>
+            <div class="text-center">
+                <div class="nav-icon bg-orange-100 text-orange-600 mb-1"><i class="fa-solid fa-bus text-xl"></i></div>
+                <p class="text-sm">跟团游</p>
+            </div>
+            <div class="text-center">
+                <div class="nav-icon bg-red-100 text-red-600 mb-1"><i class="fa-solid fa-suitcase-rolling text-xl"></i>
+                </div>
+                <p class="text-sm">自由行</p>
+            </div>
+        </div>
+        <!-- 二级功能入口 -->
+        <div class="flex justify-between gap-2">
+            <div class="bg-gray-50 p-3 rounded-lg w-1/3 text-center  bg-1">
+                <h3 class="font-medium mb-1">AI酒店砍价</h3>
+                <p class="text-xs text-gray-500 mb-2">酒店优惠订</p>
+            </div>
+            <div class="bg-gray-50 p-3 rounded-lg w-1/3 text-center bg-2">
+                <h3 class="font-medium mb-1">定制旅行</h3>
+                <p class="text-xs text-gray-500 mb-2">1v1旅行顾问</p>
+            </div>
+            <div class="bg-gray-50 p-3 rounded-lg w-1/3 text-center relative bg-3">
+                <span class="absolute top-1 right-1 bg-red-500 text-white text-xs px-1 rounded">NEW</span>
+                <h3 class="font-medium mb-1">AI订餐厅</h3>
+                <p class="text-xs text-gray-500 mb-2">电话预约</p>
+            </div>
+        </div>
+    </section>
+    <!-- 热门目的地 -->
+    <section class="mx-4 mt-4">
+        <div class="flex justify-between items-center mb-3">
+            <h2 class="font-bold text-lg">热门目的地</h2>
+            <a href="#" class="chakan">
+                查看全部 <i class="fa-solid fa-angle-right ml-1"></i>
+            </a>
+        </div>
+        <!-- 首行图片目的地 -->
+        <div class="flex gap-3 mb-4">
+            <div class="w-1/3 rounded-lg overflow-hidden relative">
+                <img src="./攻略照片/首页新疆.jpeg" alt="新疆" class="w-full h-28 object-cover">
+                <p class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-bold text-xl">新疆
+                </p>
+                <span class="absolute bottom-2 left-6 tag bg-yellow-400 text-black">当前定位</span>
+            </div>
+            <div class="w-1/3 rounded-lg overflow-hidden relative">
+                <img src="./攻略照片/首页北京.png  " alt="北京" class="w-full h-28 object-cover">
+                <p class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-bold text-xl">北京
+                </p>
+                <span class="absolute bottom-2 left-6 tag bg-gray-800/70 text-white">热门精选</span>
+            </div>
+            <div class="w-1/3 rounded-lg overflow-hidden relative">
+                <img src="./攻略照片/首页深圳.png " alt="深圳" class="w-full h-28 object-cover">
+                <p class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-bold text-xl">深圳
+                </p>
+                <span class="absolute bottom-2 left-6 tag bg-gray-800/70 text-white">热门精选</span>
+            </div>
+        </div>
+        <!-- 文字目的地 -->
+        <div class="grid grid-cols-3 gap-4 mb-6">
+            <div class="text-center">
+                <h3 class="font-medium text-lg mb-1">香港</h3>
+                <span class="tag bg-gray-200 text-gray-600">当季精选</span>
+            </div>
+            <div class="text-center">
+                <h3 class="font-medium text-lg mb-1">三亚</h3>
+                <span class="tag bg-gray-200 text-gray-600">当季精选</span>
+            </div>
+            <div class="text-center">
+                <h3 class="font-medium text-lg mb-1">厦门</h3>
+                <span class="tag bg-gray-200 text-gray-600">当季精选</span>
+            </div>
+            <div class="text-center">
+                <h3 class="font-medium text-lg mb-1">成都</h3>
+                <span class="tag bg-gray-200 text-gray-600">猜你喜欢</span>
+            </div>
+            <div class="text-center">
+                <h3 class="font-medium text-lg mb-1">杭州</h3>
+                <span class="tag bg-gray-200 text-gray-600">猜你喜欢</span>
+            </div>
+            <div class="text-center">
+                <h3 class="font-medium text-lg mb-1">重庆</h3>
+                <span class="tag bg-gray-200 text-gray-600">猜你喜欢</span>
+            </div>
+        </div>
+    </section>
+    <!-- 正在旅行 -->
+    <section class="mx-4 mt-4">
+        <h3><strong> 正在旅行</strong> </h3>
+        <h2 class="font-bold text-lg mb-3"></h2>
+        <div class="lvxing">
+            <div class="lv_item">
+                <video src="./攻略照片/新疆.mp4" muted autoplay loop></video>
+                <div class="px-2">
+                    <div class="lv_desc">雪地草原铺锦绣，瓜果牛羊醉人间</div>
+                    <div class="lv_info my-4">
+                        <div class="lv_info_left">
+                            <img src="./攻略照片/头像01.jpg" alt="">
+                            <div class="name">
+                                <p><b>ZPY</b></p>
+                                <p><span>3天前</span></p>
+                            </div>
+                        </div>
+                        <div class="lv_info_right">
+                            ❤ 5
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="lv_item">
+                <video src="./攻略照片/四川成都.mp4" muted autoplay loop> </video>
+                <div class="mx-2">
+                    <div class="lv_desc">蜀山蜀水蜀风雅，川味川韵川人家</div>
+                    <div class="lv_info my-4">
+                        <div class="lv_info_left">
+                            <img src="./攻略照片/头像02.jpg" alt="">
+                            <div class="name">
+                                <p><b>MZR</b></p>
+                                <p><span>1月前</span></p>
+                            </div>
+                        </div>
+                        <div class="lv_info_right">
+                            ❤ 66
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="lv_item">
+                <video src="./攻略照片/浙江.mp4" muted autoplay loop></video>
+                <div class="mx-2">
+                    <div class="lv_desc">江南水乡韵悠悠，西湖烟柳画中游，丝绸茶香醉心头</div>
+                    <div class="lv_info my-4">
+                        <div class="lv_info_left">
+                            <img src="./攻略照片/mmexport1766842022060.jpg" alt="">
+                            <div class="name">
+                                <p><b>JML</b></p>
+                                <p><span>一周前</span></p>
+                            </div>
+                        </div>
+                        <div class="lv_info_right">
+                            ❤ 104
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="lv_item">
+                <video src="./攻略照片/上海.mp4" muted autoplay loop></video>
+                <div class="mx-2">
+                    <div class="lv_desc">浦江潮涌绘摩登，石库门里藏烟火，魔都风华融中西万象</div>
+                    <div class="lv_info my-4">
+                        <div class="lv_info_left">
+                            <img src="./攻略照片/头像04.jpg" alt="">
+                            <div class="name">
+                                <p><b>XYD</b></p>
+                                <p><span>3小时前</span></p>
+                            </div>
+                        </div>
+                        <div class="lv_info_right">
+                            ❤ 54
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="lv_item">
+                <video src="./攻略照片/北京.mp4" muted autoplay loop></video>
+                <div class="mx-2">
+                    <div class="lv_desc">紫禁红墙映古今，长城雄关揽风云，京韵京味叙千年故事</div>
+                    <div class="lv_info my-4">
+                        <div class="lv_info_left">
+                            <img src="./攻略照片/头像05.jpg" alt="">
+                            <div class="name">
+                                <p><b>ASM</b></p>
+                                <p><span>2个月前</span></p>
+                            </div>
+                        </div>
+                        <div class="lv_info_right">
+                            ❤ 301
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 底部导航 -->
+    <div class="footer-nav">
+        <div class="footer-item footer-active">
+            <img class="footer-icon" src="./攻略照片/攻略.png" alt="攻略">
+            <div><strong>攻略</strong></div>
+        </div>
+        <a href="./商城.HTML" style="text-decoration: none;">
+            <div class="footer-item ">
+                <img class="footer-icon" src="./攻略照片/商城.png" alt="商城">
+                <div>商城</div>
+            </div>
+        </a>
+        <a href="./我的页面布局.html">
+            <div class="footer-item">
+                <img class="footer-icon" src="./攻略照片/我的.png" alt="我的">
+                <div>我的</div>
+            </div>
+        </a>
+    </div>
+</body>
+
+</html>

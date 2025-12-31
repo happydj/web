@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>那拉提 - 空中草原</title>
+    <style>
+        /* 全局样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        /* 头部样式 */
+        header {
+            background: url('./img/那拉提\ \(3\).jpg') no-repeat center center;
+            background-size: cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-title {
+            font-size: 48px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* 主体内容样式 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .intro {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+
+        .intro h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #8e44ad;
+            padding-bottom: 10px;
+        }
+
+        .intro p {
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        /* 特色景点样式 */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .feature-content {
+            padding: 20px;
+        }
+
+        .feature-content h3 {
+            color: #8e44ad;
+            margin-bottom: 10px;
+        }
+
+        /* 页脚样式 */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 头部横幅 -->
+    <header>
+        <div class="header-title">那拉提草原</div>
+    </header>
+
+    <!-- 主体内容 -->
+    <div class="container">
+        <!-- 简介部分 -->
+        <section class="intro">
+            <h2>关于那拉提</h2>
+            <p>那拉提草原又名（西）巩乃斯草原，位于新疆伊犁州新源县那拉提镇东部，距新源县城约110公里，地处天山腹地，伊犁河谷东端，总规划面积960平方公里。</p>
+            <p>那拉提草原是世界四大草原之一的亚高山草甸植物区，自古以来就是著名的牧场。优美的草原风光与当地哈萨克民俗风情结合在一起，成为新疆著名的旅游观光度假区。</p>
+            <p>那拉提，蒙古语意为“太阳升起的地方”，每当春夏时节，草原上绿草如茵，繁花似锦，牛羊成群，构成一幅绝美的自然画卷。</p>
+        </section>
+
+        <!-- 特色景点 -->
+        <section class="features">
+            <div class="feature-card">
+                <img src="./img/那拉提 (3).jpg" alt="那拉提空中草原" class="feature-img">
+                <div class="feature-content">
+                    <h3>空中草原</h3>
+                    <p>空中草原是那拉提的核心景区，海拔约2200米，因地势较高而得名。这里视野开阔，草原如绿毯铺向天际，雪山环绕，景色壮美。</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <img src="./img/那拉提 (5).jpg" alt="那拉提河谷草原" class="feature-img">
+                <div class="feature-content">
+                    <h3>河谷草原</h3>
+                    <p>河谷草原位于那拉提景区的下游地带，地势平缓，巩乃斯河穿流而过，草原与河流、森林相互交织，是哈萨克族牧民的主要聚居区。</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <img src="./img/那拉提 (6).jpg" alt="那拉提哈萨克民俗" class="feature-img">
+                <div class="feature-content">
+                    <h3>哈萨克民俗</h3>
+                    <p>那拉提是哈萨克族聚居地，在这里可以体验哈萨克族的毡房住宿、品尝手抓肉、喝马奶酒，欣赏哈萨克族的歌舞和马术表演。</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>© 2025 那拉提旅游介绍 | 简单网页示例</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新疆手抓饭</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft YaHei", sans-serif;
+            background-image: url("./img/艾特莱斯1.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 30px 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            backdrop-filter: blur(10px);
+            /* 毛玻璃效果 */
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .video-container {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .video-title {
+            font-size: 24px;
+            color: #f5d76e;
+            /* 金色文字 */
+            margin-bottom: 15px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .video-player {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .food-text {
+            flex: 1;
+            min-width: 300px;
+            color: #eaeaea;
+            /* 浅灰文字 */
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        .food-text p {
+            margin-bottom: 12px;
+            padding-left: 10px;
+            border-left: 3px solid #f5d76e;
+            /* 金色左边线 */
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="video-container">
+            <div class="video-title">新疆手抓饭</div>
+            <video class="video-player" controls preload="metadata">
+                <source src="./img/panjji11111.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="food-text">
+            <p>新疆手抓饭的特点十分鲜明：</p>
+            <p>食材搭配经典，以大米、羊肉（或牛肉、鸡肉）、胡萝卜、洋葱为核心原料，部分版本会加入葡萄干、鹰嘴豆增加风味。</p>
+            <p>口感层次丰富，米饭油润饱满、粒粒分明，吸收了肉香与蔬菜的清甜；肉类炖煮得软烂入味，不柴不腻。</p>
+            <p>味道咸香适口，还带着淡淡的洋葱焦香和胡萝卜的甜香，传统吃法用手抓食，更具风味。</p>
+        </div>
+    </div>
+</body>
+
+</html>

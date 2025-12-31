@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>星系</title>
+  <script src="./js/three.min.js"></script>
+  <script src="./js/OrbitControls.js"></script>
+  <link rel="stylesheet" href="./css/index.css">
+  <style>
+    /* 通用悬浮窗样式 */
+    .float-window {
+      position: fixed;
+      /* 固定定位，不随滚动移动 */
+      top: 50%;
+      /* 垂直居中 */
+      transform: translateY(-50%);
+      /* 修正垂直居中偏移 */
+      width: 200px;
+      padding: 20px;
+      background: rgba(14, 13, 13, 0.95);
+      /* 半透明白底 */
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      /* 阴影增强立体感 */
+      z-index: 9999;
+      /* 确保浮在最上层 */
+      box-sizing: border-box;
+    }
+
+    /* 左侧悬浮窗定位 */
+    .left-float {
+      left: 40px;
+    }
+
+    /* 右侧悬浮窗定位 */
+    .right-float {
+      right: 20px;
+    }
+
+    /* 浮窗内元素样式（可选） */
+    .float-window h3 {
+      margin: 0 0 15px 0;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .float-window p,
+    .float-window a {
+      font-size: 14px;
+      color: #666;
+      text-decoration: none;
+      line-height: 1.5;
+    }
+
+    .float-window a:hover {
+      color: #007bff;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div>
+    <canvas id="main"></canvas>
+    <script src="./js/其他星球/海王星.js"></script>
+  </div>
+  <!-- 左侧悬浮窗 -->
+  <div class="float-window left-float" style="color: #007bff;">
+    <h3 style="font-size: 24px; color: gold;">简介</h3>
+    <span
+      style="font-size: 17px;">海王星是太阳系八大行星中距太阳最远的行星，与太阳平均距离约45亿千米，体积居太阳系第四位，质量排名第三位，因淡蓝色的外观，被称作太阳系中的“冰蓝色星球”。它的公转周期约165个地球年，自转周期约16小时，同样属于冰巨行星，大气主要由氢、氦和甲烷组成，甲烷是其呈现蓝色的核心原因。海王星拥有太阳系中最强烈的风暴。
+
+    </span>
+  </div>
+
+  <!-- 右侧悬浮窗 -->
+  <div class="float-window right-float" style="color: #007bff;">
+    <span>
+      赤道附近的大黑斑风暴，风速可达每小时2100千米，远超太阳系其他行星的风暴强度。它拥有5道清晰的行星环与14颗已发现的天然卫星，其中海卫一是太阳系中唯一逆向公转的大卫星。海王星地表温度低至-218℃，内部存在岩石与冰质内核，内核温度高达7000℃，巨大的温差造就了它剧烈的大气活动，也是太阳系中最神秘的远日行星。
+    </span>
+  </div>
+</body>
+
+</html>

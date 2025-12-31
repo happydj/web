@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人气景点榜</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            /* font-family: "Helvetica Neue", Arial, sans-serif; */
+        }
+
+        body {
+            /* position: fixed; */
+            /* top: 20px; */
+
+            background-color: #f5f5f5;
+            font-size: 14px;
+            color: #333;
+            padding-bottom: 55px;
+
+        }
+
+        /* 顶部导航栏 */
+        .header {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: #fff;
+            position: fixed;
+            top: 0;
+            z-index: 999;
+        }
+
+
+        .city a {
+            color: black;
+            text-decoration: none;
+            font-size: 16px;
+            display: inline-block;
+            position: absolute;
+            left: 10px;
+        }
+
+
+        .header .title {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* 功能入口栏 */
+        .func-nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #fff;
+            padding: 15px 0;
+        }
+
+        .func-img {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+        }
+
+        .func-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .func-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .func-icon img {
+            width: 100%;
+        }
+
+        .func-text {
+            font-size: 12px;
+            color: #666;
+
+        }
+
+        /* 专属推荐模块 */
+        .recommend {
+            background-color: #fff;
+            margin-top: 0px;
+            padding: 80px 15px 15px;
+            background-image: url("./商场图片/人气榜1.jpg");
+            background-repeat: no-repeat;
+            background-position: center top;
+            background-size: cover;
+            min-height: 800px;
+            position: relative;
+            background-color: black;
+            overflow: visible;
+            background-attachment: fixed;
+        }
+
+        .recommend_wrapper {
+            overflow-x: auto;
+        }
+
+        .recommend-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .recommend-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .recommend-tag {
+            background-color: #ffcc00;
+            color: #333;
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-left: 8px;
+        }
+
+        .more {
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* 推荐分类标签 */
+        .recommend-tabs {
+            width: 700px;
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .tab-item {
+            padding: 6px 10px;
+            margin-right: 10px;
+            font-size: 13px;
+        }
+
+        .tab-active {
+            background-color: #fff;
+            color: #333;
+            border-bottom: 1px solid #ffcc00;
+
+        }
+
+        .tab-normal {
+
+            color: #666;
+        }
+
+        /* 推荐商品列表 */
+        .product-list {
+            margin-bottom: 15px;
+        }
+
+        .product-item {
+            display: flex;
+            margin-bottom: 18px;
+            box-shadow: 2px 6px 15px -7px gray;
+            padding: 5px 2px;
+            background: rgba(255, 255, 255, 0.116);
+            margin: 0;
+            width: 100%;
+            margin-top: 60px;
+            border-radius: 20px;
+            backdrop-filter: blur(40px);
+
+        }
+
+
+        .product-img {
+            width: 140px;
+            height: 100px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-right: 10px;
+            flex-shrink: 0;
+            display: block;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            vertical-align: bottom;
+
+        }
+
+        .product-img video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-title {
+            color: #fffefe;
+            font-size: 16px;
+            font-size: 900;
+            line-height: 1.5;
+            margin: 8px 0;
+            margin-bottom: 6px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-tags {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 6px;
+        }
+
+        .tag {
+            font-size: 11px;
+            padding: 2px 5px;
+            border-radius: 3px;
+            margin-right: 5px;
+            margin-bottom: 3px;
+        }
+
+        .tag-primary {
+            background-color: #e8f4fc;
+            color: #409eff;
+        }
+
+        .tag-secondary {
+            background-color: #fdf2e8;
+            color: #e6a23c;
+        }
+
+        .product-price {
+            color: rgb(236, 28, 28);
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .product-sales {
+            display: flex;
+            font-size: 12px;
+            color: #f8f8f8;
+        }
+
+        .sales-text {
+            margin-right: 10px;
+        }
+
+
+        /* 底部导航 */
+        .footer-nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #fff;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            border-top: 1px solid #eee;
+        }
+
+        .footer-nav img {
+            border-radius: 10px;
+        }
+
+        .footer-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .footer-item a {
+            text-decoration: none;
+            color: #000000;
+        }
+
+        .footer-icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 4px;
+        }
+
+        .footer-active {
+            color: rgb(0, 0, 0);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 顶部导航栏 -->
+    <div class="header">
+        <div class="city"><a href="./商城.HTML"> &lt</a></div>
+        <div class="title">
+            人气排行榜
+        </div>
+        <div></div>
+    </div>
+
+    <!-- 专属推荐模块 -->
+    <div class="recommend">
+
+        <!-- 推荐分类标签 -->
+        <div class="rink">
+            <div style="height: 300px;">
+            </div>
+
+        </div>
+        <!-- 推荐商品列表 -->
+        <div class="product-list">
+            <div>
+                <div class="product-item">
+                    <div class="product-img">
+                        <img src="./商场图片/阿勒泰.jpg" alt="阿勒泰">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-title"><strong>阿勒泰藏北疆风光，雪都映金山，牧歌绕草原</strong></div>
+                        <div class="product-tags">
+                            <div class="tag tag-primary">阿勒泰将军滑雪场</div>
+                            <div class="tag tag-secondary">城市中的粉雪天堂</div>
+                            <div class="tag tag-secondary">自然双景随走随拍</div>
+                        </div>
+                        <div class="product-price">¥375起</div>
+                        <div class="product-sales">
+                            <div class="sales-text">评价22585</div>
+                            <div class="sales-text">已售45862</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="product-item">
+                <div class="product-img">
+                    <img src="./商场图片/峨眉山.jpg" alt="峨眉山">
+                </div>
+                <div class="product-info">
+                    <div class="product-title"><strong>峨眉山，世界双遗产地，集雄秀奇景与佛教文化于一体</strong></div>
+                    <div class="product-tags">
+                        <div class="tag tag-primary">普贤菩萨道场</div>
+                        <div class="tag tag-secondary">千年古刹报国寺</div>
+                        <div class="tag tag-secondary">自然风景</div>
+                    </div>
+                    <div class="product-price">¥110起</div>
+                    <div class="product-sales">
+                        <div class="sales-text">45868评价</div>
+                        <div class="sales-text">已售65838</div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item">
+                <div class="product-img">
+                    <img src="./商场图片/火焰山.png" alt="火焰山">
+                </div>
+                <div class="product-info">
+                    <div class="product-title"><strong>新疆吐鲁番火焰山，红山似火，是全国最热之地，有西游传说</strong></div>
+                    <div class="product-tags">
+                        <div class="tag tag-primary">西游记文化地标</div>
+                        <div class="tag tag-secondary">新疆红色山脉</div>
+                        <div class="tag tag-secondary">走进西游记</div>
+                    </div>
+                    <div class="product-price">¥50起</div>
+                    <div class="product-sales">
+                        <div class="sales-text">35835评价</div>
+                        <div class="sales-text">已售58682</div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item">
+                <div class="product-img">
+                    <img src="./商场图片/九沟寨.jpg" alt="九沟寨">
+                </div>
+                <div class="product-info">
+                    <div class="product-title"><strong>九寨沟是世界自然遗产，有翠海、叠瀑等美景，被誉为“童话世界”</strong></div>
+                    <div class="product-tags">
+                        <div class="tag tag-primary">世界自然遗产</div>
+                        <div class="tag tag-secondary">一个让人忘却尘世</div>
+                        <div class="tag tag-secondary">一个人间仙境</div>
+                    </div>
+                    <div class="product-price">¥80起</div>
+                    <div class="product-sales">
+                        <div class="sales-text">41025</div>
+                        <div class="sales-text">已售45865</div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item">
+                <div class="product-img">
+                    <img src="./商场图片/崇圣寺三塔.jpg" alt="崇圣寺三塔">
+                </div>
+                <div class="product-info">
+                    <div class="product-title"><strong>大理崇圣寺三塔鼎立，千年古塔，见证南诏大理国兴衰</strong></div>
+                    <div class="product-tags">
+                        <div class="tag tag-primary">千年佛塔</div>
+                        <div class="tag tag-secondary">西靠苍山应乐峰</div>
+                        <div class="tag tag-secondary">东望洱海</div>
+                    </div>
+                    <div class="product-price">¥118起</div>
+                    <div class="product-sales">
+                        <div class="sales-text">15988评价</div>
+                        <div class="sales-text">已售24353</div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item">
+                <div class="product-img">
+                    <img src="./商场图片/昆明石林.jpg" alt="昆明石林">
+                </div>
+                <div class="product-info">
+                    <div class="product-title"><strong>昆明石林是世界自然遗产，以喀斯特地貌著称，有“天下第一奇观”之美誉</strong></div>
+                    <div class="product-tags">
+                        <div class="tag tag-primary">亿年石峰画卷</div>
+                        <div class="tag tag-secondary">群峰壁立</div>
+                        <div class="tag tag-secondary">千嶂叠翠</div>
+                    </div>
+                    <div class="product-price">¥130起</div>
+                    <div class="product-sales">
+                        <div class="sales-text">41555评价</div>
+                        <div class="sales-text">已售45889</div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item">
+                <div class="product-img">
+                    <img src="./商场图片/中科植物园.jpg" alt="中科植物园">
+                </div>
+                <div class="product-info">
+                    <div class="product-title"><strong>中科植物园一般指中国科学院西双版纳热带植物园，它是集科研、科普与旅游为一体的5A级景区</strong></div>
+                    <div class="product-tags">
+                        <div class="tag tag-primary">热带雨林</div>
+                        <div class="tag tag-secondary">藏尽南国万千草木</div>
+                        <div class="tag tag-secondary"> 雨林秘境植物宝库</div>
+                    </div>
+                    <div class="product-price">¥80起</div>
+                    <div class="product-sales">
+                        <div class="sales-text">41586评价</div>
+                        <div class="sales-text">已售45585</div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item">
+                <div class="product-img">
+                    <img src="./商场图片/普达措.jpg" alt="普达措">
+                </div>
+                <div class="product-info">
+                    <div class="product-title"><strong>普达措是云南的5A级景区，有高原湖泊、草甸等景观。</strong></div>
+                    <div class="product-tags">
+                        <div class="tag tag-primary">滇西北高原生态秘境</div>
+                        <div class="tag tag-secondary">三江并流明珠</div>
+                        <div class="tag tag-secondary">原始生态的天堂</div>
+                    </div>
+                    <div class="product-price">¥138起</div>
+                    <div class="product-sales">
+                        <div class="sales-text">35899评价</div>
+                        <div class="sales-text">已售56656</div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item">
+                <div class="product-img">
+                    <img src="./商场图片/芒市仙人洞.jpg" alt="芒市仙人洞">
+                </div>
+                <div class="product-info">
+                    <div class="product-title"><strong> 芒市仙人洞是国家4A景区，溶洞有1.4亿年历史，钟乳石景观奇特 </strong></div>
+                    <div class="product-tags">
+                        <div class="tag tag-primary">亿年溶洞仙景如画佛道交融</div>
+                        <div class="tag tag-secondary">钟乳石奇幻世界·芒市仙人洞</div>
+                        <div class="tag tag-secondary"></div>
+                    </div>
+                    <div class="product-price">¥30起</div>
+                    <div class="product-sales">
+                        <div class="sales-text">15558评价</div>
+                        <div class="sales-text">已售25698</div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item">
+                <div class="product-img">
+                    <img src="./商场图片/腾冲银杏树.jpg" alt="腾冲银杏树">
+                </div>
+                <div class="product-info">
+                    <div class="product-title"><strong>腾冲银杏树规模宏大，村树相依，深秋时金黄如画。</strong></div>
+                    <div class="product-tags">
+                        <div class="tag tag-primary">金毯铺就千百年</div>
+                        <div class="tag tag-secondary">金叶漫山醉晚秋</div>
+                        <div class="tag tag-secondary">腾冲银杏村·秋日金色童话</div>
+                    </div>
+                    <div class="product-price">¥30起</div>
+                    <div class="product-sales">
+                        <div class="sales-text">18558评价</div>
+                        <div class="sales-text">已售27895</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 底部导航 -->
+    <div class="footer-nav">
+        <div class="footer-item"><a href="./index.html"> <img class="footer-icon" src="./商场图片/攻略.png" alt="攻略">
+                <div>攻略</div>
+        </div></a>
+
+        <div class="footer-item footer-active"><a href="./商城.HTML"><img class="footer-icon" src="./商场图片/商城.png"
+                    alt="商城">
+                <div><strong>商城</strong></div>
+        </div></a>
+
+        <div class="footer-item"><a href="./我的页面布局.html"> <img class="footer-icon" src="./商场图片/我的.png" alt="我的">
+                <div>我的</div>
+        </div></a>
+
+    </div>
+</body>
+
+</html>

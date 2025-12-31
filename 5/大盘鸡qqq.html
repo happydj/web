@@ -1,0 +1,93 @@
+ <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大盘鸡</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft YaHei", sans-serif;
+            background-image: url("./照片/艾特莱斯1.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 30px 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            backdrop-filter: blur(10px); /* 毛玻璃效果 */
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .video-container {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .video-title {
+            font-size: 24px;
+            color: #f5d76e; /* 金色文字 */
+            margin-bottom: 15px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .video-player {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .fruit-text {
+            flex: 1;
+            min-width: 300px;
+            color: #eaeaea; /* 浅灰文字 */
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        .fruit-text p {
+            margin-bottom: 12px;
+            padding-left: 10px;
+            border-left: 3px solid #f5d76e; /* 金色左边线 */
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="video-container">
+            <div class="video-title">大盘鸡</div>
+            <video class="video-player" controls preload="metadata">
+                <source src="./照片/panjji11111.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="fruit-text">
+            <p>大盘鸡是新疆经典名菜，以分量十足、味道浓郁著称，是聚餐常点的硬菜。</p>
+            <p>它的主要食材为鸡肉（通常用三黄鸡或土鸡）、土豆，搭配青椒、红椒、洋葱等配菜，烹饪时加入干辣椒、花椒、八角、桂皮等香料，再用豆瓣酱、番茄酱调味，炖煮至鸡肉软烂、土豆绵密，汤汁红亮醇厚。</p>
+            <p>吃的时候还可以搭配皮带面，将面条拌入汤汁中，吸满酱汁后口感筋道入味，香中带辣，风味十足。</p>
+        </div>
+    </div>
+</body>
+</html>

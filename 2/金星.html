@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>星系</title>
+    <script src="./js/three.min.js"></script>
+    <script src="./js/OrbitControls.js"></script>
+    <link rel="stylesheet" href="./css/index.css">
+    <style>
+        /* 通用悬浮窗样式 */
+        .float-window {
+            position: fixed;
+            /* 固定定位，不随滚动移动 */
+            top: 50%;
+            /* 垂直居中 */
+            transform: translateY(-50%);
+            /* 修正垂直居中偏移 */
+            width: 200px;
+            padding: 20px;
+            background: rgba(14, 13, 13, 0.95);
+            /* 半透明白底 */
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            /* 阴影增强立体感 */
+            z-index: 9999;
+            /* 确保浮在最上层 */
+            box-sizing: border-box;
+        }
+
+        /* 左侧悬浮窗定位 */
+        .left-float {
+            left: 40px;
+        }
+
+        /* 右侧悬浮窗定位 */
+        .right-float {
+            right: 20px;
+        }
+
+        /* 浮窗内元素样式（可选） */
+        .float-window h3 {
+            margin: 0 0 15px 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .float-window p,
+        .float-window a {
+            font-size: 14px;
+            color: #666;
+            text-decoration: none;
+            line-height: 1.5;
+        }
+
+        .float-window a:hover {
+            color: #007bff;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div>
+        <canvas id="main"></canvas>
+        <script src="./js/其他星球/金星.js"></script>
+    </div>
+    <!-- 左侧悬浮窗 -->
+    <div class="float-window left-float" style="color: #007bff;">
+        <h3 style="font-size: 24px; color: gold;">简介</h3>
+        <span style="font-size: 17px;">
+            金星是太阳系八大行星中距离太阳第二近的行星，也是地球的近邻，与太阳的平均距离约1.08亿千米，在夜空中亮度仅次于月球，是肉眼可见的最亮行星，因此也被称作“启明星”与“长庚星”。
+
+            它的公转周期约225个地球日，自转方向与太阳系其他行星截然相反，为自东向西逆向自转，自转一周耗时约243个地球日，是太阳系中自转最慢的行星，这也使得金星上的一天，比它的一年还要漫长。
+        </span>
+    </div>
+
+    <!-- 右侧悬浮窗 -->
+    <div class="float-window right-float" style="color: #007bff;">
+        <span>
+            金星拥有浓密厚重的大气层，97%以上为二氧化碳，还覆盖着厚达数十千米的硫酸云，强烈的温室效应让其成为太阳系中地表温度最高的行星，昼夜温度均稳定在465℃至485℃之间。
+
+            金星平均半径约6052千米，体积、质量与地球相近，被称为地球的“姊妹星”，其地表布满火山与熔岩平原，拥有超过1600座大型火山，地质活动十分活跃。金星无天然卫星，也不存在磁场，浓厚的大气能有效阻挡陨石撞击，却让金星成为环境极端的星球，高温、高压与强腐蚀性硫酸雨，使其完全不具备孕育生命的条件。
+        </span>
+    </div>
+</body>
+
+</html>

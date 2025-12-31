@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>喀什地域文化照片展示</title>
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "微软雅黑", sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        /* 标题样式 */
+        .title {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        /* 分类容器 */
+        .culture-container {
+            margin-bottom: 40px;
+        }
+
+        .culture-title {
+            color: #662d91;
+            border-left: 4px solid #662d91;
+            padding-left: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* 照片卡片布局 */
+        .photo-list {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .photo-card {
+            width: 300px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .photo-img {
+            width: 100%;
+            height: 200px;
+            background: #eee;
+            /* 实际使用时替换为照片链接 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+        .photo-img img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .photo-desc {
+            padding: 15px;
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="title">喀什地域文化照片集</h1>
+
+    <!-- 非遗文化板块 -->
+    <div class="culture-container">
+        <h2 class="culture-title">一、非遗文化</h2>
+        <div class="photo-list">
+            <div class="photo-card">
+
+                <div class="photo-img">
+                    <img src="./img/小刀3.jfif" alt="">
+
+                </div>
+
+                <p class="photo-desc">国家级非遗，工艺精湛的手工刀具制作现场</p>
+            </div>
+            <div class="photo-card">
+                <div class="photo-img">
+                    <img src="./img/土陶4.jfif">
+                </div>
+
+                <p class="photo-desc">土陶村孩童体验传统模制法土陶技艺</p>
+            </div>
+            <div class="photo-card">
+                <div class="photo-img">
+                    <img src="./img/印花布制作.webp" alt="">
+                </div>
+                <p class="photo-desc">非遗传承人展示传统模戳印花布工艺</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 建筑文化板块 -->
+    <div class="culture-container">
+        <h2 class="culture-title">二、建筑文化</h2>
+        <div class="photo-list">
+            <div class="photo-card">
+                <div class="photo-img">
+                    <img src="./img/古城街巷.jfif" alt="">
+                </div>
+                <p class="photo-desc">世界最大生土建筑群，迷宫式特色街巷</p>
+            </div>
+            <div class="photo-card">
+                <div class="photo-img">
+                    <img src="./img/高台民居.jfif" alt="">
+                </div>
+                <p class="photo-desc">黄土高崖上的千年聚居地，文明交汇产物</p>
+            </div>
+            <div class="photo-card">
+                <div class="photo-img">
+                    <img src="./img/石头城2.webp" alt="">
+                </div>
+                <p class="photo-desc">2000年历史遗址，玄奘东归曾途经此地</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 民俗文化板块 -->
+    <div class="culture-container">
+        <h2 class="culture-title">三、民俗文化</h2>
+        <div class="photo-list">
+            <div class="photo-card">
+                <div class="photo-img">
+                    <img src="./img/古城跳舞.jpg" alt="">
+                </div>
+                <p class="photo-desc">每日举行的民族歌舞开城仪式，热闹非凡</p>
+            </div>
+            <div class="photo-card">
+                <div class="photo-img">
+                    <img src="./img/刀郎.jfif" alt="">
+                </div>
+                <p class="photo-desc">集歌、舞、乐于一体的热情刀郎舞现场</p>
+            </div>
+            <div class="photo-card">
+                <div class="photo-img">
+                    <img src="./img/叼羊.jpg" alt="">
+                </div>
+                <p class="photo-desc">策马扬鞭的传统体育项目，场面激烈</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

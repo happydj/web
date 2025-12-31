@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>巴音郭楞 · 沙漠绿洲 - 畅游华夏第一州</title>
+<style>
+  /* ========== 核心变量与重置 ========== */
+  :root {
+    --theme: #00e6a0;          /* 青绿 */
+    --theme-glow: rgba(0, 230, 160, 0.4);
+    --accent: #ff7b00;         /* 沙漠橙 */
+    --accent-glow: rgba(255, 123, 0, 0.35);
+    --glass: rgba(255, 255, 255, 0.12);
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --blur: blur(12px);
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.85);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: linear-gradient(135deg, #1a0c29, #2b1a63, #243a4e);
+    color: var(--text-primary);
+    font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    overflow-x: hidden; line-height: 1.6;
+  }
+  section { width: 100%; max-width: 1400px; margin: 0 auto; padding: 100px 20px; position: relative; }
+  img { max-width: 100%; display: block; }
+
+  /* ========== 导航栏 ========== */
+  nav { position: fixed; top: 0; width: 100%; z-index: 1000; background: var(--glass); backdrop-filter: var(--blur); border-bottom: 1px solid var(--glass-border); transition: var(--transition); }
+  nav.hidden { transform: translateY(-100%); }
+  nav ul { display: flex; justify-content: center; align-items: center; list-style: none; padding: 18px 20px; gap: 30px; }
+  nav a { color: var(--text-primary); text-decoration: none; font-weight: 600; padding: 10px 20px; border-radius: 30px; transition: var(--transition); display: flex; align-items: center; gap: 8px; }
+  nav a:hover, nav a.active { background: var(--theme-glow); box-shadow: 0 0 15px var(--theme-glow); }
+
+  /* ========== 粒子背景（沙粒） ========== */
+  #sand { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 99; }
+
+  /* ========== 首屏视差 ========== */
+  .parallax { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; flex-direction: column; overflow: hidden; }
+  .parallax-layer { position: absolute; inset: 0; background-size: cover; background-position: center; will-change: transform; }
+  .parallax-layer.back { background-image: url(https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=1950&q=80); }
+  .parallax-layer.mid { background-image: url(./bayin-home.jpg); opacity: 0.6; }
+  .parallax-content { z-index: 10; text-align: center; max-width: 900px; padding: 0 20px; }
+  .parallax h1 { font-size: clamp(3em, 8vw, 6em); letter-spacing: 6px; text-shadow: 0 8px 30px rgba(0, 0, 0, 0.8); margin-bottom: 20px; background: linear-gradient(45deg, var(--text-primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .parallax p { font-size: clamp(1.2em, 3vw, 1.8em); opacity: 0.9; margin-bottom: 40px; }
+  .cta-button { display: inline-block; padding: 16px 50px; background: var(--glass); backdrop-filter: var(--blur); border: 2px solid var(--accent); border-radius: 50px; color: var(--accent); text-decoration: none; font-weight: 700; font-size: 1.1em; transition: var(--transition); box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3); }
+  .cta-button:hover { transform: translateY(-5px); box-shadow: 0 12px 40px var(--accent-glow); background: var(--accent-glow); }
+  .scroll-down { position: absolute; bottom: 40px; animation: float 2s ease-in-out infinite; background: var(--glass); backdrop-filter: var(--blur); width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; font-size: 2.5em; border: 1px solid var(--glass-border); cursor: pointer; }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(20px); } }
+
+  /* ========== 时间轴 ========== */
+  .timeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; margin: 60px 0; }
+  .timeline-item { background: var(--glass); backdrop-filter: var(--blur); border: 1px solid var(--glass-border); border-radius: 20px; padding: 30px 20px; text-align: center; transition: var(--transition); position: relative; overflow: hidden; }
+  .timeline-item::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, var(--theme-glow), transparent); transition: left 0.6s; }
+  .timeline-item:hover::before { left: 100%; }
+  .timeline-item:hover { transform: translateY(-10px); box-shadow: var(--shadow); }
+  .timeline-item h3 { font-size: 1.8em; color: var(--accent); margin-bottom: 15px; }
+  .timeline-item p { opacity: 0.85; }
+
+  /* ========== 通用卡片 ========== */
+  h2 { font-size: clamp(2em, 5vw, 3.2em); margin-bottom: 60px; text-align: center; letter-spacing: 3px; position: relative; display: inline-block; width: 100%; }
+  h2::after { content: ''; display: block; width: 100px; height: 4px; background: var(--theme); margin: 20px auto 0; border-radius: 2px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; }
+  .card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 20px; overflow: hidden; backdrop-filter: var(--blur); transition: var(--transition); display: flex; flex-direction: column; text-decoration: none; color: var(--text-primary); position: relative; }
+  .card:hover { transform: translateY(-15px) scale(1.03); box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5); border-color: var(--accent); }
+  .card-image { width: 100%; height: 260px; object-fit: cover; transition: var(--transition); }
+  .card:hover .card-image { transform: scale(1.1); }
+  .card-content { padding: 25px; flex: 1; display: flex; flex-direction: column; }
+  .card h3 { font-size: 1.6em; margin-bottom: 12px; color: var(--accent); }
+  .card p { opacity: 0.85; line-height: 1.7; flex: 1; }
+  .card-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--glass-border); font-size: 0.9em; opacity: 0.7; }
+  .rating { color: var(--accent); }
+
+  /* ========== 图片轮播 ========== */
+  .carousel { position: relative; height: 500px; border-radius: 20px; overflow: hidden; margin: 60px 0; box-shadow: var(--shadow); }
+  .carousel-inner { display: flex; width: 500%; height: 100%; animation: slide 40s infinite ease-in-out; }
+  .carousel-item { width: 100%; height: 100%; position: relative; }
+  .carousel-item img { width: 100%; height: 100%; object-fit: cover; }
+  .carousel-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px; }
+  .carousel-caption h3 { font-size: 2em; margin-bottom: 10px; color: var(--accent); }
+  @keyframes slide {
+    0%, 16% { transform: translateX(0); } 20%, 36% { transform: translateX(-20%); } 40%, 56% { transform: translateX(-40%); }
+    60%, 76% { transform: translateX(-60%); } 80%, 96% { transform: translateX(-80%); } 100% { transform: translateX(0); }
+  }
+
+  /* ========== 页脚 ========== */
+  footer { text-align: center; padding: 60px 20px; background: var(--glass); backdrop-filter: var(--blur); border-top: 1px solid var(--glass-border); font-size: 1em; margin-top: 80px; }
+  footer p { margin: 10px 0; opacity: 0.8; }
+  .social-links { margin: 30px 0; display: flex; justify-content: center; gap: 25px; }
+  .social-links a { width: 50px; height: 50px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 50%; display: grid; place-items: center; transition: var(--transition); font-size: 1.5em; }
+  .social-links a:hover { background: var(--theme-glow); transform: translateY(-5px); }
+
+  /* ========== 响应式与动画 ========== */
+  @media (max-width: 768px) { section { padding: 70px 15px; } nav ul { gap: 15px; padding: 12px 15px; } nav a { padding: 8px 12px; font-size: 0.9em; } }
+  .fade-in { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* ========== 加载动画 ========== */
+  .loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0a0a1a; z-index: 9999; display: grid; place-items: center; transition: opacity 0.5s; }
+  .loader.hidden { opacity: 0; pointer-events: none; }
+  .loader-spinner { width: 60px; height: 60px; border: 4px solid var(--glass); border-top: 4px solid var(--theme); border-radius: 50%; animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+<base target="_blank">
+</head>
+<body>
+
+<!-- 加载动画 -->
+<div class="loader" id="loader"><div class="loader-spinner"></div></div>
+<canvas id="sand"></canvas>
+
+<!-- 导航栏 -->
+<nav id="navbar">
+  <ul>
+    <li><a href="#top" class="nav-link">🏜️ 沙漠绿洲</a></li>
+    <li><a href="#timeline" class="nav-link">📅 四季巴州</a></li>
+    <li><a href="#spots" class="nav-link">🐫 必玩景点</a></li>
+    <li><a href="#foods" class="nav-link">🍢 西域美食</a></li>
+    <li><a href="#gifts" class="nav-link">🎁 巴州礼物</a></li>
+    <li><a href="#travel" class="nav-link">✈️ 旅行指南</a></li>
+  </ul>
+</nav>
+
+<!-- 首屏 -->
+<div class="parallax" id="top">
+  <div class="parallax-layer back"></div>
+  <div class="parallax-layer mid"></div>
+  <div class="parallax-content">
+    <h1>巴音郭楞 · 沙漠绿洲</h1>
+    <p>华夏第一州，山河湖海与胡杨骆驼的千年交响</p>
+    <a href="#spots" class="cta-button">开始探索</a>
+  </div>
+  <a href="#timeline" class="scroll-down" id="scrollDown">🐫</a>
+</div>
+
+<!-- 四季时间轴 -->
+<section id="timeline" class="fade-in">
+  <h2>📅 四季巴州</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <h3>🌸 春季（3-5月）</h3>
+      <p>梨花、杏花、桃花沿开都河次第开放；沙漠不热，摄影黄金期。</p>
+    </div>
+    <div class="timeline-item">
+      <h3>☀️ 夏季（6-8月）</h3>
+      <p>巴音布鲁克草原花海，天鹅翩跹；博斯腾湖清凉避暑，瓜果飘香。</p>
+    </div>
+    <div class="timeline-item">
+      <h3>🍂 秋季（9-11月）</h3>
+      <p>塔里木胡杨林披上金甲，沙漠越野、骆驼穿行，一年中最震撼的色彩。</p>
+    </div>
+    <div class="timeline-item">
+      <h3>❄️ 冬季（12-2月）</h3>
+      <p>沙漠雪景、雾凇奇观；罗布人村寨篝火，滑雪+温泉一次体验。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 四季美景轮播 -->
+<section class="fade-in">
+  <h2>🖼️ 四季风景画廊</h2>
+  <div class="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item"><img src="1.jpg" alt="春季梨园"><div class="carousel-caption"><h3>春季 · 库尔勒梨园</h3><p>千树万树梨花开，香雪成海</p></div></div>
+      <div class="carousel-item"><img src="2.jpg" alt="夏季草原"><div class="carousel-caption"><h3>夏季 · 巴音布鲁克</h3><p>九曲十八弯落日，天鹅起舞</p></div></div>
+      <div class="carousel-item"><img src="3.jpg" alt="胡杨林"><div class="carousel-caption"><h3>秋季 · 塔里木胡杨</h3><p>三千年向天呐喊的金色长廊</p></div></div>
+      <div class="carousel-item"><img src="4.jpg" alt="沙漠雪"><div class="carousel-caption"><h3>冬季 · 塔克拉玛干雪沙</h3><p>大漠孤雪，天地一色</p></div></div>
+      <div class="carousel-item"><img src="5.jpg" alt="天鹅湖"><div class="carousel-caption"><h3>天鹅湖 · 雾凇晨曦</h3><p>万顷琉璃，天鹅引颈</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 景点 -->
+<section id="spots" class="fade-in">
+  <h2>🐫 必玩景点</h2>
+  <div class="grid">
+    <a class="card" href="z6.jpg" target="_blank"><img class="card-image" src="z6.jpg" alt="巴音布鲁克"><div class="card-content"><h3>巴音布鲁克</h3><p>九曲十八弯、天鹅湖、开都河日落；中国最大高山草原，被《中国国家地理》评为“最柔美草原”。</p><div class="card-meta"><span>🏞️ 世界自然遗产</span><span class="rating">⭐ 4.9</span></div></div></a>
+    <a class="card" href="z7.jpg" target="_blank"><img class="card-image" src="z7.jpg" alt="塔里木胡杨林"><div class="card-content"><h3>塔里木胡杨林公园</h3><p>世界面积最大原始胡杨林，24 万亩金色世界；复古小火车穿林而过，摄影天堂。</p><div class="card-meta"><span>🌳 世界最大胡杨林</span><span class="rating">⭐ 4.8</span></div></div></a>
+    <a class="card" href="z8.jpg" target="_blank"><img class="card-image" src="z8.jpg" alt="博斯腾湖"><div class="card-content"><h3>博斯腾湖</h3><p>中国最大内陆淡水湖，金沙滩+白鹭洲+莲海；夏季避暑、冬季观鸟，全季可玩。</p><div class="card-meta"><span>🌊 国家 5A</span><span class="rating">⭐ 4.7</span></div></div></a>
+    <a class="card" href="z9.jpg" target="_blank"><img class="card-image" src="z9.jpg" alt="楼兰博物馆"><div class="card-content"><h3>楼兰博物馆</h3><p>小河墓地、楼兰美女、千年织锦；沉浸式 VR 重现丝路重镇，神秘楼兰一次看懂。</p><div class="card-meta"><span>🏺 丝路秘境</span><span class="rating">⭐ 4.6</span></div></div></a>
+    <a class="card" href="z10.jpg" target="_blank"><img class="card-image" src="z10.jpg" alt="塔克拉玛干"><div class="card-content"><h3>塔克拉玛干沙漠</h3><p>世界第二大流动沙漠，N39 越野基地、骆驼穿越、星空露营；感受“死亡之海”的温柔。</p><div class="card-meta"><span>🏜️ 沙漠越野</span><span class="rating">⭐ 4.8</span></div></div></a>
+    <a class="card" href="z11.jpg" target="_blank"><img class="card-image" src="z11.jpg" alt="罗布人村寨"><div class="card-content"><h3>罗布人村寨</h3><p>胡杨深处最后的“罗布人”，烤鱼+篝火+卡盆舟；沙漠与胡杨交汇的原始村落。</p><div class="card-meta"><span>🔥 原始人文</span><span class="rating">⭐ 4.5</span></div></div></a>
+  </div>
+</section>
+
+<!-- 美食 -->
+<section id="foods" class="fade-in">
+  <h2>🍢 西域美食</h2>
+  <div class="grid">
+    <a class="card" href="z12.jpg" target="_blank"><img class="card-image" src="z12.jpg" alt="罗布烤鱼"><div class="card-content"><h3>罗布烤鱼</h3><p>塔里木河野生鲫鱼，整鱼插在胡杨红柳枝上，果木炭火慢烤，外焦里嫩，自带木香。</p><div class="card-meta"><span>🐟 沙漠第一味</span><span class="rating">⭐⭐⭐⭐⭐</span></div></div></a>
+    <a class="card" href="z13.jpg" target="_blank"><img class="card-image" src="z13.jpg" alt="库尔勒香梨"><div class="card-content"><h3>库尔勒香梨</h3><p>国家地理标志，皮薄肉细，入口即化，零下 20℃仍不冻心，秋季采摘必尝。</p><div class="card-meta"><span>🍐 果中王子</span><span class="rating">⭐⭐⭐⭐⭐</span></div></div></a>
+    <a class="card" href="z14.jpg" target="_blank"><img class="card-image" src="z14.jpg" alt="红柳烤肉"><div class="card-content"><h3>红柳枝烤肉</h3><p>戈壁羔羊后腿肉，穿红柳枝炭烤，脂香与植物清香交织，大块过瘾。</p><div class="card-meta"><span>🍖 烤肉天花板</span><span class="rating">⭐⭐⭐⭐⭐</span></div></div></a>
+    <a class="card" href="z15.jpg" target="_blank"><img class="card-image" src="z15.jpg" alt="库尔勒大馕"><div class="card-content"><h3>库尔勒大馕</h3><p>直径 60cm 芝麻大馕，外脆内软，放一月不硬；配酸奶或罗布茶，越嚼越香。</p><div class="card-meta"><span>🫓 干粮之王</span><span class="rating">⭐⭐⭐⭐</span></div></div></a>
+    <a class="card" href="z16.jpg" target="_blank"><img class="card-image" src="z16.jpg" alt="博湖野鱼宴"><div class="card-content"><h3>博湖野鱼宴</h3><p>草鱼、鲫鱼、五道黑等 10 余种淡水鱼，一鱼三吃：鱼头汤、剁椒蒸、香煎，鲜掉眉毛。</p><div class="card-meta"><span>🍲 全鱼盛宴</span><span class="rating">⭐⭐⭐⭐</span></div></div></a>
+    <a class="card" href="z17.jpg" target="_blank"><img class="card-image" src="z17.jpg" alt="木桶酸奶"><div class="card-content"><h3>图瓦木桶酸奶</h3><p>巴音布鲁克草原鲜奶，木桶 48h 自然发酵，表层金黄奶皮，微甜回甘。</p><div class="card-meta"><span>🥛 益生菌炸弹</span><span class="rating">⭐⭐⭐⭐</span></div></div></a>
+  </div>
+</section>
+
+<!-- 特产 -->
+<section id="gifts" class="fade-in">
+  <h2>🎁 巴州礼物</h2>
+  <div class="grid">
+    <a class="card" href="z18.jpg" target="_blank"><img class="card-image" src="z18.jpg" alt="香梨"><div class="card-content"><h3>库尔勒香梨礼盒</h3><p>产地直采，恒温冷链，5kg 礼盒；秋季限定，送领导长辈首选。</p><div class="card-meta"><span>🍐 国家地标</span><span class="rating">⭐⭐⭐⭐⭐</span></div></div></a>
+    <a class="card" href="z19.jpg" target="_blank"><img class="card-image" src="z19.jpg" alt="若羌红枣"><div class="card-content"><h3>若羌灰枣</h3><p>800 年古树枣，昼夜温差 20℃，肉厚核小，高铁网红零食。</p><div class="card-meta"><span>🍬 天然甜丸</span><span class="rating">⭐⭐⭐⭐</span></div></div></a>
+    <a class="card" href="z20.jpg" target="_blank"><img class="card-image" src="z20.jpg" alt="地毯"><div class="card-content"><h3>手工羊毛地毯</h3><p>巴州传统图案，纯手工打结，一毯传三代；可定制尺寸与图腾。</p><div class="card-meta"><span>🧶 非遗技艺</span><span class="rating">⭐⭐⭐⭐⭐</span></div></div></a>
+    <a class="card" href="z21.jpg" target="_blank"><img class="card-image" src="z21.jpg" alt="金丝玉"><div class="card-content"><h3>金丝玉挂件</h3><p>罗布泊戈壁金丝玉，色如夕阳，自带云纹；本地匠人雕刻，寓意吉祥。</p><div class="card-meta"><span>🪙 戈壁珍宝</span><span class="rating">⭐⭐⭐⭐</span></div></div></a>
+    <a class="card" href="z22.jpg" target="_blank"><img class="card-image" src="z22.jpg" alt="胡杨花蜜"><div class="card-content"><h3>塔里木胡杨花蜜</h3><p>秋季胡杨花一次蜜，琥珀色，淡淡花香；低温不结晶，限量 2 万瓶。</p><div class="card-meta"><span>🍯 限量自然</span><span class="rating">⭐⭐⭐⭐</span></div></div></a>
+    <a class="card" href="z23.jpg" target="_blank"><img class="card-image" src="z23.jpg" alt="骆驼奶粉"><div class="card-content"><h3>沙漠骆驼奶粉</h3><p>单峰骆驼鲜奶，冻干锁鲜，高蛋白低脂肪；易吸收，送长辈健康。</p><div class="card-meta"><span>🐪 沙漠白金</span><span class="rating">⭐⭐⭐⭐⭐</span></div></div></a>
+  </div>
+</section>
+
+<!-- 旅行指南 -->
+<section id="travel" class="fade-in">
+  <h2>✈️ 旅行实用指南</h2>
+  <div class="grid">
+    <div class="card"><div class="card-content"><h3>🚗 交通方式</h3><p><strong>飞机：</strong>库尔勒梨城机场，乌鲁木齐/西安/成都直飞</p><p><strong>火车：</strong>库尔勒站，南疆铁路枢纽</p><p><strong>自驾：</strong>乌鲁木齐→库尔勒 5h；若羌→茫崖 8h</p><p><strong>包车：</strong>沙漠/胡杨林需硬派越野，建议本地司机</p></div></div>
+    <div class="card"><div class="card-content"><h3>🏨 住宿推荐</h3><p><strong>库尔勒市区：</strong>滨湖路酒店群，夜景+天鹅河</p><p><strong>博斯腾湖：</strong>白鹭洲星空帐篷，推门见湖</p><p><strong>草原：</strong>巴音布鲁克镇藏式民宿，供氧+地暖</p><p><strong>沙漠：</strong>N39 沙漠营地，摩洛哥帐篷+篝火</p></div></div>
+    <div class="card"><div class="card-content"><h3>🎒 装备清单</h3><p><strong>防晒：</strong>SPF50+ 防晒霜、墨镜、遮阳帽</p><p><strong>温差：</strong>冲锋衣+抓绒，沙漠晚温差 20℃</p><p><strong>摄影：</strong>无人机需备案，胡杨林最佳 9:30 前</p><p><strong>其他：</span>保湿面膜、现金（部分村无信号）、身份证</p></div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="social-links"><a href="#">📱</a><a href="#">📷</a><a href="#">🎬</a><a href="#">📧</a></div>
+  <p>© 2025 巴音郭楞蒙古自治州文化体育广播电视和旅游局 · 华夏第一州欢迎您</p>
+  <p>客服热线：0996-12345 | 旅游投诉：0996-54321</p>
+  <p>地址：新疆库尔勒市延安路 63 号</p>
+</footer>
+
+<script>
+  /* ========== 页面加载动画 ========== */
+  window.addEventListener('load', () => { setTimeout(() => document.getElementById('loader').classList.add('hidden'), 800); });
+
+  /* ========== 粒子背景（沙粒） ========== */
+  const canvas = document.getElementById('sand'), ctx = canvas.getContext('2d');
+  canvas.width = innerWidth; canvas.height = innerHeight;
+  const grains = Array.from({length: 180}, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 2 + 0.5,
+    d: Math.random() * 1.2 + 0.3,
+    a: Math.random() * 0.4 - 0.2,
+    o: Math.random() * 0.7 + 0.3
+  }));
+  function drawSand() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    grains.forEach(g => {
+      ctx.beginPath();
+      ctx.arc(g.x, g.y, g.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255, 200, 100, ${g.o})`;
+      ctx.fill();
+      g.y += g.d; g.x += g.a;
+      if (g.y > canvas.height) g.y = -10;
+      if (g.x > canvas.width) g.x = 0;
+      if (g.x < 0) g.x = canvas.width;
+    });
+  }
+  setInterval(drawSand, 35);
+  addEventListener('resize', () => { canvas.width = innerWidth; canvas.height = innerHeight; });
+
+  /* ========== 视差滚动 / 导航隐藏 / 滚动动画 / 平滑滚动 / 导航高亮 / 懒加载 全部沿用阿勒泰版 ========== */
+  const parallaxLayers = document.querySelectorAll('.parallax-layer');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    parallaxLayers[0].style.transform = `translateY(${scrolled * 0.5}px)`;
+    parallaxLayers[1].style.transform = `translateY(${scrolled * 0.7}px)`;
+  });
+
+  let lastScroll = 0;
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    if (currentScroll > 100) {
+      if (currentScroll > lastScroll) navbar.classList.add('hidden');
+      else navbar.classList.remove('hidden');
+    }
+    lastScroll = currentScroll;
+  });
+
+  const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, observerOptions);
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      if (pageYOffset >= sectionTop - 150) current = section.getAttribute('id');
+    });
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
+    });
+  });
+</script>
+</body></html>

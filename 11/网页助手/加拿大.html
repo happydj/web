@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026世界杯 | 加拿大赛区</title>
+  <!-- 外部资源 -->
+  <script src="../js/3.4.17.js"></script>
+  <!-- <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  
+  <!-- Tailwind 配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canadaRed: '#FF0000',
+            canadaWhite: '#FFFFFF',
+            canadaNavy: '#00247D',
+            dark: '#1A1A1A',
+            light: '#F5F5F5'
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- 自定义样式 -->
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto { content-visibility: auto; }
+      .text-shadow { text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
+      .bg-gradient-canada { background: linear-gradient(135deg, #00247D 0%, #FF0000 100%); }
+    }
+    
+    body { scroll-behavior: smooth; }
+    .venue-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
+  </style>
+</head>
+
+<body class="bg-light font-sans text-dark">
+  <!-- 导航栏 -->
+  <nav class="fixed w-full z-50 bg-canadaNavy/95 text-white shadow-lg">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <a href="#" class="flex items-center gap-2">
+        <i class="fa fa-futbol-o text-canadaRed text-2xl"></i>
+        <span class="font-bold text-lg">加拿大 2026</span>
+      </a>
+      <ul class="flex gap-6 text-sm md:text-base">
+        <li><a href="#home" class="hover:text-canadaRed transition-colors">首页</a></li>
+        <li><a href="#venues" class="hover:text-canadaRed transition-colors">场馆</a></li>
+        <li><a href="#info" class="hover:text-canadaRed transition-colors">赛事信息</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- 英雄区 -->
+  <section id="home" class="pt-20 pb-16 min-h-screen flex items-center bg-canadaNavy/5">
+    <div class="container mx-auto px-4 grid md:grid-cols-2 gap-8 items-center">
+      <div class="text-center md:text-left">
+        <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold mb-4">
+          <span class="text-canadaNavy">加拿大</span>
+          <span class="text-canadaRed">2026世界杯</span>
+        </h1>
+        <p class="text-gray-700 mb-8 text-lg max-w-lg mx-auto md:mx-0">
+          2026年美加墨世界杯，加拿大首次作为东道主之一，迎接全球足球盛宴，展现北境足球热情。
+        </p>
+        <a href="#venues" class="inline-block bg-canadaRed hover:bg-canadaRed/90 text-white font-bold py-3 px-8 rounded-full transition-all">
+          探索比赛场馆 <i class="fa fa-arrow-right ml-2"></i>
+        </a>
+      </div>
+      <div class="rounded-xl overflow-hidden shadow-2xl">
+        <img src="../img/j.png" alt="加拿大世界杯宣传图" class="w-full h-auto">
+      </div>
+    </div>
+  </section>
+
+  <!-- 比赛场馆 -->
+  <section id="venues" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-[clamp(1.5rem,4vw,2.5rem)] font-bold text-center mb-12 text-canadaNavy">
+        加拿大世界杯场馆
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        <!-- 多伦多场馆 -->
+        <div class="venue-card bg-light rounded-xl shadow-md overflow-hidden">
+          <img src="../img/bmo.jpg" alt="多伦多BMO球场" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="font-bold text-xl mb-2 text-canadaNavy">多伦多 · BMO球场</h3>
+            <p class="text-gray-600">
+              可容纳47,500名观众，位于安大略省多伦多市，将承办多场小组赛及淘汰赛阶段比赛。
+            </p>
+          </div>
+        </div>
+        <!-- 温哥华场馆 -->
+        <div class="venue-card bg-light rounded-xl shadow-md overflow-hidden">
+          <img src="../img/wgh.jpg" alt="温哥华BC Place" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="font-bold text-xl mb-2 text-canadaNavy">温哥华 · BC Place</h3>
+            <p class="text-gray-600">
+              可容纳54,500名观众，拥有可开合屋顶，位于不列颠哥伦比亚省，是加拿大西海岸足球地标。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 赛事信息 -->
+  <section id="info" class="py-16 bg-gradient-canada text-white">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <h2 class="text-[clamp(1.5rem,4vw,2.5rem)] font-bold text-center mb-8">
+        赛事核心信息
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+        <div class="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+          <i class="fa fa-calendar text-3xl mb-4"></i>
+          <h3 class="font-bold text-lg mb-2">举办时间</h3>
+          <p>2026年6月 - 7月</p>
+        </div>
+        <div class="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+          <i class="fa fa-globe text-3xl mb-4"></i>
+          <h3 class="font-bold text-lg mb-2">参赛球队</h3>
+          <p>48支国家队（史上最多）</p>
+        </div>
+        <div class="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+          <i class="fa fa-map-marker text-3xl mb-4"></i>
+          <h3 class="font-bold text-lg mb-2">加拿大赛区</h3>
+          <p>2座城市 · 16场比赛</p>
+        </div>
+      </div>
+      
+      <div class="mt-12 text-center">
+        <p class="mb-6">关注官方渠道，获取最新票务及观赛指南</p>
+        <a href="#" class="inline-block bg-white text-canadaNavy font-bold py-2 px-6 rounded-full hover:bg-gray-100 transition-all">
+          官方网站 <i class="fa fa-external-link ml-2"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="bg-dark text-white py-8">
+    <div class="container mx-auto px-4 text-center">
+      <p>&copy; 2026 美加墨世界杯加拿大赛区 | 所有权利保留</p>
+      <div class="mt-4 flex justify-center gap-4 text-lg">
+        <a href="#" class="hover:text-canadaRed transition-colors"><i class="fa fa-facebook"></i></a>
+        <a href="#" class="hover:text-canadaRed transition-colors"><i class="fa fa-twitter"></i></a>
+        <a href="#" class="hover:text-canadaRed transition-colors"><i class="fa fa-instagram"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 返回顶部 -->
+  <button onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 bg-canadaRed text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-canadaRed/90 transition-all">
+    <i class="fa fa-arrow-up"></i>
+  </button>
+</body>
+</html>

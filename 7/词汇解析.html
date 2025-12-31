@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>英语词根学习</title>
+  <script src="./js/all.js"></script>
+  <link href="./css/all.css" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3B82F6',
+            secondary: '#10B981',
+            dark: '#1E293B',
+            light: '#F8FAFC',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .text-shadow-lg {
+        text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      }
+      .content-auto {
+        content-visibility: auto;
+      }
+      .glass {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+      .glass-dark {
+        background: rgba(15, 23, 42, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+    }
+  </style>
+</head>
+
+<body class="min-h-screen overflow-hidden font-sans text-dark">
+  <!-- 动态背景（使用 pexels 上的免费视频作为背景示例） -->
+  <div class="fixed inset-0 -z-10 w-full h-full">
+    <video class="object-cover w-full h-full" src="./img/视频1.mp4" autoplay loop muted playsinline></video>
+    <!-- 遮罩层，让文字更清晰 -->
+    <div class="absolute inset-0 bg-dark/40"></div>
+  </div>
+
+  <div class="container mx-auto px-4 py-8 h-screen flex flex-col">
+    <!-- 顶部标题栏 -->
+    <header class="glass rounded-xl p-4 mb-6 shadow-lg relative">
+      <!-- 新增：左上角返回首页链接 -->
+      <a href="index.html"
+        class="absolute left-4 top-1/2 -translate-y-1/2 text-primary hover:text-primary/80 transition-colors">
+        返回首页
+      </a>
+
+      <h1 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-primary text-center text-shadow-lg">
+        英语词根学习
+      </h1>
+      <p class="text-center text-gray-600 dark:text-gray-300 mt-1">
+        点击左侧词根，查看右侧相关单词
+      </p>
+    </header>
+
+    <!-- 主体内容：左右分栏 -->
+    <main class="flex-1 flex flex-col md:flex-row gap-6">
+      <!-- 左侧：词根列表 -->
+      <section class="w-full md:w-1/3 glass rounded-xl p-4 shadow-lg overflow-auto max-h-[calc(100vh-160px)]">
+        <h2 class="text-xl font-bold mb-4 text-primary">词根列表</h2>
+        <div id="rootList" class="space-y-2">
+          <!-- 由 JS 动态生成 -->
+        </div>
+      </section>
+
+      <!-- 右侧：单词列表 -->
+      <section class="w-full md:w-2/3 glass rounded-xl p-4 shadow-lg overflow-auto max-h-[calc(100vh-160px)]">
+        <h2 class="text-xl font-bold mb-4 text-secondary">
+          <span id="currentRootTitle">请从左侧选择一个词根</span>
+        </h2>
+        <div id="wordList" class="space-y-4">
+          <div class="text-gray-500 italic text-center py-8">
+            点击左侧词根查看对应单词
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- 底部说明 -->
+    <footer class="mt-auto text-center text-sm text-gray-400 glass rounded-xl p-2">
+      背景视频来自 Mixkit · 仅作学习示例使用
+    </footer>
+  </div>
+
+  <script>
+    // 词根数据
+    const rootsData = [
+      {
+        root: 'vis / vid',
+        meaning: 'to see（看）',
+        words: [
+          { word: 'visible', meaning: '可见的；明显的；能看见的' },
+          { word: 'invisible', meaning: '看不见的；无形的；隐匿的' },
+          { word: 'visit', meaning: '参观；访问；拜访；探望' },
+          { word: 'vision', meaning: '视力；视觉；愿景；幻想' },
+          { word: 'television', meaning: '电视；电视机；电视节目' },
+          { word: 'visual', meaning: '视觉的；视力的；直观的' },
+          { word: 'revise', meaning: '修订；修改；复习；校正' },
+          { word: 'supervise', meaning: '监督；管理；指导；监控' },
+          { word: 'previse', meaning: '预见；预知；预先警告' },
+          { word: 'advise', meaning: '建议；劝告；通知；告知' }
+        ]
+      },
+      {
+        root: 'port',
+        meaning: 'to carry（搬运）',
+        words: [
+          { word: 'transport', meaning: '运输；运送；使置身于（另一种环境）' },
+          { word: 'import', meaning: '进口；输入；重要性；含义' },
+          { word: 'export', meaning: '出口；输出；传播（思想、文化等）' },
+          { word: 'portable', meaning: '便携式的；手提的；可移动的' },
+          { word: 'deport', meaning: '驱逐（外国人）出境；举止得体' },
+          { word: 'report', meaning: '报告；报道；汇报；传闻' },
+          { word: 'support', meaning: '支持；支撑；拥护；资助' },
+          { word: 'portfolio', meaning: '公文包；投资组合；作品集' },
+          { word: 'comport', meaning: '举止；表现；与……相符' },
+          { word: 'sport', meaning: '运动；体育运动；娱乐；玩弄' }
+        ]
+      },
+      {
+        root: 'dict',
+        meaning: 'to say / to speak（说）',
+        words: [
+          { word: 'dictionary', meaning: '字典；词典' },
+          { word: 'predict', meaning: '预言；预测；预报' },
+          { word: 'dictate', meaning: '口述；听写；命令；支配' },
+          { word: 'contradict', meaning: '反驳；否认；与……矛盾' },
+          { word: 'dictator', meaning: '独裁者；专制者' },
+          { word: 'diction', meaning: '措辞；用语；发音' },
+          { word: 'edict', meaning: '法令；敕令；公告' },
+          { word: 'indict', meaning: '控告；起诉；指控' },
+          { word: 'dictum', meaning: '格言；箴言；权威论断' },
+          { word: 'prediction', meaning: '预言；预测；预报（名词形式）' }
+        ]
+      },
+      {
+        root: 'duc / duct',
+        meaning: 'to lead（引导）',
+        words: [
+          { word: 'introduce', meaning: '介绍；引进；传入；提出' },
+          { word: 'produce', meaning: '生产；制造；产生；出示；产品' },
+          { word: 'conduct', meaning: '引导；指挥；管理；传导；行为；举止' },
+          { word: 'educate', meaning: '教育；培养；训练；教导' },
+          { word: 'reduce', meaning: '减少；降低；缩减；使沦为' },
+          { word: 'induce', meaning: '诱导；引起；促使；劝诱' },
+          { word: 'deduct', meaning: '扣除；减去；演绎（推理）' },
+          { word: 'conduct', meaning: '引导；指挥；管理；传导；行为；举止' },
+          { word: 'abduct', meaning: '绑架；诱拐；劫持' },
+          { word: 'aqueduct', meaning: '渡槽；导水管；高架渠' },
+          { word: 'duct', meaning: '管道；导管；输送管' },
+          { word: 'productive', meaning: '多产的；富有成效的；生产性的' },
+          { word: 'conductor', meaning: '指挥家；导体；售票员；管理者' },
+          { word: 'education', meaning: '教育；培养；教育学；教育体系' }
+        ]
+      },
+      {
+        root: 'struct',
+        meaning: 'to build（建造）',
+        words: [
+          { word: 'structure', meaning: '结构；构造；建筑物；组织；安排' },
+          { word: 'construct', meaning: '建造；构建；构造；编造；构想' },
+          { word: 'destroy', meaning: '破坏；摧毁；毁灭；消灭；使失效' },
+          { word: 'infrastructure', meaning: '基础设施；公共建设；基础结构' },
+          { word: 'construction', meaning: '建设；建造；建筑；构造；解释' },
+          { word: 'destruction', meaning: '毁灭；破坏；摧毁；消亡' },
+          { word: 'reconstruct', meaning: '重建；复原；重构；再现（场景等）' },
+          { word: 'superstructure', meaning: '上层建筑；上部结构；上层构造' },
+          { word: 'substructure', meaning: '下部结构；地基；基础架构' },
+          { word: 'structuring', meaning: '结构化；组织；安排；构建过程' },
+          { word: 'constructive', meaning: '建设性的；有益的；构造上的' },
+          { word: 'destructive', meaning: '破坏性的；毁灭性的；有害的' },
+          { word: 'obstruct', meaning: '阻碍；阻塞；阻挡；妨碍' },
+          { word: 'obstruction', meaning: '阻碍；障碍物；阻塞；妨碍行为' },
+          { word: 'architect', meaning: '建筑师；设计师；缔造者；创造者' },
+          { word: 'architecture', meaning: '建筑学；建筑风格；架构；体系结构' }
+        ]
+      },
+      {
+        root: 'spect',
+        meaning: 'to look（看）',
+        words: [
+          { word: 'inspect', meaning: '检查；视察；审视；核查' },
+          { word: 'respect', meaning: '尊敬；尊重；重视；方面；敬意' },
+          { word: 'expect', meaning: '期待；期望；预料；要求' },
+          { word: 'spectator', meaning: '观众；旁观者；目击者' },
+          { word: 'spectacle', meaning: '景象；壮观场面；眼镜；奇观' },
+          { word: 'spectacular', meaning: '壮观的；惊人的；精彩的；奇观' },
+          { word: 'perspect', meaning: '透视；视角；观点（多作perspective使用）' },
+          { word: 'perspective', meaning: '视角；观点；透视法；远景；洞察力' },
+          { word: 'retrospect', meaning: '回顾；回想；追溯' },
+          { word: 'prospect', meaning: '前景；展望；前途；勘探；寻找' },
+          { word: 'prospective', meaning: '未来的；预期的；可能的；潜在的' },
+          { word: 'suspect', meaning: '怀疑；猜想；嫌疑犯；可疑的' },
+          { word: 'suspicious', meaning: '可疑的；多疑的；引起怀疑的' },
+          { word: 'circumspect', meaning: '谨慎的；小心的；考虑周全的' },
+          { word: 'introspect', meaning: '内省；反省；自我审视' },
+          { word: 'introspection', meaning: '内省；反省；自我反思' },
+          { word: 'aspect', meaning: '方面；层面；外观；样子；（语法）体' }
+        ]
+      },
+      {
+        root: 'ject',
+        meaning: 'to throw（扔，投）',
+        words: [
+          { word: 'reject', meaning: '拒绝；驳回；摒弃；拒收；次品' },
+          { word: 'project', meaning: '投射；放映；规划；项目；工程；方案' },
+          { word: 'inject', meaning: '注射；注入；引入；投入；灌输' },
+          { word: 'object', meaning: '物体；物品；目标；对象；反对；提出异议' },
+          { word: 'subject', meaning: '主题；科目；主语；臣民；受……支配的；使服从' },
+          { word: 'eject', meaning: '弹出；喷射；驱逐；逐出；排出' },
+          { word: 'ejection', meaning: '弹出；驱逐；排出；喷射（名词形式）' },
+          { word: 'inject', meaning: '注射；注入；引入；投入；灌输' },
+          { word: 'injection', meaning: '注射；注入；注射液；投入（名词形式）' },
+          { word: 'interject', meaning: '插话；插入；突然提出' },
+          { word: 'jet', meaning: '喷气式飞机；喷射；喷嘴；黑色大理石' },
+          { word: 'jettison', meaning: '抛弃；丢弃（累赘物）；投弃（货物）' },
+          { word: 'projection', meaning: '投射；投影；预测；规划；凸出物' },
+          { word: 'rejection', meaning: '拒绝；驳回；摒弃；拒收（名词形式）' },
+          { word: 'subjection', meaning: '臣服；顺从；受支配；征服（名词形式）' },
+          { word: 'traject', meaning: '投射；抛射；轨迹（多作trajectory使用）' },
+          { word: 'trajectory', meaning: '轨迹；弹道；轨道；发展轨迹' },
+          { word: 'abject', meaning: '卑鄙的；凄惨的；绝望的；卑躬屈膝的' }
+        ]
+      },
+      {
+        root: 'phon',
+        meaning: 'sound（声音）',
+        words: [
+          { word: 'phone', meaning: '电话；电话机；语音；打电话' },
+          { word: 'microphone', meaning: '麦克风；话筒；传声器' },
+          { word: 'headphone', meaning: '耳机；头戴式受话器' },
+          { word: 'symphony', meaning: '交响乐；交响曲；交响乐团；和谐的声音' },
+          { word: 'telephone', meaning: '电话；电话机；打电话' },
+          { word: 'phonetic', meaning: '语音的；语音学的；表示语音的' },
+          { word: 'phonetics', meaning: '语音学；发音学' },
+          { word: 'phonology', meaning: '音系学；音韵学；语音体系' },
+          { word: 'phonograph', meaning: '留声机；电唱机' },
+          { word: 'cacophony', meaning: '刺耳的声音；嘈杂声；不和谐的音' },
+          { word: 'euphony', meaning: '悦耳的声音；和谐的音韵' },
+          { word: 'symphony', meaning: '交响乐；交响曲；交响乐团；和谐的声音' },
+          { word: 'symphonic', meaning: '交响乐的；交响乐团的；和谐的' },
+          { word: 'monophone', meaning: '单音；单声道设备' },
+          { word: 'stereophone', meaning: '立体声耳机；立体声设备' },
+          { word: 'phoneme', meaning: '音素；音位（语言的最小语音单位）' },
+          { word: 'phonograph', meaning: '留声机；电唱机' },
+          { word: 'megaphone', meaning: '扩音器；喇叭筒；用扩音器讲话' },
+          { word: 'sonic', meaning: '声音的；音速的；声波的' },
+          { word: 'ultrasonic', meaning: '超声的；超音速的；超声波' }
+        ]
+      },
+      {
+        root: 'bio',
+        meaning: 'life（生命）',
+        words: [
+          { word: 'biology', meaning: '生物学；生物规律；生物特性' },
+          { word: 'biography', meaning: '传记；个人生平记述' },
+          { word: 'antibiotic', meaning: '抗生素；抗菌素；抗菌的' },
+          { word: 'biologist', meaning: '生物学家；生物学研究者' },
+          { word: 'biography', meaning: '传记；个人生平记述' },
+          { word: 'autobiography', meaning: '自传；自传体文学' },
+          { word: 'biochemical', meaning: '生物化学的；生物化学物质' },
+          { word: 'biochemistry', meaning: '生物化学；生物化学研究' },
+          { word: 'biodiversity', meaning: '生物多样性；生物种类多样化' },
+          { word: 'biography', meaning: '传记；个人生平记述' },
+          { word: 'biopsy', meaning: '活组织检查；活检' },
+          { word: 'biodegradable', meaning: '可生物降解的；能被微生物分解的' },
+          { word: 'biofuel', meaning: '生物燃料；生物质燃料' },
+          { word: 'bioluminescence', meaning: '生物发光；生物荧光' },
+          { word: 'biomass', meaning: '生物质；生物量；生物燃料原料' },
+          { word: 'biomedical', meaning: '生物医学的；生物医学领域的' },
+          { word: 'biome', meaning: '生物群系；生物群落区' },
+          { word: 'biosphere', meaning: '生物圈；生物层' },
+          { word: 'biotech', meaning: '生物技术；生物科技（缩写）' },
+          { word: 'biotechnology', meaning: '生物技术；生物工程' },
+          { word: 'symbiosis', meaning: '共生；共生关系；互利共存' }
+        ]
+      },
+      {
+        root: 'geo',
+        meaning: 'earth（地球，土地）',
+        words: [
+          { word: 'geography', meaning: '地理；地理学；地形；地貌' },
+          { word: 'geology', meaning: '地质学；地质情况；地质构造' },
+          { word: 'geometry', meaning: '几何学；几何形状；几何图形' },
+          { word: 'geography', meaning: '地理；地理学；地形；地貌' },
+          { word: 'geothermal', meaning: '地热的；地温的；地热能源的' },
+          { word: 'geopolitics', meaning: '地缘政治；地缘政治学' },
+          { word: 'geocentric', meaning: '以地球为中心的；地心说的' },
+          { word: 'geode', meaning: '晶洞；地质晶球' },
+          { word: 'geographer', meaning: '地理学家；地理研究者' },
+          { word: 'geology', meaning: '地质学；地质情况；地质构造' },
+          { word: 'geosphere', meaning: '地圈；陆界；地球表层' }
+        ]
+      },
+      {
+        root: 'man',
+        meaning: 'hand（手；通过手做、操作）',
+        words: [
+          { word: 'manual', meaning: '手工的；手动的；手册；指南' },
+          { word: 'manipulate', meaning: '操纵；操控；摆弄；处理' },
+          { word: 'manufacture', meaning: '制造；生产；捏造；虚构' },
+          { word: 'manuscript', meaning: '手稿；原稿；手写本' },
+          { word: 'manage', meaning: '管理；经营；处理；设法做到' },
+          { word: 'manner', meaning: '方式；态度；举止；礼貌' },
+          { word: 'emancipate', meaning: '解放；使摆脱束缚' },
+          { word: 'maintain', meaning: '维持；保持；维修；坚持' },
+          { word: 'maneuver', meaning: '机动；策略；操纵；调遣' },
+          { word: 'handyman', meaning: '手巧的人；杂务工' }
+        ]
+      },
+      {
+        root: 'log / logue',
+        meaning: 'word / speech / study（言语；话语；研究；论述）',
+        words: [
+          { word: 'dialogue', meaning: '对话；对白；意见交换' },
+          { word: 'monologue', meaning: '独白；独角戏；长篇大论' },
+          { word: 'prologue', meaning: '序言；开场白；序幕' },
+          { word: 'epilogue', meaning: '尾声；后记；结语' },
+          { word: 'logic', meaning: '逻辑；逻辑学；逻辑性；推理' },
+          { word: 'logical', meaning: '符合逻辑的；合理的；逻辑学的' },
+          { word: 'anthropology', meaning: '人类学；人类研究' },
+          { word: 'sociology', meaning: '社会学；社会研究' },
+          { word: 'psychology', meaning: '心理学；心理状态；心理研究' },
+          { word: 'biology', meaning: '生物学；生物研究（此处仅作构词示例，非重复核心用法）' },
+          { word: 'catalog', meaning: '目录；一览表；编目；登记' },
+          { word: 'apology', meaning: '道歉；歉意；辩解；谢罪' }
+        ]
+      },
+      {
+        root: 'meter / metr',
+        meaning: 'to measure / measurement（测量；计量；仪表）',
+        words: [
+          { word: 'meter', meaning: '米；仪表；计量器；用仪表测量' },
+          { word: 'thermometer', meaning: '温度计；体温表' },
+          { word: 'barometer', meaning: '气压计；晴雨表；标志' },
+          { word: 'speedometer', meaning: '速度计；里程表' },
+          { word: 'odometer', meaning: '里程表；里程计' },
+          { word: 'metric', meaning: '米制的；公制的；度量标准；指标' },
+          { word: 'geometry', meaning: '几何学；几何形状（此处侧重“测量”构词逻辑）' },
+          { word: 'diameter', meaning: '直径；对径' },
+          { word: 'radius', meaning: '半径；半径距离；范围' },
+          { word: 'perimeter', meaning: '周长；周边；外围' },
+          { word: 'centimeter', meaning: '厘米；公分' },
+          { word: 'kilometer', meaning: '千米；公里' }
+        ]
+      },
+      {
+        root: 'path',
+        meaning: 'feeling / disease（情感；情绪；疾病；病理）',
+        words: [
+          { word: 'sympathy', meaning: '同情；同情心；赞同；慰问' },
+          { word: 'empathy', meaning: '共情；同感；共鸣；移情作用' },
+          { word: 'antipathy', meaning: '反感；厌恶；憎恶；不相容' },
+          { word: 'apathy', meaning: '冷漠；无动于衷；缺乏兴趣' },
+          { word: 'pathology', meaning: '病理学；病理状态；异常情况' },
+          { word: 'pathogen', meaning: '病原体；致病菌；病原物' },
+          { word: 'pathological', meaning: '病理的；病态的；反常的；痴迷的' },
+          { word: 'psychopath', meaning: '精神变态者；心理病态者' },
+          { word: 'sociopath', meaning: '反社会人格者；社会病态者' },
+          { word: 'telepathy', meaning: '心灵感应；传心术' },
+          { word: 'pathetic', meaning: '可怜的；可悲的；令人同情的；乏味的' }
+        ]
+      },
+      {
+        root: 'chrono',
+        meaning: 'time（时间；计时）',
+        words: [
+          { word: 'chronology', meaning: '年表；编年史；时间顺序' },
+          { word: 'chronological', meaning: '按时间顺序的；编年的' },
+          { word: 'chronometer', meaning: '精密计时器；天文钟；航海钟' },
+          { word: 'chronicle', meaning: '编年史；记录；记述；把……载入编年史' },
+          { word: 'synchronize', meaning: '同步；使同步；校准；同时发生' },
+          { word: 'synchronous', meaning: '同步的；同时发生的；同期的' },
+          { word: 'anachronism', meaning: '时代错误；不合时宜的人或物' },
+          { word: 'chronograph', meaning: '秒表；计时器；记时器' },
+          { word: 'chronophobia', meaning: '时间恐惧；对时间流逝的恐惧' },
+          { word: 'microchronometer', meaning: '微计时器；精密计时仪器' }
+        ]
+      },
+      {
+        root: 'hydr / hydro',
+        meaning: 'water / liquid（水；液体；水力；氢的）',
+        words: [
+          { word: 'hydrate', meaning: '水合物；使水合；给……补水；保湿' },
+          { word: 'dehydrate', meaning: '脱水；使干燥；去水' },
+          { word: 'hydration', meaning: '水合；水化；补水；保湿（名词形式）' },
+          { word: 'hydroxide', meaning: '氢氧化物；羟化物' },
+          { word: 'hydroelectric', meaning: '水力发电的；水电的' },
+          { word: 'hydroponics', meaning: '水培；水耕法；无土栽培' },
+          { word: 'hydrosphere', meaning: '水圈；水界；地球表面的水' },
+          { word: 'hydraulic', meaning: '液压的；水力的；水力学的' },
+          { word: 'hydrogel', meaning: '水凝胶；水胶体' },
+          { word: 'hydrant', meaning: '消防栓；水龙头；给水栓' },
+          { word: 'hydrogen', meaning: '氢；氢气（化学元素H）' },
+          { word: 'hydrolysis', meaning: '水解；水解作用' }
+        ]
+      },
+      {
+        root: 'astro / astr',
+        meaning: 'star / space（星星；太空；天体）',
+        words: [
+          { word: 'astronomy', meaning: '天文学；天体研究' },
+          { word: 'astronaut', meaning: '宇航员；航天员' },
+          { word: 'astrology', meaning: '占星术；占星学' },
+          { word: 'asteroid', meaning: '小行星；星状的' },
+          { word: 'astronomer', meaning: '天文学家；天文研究者' },
+          { word: 'astrophysics', meaning: '天体物理学' },
+          { word: 'astral', meaning: '星的；星际的；灵魂的' },
+          { word: 'disaster', meaning: '灾难；灾祸（原义“星位不佳”）' },
+          { word: 'constellation', meaning: '星座；星群；一群杰出人物' },
+          { word: 'astrodome', meaning: '天文馆；天体观测室' }
+        ]
+      },
+      {
+        root: 'therm / thermo',
+        meaning: 'heat / temperature（热；温度；热电）',
+        words: [
+          { word: 'thermometer', meaning: '温度计；体温表' },
+          { word: 'thermostat', meaning: '恒温器；温度调节器' },
+          { word: 'thermal', meaning: '热的；温泉的；上升热气流' },
+          { word: 'thermodynamics', meaning: '热力学' },
+          { word: 'thermos', meaning: '保温瓶；热水瓶' },
+          { word: 'thermoelectric', meaning: '热电的；温差电的' },
+          { word: 'thermostable', meaning: '耐热的；热稳定的' },
+          { word: 'thermometer', meaning: '温度计；体温表' },
+          { word: 'thermoplastic', meaning: '热塑性的；热塑性塑料' },
+          { word: 'thermoregulation', meaning: '体温调节；温度调节' }
+        ]
+      },
+      {
+        root: 'nom / nym',
+        meaning: 'name / word（名称；名字；词）',
+        words: [
+          { word: 'synonym', meaning: '同义词；同义字' },
+          { word: 'antonym', meaning: '反义词；反义字' },
+          { word: 'homonym', meaning: '同音异义词；同形异义词' },
+          { word: 'pseudonym', meaning: '笔名；假名' },
+          { word: 'anonymous', meaning: '匿名的；无名的；无特色的' },
+          { word: 'nomenclature', meaning: '命名法；术语；名称体系' },
+          { word: 'ronym', meaning: '以特定名称构成的词（后缀用法）' },
+          { word: 'eponym', meaning: '名祖；以人名为来源的词' },
+          { word: 'toponym', meaning: '地名；地名学' },
+          { word: 'patronym', meaning: '父名；源于父亲名字的姓' }
+        ]
+      },
+      {
+        root: 'onym',
+        meaning: 'name（名称；名字）',
+        words: [
+          { word: 'acronym', meaning: '首字母缩写词；简称' },
+          { word: 'heteronym', meaning: '同形异音异义词；异形同义词' },
+          { word: 'metronym', meaning: '母名；源于母亲名字的姓' },
+          { word: 'allonym', meaning: '别名；以他人名义发表的作品' },
+          { word: 'autonym', meaning: '本名；学名（指动植物自身命名）' },
+          { word: 'cryptonym', meaning: '暗号名；化名；秘密代号' },
+          { word: 'xenonym', meaning: '他称；外族给的名称' },
+          { word: 'eponymous', meaning: '以名祖命名的；同名的' },
+          { word: 'meronym', meaning: '部分词（表示整体中部分的词）' },
+          { word: 'holonym', meaning: '整体词（表示部分所属整体的词）' }
+        ]
+      },
+      {
+        root: 'pedi / pod',
+        meaning: 'foot（脚；足；足状部分）',
+        words: [
+          { word: 'pedal', meaning: '踏板；脚蹬；踩踏板；骑自行车' },
+          { word: 'podium', meaning: '讲台；指挥台；领奖台' },
+          { word: 'pedestrian', meaning: '行人；步行者；平淡的；普通的' },
+          { word: 'tripod', meaning: '三脚架；三足器' },
+          { word: 'quadruped', meaning: '四足动物；四足的' },
+          { word: 'biped', meaning: '两足动物；两足的' },
+          { word: 'pedicure', meaning: '修脚；足部护理；美甲店' },
+          { word: 'podiatrist', meaning: '足病医生；修脚师' },
+          { word: 'impede', meaning: '阻碍；妨碍；阻止（原义“绊脚”）' },
+          { word: 'expedite', meaning: '加快；促进；使畅通（原义“使脚自由”）' }
+        ]
+      },
+      {
+        root: 'cap / capt / cept / cip',
+        meaning: 'to take / to seize（拿；取；捕获；接受）',
+        words: [
+          { word: 'capture', meaning: '捕获；俘获；夺取；拍摄' },
+          { word: 'accept', meaning: '接受；承认；承担；认可' },
+          { word: 'except', meaning: '除了；除外；反对；把……除外' },
+          { word: 'receive', meaning: '收到；接收；接待；接纳' },
+          { word: 'concept', meaning: '概念；观念；构想；设想' },
+          { word: 'participate', meaning: '参与；参加；分享；分担' },
+          { word: 'capable', meaning: '有能力的；能胜任的；有才华的' },
+          { word: 'captivate', meaning: '迷住；吸引；使着迷' },
+          { word: 'intercept', meaning: '拦截；截获；截断；中途阻止' },
+          { word: 'anticipate', meaning: '预期；预料；预见；提前做' }
+        ]
+      },
+      {
+        root: 'fin',
+        meaning: 'end / boundary / finish（结束；界限；完成；鳍）',
+        words: [
+          { word: 'final', meaning: '最终的；最后的；决赛；期末考试' },
+          { word: 'finish', meaning: '完成；结束；终结；抛光' },
+          { word: 'define', meaning: '定义；界定；解释；使明确' },
+          { word: 'definite', meaning: '明确的；确定的；肯定的；限定的' },
+          { word: 'infinite', meaning: '无限的；无穷的；极大的；无限物' },
+          { word: 'confine', meaning: '限制；禁闭；（因疾病）无法离开' },
+          { word: 'finite', meaning: '有限的；限定的；有尽的' },
+          { word: 'finale', meaning: '结局；终曲；最后一场；压轴戏' },
+          { word: 'affinitive', meaning: '有密切关系的；亲近的（引申自“边界相连”）' },
+          { word: 'definitive', meaning: '决定性的；最终的；权威的；确定的' }
+        ]
+      },
+      {
+        root: 'fer',
+        meaning: 'to carry / to bring / to bear（携带；带来；忍受）',
+        words: [
+          { word: 'transfer', meaning: '转移；转让；调动；换乘' },
+          { word: 'confer', meaning: '授予；给予；商议；讨论' },
+          { word: 'infer', meaning: '推断；推论；暗示；意味着' },
+          { word: 'refer', meaning: '参考；查阅；提及；提交' },
+          { word: 'prefer', meaning: '更喜欢；宁愿；偏爱；倾向于' },
+          { word: 'suffer', meaning: '遭受；忍受；经历；受苦' },
+          { word: 'offer', meaning: '提供；提议；出价；试图' },
+          { word: 'differ', meaning: '不同；相异；有分歧；持异议' },
+          { word: 'fertile', meaning: '肥沃的；富饶的；多产的；能繁殖的' },
+          { word: 'circumference', meaning: '圆周；周长；周围' }
+        ]
+      },
+      {
+        root: 'gress',
+        meaning: 'to walk / to step / to advance（行走；前进；迈步）',
+        words: [
+          { word: 'progress', meaning: '进步；进展；发展；前进' },
+          { word: 'regress', meaning: '倒退；退化；回归；退步' },
+          { word: 'aggress', meaning: '攻击；侵犯；挑衅' },
+          { word: 'congress', meaning: '国会；代表大会；会议；社交' },
+          { word: 'digress', meaning: '离题；偏离主题；走入歧途' },
+          { word: 'transgress', meaning: '违反；违背；越界；犯罪' },
+          { word: 'egress', meaning: '出口；出路；外出；离去' },
+          { word: 'ingress', meaning: '入口；进入；准入' },
+          { word: 'progressive', meaning: '进步的；渐进的；先进的；改革派' },
+          { word: 'aggressive', meaning: '侵略性的；好斗的；积极进取的；有闯劲的' }
+        ]
+      },
+      {
+        root: 'nov',
+        meaning: 'new（新的；新奇；更新）',
+        words: [
+          { word: 'novel', meaning: '小说；新奇的；异常的' },
+          { word: 'novelty', meaning: '新奇；新颖；新奇事物；小玩意儿' },
+          { word: 'innovate', meaning: '创新；革新；改革；引入新事物' },
+          { word: 'innovation', meaning: '创新；革新；新方法；新事物' },
+          { word: 'renovate', meaning: '修复；翻新；更新；恢复活力' },
+          { word: 'nova', meaning: '新星；新事物' },
+          { word: 'novice', meaning: '新手；初学者；生手' },
+          { word: 'novella', meaning: '中篇小说' },
+          { word: 'innovator', meaning: '创新者；革新者；发明者' },
+          { word: 'renovation', meaning: '翻新；修复；更新；整修' }
+        ]
+      }
+    ];
+
+    // DOM 元素
+    const rootListEl = document.getElementById('rootList');
+    const wordListEl = document.getElementById('wordList');
+    const currentRootTitleEl = document.getElementById('currentRootTitle');
+
+    // // 生成左侧词根列表
+    function renderRootList() {
+      rootListEl.innerHTML = '';
+      rootsData.forEach((item, index) => {
+        const el = document.createElement('div');
+        el.className = `div p-3 rounded-lg cursor-pointer transition-all duration-200 hover:bg-primary/10 hover:text-primary border border-gray-200 hover:border-primary ${index === 0 ? 'bg-primary/10 text-primary border-primary' : ''}`;
+        el.innerHTML = `
+          <div class="font-bold">${item.root}</div>
+          <div class="text-sm text-gray-500">${item.meaning}</div>
+        `;
+        el.addEventListener('click', () => showWords(index));
+        rootListEl.appendChild(el);
+      });
+    }
+
+    // 显示选中词根对应的单词
+    function showWords(selectedIndex) {
+      console.log(selectedIndex)
+      // 更新词根选中状态
+      const rootItems = rootListEl.querySelectorAll('.div');
+      rootItems.forEach((item, idx) => {
+        item.classList.remove('bg-primary/10', 'text-primary', 'border-primary');
+        item.classList.add('border-gray-200');
+      });
+
+      rootItems[selectedIndex].classList.add('bg-primary/10', 'text-primary', 'border-primary');
+      rootItems[selectedIndex].classList.remove('border-gray-200');
+      console.log(rootItems[selectedIndex])
+
+
+      // 获取选中的词根数据
+      const selectedRoot = rootsData[selectedIndex];
+
+      // 更新标题
+      currentRootTitleEl.textContent = `${selectedRoot.root} - ${selectedRoot.meaning}`;
+
+      // 生成单词列表
+      wordListEl.innerHTML = '';
+      selectedRoot.words.forEach(word => {
+        const wordCard = document.createElement('div');
+        wordCard.className = 'p-4 rounded-lg bg-white/50 shadow hover:shadow-md transition-all duration-200 border-l-4 border-secondary';
+        wordCard.innerHTML = `
+          <div class="flex justify-between items-center">
+            <span class="font-bold text-lg">${word.word}</span>
+            <span class="text-secondary">${word.meaning}</span>
+          </div>
+        `;
+        wordListEl.appendChild(wordCard);
+      });
+    }
+
+    // 页面初始化
+    document.addEventListener('DOMContentLoaded', () => {
+      // 渲染词根列表
+      renderRootList();
+
+      // 默认显示第一个词根的单词
+      if (rootsData.length > 0) {
+        showWords(0);
+      }
+    });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>更多推荐</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            text-decoration: none;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            font-size: 14px;
+            color: #070606;
+            padding-bottom: 45px;
+        }
+
+        /* 顶部导航栏 */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .city {
+            font-size: 16px;
+            font-weight: 600;
+            margin-right: 15px;
+        }
+
+        .city a {
+            color: black;
+            text-decoration: none;
+            font-size: 16px;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .search {
+            flex: 1;
+            height: 32px;
+            background-color: #f0f0f0;
+            border-radius: 16px;
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .search input {
+            border: none;
+            background: transparent;
+            outline: none;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        .header-icons {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+
+        .header-icons img {
+            width: 24px;
+            height: 24px;
+            margin-left: 12px;
+        }
+
+        /* 功能入口栏 */
+        .func-nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #fff;
+            padding: 15px 0;
+        }
+
+        .func-img {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+        }
+
+        .func-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .func-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .func-icon img {
+            width: 100%;
+        }
+
+        .func-text {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* 专属推荐模块 */
+        .recommend {
+            background-color: #fff;
+            margin-top: 10px;
+            padding: 15px;
+        }
+
+        .recommend_wrapper {
+            overflow-x: auto;
+        }
+
+        .recommend-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .recommend-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .recommend-tag {
+            background-color: #ffcc00;
+            color: #333;
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-left: 8px;
+        }
+
+        .more {
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* 推荐分类标签 */
+        .recommend-tabs {
+            width: 700px;
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .tab-item {
+            padding: 6px 10px;
+            margin-right: 10px;
+            font-size: 13px;
+        }
+
+        .tab-active {
+            background-color: #fff;
+            color: #333;
+            border-bottom: 1px solid #ffcc00;
+
+        }
+
+        .tab-normal {
+
+            color: #666;
+        }
+
+        /* 推荐商品列表 */
+        .product-list {
+            margin-bottom: 15px;
+        }
+
+        .product-item {
+            display: flex;
+            margin-bottom: 18px;
+            box-shadow: 2px 6px 15px -7px gray;
+            padding: 5px 2px;
+        }
+
+        .product-img {
+            width: 120px;
+            height: 100px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-right: 10px;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+
+        .product-img video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-title {
+            font-size: 14px;
+            line-height: 1.4;
+            margin-bottom: 6px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-tags {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 6px;
+        }
+
+        .tag {
+            font-size: 11px;
+            padding: 2px 5px;
+            border-radius: 3px;
+            margin-right: 5px;
+            margin-bottom: 3px;
+        }
+
+        .tag-primary {
+            background-color: #e8f4fc;
+            color: #409eff;
+        }
+
+        .tag-secondary {
+            background-color: #fdf2e8;
+            color: #e6a23c;
+        }
+
+        .product-price {
+            color: #f40;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .product-sales {
+            display: flex;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .sales-text {
+            margin-right: 10px;
+        }
+
+
+        /* 底部导航 */
+        /* 底部导航 */
+        .footer-nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #fff;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            border-top: 1px solid #eee;
+        }
+
+        .footer-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .footer-nav img {
+            border-radius: 10px;
+        }
+
+        .footer-icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 4px;
+
+        }
+
+        .footer-active {
+            color: rgb(0, 0, 0);
+
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 顶部导航栏 -->
+    <div class="header">
+        <div class="city"><a href="./商城.HTML"> &lt</a>
+        </div>
+        <div class="search">
+            <input type="text" placeholder="商品/关键词/地点">
+        </div>
+        <div class="header-icons">
+            <img src="./商场图片/签到.png" alt="签到">签到
+            <img src="./商场图片/定位.png" alt="定位">定位
+            <img src="./商场图片/返回.png" alt="返回">返回
+        </div>
+    </div>
+
+
+    <!-- 专属推荐模块 -->
+    <div class="recommend">
+
+        <!-- 推荐分类标签 -->
+        <div class="recommend_wrapper">
+            <div class="recommend-tabs">
+                <div class="tab-item tab-active"><strong>推荐</strong></div>
+                <div class="tab-item tab-normal">玩乐</div>
+                <div class="tab-item tab-normal">当地参团</div>
+                <div class="tab-item tab-normal">酒店度假</div>
+                <div class="tab-item tab-normal">用车</div>
+                <div class="tab-item tab-normal">玩乐</div>
+                <div class="tab-item tab-normal">当地参团</div>
+                <div class="tab-item tab-normal">酒店度假</div>
+                <div class="tab-item tab-normal">用车</div>
+
+            </div>
+        </div>
+        <!-- 推荐商品列表 -->
+
+        <div class="product-list">
+            <div class="product-item">
+
+                <div class="product-img">
+
+                    <video src="./商场视频/北京一日游.mp4" muted autoplay loop></video>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">古都新韵，北京欢迎你</div>
+                    <div class="product-tags">
+
+
+
+                    </div>
+                    <div class="product-price">1099起</div>
+                    <div class="product-sales">
+
+                        <div class="sales-text">219评价</div>
+                        <div class="sales-text">已售478</div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item">
+                <div class="product-img">
+                    <video src="./商场视频/环球影.mp4" muted autoplay loop></video>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">
+                        走进大片世界，解锁无限精彩！在北京环球影城，与哈利·波特并肩飞越城堡，和变形金刚并肩作战，在功夫熊猫盖世之地感受东方传奇。四季活动不断，24小时惊喜连连——下一段英雄旅程，等你开场！”
+                    </div>
+                    <div class="product-tags">
+                    </div>
+                    <div class="product-price">¥699起</div>
+                    <div class="product-sales">
+                        <div class="sales-text">859评价</div>
+                        <div class="sales-text">已售9899</div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item">
+                <div class="product-img">
+                    <video src="./商场视频/三亚.mp4" muted autoplay loop></video>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">三亚，中国的热带天堂，碧海蓝天，椰风海韵</div>
+                    <div class="product-tags">
+                    </div>
+                    <div class="product-price">¥1800起</div>
+                    <div class="product-sales">
+                        <div class="sales-text">999+评价</div>
+                        <div class="sales-text">已售999+</div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item">
+                <div class="product-img">
+                    <video src="./商场视频/江苏.mp4" muted autoplay loop></video>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">江苏，鱼米之乡，园林秀美，经济发达</div>
+                    <div class="product-tags">
+                    </div>
+                    <div class="product-price">¥499起</div>
+                    <div class="product-sales">
+                        <div class="sales-text">4575评价</div>
+                        <div class="sales-text">已售10575</div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item">
+                <div class="product-img">
+                    <video src="./商场视频/布达拉宫.mp4" muted autoplay loop></video>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">拉萨的标志性宫堡式建筑群布达拉宫</div>
+                    <div class="product-tags">
+                    </div>
+                    <div class="product-price">¥178起</div>
+                    <div class="product-sales">
+                        <div class="sales-text">8958评价</div>
+                        <div class="sales-text">已售17858</div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item">
+                <div class="product-img">
+                    <video src="./商场视频/黄山.mp4" muted autoplay loop></video>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">黄山集世界三遗产，以 “五绝” 著称于世</div>
+                    <div class="product-tags">
+                    </div>
+                    <div class="product-price">¥150起</div>
+                    <div class="product-sales">
+                        <div class="sales-text">4586评价</div>
+                        <div class="sales-text">已售7852</div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item">
+                <div class="product-img">
+                    <video src="./商场视频/南京牛首山.mp4" muted autoplay loop></video>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">南京牛首山，佛禅文化深厚，自然风光美</div>
+                    <div class="product-tags">
+                    </div>
+                    <div class="product-price">¥170起</div>
+                    <div class="product-sales">
+                        <div class="sales-text">2557评价</div>
+                        <div class="sales-text">已售6893</div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item">
+                <div class="product-img">
+                    <video src="./商场视频/成都动物园.mp4" muted autoplay loop></video>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">成都动物园：西南大型动物园，动物种类丰富 各位动物爱好者，这波福利千万别错过！ </div>
+                    <div class="product-tags">
+                    </div>
+                    <div class="product-price">¥20起</div>
+                    <div class="product-sales">
+                        <div class="sales-text">18563评价</div>
+                        <div class="sales-text">已售25868</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 底部导航 -->
+    <div class="footer-nav">
+        <a href="./index.html">
+            <div class="footer-item">
+                <img class="footer-icon" src="./商场图片/攻略.png" alt="攻略">
+                <div>攻略</div>
+            </div>
+        </a>
+
+        <a href="./商城.HTML">
+            <div class="footer-item footer-active">
+                <img class="footer-icon" src="./商场图片/商城.png" alt="商城">
+                <div><strong>商城</strong></div>
+            </div>
+        </a>
+        <a href="./我的页面布局.html">
+            <div class="footer-item">
+                <img class="footer-icon" src="./商场图片/我的.png" alt="我的">
+                <div>我的</div>
+            </div>
+        </a>
+
+    </div>
+</body>
+
+</html>

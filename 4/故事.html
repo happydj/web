@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <title>疯狂动物城2 - 角色介绍</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="疯狂动物城2角色介绍，包含朱迪、尼克、夏奇羊等经典角色详细信息">
+    <meta name="keywords" content="疯狂动物城2, 角色介绍, 朱迪, 尼克, 夏奇羊">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background-image: url(./img/图片/大背景.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            padding: 20px 0;
+        }
+
+        .main1 {
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        /* 轮播图优化 */
+        .carousel-inner .item {
+            height: 380px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .item img {
+            width: 100%;
+            height: 100% !important;
+            object-fit: cover;
+        }
+
+        /* 导航栏优化 */
+        nav ul {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            background-color: #2c3e50;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-wrap: wrap;
+        }
+
+        nav li {
+            padding: 0 25px;
+            height: 50px;
+            line-height: 50px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav li a {
+            color: #fff;
+            font-size: 18px;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        nav li:hover {
+            background-color: #3498db;
+        }
+
+        nav li.active {
+            background-color: #3498db;
+            font-weight: bold;
+        }
+
+        nav li.active a {
+            color: #fff;
+            text-shadow: 0 0 3px rgba(255, 255, 255, 0.5);
+        }
+
+        /* 故事内容区域优化 */
+        .story-section {
+            margin: 30px 0;
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .story-section h1 {
+            color: #147ec5;
+            font-size: 28px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #e6f7ff;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .story-section h2 {
+            color: #2c3e50;
+            font-size: 22px;
+            margin: 30px 0 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .story-section h2:before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 24px;
+            background-color: #3498db;
+            border-radius: 4px;
+        }
+
+        .story-section h3 {
+            color: #147ec5;
+            font-size: 18px;
+            margin: 20px 0 15px;
+            font-weight: 600;
+        }
+
+        .story-section p {
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 16px;
+            text-align: justify;
+        }
+
+        .story-section ul {
+            margin: 10px 0 20px 20px;
+        }
+
+        .story-section ul li {
+            list-style: disc;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 8px;
+            font-size: 15px;
+            padding-left: 10px;
+        }
+
+        /* 图片布局优化 - 统一控制所有故事图片 */
+        .story-img-box {
+            margin: 15px auto;
+            /* 上下间距减小，水平居中 */
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            max-width: 100%;
+            max-height: 280px;
+            /* 统一限制图片最大高度 */
+        }
+
+        .story-img-box img {
+            width: 100%;
+            height: 220px;
+            /* 统一图片高度 */
+            object-fit: cover;
+            /* 保持图片比例 */
+            transition: all 0.5s ease;
+        }
+
+        .story-img-box img:hover {
+            transform: scale(1.02);
+        }
+
+        /* 图片说明文字优化 */
+        .img-desc {
+            padding: 12px 15px;
+            /* 增加内边距 */
+            background-color: #e6f7ff;
+            color: #147ec5;
+            font-size: 15px;
+            /* 增大字号 */
+            text-align: center;
+            line-height: 1.6;
+            font-weight: 500;
+            /* 加粗文字 */
+            border-top: 2px solid #d1eaff;
+            /* 增加分隔线 */
+        }
+
+        /* 剧情亮点补充样式 */
+        .plot-highlights {
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(120deg, #e6f7ff 0%, #f0f8ff 100%);
+            border-radius: 10px;
+            border-left: 5px solid #147ec5;
+        }
+
+        .plot-highlights h3 {
+            color: #147ec5;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 20px;
+        }
+
+        .plot-highlights h3 i {
+            font-size: 18px;
+        }
+
+        /* 高光时刻专属样式优化 */
+        .highlight-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            padding-right: 15px;
+        }
+
+        .highlight-content p {
+            font-size: 17px;
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            line-height: 1.9;
+        }
+
+        .highlight-content ul {
+            margin-left: 20px;
+        }
+
+        .highlight-content ul li {
+            font-size: 16px;
+            line-height: 2.0;
+            color: #333;
+            margin-bottom: 12px;
+            font-weight: 400;
+        }
+
+        /* 高光时刻图片容器优化 - 增大第四张图片占比 */
+        .highlight-img-container {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            padding: 0 10px;
+        }
+
+        .highlight-img-container .story-img-box {
+            margin: 0 auto;
+            /* 增大第四张图片容器尺寸 */
+            max-height: 320px;
+            width: 100%;
+        }
+
+        .highlight-img-container .story-img-box img {
+            /* 提高第四张图片高度 */
+            height: 260px;
+        }
+
+        /* 引用样式 */
+        .story-quote {
+            margin: 20px 0;
+            padding: 15px 20px;
+            border-left: 4px solid #3498db;
+            background-color: #f5f9ff;
+            font-style: italic;
+            color: #2c3e50;
+        }
+
+        /* 分隔线 */
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #3498db, transparent);
+            margin: 30px 0;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 992px) {
+            .carousel-inner .item {
+                height: 300px;
+            }
+
+            .story-section {
+                padding: 20px;
+            }
+
+            .story-section h1 {
+                font-size: 24px;
+            }
+
+            .story-section h2 {
+                font-size: 20px;
+            }
+
+            .story-img-box img {
+                height: 200px;
+                /* 平板端图片高度 */
+            }
+
+            /* 第四张图片平板端适配 */
+            .highlight-img-container .story-img-box img {
+                height: 230px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main1 {
+                width: 95%;
+                padding: 15px;
+            }
+
+            .carousel-inner .item {
+                height: 220px;
+            }
+
+            nav li {
+                padding: 0 15px;
+                height: 45px;
+                line-height: 45px;
+            }
+
+            nav li a {
+                font-size: 16px;
+            }
+
+            .story-section {
+                padding: 15px;
+                margin: 20px 0;
+            }
+
+            .story-section h1 {
+                font-size: 22px;
+                margin-bottom: 20px;
+            }
+
+            .story-section p,
+            .story-section ul li {
+                font-size: 14px;
+            }
+
+            .story-img-box img {
+                height: 180px;
+                /* 手机端图片高度 */
+            }
+
+            /* 第四张图片手机端适配 */
+            .highlight-img-container .story-img-box img {
+                height: 200px;
+            }
+
+            .img-desc {
+                font-size: 14px;
+                padding: 10px 12px;
+            }
+
+            .highlight-content p {
+                font-size: 16px;
+            }
+
+            .highlight-content ul li {
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav li {
+                text-align: center;
+                padding: 0;
+            }
+
+            .carousel-inner .item {
+                height: 180px;
+            }
+
+            .story-img-box img {
+                height: 160px;
+                /* 小屏手机图片高度 */
+            }
+
+            /* 第四张图片小屏手机适配 */
+            .highlight-img-container .story-img-box img {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main1 container">
+        <!-- 轮播图 -->
+        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="3500">
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+                <li data-target="#myCarousel" data-slide-to="3"></li>
+                <li data-target="#myCarousel" data-slide-to="4"></li>
+                <li data-target="#myCarousel" data-slide-to="5"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img src="./img/图片/0.png" alt="疯狂动物城2 主海报">
+                </div>
+                <div class="item">
+                    <img src="./img/图片/1.jpg" alt="疯狂动物城2 角色海报">
+                </div>
+                <div class="item">
+                    <img src="./img/图片/2.png" alt="疯狂动物城2 场景截图">
+                </div>
+                <div class="item">
+                    <img src="./img/图片/3.png" alt="疯狂动物城2 朱迪与尼克">
+                </div>
+                <div class="item">
+                    <img src="./img/图片/4.png" alt="疯狂动物城2 动物城全景">
+                </div>
+                <div class="item">
+                    <img src="./img/图片/5.jpg" alt="疯狂动物城2 精彩画面">
+                </div>
+            </div>
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+
+        <!-- 导航栏 -->
+        <nav>
+            <ul>
+                <li><a href="./index.html">首页</a></li>
+                <li><a href="./角色.html">角色介绍</a></li>
+                <li class="active"><a href="./故事.html">故事情节</a></li>
+                <li><a href="./精彩.html">精彩图集</a></li>
+                <li><a href="./动画.html">动画视频</a></li>
+            </ul>
+        </nav>
+
+        <!-- 故事情节内容 - 重新布局 -->
+        <div class="story-section">
+            <h1>故事架构：精巧探案与深刻隐喻的完美融合</h1>
+
+            <div class="row">
+                <!-- 第一部分：主线剧情 + 配图 -->
+                <div class="col-md-8 col-sm-12">
+                    <h2>1. 主线剧情：从个体偏见到系统性不公</h2>
+                    <p>《疯狂动物城
+                        2》以动物城建城百年庆典为叙事背景，将朱迪与尼克的探案冒险推向了更宏大的社会议题层面。影片不再局限于个体偏见的破除，而是直击制度性不公的核心——当记载"气候墙"核心技术的古籍离奇失窃，这对最佳搭档不仅要面对破案期限的压力，更要揭开一段被刻意掩埋的黑暗历史。
+                    </p>
+
+                    <ul>
+                        <li><strong>表层冲突</strong>：朱迪因办案方式激进被警局施压，若无法在72小时内找回失窃古籍，她与尼克的搭档组合将被强制拆分；</li>
+                        <li><strong>中层真相</strong>：失窃案牵出爬行动物被驱逐的百年冤案，所谓"生态安全"的驱逐理由，实则是哺乳动物权贵阶层的资源垄断手段；</li>
+                        <li><strong>深层内核</strong>：林雪猁家族凭借气候墙专利掌控全城能源分配，将爬行动物排除在资源体系之外，构建了看似和谐实则割裂的动物城秩序。</li>
+                    </ul>
+
+                    <div class="story-quote">
+                        "真正的平等，不是少数人的施舍，而是所有人的权利" —— 朱迪·霍普斯
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="story-img-box">
+                        <img src="./img/图片/故事1.jpg" alt="疯狂动物城2 剧情场景">
+                        <div class="img-desc">朱迪与尼克调查古籍失窃案</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- 第二部分：叙事技巧 + 配图 -->
+            <div class="row">
+                <div class="col-md-4 col-sm-12">
+                    <div class="story-img-box">
+                        <img src="./img/图片/故事2.png" alt="疯狂动物城2 喜剧场景">
+                        <div class="img-desc">闪电树懒的经典慢动作名场面</div>
+                    </div>
+                </div>
+                <div class="col-md-8 col-sm-12">
+                    <h2>2. 叙事技巧：节奏明快，伏笔精妙</h2>
+                    <p>影片延续了前作的叙事魅力，将多种类型片元素无缝融合，打造出层次丰富的观影体验。编剧团队在案件推进中埋设了多处精巧伏笔，让看似无关的细节最终形成完美闭环。</p>
+
+                    <ul>
+                        <li><strong>喜剧巧思</strong>：保留闪电树懒的慢动作反差萌、树袋熊法官的方言口音等经典笑点，新增蛇盖瑞的社恐式幽默，用动物特性制造自然笑料；</li>
+                        <li><strong>悬疑构建</strong>：古籍失窃现场的"温度异常"线索、爬行动物留下的特殊鳞片、猞猁家族的反常举动，层层线索指向最终真相，推理逻辑严密；</li>
+                        <li><strong>情感表达</strong>：朱迪的职业理想与现实妥协的挣扎、尼克从玩世不恭到承担责任的转变、爬行动物对家园的渴望，多线情感交织且真实可感。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- 第三部分：叙事局限 + 配图 -->
+            <div class="row">
+                <div class="col-md-8 col-sm-12">
+                    <h2>3. 叙事局限：套路化与角色简化</h2>
+                    <p>尽管整体叙事完成度极高，《疯狂动物城 2》仍存在部分遗憾，相较于前作的突破性，续作在角色塑造和冲突设计上略显保守。</p>
+
+                    <ul>
+                        <li><strong>反派扁平化</strong>：林雪猁家族的动机仅停留在利益层面，缺乏绵羊副市长那样复杂的心理层次，善恶对立过于鲜明；</li>
+                        <li><strong>转变突兀性</strong>：马市长从权力傀儡到正义觉醒的转变缺乏足够铺垫，关键抉择显得仓促且缺乏说服力；</li>
+                        <li><strong>冲突合理性</strong>：哺乳动物与爬行动物的对立缺乏生物学和生态学基础支撑，更多依赖剧情强行设定，不如食肉/食草动物的冲突那样具有天然说服力。</li>
+                    </ul>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="story-img-box">
+                        <img src="./img/图片/故事3.png" alt="疯狂动物城2 反派角色">
+                        <div class="img-desc">林雪猁家族掌控气候墙专利</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- 第四部分：剧情高光时刻 - 优化第四张图片展示 -->
+            <div class="plot-highlights">
+                <h3><i class="glyphicon glyphicon-star"></i> 4. 剧情高光时刻</h3>
+                <div class="row">
+                    <!-- 调整文字区域占比，给图片更多空间 -->
+                    <div class="col-md-6 col-sm-12 highlight-content">
+                        <p>影片仍有多处堪称经典的叙事高光，这些名场面不仅成为了《疯狂动物城》系列的标志性镜头，更将影片的主题表达推向了新高度，成为系列又一里程碑式的创作：</p>
+                        <ul>
+                            <li>朱迪在爬行动物地下社区的独白振聋发聩，成为全片核心金句，深刻诠释了平等与包容的主题；</li>
+                            <li>尼克用狐狸的智慧破解气候墙密码，这一情节不仅展现了角色的成长弧光，更体现了不同物种间的信任与合作；</li>
+                            <li>百年庆典上的集体和解场面堪称神来之笔，视觉特效与情感表达达到完美融合，形成全片最动人的情感高潮。</li>
+                        </ul>
+                    </div>
+                    <!-- 增大图片区域占比 -->
+                    <div class="col-md-6 col-sm-12 highlight-img-container">
+                        <div class="story-img-box">
+                            <img src="./img/图片/故事4.jpg" alt="疯狂动物城2 百年庆典">
+                            <div class="img-desc">动物城百年庆典和解名场面</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            // 轮播图初始化
+            $('.carousel').carousel({
+                interval: 3500,
+                pause: "hover"
+            });
+
+            // 导航栏交互优化
+            $('nav li').click(function (e) {
+                e.preventDefault();
+                $('nav li').removeClass('active');
+                $(this).addClass('active');
+                const href = $(this).find('a').attr('href');
+                if (href && href !== '#') {
+                    window.location.href = href;
+                }
+            });
+
+            // 图片懒加载
+            $('img').each(function () {
+                const img = $(this);
+                const src = img.attr('src');
+                img.attr('data-src', src);
+                img.attr('src', 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzFEN0VDNSIvPjx0ZXh0IHg9IjUwIiB5PSI1MCIgZm9udC1mYW1pbHk9Ik1pZGRsZSBZYWtlIiBmb250LXNpemU9IjEyIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+5paw5aKe5Yqo5oiQMjwvdGV4dD48L3N2Zz4=');
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const target = entry.target;
+                            target.src = target.dataset.src;
+                            observer.unobserve(target);
+                        }
+                    });
+                });
+
+                observer.observe(this);
+            });
+        });
+    </script>
+</body>
+
+</html>

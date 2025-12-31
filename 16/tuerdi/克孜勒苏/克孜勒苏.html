@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>克孜勒苏柯尔克孜自治州 - 帕米尔高原的明珠</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 30%, #87CEEB 100%);
+            color: #fff;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        body:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M0,50 Q25,40 50,50 T100,50" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></svg>');
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 顶部横幅 */
+        .top-banner {
+            position: relative;
+            height: 300px;
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 30px;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            border-bottom: 5px solid #e74c3c;
+        }
+        
+        .banner-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.7) contrast(1.2);
+        }
+        
+        .banner-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 2;
+            text-shadow: 0 3px 10px rgba(0, 0, 0, 0.8);
+            width: 100%;
+            padding: 0 20px;
+        }
+        
+        .banner-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .banner-text p {
+            font-size: 1.3rem;
+            color: #f0f0f0;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        边界线装饰
+        .border-line {
+            height: 5px;
+            background: linear-gradient(90deg, transparent, #e74c3c, #f39c12, #e74c3c, transparent);
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .border-line:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            animation: borderShine 3s infinite;
+        }
+        
+        @keyframes borderShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        /* 导航栏 */
+        nav {
+            background: rgba(30, 60, 114, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+            border-bottom: 2px solid rgba(231, 76, 60, 0.5);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 10px 15px;
+            border-radius: 6px;
+            transition: all 0.3s;
+            display: block;
+        }
+        
+        .nav-links a:hover {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: #ffd700;
+            transform: translateY(-2px);
+        }
+        
+        .nav-links a.active {
+            background-color: rgba(231, 76, 60, 0.3);
+            color: #ffd700;
+            border: 1px solid rgba(231, 76, 60, 0.5);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+        
+        /* 英雄人物区域 */
+        .hero-section {
+            margin-bottom: 50px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            border: 2px solid rgba(231, 76, 60, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .hero-content {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .hero-image {
+            flex: 0 0 250px;
+            height: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 3px solid rgba(231, 76, 60, 0.5);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .hero-text {
+            flex: 1;
+        }
+        
+        .hero-text h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: #ffd700;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .hero-text h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #e74c3c, #f39c12);
+            border-radius: 3px;
+        }
+        
+        .hero-text p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            color: #e0e0e0;
+        }
+        
+        .hero-quote {
+            font-style: italic;
+            padding: 20px;
+            background: rgba(231, 76, 60, 0.1);
+            border-left: 4px solid #e74c3c;
+            margin-top: 20px;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        /* 短视频区域 */
+        .video-section {
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #fff;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #e74c3c, #f39c12);
+            border-radius: 3px;
+        }
+        
+        .video-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+        
+        .video-box {
+            background: rgba(30, 60, 114, 0.8);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 400px;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .video-box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            border-color: rgba(231, 76, 60, 0.5);
+        }
+        
+        .video-placeholder {
+            width: 100%;
+            height: 70%;
+            background: linear-gradient(45deg, #1a1a2e, #16213e);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #aaa;
+            font-size: 1.2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .video-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            color: #e74c3c;
+        }
+        
+        .video-info {
+            padding: 20px;
+            height: 30%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: rgba(15, 25, 50, 0.7);
+        }
+        
+        .video-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        
+        .video-description {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #ccc;
+        }
+        
+        /* 景点网格 */
+        .attractions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .attraction-card {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            background: rgba(30, 60, 114, 0.8);
+            height: 320px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .attraction-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border-color: rgba(231, 76, 60, 0.5);
+        }
+        
+        .attraction-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .attraction-card:hover .attraction-image {
+            transform: scale(1.05);
+        }
+        
+        .attraction-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(30, 60, 114, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            text-align: center;
+        }
+        
+        .attraction-card:hover .attraction-overlay {
+            opacity: 1;
+        }
+        
+        .attraction-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        
+        .attraction-description {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #ddd;
+            margin-bottom: 20px;
+            max-height: 120px;
+            overflow: hidden;
+        }
+        
+        .attraction-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .tag {
+            background: rgba(231, 76, 60, 0.2);
+            color: #ffd700;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(231, 76, 60, 0.3);
+        }
+        
+        /* 艰苦边疆区域 */
+        .hardship-section {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 50px;
+            border: 2px solid rgba(231, 76, 60, 0.3);
+        }
+        
+        .hardship-title {
+            font-size: 1.8rem;
+            color: #ffd700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .hardship-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .hardship-item {
+            flex: 1;
+            min-width: 250px;
+            background: rgba(30, 60, 114, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .hardship-item h3 {
+            color: #ffd700;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .hardship-item p {
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        
+        /* 季节指南 */
+        .season-guide {
+            margin-bottom: 50px;
+        }
+        
+        .season-title {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #fff;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .season-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #e74c3c, #f39c12);
+            border-radius: 3px;
+        }
+        
+        .season-content {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            background: rgba(30, 60, 114, 0.6);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .season-text {
+            flex: 1;
+        }
+        
+        .season-text ul {
+            font-size: 1.1rem;
+            color: #e0e0e0;
+            font-weight: bold;
+            margin-bottom: 15px;
+            list-style-type: none;
+        }
+        
+        .season-text li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .season-text li:before {
+            content: '•';
+            color: #e74c3c;
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+        
+        .season-video {
+            flex-shrink: 0;
+        }
+        
+        .season-video video {
+            width: 250px;
+            height: 270px;
+            border-radius: 8px;
+            border: 2px solid #e74c3c;
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* 表格 */
+        .simple-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-family: Arial, sans-serif;
+            background: rgba(30, 60, 114, 0.7);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .simple-table th {
+            background: #e74c3c;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        
+        .simple-table td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: #e0e0e0;
+        }
+        
+        .simple-table tr:nth-child(even) {
+            background: rgba(52, 73, 94, 0.5);
+        }
+        
+        .simple-table tr:hover {
+            background: rgba(231, 76, 60, 0.2);
+        }
+        
+        .season-icon {
+            font-size: 18px;
+            margin-right: 5px;
+        }
+        
+        /* 固定按钮 */
+        .fixed-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .fixed-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e74c3c 0%, #f39c12 100%);
+            color: rgb(255, 255, 255);
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .fixed-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, #f39c12 0%, #e74c3c 100%);
+        }
+        
+        .fixed-button:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .fixed-button.top {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        }
+        
+        .fixed-button.top:hover {
+            background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+        }
+        
+        .fixed-button.link {
+            background: linear-gradient(135deg, #3498db 0%, #2ecc71 100%);
+        }
+        
+        .fixed-button.link:hover {
+            background: linear-gradient(135deg, #2ecc71 0%, #3498db 100%);
+        }
+        
+        /* 底部 */
+        footer {
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            text-align: center;
+            margin-top: 60px;
+            color: #aaa;
+            font-size: 0.95rem;
+            padding: 30px 20px;
+            border-top: 2px solid rgba(231, 76, 60, 0.5);
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #ffd700;
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .video-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .hero-content {
+                flex-direction: column;
+            }
+            
+            .hero-image {
+                flex: 0 0 200px;
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .banner-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                gap: 20px;
+            }
+            
+            .nav-links a {
+                font-size: 1rem;
+                padding: 8px 12px;
+            }
+            
+            .video-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .video-box {
+                height: 350px;
+            }
+            
+            .attractions-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            .attraction-card {
+                height: 280px;
+            }
+            
+            .season-content {
+                flex-direction: column;
+            }
+            
+            .season-video video {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .top-banner {
+                height: 220px;
+            }
+            
+            .banner-text h1 {
+                font-size: 2rem;
+            }
+            
+            .banner-text p {
+                font-size: 1rem;
+            }
+            
+            .nav-container {
+                justify-content: space-between;
+            }
+            
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(30, 60, 114, 0.98);
+                flex-direction: column;
+                padding: 20px;
+                border-radius: 0 0 15px 15px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 5px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .attractions-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hardship-content {
+                flex-direction: column;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .fixed-buttons {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .fixed-button {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部横幅 -->
+    <div class="top-banner" >
+        <img src="./素材 (4).jpg" alt="克孜勒苏柯尔克孜自治州" class="banner-image">
+        <div class="banner-text">
+            <h1>克孜勒苏柯尔克孜自治州</h1>
+            <p>帕米尔高原的明珠 • 祖国西陲的忠诚卫士</p>
+        </div>
+    </div>
+    
+    <!-- 边界线装饰 -->
+    <!-- <div class="border-line"></div> -->
+    
+    <!-- 导航栏 -->
+    <nav>
+        <div class="container nav-container">
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="#" class="active">首页</a></li>
+                <li><a href="#hero">时代楷模</a></li>
+                <li><a href="#attractions">景点介绍</a></li>
+                <li><a href="#seasons">旅游攻略</a></li>
+                <li><a href="#hardship">边疆精神</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <!-- 时代楷模拉齐尼·巴依卡 -->
+        <section class="hero-section" id="hero">
+            <div class="hero-content">
+                <div class="hero-image">
+                    <img src="./00352572380_405afad8.jpg" alt="拉齐尼·巴依卡">
+                </div>
+                <div class="hero-text">
+                    <h2>时代楷模：拉齐尼·巴依卡</h2>
+                    <p>拉齐尼·巴依卡（1982年-2021年），新疆塔什库尔干塔吉克自治县提孜那甫乡提孜那甫村人，中共党员，生前是新疆维吾尔自治区塔什库尔干塔吉克自治县提孜那甫乡提孜那甫村村委会委员、护边员。</p>
+                    <p>拉齐尼一家三代都是优秀护边员，他的父亲巴依卡·凯力迪别克自1972年起就开始担任护边员，一干就是32年。2004年，拉齐尼从部队复员后，接过父亲的接力棒，成为家里的第三代护边员。</p>
+                    <p>2021年1月4日，拉齐尼为解救落入冰窟的儿童不幸英勇牺牲，年仅41岁。他被追授"时代楷模""全国优秀共产党员""全国道德模范"等荣誉称号。</p>
+                    <div class="hero-quote">
+                        <p>"这辈子要一直做一名不穿军装的边防战士，永远守好祖国的边境线。"</p>
+                        <p style="text-align:right; margin-top:10px;">—— 拉齐尼·巴依卡</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 短视频区域 -->
+        <section class="video-section">
+            <h2 class="section-title">克州风光短视频</h2>
+            <div class="video-container">
+                <!-- 短视频1 -->
+                <div class="video-box">
+                    <div class="video-placeholder">
+                        <video autoplay loop muted playsinline preload="auto" poster="./posters/kashi-old-town.jpg">
+                    <source src="./帕米尔高原.mp4" type="video/mp4">
+                    </video>
+                        <i class="fas fa-mountain"></i>
+                        <p>帕米尔高原风光</p>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">帕米尔高原</h3>
+                        <p class="video-description">"世界屋脊"的壮丽风光，雪山、湖泊、草原交织的绝美画卷。</p>
+                    </div>
+                </div>
+                
+                <!-- 短视频2 -->
+                <div class="video-box">
+                    <div class="video-placeholder">
+                        <video autoplay loop muted playsinline preload="auto" poster="./posters/kashi-old-town.jpg">
+                    <source src="./歌曲.mp4" type="video/mp4">
+                    </video>
+                        <i class="fas fa-users"></i>
+                        <p>柯尔克孜族文化</p>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">柯尔克孜族风情</h3>
+                        <p class="video-description">体验柯尔克孜族的独特文化、传统音乐舞蹈和民俗活动。</p>
+                    </div>
+                </div>
+                
+                <!-- 短视频3 -->
+                <div class="video-box">
+                    <div class="video-placeholder">
+                        <i class="fas fa-users"></i>
+                        <video autoplay loop muted playsinline preload="auto" poster="./posters/kashi-old-town.jpg">
+                    <source src="./马背上的民族.mp4" type="video/mp4">
+                    </video>
+                        <p>柯尔克孜族文化</p>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">马背上的民族</h3>
+                        <p class="video-description">体验柯尔克孜族的游牧生活、传统音乐《玛纳斯》史诗和精湛的手工艺。</p>
+                    </div>
+                </div>
+        </section>
+        
+        <!-- 艰苦边疆区域 -->
+        <section class="hardship-section" id="hardship">
+            <h2 class="hardship-title">边疆卫士：用生命守护的边境线</h2>
+            <div class="hardship-content">
+                <div class="hardship-item">
+                    <h3><i class="fas fa-mountain"></i> 恶劣自然环境</h3>
+                    <p>平均海拔3000米以上，氧气稀薄，冬季严寒可达-40℃，夏季紫外线强烈，常年大风，自然环境极其恶劣。</p>
+                </div>
+                <div class="hardship-item">
+                    <h3><i class="fas fa-walking"></i> 艰苦巡边路</h3>
+                    <p>护边员每次巡逻要步行几十公里，翻越雪山、蹚过冰河，常常面临雪崩、泥石流等生命危险。</p>
+                </div>
+                <div class="hardship-item">
+                    <h3><i class="fas fa-home"></i> 孤独与坚守</h3>
+                    <p>许多护边哨所远离人烟，护边员常年与孤独为伴，用青春和生命守护着祖国的每一寸领土。</p>
+                </div>
+                <div class="hardship-item">
+                    <h3><i class="fas fa-heart"></i> 三代人的承诺</h3>
+                    <p>拉齐尼一家三代护边员，70年如一日坚守在帕米尔高原，用行动诠释"子孙无穷匮，守边代代传"的誓言。</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 景点介绍 -->
+        <h2 class="section-title" id="attractions">克州著名景点</h2>
+        <div class="attractions-grid">
+            <!-- 慕士塔格峰 -->
+            <div class="attraction-card">
+                <img src="./慕士塔格峰.jpeg" alt="慕士塔格峰" class="attraction-image">
+                <div class="attraction-overlay">
+                    <h3 class="attraction-title">慕士塔格峰</h3>
+                    <p class="attraction-description">"冰山之父"，海拔7546米，帕米尔高原的标志性山峰，登山爱好者的圣地。</p>
+                    <div class="attraction-tags">
+                        <span class="tag">雪山</span>
+                        <span class="tag">登山</span>
+                        <span class="tag">摄影</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 喀拉库里湖 -->
+            <div class="attraction-card">
+                <img src="./喀拉库勒湖.jpeg" alt="喀拉库里湖" class="attraction-image">
+                <div class="attraction-overlay">
+                    <h3 class="attraction-title">喀拉库勒湖</h3>
+                    <p class="attraction-description">海拔3600米的高原湖泊，湖水随天气变化呈现不同颜色，慕士塔格峰的倒影美不胜收。</p>
+                    <div class="attraction-tags">
+                        <span class="tag">湖泊</span>
+                        <span class="tag">摄影</span>
+                        <span class="tag">高原</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 红其拉甫口岸 -->
+            <div class="attraction-card">
+                <img src="./红其拉甫口岸.jpeg" alt="红其拉甫口岸" class="attraction-image">
+                <div class="attraction-overlay">
+                    <h3 class="attraction-title">红其拉甫口岸</h3>
+                    <p class="attraction-description">世界上海拔最高的口岸（4733米），连接中国与巴基斯坦，中巴友谊的象征。</p>
+                    <div class="attraction-tags">
+                        <span class="tag">口岸</span>
+                        <span class="tag">边境</span>
+                        <span class="tag">历史</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 奥依塔克冰川 -->
+            <div class="attraction-card">
+                <img src="./奥依塔克冰川.jpeg" alt="奥依塔克冰川" class="attraction-image">
+                <div class="attraction-overlay">
+                    <h3 class="attraction-title">奥依塔克冰川</h3>
+                    <p class="attraction-description">罕见的低海拔现代冰川（海拔2800米），冰川与森林共存，景色壮丽独特。</p>
+                    <div class="attraction-tags">
+                        <span class="tag">冰川</span>
+                        <span class="tag">森林</span>
+                        <span class="tag">徒步</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 柯尔克孜族民俗村 -->
+            <div class="attraction-card">
+                <img src="./柯尔克孜族民俗村.jpeg" alt="柯尔克孜族民俗村" class="attraction-image">
+                <div class="attraction-overlay">
+                    <h3 class="attraction-title">柯尔克孜族民俗村</h3>
+                    <p class="attraction-description">体验柯尔克孜族的游牧文化、传统手工艺、音乐舞蹈和特色美食。</p>
+                    <div class="attraction-tags">
+                        <span class="tag">文化</span>
+                        <span class="tag">民俗</span>
+                        <span class="tag">体验</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 白沙湖 -->
+            <div class="attraction-card">
+                <img src="./白沙湖.jpeg" alt="白沙湖" class="attraction-image">
+                <div class="attraction-overlay">
+                    <h3 class="attraction-title">白沙湖</h3>
+                    <p class="attraction-description">湖周沙山环绕，湖水清澈，沙山倒映湖中，形成"沙水共生"的奇特景观。</p>
+                    <div class="attraction-tags">
+                        <span class="tag">湖泊</span>
+                        <span class="tag">沙漠</span>
+                        <span class="tag">摄影</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 季节指南 -->
+        <section class="season-guide" id="seasons">
+            <h2 class="section-title">克州四季漫游指南</h2>
+            
+            <div class="season-content">
+                <div class="season-text">
+                    <h3 class="season-title">🌸 春季（4月-6月）：高原苏醒，山花烂漫</h3>
+                    <ul>
+                        <li><strong>高原春色：</strong>4月底开始，高原冰雪融化，草原逐渐变绿</li>
+                        <li><strong>山花盛开：</strong>5-6月各种野花陆续开放，形成花海</li>
+                        <li><strong>气候适宜：</strong>白天温度10-20℃，适合户外活动</li>
+                        <li><strong>推荐活动：</strong>草原徒步、摄影采风、体验牧民转场</li>
+                        <li><strong>📍最佳地点：</strong>帕米尔草原、奥依塔克河谷</li>
+                    </ul>
+                </div>
+                <div class="season-video">
+                    <video autoplay muted loop playsinline>
+                        <source src="./帕米尔的春天.mp4" type="video/mp4">
+                    </video>
+                    <p style="text-align: center; font-size: 12px; color: #ccc; margin-top: 5px;">
+                        🔄 自动循环播放中
+                    </p>
+                </div>
+            </div>
+            
+            <div class="season-content">
+                <div class="season-text">
+                    <h3 class="season-title">☀️ 夏季（7月-8月）：避暑胜地，草原最美</h3>
+                    <ul>
+                        <li><strong>最佳季节：</strong>草原最为丰美，气候凉爽宜人</li>
+                        <li><strong>那达慕大会：</strong>柯尔克孜族传统节日，赛马、叼羊等活动丰富</li>
+                        <li><strong>星空观测：</strong>高原空气纯净，星空格外璀璨</li>
+                        <li><strong>推荐活动：</strong>草原露营、骑马体验、民族节庆参与</li>
+                        <li><strong>📍最佳地点：</strong>喀拉库里湖周边草原、慕士塔格峰脚下、白沙湖</li>
+                    </ul>
+                </div>
+                <div class="season-video">
+                    <video autoplay muted loop playsinline>
+                        <source src="./白沙湖.mp4" type="video/mp4">
+                    </video>
+                    <p style="text-align: center; font-size: 12px; color: #ccc; margin-top: 5px;">
+                        🔄 自动循环播放中
+                    </p>
+                </div>
+            </div>
+            
+            <div class="season-content">
+                <div class="season-text">
+                    <h3 class="season-title">🍂 秋季（9月-10月）：金色世界，摄影天堂</h3>
+                    <ul>
+                        <li><strong>色彩斑斓：</strong>草原变成金黄色，杨树叶变黄，景色如画</li>
+                        <li><strong>天气稳定：</strong>晴天多，能见度高，适合摄影</li>
+                        <li><strong>牧民转场：</strong>秋季转场场景壮观，充满生活气息</li>
+                        <li><strong>推荐活动：</strong>摄影创作、徒步旅行、体验牧区生活</li>
+                        <li><strong>⏰最佳时间：</strong>9月下旬到10月中旬</li>
+                    </ul>
+                </div>
+                <div class="season-video">
+                    <video autoplay muted loop playsinline>
+                        <source src="./秋天.mp4" type="video/mp4">
+                    </video>
+                    <p style="text-align: center; font-size: 12px; color: #ccc; margin-top: 5px;">
+                        🔄 自动循环播放中
+                    </p>
+                </div>
+            </div>
+            
+            <div class="season-content">
+                <div class="season-text">
+                    <h3 class="season-title">❄️ 冬季（11月-3月）：冰雪世界，边疆体验</h3>
+                    <ul>
+                        <li><strong>冰雪景观：</strong>雪山冰川更加壮观，冰雪活动丰富</li>
+                        <li><strong>体验护边：</strong>了解护边员工作，感受边疆卫士的艰辛</li>
+                        <li><strong>民俗节庆：</strong>体验柯尔克孜族冬季传统节日</li>
+                        <li><strong>推荐活动：</strong>冰雪摄影、边境参观、民俗体验</li>
+                        <li><strong>⚠️注意事项：</strong>气温极低，需做好防寒准备</li>
+                    </ul>
+                </div>
+                <div class="season-video">
+                    <video autoplay muted loop playsinline>
+                        <source src="./冬天.mp4" type="video/mp4">
+                    </video>
+                    <p style="text-align: center; font-size: 12px; color: #ccc; margin-top: 5px;">
+                        🔄 自动循环播放中
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 旅行日历表 -->
+            <h3 class="season-title" style="margin-top: 50px;">克州四季旅行日历表</h3>
+            <table class="simple-table">
+                <thead>
+                    <tr>
+                        <th>月份</th>
+                        <th>平均气温</th>
+                        <th>推荐指数</th>
+                        <th>必做事项</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="season-icon">❄️</span> 1-3月</td>
+                        <td><strong>-15~5℃</strong></td>
+                        <td><span style="color:#ffd700">★★☆☆☆</span></td>
+                        <td>冰雪摄影、边境体验</td>
+                    </tr>
+                    <tr>
+                        <td><span class="season-icon">🌸</span> 4-6月</td>
+                        <td><strong>5~20℃</strong></td>
+                        <td><span style="color:#ffd700">★★★★☆</span></td>
+                        <td>赏花、草原徒步</td>
+                    </tr>
+                    <tr>
+                        <td><span class="season-icon">☀️</span> 7-8月</td>
+                        <td><strong>10~25℃</strong></td>
+                        <td><span style="color:#ffd700">★★★★★</span></td>
+                        <td>草原节庆、避暑旅行</td>
+                    </tr>
+                    <tr>
+                        <td><span class="season-icon">🍂</span> 9-10月</td>
+                        <td><strong>0~15℃</strong></td>
+                        <td><span style="color:#ffd700">★★★★★</span></td>
+                        <td>摄影、体验牧民转场</td>
+                    </tr>
+                    <tr>
+                        <td><span class="season-icon">❄️</span> 11-12月</td>
+                        <td><strong>-10~5℃</strong></td>
+                        <td><span style="color:#ffd700">★★☆☆☆</span></td>
+                        <td>冬季民俗、冰雪体验</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- 固定按钮 -->
+        <div class="fixed-buttons">
+            <button class="fixed-button top" id="backToTop" title="返回顶部">
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            <!-- 这个地方放链接可以回到主页面 -->
+            <a href="#" class="fixed-button link" target="_blank" title="克州政府官网">      
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+        </div>
+        
+        <!-- 底部 -->
+        <footer>
+            <div class="footer-content">
+                <p>克孜勒苏柯尔克孜自治州欢迎您 | 帕米尔高原的明珠 • 祖国西陲的忠诚卫士</p>
+                <p>向所有守护祖国边疆的卫士们致敬 | 本页面纪念时代楷模拉齐尼·巴依卡</p>
+                <div class="copyright">
+                    <p>© 2023 克孜勒苏柯尔克孜自治州旅游宣传网 | 传承边疆精神，弘扬爱国情怀</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // 移动端菜单切换
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+        
+        // 点击页面其他地方关闭移动菜单
+        document.addEventListener('click', function(event) {
+            const navLinks = document.querySelector('.nav-links');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (!navLinks.contains(event.target) && !menuBtn.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+        
+        // 导航菜单点击效果
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // 移除所有active类
+                document.querySelectorAll('.nav-links a').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // 为当前点击的链接添加active类
+                this.classList.add('active');
+                
+                // 如果是移动端，点击后关闭菜单
+                if (window.innerWidth <= 576) {
+                    document.querySelector('.nav-links').classList.remove('active');
+                }
+                
+                // 平滑滚动到对应区域
+                const targetId = this.getAttribute('href');
+                if (targetId.startsWith('#')) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // 视频框点击效果
+        document.querySelectorAll('.video-box').forEach(box => {
+            box.addEventListener('click', function() {
+                const title = this.querySelector('.video-title').textContent;
+                alert(`正在播放：${title}\n\n提示：此为演示页面，实际功能需连接视频服务。`);
+            });
+        });
+        
+        // 景点卡片点击效果
+        document.querySelectorAll('.attraction-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const title = this.querySelector('.attraction-title').textContent;
+                alert(`景点详情：${title}\n\n点击确定查看完整介绍。`);
+            });
+        });
+        
+        // 返回顶部功能
+        const backToTopBtn = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.style.display = 'flex';
+            } else {
+                backToTopBtn.style.display = 'flex';
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // 页面加载完成后显示欢迎信息
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                console.log("欢迎来到克孜勒苏柯尔克孜自治州宣传页面！");
+                console.log("向时代楷模拉齐尼·巴依卡致敬！");
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

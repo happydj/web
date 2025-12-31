@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026世界杯 16座球场分布</title>
+    <!-- 引入字体提升美观度 -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet"> -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #f5f7fa;
+            padding: 2rem;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        th {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #e6e6e6;
+            vertical-align: middle;
+        }
+
+        /* 隔行变色提升可读性 */
+        tr:nth-child(even) td {
+            background-color: #f9f9f9;
+        }
+
+        /* 悬停效果 */
+        tr:hover td {
+            background-color: #f0f7ff;
+            transition: background-color 0.2s ease;
+        }
+
+        /* 国家列特殊样式 */
+        td:first-child {
+            font-weight: 500;
+            color: #2c3e50;
+            min-width: 120px;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+            tr {
+                margin-bottom: 1.5rem;
+                border: 1px solid #e6e6e6;
+                border-radius: 8px;
+            }
+
+            td {
+                border: none;
+                position: relative;
+                padding-left: 50%;
+            }
+
+            td:before {
+                position: absolute;
+                top: 1rem;
+                left: 1rem;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                font-weight: 500;
+                color: #2c3e50;
+            }
+
+            /* 为每个单元格添加标签 */
+            td:nth-of-type(1):before { content: "国家"; }
+            td:nth-of-type(2):before { content: "城市"; }
+            td:nth-of-type(3):before { content: "球场名称"; }
+        }
+
+        /* 修复原代码中的小错误 */
+        .stadium-name {
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>2026世界杯 16座球场分布</h1>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>国家</th>
+                    <th>城市</th>
+                    <th>球场名称</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>美国 (11个)</td>
+                    <td>东部：纽约/新泽西、费城、波士顿、亚特兰大、迈阿密、华盛顿特区</td>
+                    <td class="stadium-name">大都会人寿体育场、林肯金融球场、吉列体育场、梅赛德斯-奔驰体育场、硬石体育场等</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>中部：达拉斯、休斯顿、堪萨斯城</td>
+                    <td class="stadium-name">AT&T体育场、NRG体育场、箭头体育场</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>西部：洛杉矶、旧金山、西雅图</td>
+                    <td class="stadium-name">SoFi体育场、李维斯体育场、流明球场</td>
+                </tr>
+                <tr>
+                    <td>加拿大 (2个)</td>
+                    <td>西部：温哥华</td>
+                    <td class="stadium-name">不列颠哥伦比亚体育馆 (BC Place)</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>东部：多伦多</td>
+                    <td class="stadium-name">BMO球场</td>
+                </tr>
+                <tr>
+                    <td>墨西哥 (3个)</td>
+                    <td>中部：墨西哥城</td>
+                    <td class="stadium-name">阿兹特克体育场 (Estadio Azteca)</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>西部：瓜达拉哈拉</td>
+                    <td class="stadium-name">阿克伦球场</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>北部：蒙特雷</td>
+                    <td class="stadium-name">BBVA体育场</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

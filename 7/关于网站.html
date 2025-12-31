@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我们 - 本站</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* 头部导航 */
+        .header {
+            background-color: #2c3e50;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .header .logo {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav {
+            float: right;
+            margin-top: 0.3rem;
+        }
+
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: #3498db;
+        }
+
+        /* 关于我们主体内容 */
+        .about-container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 5%;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .about-title {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .about-title h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .about-title .line {
+            width: 80px;
+            height: 3px;
+            background-color: #3498db;
+            margin: 0 auto;
+        }
+
+        /* 网站介绍 */
+        .site-intro {
+            background-color: #fff;
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .site-intro h3 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+        }
+
+        .site-intro p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        /* 制作人信息 */
+        .producer-section {
+            background-color: #fff;
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .producer-section h3 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .producer-list {
+            display: flex;
+            justify-content: center;
+            gap: 5rem;
+            flex-wrap: wrap;
+        }
+
+        .producer-item {
+            text-align: center;
+        }
+
+        .producer-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #3498db;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .producer-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .producer-role {
+            font-size: 1rem;
+            color: #777;
+            margin-bottom: 0.5rem;
+        }
+
+        /* 联系我们 */
+        .contact-section {
+            background-color: #fff;
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .contact-section h3 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-phone {
+            font-size: 1.2rem;
+            color: #555;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: #f5f7fa;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+        }
+
+        .contact-phone i {
+            color: #3498db;
+            font-size: 1.5rem;
+        }
+
+        /* 底部版权 */
+        .footer {
+            background-color: #2c3e50;
+            color: #fff;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer p {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .nav {
+                float: none;
+                margin-top: 1rem;
+                text-align: center;
+            }
+
+            .nav a {
+                margin-left: 1rem;
+                margin-right: 1rem;
+            }
+
+            .about-title h2 {
+                font-size: 2rem;
+            }
+
+            .site-intro, .producer-section, .contact-section {
+                padding: 1.5rem;
+            }
+
+            .producer-list {
+                gap: 2rem;
+            }
+        }
+    </style>
+    <!-- 引入图标库（可选，用于电话图标） -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header class="header">
+        <a href="#" class="logo">本站名称</a>
+        <nav class="nav">
+            <a href="index.html">首页</a>
+            <a href="关于网站.html#producer-list" class="active">关于我们</a>
+            <a href="关于网站.html#about-title">功能介绍</a>
+            <a href="关于网站.html#contact-phone">使用帮助</a>
+        </nav>
+    </header>
+
+    <!-- 关于我们主体 -->
+    <div class="about-container">
+        <!-- 网站介绍 -->
+        <section class="site-intro">
+            <div class="about-title">
+                <h2>关于本站</h2>
+                <div class="line"></div>
+            </div>
+            <h3>网站简介</h3>
+            <p>本站是一款专注于为用户提供优质服务的综合性平台，致力于打造便捷、高效、安全的使用体验。我们围绕用户核心需求，搭建了完善的功能体系，涵盖了信息查询、资源分享、在线交互等多项实用服务，满足不同场景下的用户需求。</p>
+            <p>自上线以来，我们始终秉持“用户至上、精益求精”的理念，不断优化产品功能与界面设计，努力为用户带来更优质的使用体验。未来，我们也将持续迭代升级，推出更多实用功能，助力用户高效解决各类问题。</p>
+        </section>
+
+        <!-- 制作人信息 -->
+        <section class="producer-section">
+            <h3>核心制作人</h3>
+            <div class="producer-list">
+                <div class="producer-item">
+                    <div class="producer-avatar">金</div>
+                    <div class="producer-name">金小棚</div>
+                    <div class="producer-role">前端开发 / 后端开发</div>
+                    <div class="producer-desc">负责网站后台搭建与交互开发</div>
+                </div>
+                <div class="producer-item">
+                    <div class="producer-avatar">王</div>
+                    <div class="producer-name">王雅宣</div>
+                    <div class="producer-role"> 产品设计/ 功能实现</div>
+                    <div class="producer-desc">负责网站界面设计与功能落地</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 联系我们 -->
+        <section class="contact-section">
+            <h3>联系我们</h3>
+            <div class="contact-phone">
+                <i class="fas fa-phone"></i>
+                <span>联系电话：19132579238</span>
+            </div>
+        </section>
+    </div>
+
+    <!-- 底部版权 -->
+    <footer class="footer">
+        <p>© 2025 本站 版权所有 | 制作人：金小棚、王雅宣</p>
+    </footer>
+</body>
+</html>

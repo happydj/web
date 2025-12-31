@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>王者荣耀游戏大厅（视频背景）</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            overflow: hidden;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        /* 大厅容器 */
+        .hall-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative; 
+        }
+        /* 背景视频样式 */
+        .bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1; 
+        }
+       
+        .top-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background-color: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            color: #fff;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid #ffd700;
+        }
+        .user-detail {
+            display: flex;
+            flex-direction: column;
+        }
+        .nickname {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+        }
+        .level {
+            font-size: 14px;
+            color: #a4b0be;
+        }
+        .resource {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-left: 50px;
+        }
+        .resource-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+        }
+        .resource-icon {
+            width: 24px;
+            height: 24px;
+        }
+        .top-icons {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+        .top-icon {
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+        }
+        .friend-bar {
+            position: absolute;
+            top: 100px;
+            left: 20px;
+            width: 100px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 10px;
+        }
+        .friend-title {
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .friend-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 1 5px;
+        }
+        .friend-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+        }
+        .friend-status {
+            font-size: 12px;
+            color: #a4b0be;
+        }
+        .friend-statu{ color: green;
+
+        }
+        .right-modules {
+            position: absolute;
+            top: 100px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .module-item {
+            width: 180px;
+            height: 100px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            border: 2px solid #ffd700;
+        }
+        .module-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .module-text {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            padding: 5px 10px;
+            font-size: 16px;
+        }
+        .core-buttons {
+            position: absolute;
+            left: 50%;
+            bottom: 180px;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .core-btn {
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 28px;
+            font-weight: bold;
+            border-radius: 20px;
+            cursor: pointer;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            text-decoration: none;
+        }
+        .btn-jixia {
+            width: 200px;
+            background: linear-gradient(45deg, #48cae4, #0077b6);
+            border: 3px solid #fff;
+        }
+        .btn-battle {
+            width: 220px;
+            background: linear-gradient(45deg, #ffc107, #ff8c00);
+            border: 3px solid #fff;
+        }
+        .btn-ranking {
+            width: 220px;
+            background: linear-gradient(45deg, #9370db, #4b0082);
+            border: 3px solid #fff;
+        }
+        .btn-casual {
+            width: 200px;
+            background: linear-gradient(45deg, #38b000, #007200);
+            border: 3px solid #fff;
+        }
+        .bottom-bar {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 60px;
+        }
+        .bottom-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .bottom-icon {
+            width: 40px;
+            height: 40px;
+        }
+        .chat-box {
+            position: absolute;
+            bottom: 100px;
+            left: 20px;
+            width: 350px;
+            height: 60px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 10px;
+            color: #fff;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="hall-container">
+        <!-- 背景视频标签 -->
+        <video class="bg-video" autoplay loop muted playsinline>
+            <source src="img/视频/背景.mp4" type="video/mp4">
+        </video>
+
+       
+        <div class="top-bar">
+            <div class="user-info">
+                <img src="img/我.jpg" alt="头像" class="avatar">
+                <div class="user-detail">
+                    <div class="nickname">-清纯少女.</div>
+                    <div class="level">Lv.30 999999/999999</div>
+                </div>
+            </div>
+            <div class="resource">
+                <div class="resource-item">
+                    <img src="img/金币.jpg" alt="金币" class="resource-icon">
+                    <span>8321</span>
+                </div>
+                <div class="resource-item">
+                    <img src="img/钻石.png" alt="钻石" class="resource-icon">
+                    <span>1370</span>
+                </div>
+                <div class="resource-item">
+                    <img src="img/点券.jpg" alt="点券" class="resource-icon">
+                    <span>600+</span>
+                </div>
+            </div>
+        </div>
+        <div class="top-icons">
+            <img src="img/好友.png" alt="好友" class="top-icon">
+            <img src="img/邮件.png" alt="邮件" class="top-icon">
+            <a href="开始登录.html"><img src="img/设置.png" alt="设置" class="top-icon"></a>
+        </div>
+        <div class="friend-bar">
+            <div class="friend-title">好友</div>
+            <div class="friend-item">
+                <img src="img/好友3.jpg" alt="好友头像" class="friend-avatar">
+                <div class="friend-statu">在线</div>
+            </div>
+            <div class="friend-item">
+                <img src="img/好友2.jpg" alt="好友头像" class="friend-avatar">
+                <div class="friend-status">离线</div>
+            </div>
+            <div class="friend-item">
+                <img src="img/好友1.jpg" alt="好友头像" class="friend-avatar">
+                <div class="friend-status">离线</div>
+            </div>
+        </div>
+        <div class="right-modules">
+            <a href="商城.html"><div class="module-item" onclick="openModule('商城')">
+                <img src="img/商店.jpeg" alt="商城" class="module-img"></a>
+                <div class="module-text">商城</div>
+                
+            </div>
+           <a href="战令.html"> <div class="module-item" onclick="openModule('战令')">
+                <img src="img/战令.jpeg" alt="战令" class="module-img"></a>
+                <div class="module-text">战令</div>
+            </div>
+           <a href="活动.html"> <div class="module-item" onclick="openModule('活动')">
+                <img src="img/活动.jpg" alt="活动" class="module-img"></a>
+                <div class="module-text">活动</div>
+            </div>
+           <a href="礼册.html"><div class="module-item" onclick="openModule('礼册')">
+                <img src="img/礼册.png" alt="礼册" class="module-img"></a> 
+                <div class="module-text">礼册</div>
+            </div>
+        </div>
+        <div class="core-buttons">
+           <a href="稷下学院.html" style="text-decoration: none;"><div class="core-btn btn-jixia" onclick="openModule('稷下学院')">稷下学院</div></a> 
+           <a href="对战.html" style="text-decoration: none;"><div class="core-btn btn-battle" onclick="openModule('对战')">对战</div></a> 
+           <a href="排位.html" style="text-decoration: none;"> <div class="core-btn btn-ranking" onclick="openModule('排位')">排位</div></a>
+           <a href="娱乐模式.html" style="text-decoration: none;"> <div class="core-btn btn-casual" onclick="openModule('娱乐模式')">娱乐模式</div></a>
+        </div>
+        <div class="bottom-bar">
+          <a href="英雄.html">  <div class="bottom-btn" onclick="openModule('英雄')">
+                <img src="img/英雄.png" alt="英雄" class="bottom-icon"></a>
+                <span>英雄</span>
+            </div>
+            <a href="定制.html"><div class="bottom-btn" onclick="openModule('定制')">
+                <img src="img/定制.png" alt="定制" class="bottom-icon"></a>
+                <span>定制</span>
+            </div>
+            <a href="备战.html"><div class="bottom-btn" onclick="openModule('备战')">
+                <img src="img/备战.png" alt="备战" class="bottom-icon"></a>
+                <span>备战</span>
+            </div>
+           <a href="战队.html"> <div class="bottom-btn" onclick="openModule('战队')">
+                <img src="img/战队.png" alt="战队" class="bottom-icon"></a>
+                <span>战队</span>
+            </div>
+           <a href="背包.htm"> <div class="bottom-btn" onclick="openModule('背包')">
+                <img src="img/背包.png" alt="背包" class="bottom-icon"></a>
+                <span>背包</span>
+            </div>
+        </div>
+        <div class="chat-box">
+            综合 总脆弱壹泪：召集5v5排位赛
+        </div>
+    </div>
+
+   
+</body>
+</html>

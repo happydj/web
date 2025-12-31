@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>赛里木湖 - 大西洋最后一滴眼泪</title>
+    <style>
+        /* 全局样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "微软雅黑", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f0f8ff;
+            /* 淡蓝色背景贴合湖水主题 */
+        }
+
+        /* 头部横幅 */
+        header {
+            background: url('./img/img/赛湖/2.png') no-repeat center center;
+            background-size: cover;
+            height: 380px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* 头部遮罩提升文字可读性 */
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(28, 130, 185, 0.2);
+            /* 淡蓝遮罩 */
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            color: white;
+            text-align: center;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+        }
+
+        .header-title {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .header-subtitle {
+            font-size: 18px;
+            letter-spacing: 2px;
+        }
+
+        /* 主体容器 */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* 赛里木湖简介 */
+        .intro {
+            background: white;
+            padding: 35px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+
+        .intro h2 {
+            color: #1c82b9;
+            /* 湖水蓝主色 */
+            margin-bottom: 20px;
+            font-size: 26px;
+            border-bottom: 2px solid #1c82b9;
+            padding-bottom: 10px;
+        }
+
+        .intro p {
+            font-size: 16px;
+            margin-bottom: 15px;
+            text-indent: 2em;
+        }
+
+        /* 核心特色板块 */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            /* 悬浮上移动效 */
+        }
+
+        .feature-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .feature-content {
+            padding: 20px;
+        }
+
+        .feature-content h3 {
+            color: #1c82b9;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .feature-content p {
+            color: #666;
+            font-size: 15px;
+        }
+
+        /* 页脚 */
+        footer {
+            background: #1c82b9;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        footer p {
+            font-size: 14px;
+        }
+
+        /* 响应式适配（手机端） */
+        @media (max-width: 768px) {
+            header {
+                height: 300px;
+            }
+
+            .header-title {
+                font-size: 36px;
+            }
+
+            .intro {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 头部横幅 -->
+    <header>
+        <div class="header-content">
+            <h1 class="header-title">赛里木湖</h1>
+            <p class="header-subtitle">大西洋最后一滴眼泪</p>
+        </div>
+    </header>
+
+    <!-- 主体内容 -->
+    <div class="container">
+        <!-- 赛里木湖简介 -->
+        <section class="intro">
+            <h2>关于赛里木湖</h2>
+            <p>赛里木湖位于新疆博尔塔拉蒙古自治州博乐市境内北天山山脉中，紧邻伊犁哈萨克自治州霍城县，湖面海拔2071米，东西长30公里，南北宽25公里，面积453平方公里，是新疆海拔最高、面积最大的高山湖泊。</p>
+            <p>赛里木湖是大西洋暖湿气流最后眷顾的地方，因此被称作“大西洋最后一滴眼泪”。湖水清澈透底，透明度达12米，湖水颜色随季节、光线变化，呈现出浅蓝、深蓝、碧蓝等不同色调。</p>
+            <p>这里四季风景各异：冬季蓝冰、冰泡奇观震撼人心；夏季湖畔花海连绵，雪山为背景，湖水湛蓝如宝石，是新疆必打卡的自然景观。</p>
+        </section>
+
+        <!-- 核心特色 -->
+        <section class="features">
+            <div class="feature-card">
+                <img src="./img/img/赛湖/3.png" alt="赛里木湖蓝冰" class="feature-img">
+                <div class="feature-content">
+                    <h3>冬季蓝冰奇观</h3>
+                    <p>每年12月至次年3月，赛里木湖湖面冰封，形成蓝冰、冰泡、冰裂等自然奇观，蓝冰在阳光下发着幽蓝的光，宛如冰雪童话世界。</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <img src="./img/img/赛湖/4.png" alt="赛里木湖夏季花海" class="feature-img">
+                <div class="feature-content">
+                    <h3>夏季湖畔花海</h3>
+                    <p>6-7月是赛里木湖的最佳观赏期，湖畔漫山遍野的野郁金香、金莲花等花卉盛放，与湛蓝湖水、远处雪山构成绝美画卷。</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <img src="./img/img/赛湖/5.png" alt="赛里木湖环湖公路" class="feature-img">
+                <div class="feature-content">
+                    <h3>环湖公路风光</h3>
+                    <p>赛里木湖环湖公路约90公里，沿途可欣赏到湖水、草原、雪山、风车等不同景观，自驾或乘车环湖是体验赛湖之美的最佳方式。</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>© 2025 赛里木湖 | 简单网页示例</p>
+    </footer>
+</body>
+
+</html>

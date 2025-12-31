@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新疆美食拼盘</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft YaHei", sans-serif;
+            background-image: url("./img/艾特莱斯1.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 30px 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            backdrop-filter: blur(10px);
+            /* 毛玻璃效果 */
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .video-container {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .video-title {
+            font-size: 24px;
+            color: #f5d76e;
+            /* 金色文字 */
+            margin-bottom: 15px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .video-player {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .food-text {
+            flex: 1;
+            min-width: 300px;
+            color: #eaeaea;
+            /* 浅灰文字 */
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        .food-text p {
+            margin-bottom: 12px;
+            padding-left: 10px;
+            border-left: 3px solid #f5d76e;
+            /* 金色左边线 */
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="video-container">
+            <div class="video-title">新疆美食拼盘</div>
+            <video class="video-player" controls preload="metadata">
+                <source src="./img/ret视频.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="food-text">
+            <p>食材与品类：涵盖手抓饭、烤包子、大盘鸡、烤肉、馕、干果、特色糕点等新疆经典美食，荤素、主食、点心、果干兼备，食材种类极其丰富。</p>
+            <p>摆盘形式：采用集中式的大拼盘宴席式摆放，遵循新疆民族饮食“丰盛、共享”的原则，造型饱满且错落有致，视觉上极具冲击力。</p>
+            <p>风味融合：集合了咸香、香辣、甜香等多种味觉体验，既有肉类的醇厚，又有果干的清甜，体现新疆饮食“甜咸交织、浓淡相宜”的风味特色。</p>
+            <p>文化属性：摆盘风格和菜品组合带有浓郁的维吾尔族、哈萨克族等民族饮食文化特征，是新疆节庆、聚会等重要场合的代表性餐食形式，彰显了当地热情好客的饮食文化。</p>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>星系</title>
+  <script src="./js/three.min.js"></script>
+  <script src="./js/OrbitControls.js"></script>
+  <link rel="stylesheet" href="./css/index.css">
+  <style>
+    /* 通用悬浮窗样式 */
+    .float-window {
+      position: fixed;
+      /* 固定定位，不随滚动移动 */
+      top: 50%;
+      /* 垂直居中 */
+      transform: translateY(-50%);
+      /* 修正垂直居中偏移 */
+      width: 200px;
+      padding: 20px;
+      background: rgba(14, 13, 13, 0.95);
+      /* 半透明白底 */
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      /* 阴影增强立体感 */
+      z-index: 9999;
+      /* 确保浮在最上层 */
+      box-sizing: border-box;
+    }
+
+    /* 左侧悬浮窗定位 */
+    .left-float {
+      left: 40px;
+    }
+
+    /* 右侧悬浮窗定位 */
+    .right-float {
+      right: 20px;
+    }
+
+    /* 浮窗内元素样式（可选） */
+    .float-window h3 {
+      margin: 0 0 15px 0;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .float-window p,
+    .float-window a {
+      font-size: 14px;
+      color: #666;
+      text-decoration: none;
+      line-height: 1.5;
+    }
+
+    .float-window a:hover {
+      color: #007bff;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div>
+    <canvas id="main"></canvas>
+    <script src="./js/其他星球/天王星.js"></script>
+  </div>
+  <!-- 左侧悬浮窗 -->
+  <div class="float-window left-float" style="color: #007bff;">
+    <h3 style="font-size: 24px; color: gold;">简介</h3>
+    <span
+      style="font-size: 17px;">天王星是太阳系八大行星中距太阳第七近的远日行星，与太阳平均距离约28.7亿千米，体积位列太阳系行星第三位，质量排名第四，是人类用望远镜发现的第一颗行星。它的公转周期长达84个地球年，自转周期约17小时14分钟，最独特的特征是地轴倾斜角约98°，几乎是躺着绕太阳公转
+
+    </span>
+  </div>
+
+  <!-- 右侧悬浮窗 -->
+  <div class="float-window right-float" style="color: #007bff;">
+    <span>
+      天王星是太阳系八大行星中距太阳第七近的远日行星，与太阳平均距离约28.7亿千米，体积位列太阳系行星第三位，质量排名第四，是人类用望远镜发现的第一颗行星。它的公转周期长达84个地球年，自转周期约17小时14分钟，最独特的特征是地轴倾斜角约98°，几乎是躺着绕太阳公转
+    </span>
+  </div>
+</body>
+
+</html>

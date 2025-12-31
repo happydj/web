@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>弹出网</title>
+</head>
+
+<body>
+  <!DOCTYPE html>
+  <html lang="zh-CN">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>提交成功 | 感谢您的反馈</title>
+
+    <!-- 手写原生CSS（土色系+简化图标） -->
+    <style>
+      /* 全局样式重置 */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: system-ui, -apple-system, sans-serif;
+      }
+
+      /* 自定义颜色变量（土色系） */
+      :root {
+        --color-success: #c19a6b;
+        --color-success-dark: #a87f4c;
+        --color-primary: #3b82f6;
+        --color-gray-50: #f9fafb;
+        --color-gray-800: #1f2937;
+        --color-gray-600: #4b5563;
+        --color-white: #ffffff;
+        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      }
+
+      /* 页面主体 */
+      body {
+        background-color: var(--color-gray-50);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+      }
+
+      /* 主容器 */
+      .success-container {
+        max-width: 28rem;
+        width: 100%;
+        background-color: var(--color-white);
+        border-radius: 1rem;
+        box-shadow: var(--shadow-xl);
+        overflow: hidden;
+      }
+
+      /* 顶部土色成功条 */
+      .success-header {
+        background-color: var(--color-success);
+        padding: 0.75rem 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-white);
+      }
+
+      /* 简化版对勾图标（移除外部SVG域名引用） */
+      .check-icon {
+        display: inline-block;
+        width: 1.25rem;
+        height: 1.25rem;
+        margin-right: 0.5rem;
+        /* 简化SVG代码，移除xmlns域名引用（浏览器仍可识别） */
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512'%3E%3Cpath fill='white' d='M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z'%3E%3C/path%3E%3C/svg%3E");
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+
+      .success-header h2 {
+        font-weight: 600;
+        font-size: 1.125rem;
+      }
+
+      /* 内容区域 */
+      .success-content {
+        padding: 2rem;
+        text-align: center;
+      }
+
+      .title {
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-weight: 700;
+        color: var(--color-gray-800);
+        margin-bottom: 0.75rem;
+        animation: fade-in 0.8s ease-out;
+      }
+
+      .desc {
+        color: var(--color-gray-600);
+        line-height: 1.6;
+        margin-bottom: 2rem;
+        animation: fade-in 0.8s ease-out;
+      }
+
+      /* 返回首页按钮 */
+      .back-home-btn {
+        display: block;
+        width: 100%;
+        padding: 0.75rem 1rem;
+        background-color: var(--color-primary);
+        color: var(--color-white);
+        text-align: center;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+        animation: slide-up 0.7s ease-out;
+      }
+
+      .back-home-btn:hover {
+        background-color: rgba(59, 130, 246, 0.9);
+      }
+
+      /* 动画效果 */
+      @keyframes fade-in {
+        0% {
+          opacity: 0;
+        }
+
+        100% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes slide-up {
+        0% {
+          transform: translateY(30px);
+          opacity: 0;
+        }
+
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      body {
+
+        /* 1. 设置背景图（路径需替换为你的图片地址） */
+        background-image: url("./img/哈密加西瓜.jpg");
+
+        /* 2. 关键辅助属性（必加） */
+        background-repeat: no-repeat;
+        /* 禁止图片平铺（默认会重复） */
+        background-size: cover;
+        /* 图片自适应：覆盖整个元素（可能裁剪边缘） */
+        background-position: center;
+        /* 图片居中显示 */
+        background-attachment: fixed;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- 主容器 -->
+    <div class="success-container">
+      <!-- 顶部土色成功状态条 -->
+      <div class="success-header">
+        <span class="check-icon"></span>
+        <h2>提交成功</h2>
+      </div>
+
+      <!-- 内容区域 -->
+      <div class="success-content">
+        <h1 class="title">操作完成！</h1>
+        <p class="desc">
+          您的信息已成功提交，我们会尽快处理并与您联系。<br>
+          感谢您的耐心与支持！
+        </p>
+
+        <!-- 操作按钮（仅保留返回首页） -->
+        <a href="./大盘鸡.html" class="back-home-btn">返回首页</a>
+      </div>
+    </div>
+
+    <!-- 页面加载和平滑滚动 -->
+    <script>
+      // 页面加载完成后的动画效果
+      document.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('opacity-100');
+        document.body.classList.remove('opacity-0');
+      });
+
+      // 平滑滚动
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute('href'))?.scrollIntoView({
+            behavior: 'smooth'
+          });
+        });
+      });
+    </script>
+  </body>
+
+  </html>
+</body>
+
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>王者荣耀S41天元赛季排位界面</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        .hall-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        body {
+            overflow: hidden;
+            background: #000;
+        }
+
+        /* 主容器 */
+        .container {
+            width: 100vw;
+            height: 100vh;
+
+            background-size: cover;
+            position: relative;
+            filter: brightness(0.9);
+        }
+
+        /* 赛季信息 */
+        .season-info {
+            position: absolute;
+            top: 3%;
+            left: 8%;
+            font-size: 28px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .season-info span {
+            color: #4fc3f7;
+            font-weight: bold;
+        }
+
+        /* 左侧功能栏 */
+        .left-menu {
+            position: absolute;
+            top: 20%;
+            left: 5%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .menu-item {
+            color: #fff;
+            font-size: 22px;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item.active {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            box-shadow: 0 0 20px rgba(37, 117, 252, 0.6);
+        }
+
+        .menu-item small {
+            font-size: 14px;
+            color: #ccc;
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* 段位展示区 */
+        .rank-container {
+            width: 340px;
+            height: 540px;
+            position: absolute;
+            top: 180px;
+            right: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .rank-img {
+            position: absolute;
+            z-index: -1;
+        }
+
+
+        .rank-title {
+            color: #fff;
+            font-size: 24px;
+            background: #b71c1c;
+            padding: 8px 30px;
+            border-radius: 15px 15px 0 0;
+            border: 2px solid #ffd700;
+
+        }
+
+        .rank-star {
+            color: #ffd700;
+            font-size: 20px;
+            margin: 5px 0;
+        }
+
+        .rank-icon {
+            width: 220px;
+            height: 280px;
+
+            background-size: contain;
+            margin-bottom: 10px;
+        }
+
+        .rank-progress {
+            width: 200px;
+            height: 10px;
+            background: #333;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+
+        .rank-pro {
+            position: absolute;
+            bottom: 145px;
+            text-align: center;
+        }
+
+        .progress-bar {
+            width: 24%;
+            height: 100%;
+            background: #4fc3f7;
+        }
+
+        .rank-text {
+            color: #ccc;
+            font-size: 16px;
+        }
+
+        /* 排位赛按钮 */
+        .rank-btn {
+            position: absolute;
+            bottom: -20px;
+
+            width: 280px;
+            height: 90px;
+            background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+            border-radius: 45px;
+            text-align: center;
+            line-height: 90px;
+            font-size: 32px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+            transition: transform 0.2s ease;
+            border: 3px solid #fff;
+        }
+
+        .rank-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .rank-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* 底部功能栏 */
+        .bottom-menu {
+            position: absolute;
+            bottom: 5%;
+            left: 8%;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .bottom-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .bottom-icon {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 5px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .bottom-text {
+            font-size: 16px;
+        }
+
+        .task-num {
+            color: #ffd700;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        /* 退出 */
+        .room-tip {
+            position: absolute;
+            top: -180px;
+            right: -200px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 10px;
+            font-size: 18px;
+        }
+
+
+        /* 荣耀之路 */
+        .honor-road {
+            position: absolute;
+            bottom: 20%;
+            right: 38%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #ffd700;
+        }
+
+        .honor-icon {
+            width: 60px;
+            height: 60px;
+
+            background-size: contain;
+            margin-bottom: 5px;
+        }
+
+        .honor-text {
+            font-size: 18px;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hall-container">
+        <!-- 背景视频标签 -->
+        <video class="bg-video" autoplay loop muted playsinline>
+            <source src="img/视频/排位背景.mp4" type="video/mp4">
+
+        </video>
+        <div class="container">
+            <!-- 赛季信息 -->
+            <div class="season-info"><span>S41</span>天元</div>
+
+            <!-- 左侧功能栏 -->
+            <div class="left-menu">
+                <div class="menu-item">
+                    巅峰赛
+                    <small>12-24点开放</small>
+                </div>
+                <div class="menu-item active">5v5排位赛</div>
+            </div>
+
+
+            <!-- 段位展示区 -->
+            <div class="rank-container">
+                <!--退出提示 -->
+                <a href="index.html" style="text-decoration: none;">
+                    <div class="room-tip">退出</div>
+                </a>
+
+                <div class="rank-title">荣耀·猎魂战神</div>
+                <div class="rank-star">★ 50</div>
+                <img class="rank-img" src="img/荣耀.png" alt="奖励赛" width="300px">
+
+                <!-- <div class="rank-icon"></div> -->
+                <div class="rank-pro">
+                    <div class="rank-progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                    <div class="rank-text">24/100</div>
+                </div>
+                <!-- 排位赛按钮 -->
+                <button class="rank-btn">5v5排位赛</button>
+            </div>
+
+
+
+
+            <!-- 荣耀之路 -->
+            <div class="honor-road">
+                <div class="honor-icon"></div>
+                <div class="honor-text">荣耀之路</div>
+            </div>
+
+            <!-- 底部功能栏 -->
+            <div class="bottom-menu">
+                <div class="bottom-item">
+                    <div class="bottom-icon icon-1"></div>
+                    <div class="bottom-text">分路段位</div>
+                </div>
+                <div class="bottom-item">
+                    <div class="bottom-icon icon-2"></div>
+                    <div class="bottom-text">英雄战力</div>
+                </div>
+                <div class="bottom-item">
+                    <div class="bottom-icon icon-3"></div>
+                    <div class="bottom-text task-num">30</div>
+                    <div class="bottom-text">赛季任务</div>
+                </div>
+            </div>
+        </div>
+
+
+</body>
+
+</html>

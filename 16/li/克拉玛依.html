@@ -1,0 +1,1854 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>克拉玛依 - 戈壁上的石油明珠</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, 
+                #0c2461 0%, 
+                #1e3799 20%, 
+                #2c3e50 40%, 
+                #34495e 60%, 
+                #7f8c8d 80%, 
+                #bdc3c7 100%);
+            min-height: 100vh;
+            color: white;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* 克拉玛依特色背景元素 */
+        .background-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        /* 戈壁雅丹地貌轮廓 */
+        .desert-landscape {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(to top, 
+                rgba(139, 69, 19, 0.4) 0%, 
+                rgba(160, 82, 45, 0.3) 30%, 
+                rgba(210, 105, 30, 0.2) 60%, 
+                transparent 100%);
+            clip-path: polygon(
+                0% 100%, 5% 80%, 10% 90%, 15% 75%, 20% 85%, 
+                25% 70%, 30% 80%, 35% 65%, 40% 75%, 45% 60%, 
+                50% 70%, 55% 55%, 60% 65%, 65% 50%, 70% 60%, 
+                75% 45%, 80% 55%, 85% 40%, 90% 50%, 95% 35%, 
+                100% 45%, 100% 100%, 0% 100%
+            );
+        }
+        
+        /* 石油井架装饰 */
+        .oil-rig {
+            position: absolute;
+            bottom: 40%;
+            right: 15%;
+            width: 80px;
+            height: 150px;
+            z-index: 1;
+        }
+        
+        .oil-rig-base {
+            position: absolute;
+            bottom: 0;
+            width: 60px;
+            height: 20px;
+            background: rgba(100, 100, 100, 0.8);
+        }
+        
+        .oil-rig-tower {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 120px;
+            background: rgba(150, 150, 150, 0.9);
+        }
+        
+        .oil-rig-top {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 20px;
+            background: rgba(200, 200, 200, 0.9);
+            clip-path: polygon(0% 0%, 100% 0%, 80% 100%, 20% 100%);
+        }
+        
+        /* 抽油机（磕头机）装饰 */
+        .pumpjack {
+            position: absolute;
+            bottom: 35%;
+            left: -100px;
+            width: 120px;
+            height: 100px;
+            animation: pumpjack-move 30s linear infinite;
+            z-index: 1;
+        }
+        
+        .pumpjack-base {
+            position: absolute;
+            bottom: 0;
+            width: 80px;
+            height: 15px;
+            background: rgba(100, 100, 100, 0.8);
+        }
+        
+        .pumpjack-arm {
+            position: absolute;
+            bottom: 15px;
+            left: 40px;
+            width: 4px;
+            height: 60px;
+            background: rgba(150, 150, 150, 0.9);
+            transform-origin: bottom center;
+            animation: pumpjack-arm 2s infinite alternate;
+        }
+        
+        @keyframes pumpjack-move {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(calc(100vw + 100px)); }
+        }
+        
+        @keyframes pumpjack-arm {
+            0% { transform: rotate(-30deg); }
+            100% { transform: rotate(30deg); }
+        }
+        
+        /* 星空效果 */
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite alternate;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.2; }
+            100% { opacity: 0.8; }
+        }
+        
+        /* 顶部横幅 */
+        .top-banner {
+            position: relative;
+            height: 400px;
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 30px;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+        }
+        
+        .banner-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.8);
+        }
+        
+        .banner-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 2;
+            text-shadow: 0 3px 10px rgba(0, 0, 0, 0.8);
+            width: 100%;
+            padding: 0 20px;
+        }
+        
+        .banner-text h1 {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            animation: titleGlow 3s infinite alternate;
+        }
+        
+        @keyframes titleGlow {
+            0% { text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 215, 0, 0.5); }
+            100% { text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 215, 0, 0.8); }
+        }
+        
+        .banner-text p {
+            font-size: 1.6rem;
+            color: #f0f0f0;
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px 25px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+        
+        /* 导航栏 */
+        nav {
+            background: rgba(44, 62, 80, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 500;
+            padding: 12px 18px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            display: block;
+        }
+        
+        .nav-links a:hover {
+            background-color: rgba(255, 215, 0, 0.2);
+            color: #ffd700;
+            transform: translateY(-2px);
+        }
+        
+        .nav-links a.active {
+            background-color: rgba(255, 215, 0, 0.3);
+            color: #ffd700;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 10px;
+        }
+        
+        /* 内容区域通用样式 */
+        .content-section {
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            padding: 50px 40px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .content-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .section-title {
+            font-size: 2.8rem;
+            margin-bottom: 40px;
+            text-align: center;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+            position: relative;
+        }
+        
+        .section-title::before {
+            content: "★";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: rgba(255, 215, 0, 0.5);
+        }
+        
+        .section-title::after {
+            content: "★";
+            position: absolute;
+            right: 0;
+            top: 0;
+            color: rgba(255, 215, 0, 0.5);
+        }
+        
+        /* 短视频区域 */
+        .video-section {
+            margin-bottom: 50px;
+        }
+        
+        .video-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .video-box {
+            background: rgba(44, 62, 80, 0.7);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 380px;
+            position: relative;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+        
+        .video-box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 215, 0, 0.5);
+        }
+        
+        .video-placeholder {
+            width: 100%;
+            height: 70%;
+            background: linear-gradient(45deg, #1a1a2e, #16213e);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #aaa;
+            font-size: 1.2rem;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .video-placeholder video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .video-box:hover .video-placeholder video {
+            transform: scale(1.05);
+        }
+        
+        .video-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            color: #ffd700;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.7);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.8;
+        }
+        
+        .video-info {
+            padding: 25px;
+            height: 30%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .video-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #ffd700;
+        }
+        
+        .video-description {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #ccc;
+        }
+        
+        /* 景点展示区域 - 网格布局 */
+        .attractions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 35px;
+            margin-bottom: 50px;
+        }
+        
+        .attraction-card {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            background: rgba(44, 62, 80, 0.7);
+            height: 350px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+        
+        .attraction-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 215, 0, 0.5);
+        }
+        
+        .attraction-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .attraction-card:hover .attraction-image {
+            transform: scale(1.05);
+        }
+        
+        .attraction-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 62, 80, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            text-align: center;
+        }
+        
+        .attraction-card:hover .attraction-overlay {
+            opacity: 1;
+        }
+        
+        .attraction-title {
+            font-size: 1.9rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #ffd700;
+        }
+        
+        .attraction-description {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #ddd;
+            margin-bottom: 20px;
+            max-height: 120px;
+            overflow: hidden;
+        }
+        
+        .attraction-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .tag {
+            background: rgba(255, 215, 0, 0.2);
+            color: #ffd700;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        /* 美食抽奖区域 */
+        .wheel-section {
+            text-align: center;
+        }
+        
+        .wheel-title {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #ffd700;
+        }
+        
+        .wheel-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        
+        .wheel-container {
+            position: relative;
+            width: 550px;
+            height: 550px;
+            margin: 40px auto;
+        }
+        
+        #wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            border: 12px solid rgba(255, 215, 0, 0.7);
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.5);
+            transition: transform 4s cubic-bezier(0.17, 0.67, 0.22, 0.99);
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .wheel-segment {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            transform-origin: 100% 100%;
+            left: 0;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            font-weight: bold;
+            text-align: center;
+            font-size: 1.4rem;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+            overflow: visible;
+            padding: 0;
+        }
+        
+        .segment-content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transform-origin: center;
+            transform: translateX(35%) translateY(-10%);
+        }
+        
+        .wheel-center {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, #ffd700 0%, #ff9900 100%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            color: #333;
+            cursor: pointer;
+            border: 8px solid rgba(255, 165, 0, 0.9);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+            transition: all 0.3s ease;
+        }
+        
+        .wheel-center:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 1);
+        }
+        
+        .wheel-pointer {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 70px;
+            z-index: 11;
+            color: #ff0000;
+            font-size: 3.5rem;
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+            filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.5));
+        }
+        
+        .result-display {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            border-radius: 15px;
+            margin-top: 40px;
+            text-align: center;
+            border: 3px solid rgba(255, 215, 0, 0.5);
+            animation: pulse 2s infinite;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        @keyframes pulse {
+            0% { border-color: rgba(255, 215, 0, 0.3); box-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
+            50% { border-color: rgba(255, 215, 0, 0.8); box-shadow: 0 0 30px rgba(255, 215, 0, 0.5); }
+            100% { border-color: rgba(255, 215, 0, 0.3); box-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
+        }
+        
+        #result-title {
+            color: #ffd700;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        #result-desc {
+            line-height: 1.6;
+            font-size: 1.4rem;
+            opacity: 0.9;
+        }
+        
+        .wheel-controls {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .wheel-btn {
+            background: linear-gradient(135deg, 
+                rgba(255, 215, 0, 0.9) 0%, 
+                rgba(255, 165, 0, 0.9) 100%);
+            color: #333;
+            border: none;
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+            font-weight: 600;
+        }
+        
+        .wheel-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.5);
+            background: linear-gradient(135deg, 
+                rgba(255, 215, 0, 1) 0%, 
+                rgba(255, 165, 0, 1) 100%);
+        }
+        
+        #reset-wheel-btn {
+            background: linear-gradient(135deg, 
+                rgba(100, 100, 100, 0.9) 0%, 
+                rgba(150, 150, 150, 0.9) 100%);
+            color: white;
+        }
+        
+        #reset-wheel-btn:hover {
+            background: linear-gradient(135deg, 
+                rgba(120, 120, 120, 1) 0%, 
+                rgba(170, 170, 170, 1) 100%);
+            box-shadow: 0 8px 20px rgba(100, 100, 100, 0.5);
+        }
+        
+        /* 天气卡片样式 */
+        .weather-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .weather-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+        
+        .weather-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .weather-date {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #ffd700;
+            font-weight: 600;
+        }
+        
+        .weather-temp {
+            font-size: 3.8rem;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        
+        .weather-desc {
+            opacity: 0.9;
+            margin-top: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .weather-icon {
+            font-size: 4rem;
+            margin: 20px 0;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .weather-details {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-around;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .weather-detail {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .weather-detail i {
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+        }
+        
+        /* 新增：克拉玛依特色文化区域 */
+        .culture-section {
+            margin-top: 60px;
+        }
+        
+        .culture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .culture-card {
+            background: rgba(44, 62, 80, 0.7);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            height: 350px;
+        }
+        
+        .culture-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .culture-image {
+            width: 100%;
+            height: 60%;
+            object-fit: cover;
+        }
+        
+        .culture-info {
+            padding: 25px;
+            height: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .culture-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #ffd700;
+        }
+        
+        .culture-description {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #ccc;
+        }
+        
+        /* 加载动画 */
+        .loading {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #ffd700;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 60px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 1.1rem;
+        }
+        
+        .footer-links a:hover {
+            color: #ffd700;
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* 新增：返回顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 215, 0, 0.8);
+            color: #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 99;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background: rgba(255, 215, 0, 1);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .nav-container, .content-section {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            .video-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .wheel-container {
+                width: 500px;
+                height: 500px;
+            }
+            
+            .attractions-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .top-banner {
+                height: 300px;
+            }
+            
+            .banner-text h1 {
+                font-size: 2.8rem;
+            }
+            
+            .banner-text p {
+                font-size: 1.3rem;
+            }
+            
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(44, 62, 80, 0.98);
+                flex-direction: column;
+                padding: 20px;
+                border-radius: 0 0 15px 15px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+                gap: 15px;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 5px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .video-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .video-box {
+                height: 350px;
+            }
+            
+            .attractions-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            .wheel-container {
+                width: 380px;
+                height: 380px;
+            }
+            
+            .wheel-segment {
+                font-size: 1.1rem;
+            }
+            
+            .segment-content {
+                font-size: 1.1rem;
+            }
+            
+            .wheel-center {
+                width: 90px;
+                height: 90px;
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .content-section {
+                padding: 35px 25px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .banner-text h1 {
+                font-size: 2.2rem;
+            }
+            
+            .banner-text p {
+                font-size: 1.1rem;
+                padding: 12px 20px;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .content-section {
+                padding: 25px 20px;
+                margin-bottom: 40px;
+            }
+            
+            .attractions-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .wheel-container {
+                width: 320px;
+                height: 320px;
+            }
+            
+            .wheel-segment {
+                font-size: 0.9rem;
+            }
+            
+            .segment-content {
+                font-size: 0.9rem;
+            }
+            
+            .wheel-center {
+                width: 70px;
+                height: 70px;
+                font-size: 1.8rem;
+            }
+            
+            .wheel-btn {
+                padding: 15px 30px;
+                font-size: 1.2rem;
+            }
+            
+            .wheel-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .result-display {
+                padding: 25px;
+            }
+            
+            #result-title {
+                font-size: 2rem;
+            }
+            
+            #result-desc {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 背景元素 -->
+    <div class="background-elements">
+        <div class="desert-landscape"></div>
+        <div class="oil-rig">
+            <div class="oil-rig-base"></div>
+            <div class="oil-rig-tower"></div>
+            <div class="oil-rig-top"></div>
+        </div>
+        <div class="pumpjack">
+            <div class="pumpjack-base"></div>
+            <div class="pumpjack-arm"></div>
+        </div>
+        <div class="stars" id="stars"></div>
+    </div>
+    
+    <!-- 顶部横幅 -->
+    <div class="top-banner">
+        <img src="k.png" alt="克拉玛依风景" class="banner-image">
+        <div class="banner-text">
+            <h1>克拉玛依欢迎您</h1>
+            <p>戈壁上的石油明珠 • 中国石油工业的摇篮 • 魔鬼城下的现代都市</p>
+        </div>
+    </div>
+    
+    <!-- 导航栏 -->
+    <nav>
+        <div class="nav-container">
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="#" class="active">首页</a></li>
+                <li><a href="#attractions-section">特色景点</a></li>
+                <li><a href="#culture-section">特色文化</a></li>
+                <li><a href="#wheel-section">美食抽奖</a></li>
+                <li><a href="#weather-section">天气预报</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    
+        
+        <!-- 景点介绍 -->
+        <section class="content-section" id="attractions-section">
+            <h2 class="section-title">克拉玛依著名景点</h2>
+            <div class="attractions-grid">
+                <!-- 世界魔鬼城 -->
+                <div class="attraction-card">
+                    <img src="k1.png" alt="世界魔鬼城" class="attraction-image">
+                    <div class="attraction-overlay">
+                        <h3 class="attraction-title">世界魔鬼城</h3>
+                        <p class="attraction-description">典型的雅丹地貌景区，被誉为"中国最美的三大雅丹"之首，千姿百态的土丘蔚为壮观，是摄影爱好者的天堂。</p>
+                        <div class="attraction-tags">
+                            <span class="tag">雅丹地貌</span>
+                            <span class="tag">自然奇观</span>
+                            <span class="tag">5A景区</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 黑油山 -->
+                <div class="attraction-card">
+                    <img src="k2.png" alt="黑油山" class="attraction-image">
+                    <div class="attraction-overlay">
+                        <h3 class="attraction-title">黑油山</h3>
+                        <p class="attraction-description">克拉玛依油田发现的标志，原油长年外溢形成沥青丘，是世界上罕见的自然石油景观，被誉为"石油圣地"。</p>
+                        <div class="attraction-tags">
+                            <span class="tag">石油景观</span>
+                            <span class="tag">历史地标</span>
+                            <span class="tag">4A景区</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 百里油区 -->
+                <div class="attraction-card">
+                    <img src="k3.png" alt="百里油区" class="attraction-image">
+                    <div class="attraction-overlay">
+                        <h3 class="attraction-title">百里油区</h3>
+                        <p class="attraction-description">中国重要的石油生产基地，成千上万的抽油机日夜工作，构成戈壁滩上独特的工业景观，展现了石油工业的壮丽景象。</p>
+                        <div class="attraction-tags">
+                            <span class="tag">工业景观</span>
+                            <span class="tag">石油基地</span>
+                            <span class="tag">摄影胜地</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 克拉玛依河景区 -->
+                <div class="attraction-card">
+                    <img src="k4.png" alt="克拉玛依河景区" class="attraction-image">
+                    <div class="attraction-overlay">
+                        <h3 class="attraction-title">克拉玛依河景区</h3>
+                        <p class="attraction-description">戈壁中的城市景观河，两岸绿树成荫，风景如画，被誉为"戈壁水城"，展现了克拉玛依人民改造自然的壮举。</p>
+                        <div class="attraction-tags">
+                            <span class="tag">城市景观</span>
+                            <span class="tag">休闲</span>
+                            <span class="tag">4A景区</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 一号井景区 -->
+                <div class="attraction-card">
+                    <img src="k5.png" alt="一号井景区" class="attraction-image">
+                    <div class="attraction-overlay">
+                        <h3 class="attraction-title">一号井景区</h3>
+                        <p class="attraction-description">克拉玛依油田的第一口油井，是克拉玛依的城市发源地，见证了新中国石油工业的起步与发展。</p>
+                        <div class="attraction-tags">
+                            <span class="tag">历史遗址</span>
+                            <span class="tag">石油文化</span>
+                            <span class="tag">城市地标</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 克拉玛依博物馆 -->
+                <div class="attraction-card">
+                    <img src="k6.png" alt="克拉玛依博物馆" class="attraction-image">
+                    <div class="attraction-overlay">
+                        <h3 class="attraction-title">克拉玛依博物馆</h3>
+                        <p class="attraction-description">展示克拉玛依石油工业发展历史和城市变迁的综合性博物馆，了解这座戈壁石油城奋斗历程的最佳场所。</p>
+                        <div class="attraction-tags">
+                            <span class="tag">博物馆</span>
+                            <span class="tag">石油历史</span>
+                            <span class="tag">文化教育</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 新增：克拉玛依特色文化区域 -->
+        <section class="content-section" id="culture-section">
+            <h2 class="section-title">克拉玛依特色文化</h2>
+            <div class="culture-grid">
+                <!-- 石油工业文化 -->
+                <div class="culture-card">
+                    <img src="k11.png" alt="石油工业文化" class="culture-image">
+                    <div class="culture-info">
+                        <h3 class="culture-title">石油工业文化</h3>
+                        <p class="culture-description">作为新中国第一个大油田，克拉玛依孕育了独特的石油工业文化，"我为祖国献石油"的精神在这里代代相传。</p>
+                    </div>
+                </div>
+                
+                <!-- 戈壁生态文化 -->
+                <div class="culture-card">
+                    <img src="k22.png" alt="戈壁生态文化" class="culture-image">
+                    <div class="culture-info">
+                        <h3 class="culture-title">戈壁生态文化</h3>
+                        <p class="culture-description">克拉玛依人在戈壁中建设绿洲，创造了人与自然和谐共生的奇迹，形成了独特的戈壁生态文化。</p>
+                    </div>
+                </div>
+                
+                <!-- 多元民族文化 -->
+                <div class="culture-card">
+                    <img src="k33.png" alt="多元民族文化" class="culture-image">
+                    <div class="culture-info">
+                        <h3 class="culture-title">多元民族文化</h3>
+                        <p class="culture-description">汉族、维吾尔族、哈萨克族等多民族在这片土地上和谐共处，形成了独具特色的多元文化融合。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 美食抽奖区域 -->
+        <section class="content-section wheel-section" id="wheel-section">
+            <h2 class="section-title">克拉玛依美食推荐抽奖</h2>
+            <p class="wheel-subtitle">转动超大转盘，发现戈壁美味！探索克拉玛依特色美食，每一种都融合了石油城市的豪迈与多民族文化</p>
+            
+            <div class="wheel-container">
+                <div class="wheel-pointer">▼</div>
+                <div id="wheel"></div>
+                <div class="wheel-center" id="spin-btn">
+                    <i class="fas fa-redo-alt"></i>
+                </div>
+            </div>
+            
+            <div class="result-display" id="result-display">
+                <div id="result-title">点击转盘中心开始抽奖</div>
+                <div id="result-desc">试试你的运气，看看今天推荐什么克拉玛依美食！转盘已放大，视觉效果更震撼！</div>
+            </div>
+            
+            <div class="wheel-controls">
+                <button class="wheel-btn" id="spin-button">
+                    <i class="fas fa-random"></i> 开始美食探索
+                </button>
+                <button class="wheel-btn" id="reset-wheel-btn">
+                    <i class="fas fa-undo"></i> 重置转盘
+                </button>
+            </div>
+        </section>
+        
+        <!-- 天气预报区域 -->
+        <section class="content-section" id="weather-section">
+            <h2 class="section-title">克拉玛依天气预报</h2>
+            <p style="text-align: center; margin-bottom: 30px; font-size: 1.3rem; opacity: 0.9; line-height: 1.6;">
+                新疆维吾尔自治区地级市 • 中国石油工业的摇篮 • 戈壁上的明珠
+                <br>
+                <span id="current-date" style="color: #ffd700; margin-top: 10px; display: inline-block; font-size: 1.5rem;"></span>
+            </p>
+            
+            <div class="weather-grid" id="weather-container">
+                <!-- 天气卡片将通过JavaScript动态生成 -->
+                <div class="weather-card loading-card">
+                    <div class="loading"></div>
+                    <div style="margin-top: 20px;">加载天气数据中...</div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="wheel-btn" id="refresh-weather">
+                    <i class="fas fa-sync-alt"></i> 刷新天气数据
+                </button>
+            </div>
+        </section>
+    </div>
+    
+    <!-- 返回顶部按钮 -->
+    <div class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+    
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">关于我们</a>
+                <a href="#">旅游服务</a>
+                <a href="#">合作伙伴</a>
+                <a href="#">隐私政策</a>
+                <a href="#">使用条款</a>
+                <a href="#">联系我们</a>
+            </div>
+            <p>克拉玛依旅游指南 &copy; 2023 | 探索戈壁奇观，感受石油文化，体验多元风情</p>
+            <div class="copyright">
+                <p>© 2023 克拉玛依旅游宣传网 | 数据来源：OpenWeatherMap API | 景点与美食信息仅供参考</p>
+                <p style="margin-top: 10px;">地址：新疆维吾尔自治区克拉玛依市 | 旅游热线：0990-12345678</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 生成星空
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starCount = 150;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                const top = Math.random() * 50;
+                const left = Math.random() * 100;
+                const size = Math.random() * 4 + 1;
+                const delay = Math.random() * 3;
+                
+                star.style.top = `${top}%`;
+                star.style.left = `${left}%`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.animationDelay = `${delay}s`;
+                
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // 移动端菜单切换
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+        
+        // 点击页面其他地方关闭移动菜单
+        document.addEventListener('click', function(event) {
+            const navLinks = document.querySelector('.nav-links');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (!navLinks.contains(event.target) && !menuBtn.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+        
+        // 导航菜单点击效果
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // 移除所有active类
+                document.querySelectorAll('.nav-links a').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // 为当前点击的链接添加active类
+                this.classList.add('active');
+                
+                // 如果是移动端，点击后关闭菜单
+                if (window.innerWidth <= 768) {
+                    document.querySelector('.nav-links').classList.remove('active');
+                }
+                
+                // 平滑滚动到对应区域
+                const targetId = this.getAttribute('href');
+                if (targetId && targetId !== '#') {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // 视频框点击效果
+        document.querySelectorAll('.video-box').forEach(box => {
+            box.addEventListener('click', function() {
+                const title = this.querySelector('.video-title').textContent;
+                alert(`正在播放：${title}\n\n提示：此为演示页面，实际功能需连接视频服务。`);
+            });
+        });
+        
+        // 景点卡片点击效果
+        document.querySelectorAll('.attraction-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const title = this.querySelector('.attraction-title').textContent;
+                alert(`查看详情：${title}\n\n更多信息请前往景点官方网站或咨询当地旅游机构。`);
+            });
+        });
+        
+        // 获取DOM元素
+        const spinBtn = document.getElementById('spin-btn');
+        const spinButton = document.getElementById('spin-button');
+        const resetWheelBtn = document.getElementById('reset-wheel-btn');
+        const resultTitle = document.getElementById('result-title');
+        const resultDesc = document.getElementById('result-desc');
+        const wheel = document.getElementById('wheel');
+        const weatherContainer = document.getElementById('weather-container');
+        const refreshWeatherBtn = document.getElementById('refresh-weather');
+        const currentDateEl = document.getElementById('current-date');
+        const backToTopBtn = document.getElementById('back-to-top');
+        
+        // 克拉玛依美食数据 - 简化为只有颜色
+        const foods = [
+            {
+                name: "烤全羊",
+                description: "克拉玛依烤全羊是新疆传统名菜，选用优质绵羊，用秘制调料腌制后炭火慢烤，外皮酥脆，肉质鲜嫩，香气四溢。",
+                color: "#FF6B6B"
+            },
+            {
+                name: "大盘鸡",
+                description: "克拉玛依大盘鸡融合了汉族和少数民族烹饪技艺，鸡肉鲜嫩，土豆软糯，皮带面吸饱汤汁，是当地的招牌美食。",
+                color: "#FF8E53"
+            },
+            {
+                name: "手抓肉",
+                description: "传统哈萨克美食，选用优质羊肉，清水煮制，肉质鲜嫩，原汁原味，蘸着盐和洋葱食用，体现了戈壁饮食的豪迈。",
+                color: "#FFD166"
+            },
+            {
+                name: "戈壁烤鱼",
+                description: "克拉玛依特有的美食，选用当地湖泊的新鲜鱼类，用戈壁特有的红柳枝串烤，鱼肉鲜嫩，带有独特的植物香气。",
+                color: "#06D6A0"
+            },
+            {
+                name: "石油工人套餐",
+                description: "克拉玛依特有的工作餐，包含馕、手抓饭、烤肉和奶茶，营养丰富，体现了石油工人的饮食特色。",
+                color: "#118AB2"
+            },
+            {
+                name: "戈壁野菜",
+                description: "克拉玛依戈壁滩上的野生植物，如沙葱、苦菜等，经过简单烹饪，清爽可口，是当地特色的健康美食。",
+                color: "#073B4C"
+            },
+            {
+                name: "哈萨克奶茶",
+                description: "传统哈萨克饮品，用砖茶和牛奶熬制，加入盐和酥油，醇香浓郁，是克拉玛依人日常生活的必备饮品。",
+                color: "#EF476F"
+            },
+            {
+                name: "馕坑烤肉",
+                description: "将肉块贴在馕坑内壁烤制，外焦里嫩，香气独特，是克拉玛依街头常见的美食，深受当地人喜爱。",
+                color: "#7209B7"
+            }
+        ];
+        
+        // 创建转盘 - 只显示颜色
+        function createWheel() {
+            wheel.innerHTML = '';
+            const segmentCount = foods.length;
+            const segmentAngle = 360 / segmentCount;
+            
+            foods.forEach((food, index) => {
+                const segment = document.createElement('div');
+                segment.className = 'wheel-segment';
+                segment.style.backgroundColor = food.color;
+                
+                // 设置每个扇区的旋转角度
+                const rotateAngle = index * segmentAngle;
+                segment.style.transform = `rotate(${rotateAngle}deg)`;
+                
+                // 不添加任何内容，只显示纯色
+                wheel.appendChild(segment);
+            });
+        }
+        
+        // 转盘旋转
+        let isSpinning = false;
+        let currentRotation = 0;
+        
+        function spinWheel() {
+            if (isSpinning) return;
+            
+            isSpinning = true;
+            resultTitle.innerHTML = '<span class="loading"></span> 抽奖中...';
+            resultDesc.textContent = '超大转盘正在旋转，请稍候...';
+            
+            // 随机旋转度数（确保停在某个食物上）
+            const segmentCount = foods.length;
+            const segmentAngle = 360 / segmentCount;
+            const extraSpins = 8; // 额外转8圈，因为转盘大，转多圈更震撼
+            const randomSegment = Math.floor(Math.random() * segmentCount);
+            const targetAngle = 360 * extraSpins + (360 - (randomSegment * segmentAngle)) - segmentAngle/2;
+            
+            // 计算总旋转角度
+            currentRotation += targetAngle;
+            wheel.style.transform = `rotate(${currentRotation}deg)`;
+            
+            // 旋转完成后显示结果
+            setTimeout(() => {
+                const selectedFood = foods[randomSegment];
+                resultTitle.innerHTML = `<div style="margin-top:15px;font-size:2.2rem;">${selectedFood.name}</div>`;
+                resultDesc.textContent = selectedFood.description;
+                resultTitle.style.color = selectedFood.color;
+                
+                // 显示推荐理由
+                setTimeout(() => {
+                    const reasons = [
+                        "这是克拉玛依最受欢迎的戈壁美食！石油工人都爱这一口！",
+                        "这道菜最能代表克拉玛依风味！游客必尝的经典！",
+                        "戈壁气候正好适合享用这道美食！搭配哈萨克奶茶更佳！",
+                        "克拉玛依夜市的热门菜品！夜宵的最佳选择！",
+                        "这道美食体现了克拉玛依多元文化的融合！色香味俱全！"
+                    ];
+                    const randomReason = reasons[Math.floor(Math.random() * reasons.length)];
+                    resultDesc.textContent = `${selectedFood.description} ${randomReason}`;
+                }, 500);
+                
+                isSpinning = false;
+            }, 4000);
+        }
+        
+        // 重置转盘
+        function resetWheel() {
+            if (isSpinning) return;
+            
+            currentRotation = 0;
+            wheel.style.transform = `rotate(0deg)`;
+            resultTitle.innerHTML = '点击转盘中心开始抽奖';
+            resultDesc.textContent = '试试你的运气，看看今天推荐什么克拉玛依美食！转盘已放大，视觉效果更震撼！';
+            resultTitle.style.color = '#ffd700';
+        }
+        
+        // 绑定转盘点击事件
+        spinBtn.addEventListener('click', spinWheel);
+        spinButton.addEventListener('click', spinWheel);
+        resetWheelBtn.addEventListener('click', resetWheel);
+        
+        // 获取真实天气数据
+        async function fetchWeatherData() {
+            try {
+                // 克拉玛依的经纬度坐标
+                const lat = 45.5795;
+                const lon = 84.8892;
+                
+                // 使用免费的天气API - Open-Meteo
+                const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=auto&forecast_days=5`;
+                
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('天气数据获取失败');
+                }
+                
+                const data = await response.json();
+                
+                // 处理返回的天气数据
+                const weatherForecast = [];
+                for (let i = 0; i < 5; i++) {
+                    const weatherCode = data.daily.weathercode[i];
+                    const weatherDesc = getWeatherDescription(weatherCode);
+                    const weatherIcon = getWeatherIcon(weatherCode);
+                    
+                    weatherForecast.push({
+                        temp: Math.round((data.daily.temperature_2m_max[i] + data.daily.temperature_2m_min[i]) / 2),
+                        tempMin: Math.round(data.daily.temperature_2m_min[i]),
+                        tempMax: Math.round(data.daily.temperature_2m_max[i]),
+                        desc: weatherDesc,
+                        icon: weatherIcon,
+                        humidity: `${Math.floor(Math.random() * 30) + 30}%`, // 模拟湿度数据（克拉玛依较干燥）
+                        wind: `${(Math.random() * 7 + 3).toFixed(1)} m/s`, // 模拟风速数据（戈壁风大）
+                        pressure: `${Math.floor(Math.random() * 20) + 970} hPa` // 模拟气压数据
+                    });
+                }
+                
+                return weatherForecast;
+                
+            } catch (error) {
+                console.error('获取天气数据失败:', error);
+                // 如果API调用失败，返回模拟数据
+                return generateMockWeatherData();
+            }
+        }
+        
+        // 根据WMO天气代码获取天气描述
+        function getWeatherDescription(weatherCode) {
+            const weatherCodes = {
+                0: "晴朗",
+                1: "基本晴朗", 
+                2: "局部多云",
+                3: "阴天",
+                45: "雾",
+                48: "雾",
+                51: "小雨",
+                53: "中雨",
+                55: "大雨",
+                56: "冻雨",
+                57: "冻雨",
+                61: "小雨",
+                63: "中雨",
+                65: "大雨",
+                66: "冻雨",
+                67: "冻雨",
+                71: "小雪",
+                73: "中雪",
+                75: "大雪",
+                77: "冰雹",
+                80: "阵雨",
+                81: "强阵雨",
+                82: "暴雨",
+                85: "阵雪",
+                86: "强阵雪",
+                95: "雷雨",
+                96: "雷雨带冰雹",
+                99: "强雷雨带冰雹"
+            };
+            return weatherCodes[weatherCode] || "晴朗";
+        }
+        
+        // 根据WMO天气代码获取对应的图标
+        function getWeatherIcon(weatherCode) {
+            if (weatherCode === 0) return '☀️';
+            if (weatherCode <= 2) return '⛅';
+            if (weatherCode === 3) return '☁️';
+            if (weatherCode <= 48) return '🌫️';
+            if (weatherCode <= 67) return '🌧️';
+            if (weatherCode <= 77) return '❄️';
+            if (weatherCode <= 82) return '🌦️';
+            if (weatherCode <= 86) return '🌨️';
+            if (weatherCode <= 99) return '⛈️';
+            return '☀️';
+        }
+        
+        // 生成模拟天气数据（备用方案）
+        function generateMockWeatherData() {
+            const now = new Date();
+            const forecast = [];
+            
+            // 克拉玛依的典型天气模式（戈壁气候，温差大）
+            const weatherPatterns = [
+                { desc: "晴朗", icon: "☀️", tempBase: 28, tempRange: 4 },
+                { desc: "多云", icon: "⛅", tempBase: 25, tempRange: 5 },
+                { desc: "晴朗", icon: "☀️", tempBase: 30, tempRange: 6 },
+                { desc: "大风", icon: "💨", tempBase: 22, tempRange: 7 },
+                { desc: "晴朗", icon: "☀️", tempBase: 27, tempRange: 5 }
+            ];
+            
+            weatherPatterns.forEach((pattern, index) => {
+                const temp = pattern.tempBase + (Math.random() * pattern.tempRange * 2 - pattern.tempRange);
+                forecast.push({
+                    temp: Math.round(temp),
+                    tempMin: Math.round(temp - 10), // 戈壁温差大
+                    tempMax: Math.round(temp + 5),
+                    desc: pattern.desc,
+                    icon: pattern.icon,
+                    humidity: `${Math.floor(Math.random() * 20) + 20}%`, // 戈壁干燥
+                    wind: `${(Math.random() * 8 + 4).toFixed(1)} m/s`, // 戈壁风大
+                    pressure: `${Math.floor(Math.random() * 20) + 970} hPa`
+                });
+            });
+            
+            return forecast;
+        }
+        
+        // 生成天气卡片
+        async function generateWeatherCards() {
+            // 显示当前日期
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+            currentDateEl.textContent = `今天是 ${now.toLocaleDateString('zh-CN', options)}`;
+            
+            weatherContainer.innerHTML = '<div class="weather-card loading-card"><div class="loading"></div><div style="margin-top: 20px;">加载天气数据中...</div></div>';
+            
+            // 获取天气数据
+            const weatherForecast = await fetchWeatherData();
+            const dayNames = ['今天', '明天', '后天', '大后天', '大大后天'];
+            
+            weatherContainer.innerHTML = '';
+            
+            weatherForecast.forEach((weather, index) => {
+                // 根据日期计算
+                const date = new Date();
+                date.setDate(date.getDate() + index);
+                const dateStr = date.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' });
+                
+                // 根据温度设置颜色
+                let tempColor = "#ff6b6b";
+                if (weather.temp < 10) tempColor = "#4fc3f7";
+                else if (weather.temp < 15) tempColor = "#64b5f6";
+                else if (weather.temp < 20) tempColor = "#90caf9";
+                else if (weather.temp < 25) tempColor = "#ff8e53";
+                
+                const card = document.createElement('div');
+                card.className = 'weather-card';
+                
+                card.innerHTML = `
+                    <div class="weather-date">${dayNames[index]} (${dateStr})</div>
+                    <div class="weather-icon">${weather.icon}</div>
+                    <div class="weather-temp" style="color: ${tempColor}">${weather.temp}°C</div>
+                    <div class="weather-desc">${weather.desc}</div>
+                    <div class="weather-details">
+                        <div class="weather-detail">
+                            <i class="fas fa-thermometer-half"></i>
+                            <span>${weather.tempMin}° / ${weather.tempMax}°</span>
+                        </div>
+                        <div class="weather-detail">
+                            <i class="fas fa-tint"></i>
+                            <span>${weather.humidity}</span>
+                        </div>
+                        <div class="weather-detail">
+                            <i class="fas fa-wind"></i>
+                            <span>${weather.wind}</span>
+                        </div>
+                    </div>
+                `;
+                
+                weatherContainer.appendChild(card);
+            });
+        }
+        
+        // 刷新天气数据
+        async function refreshWeather() {
+            const refreshBtn = refreshWeatherBtn.querySelector('i');
+            refreshBtn.className = 'fas fa-spinner fa-spin';
+            refreshWeatherBtn.disabled = true;
+            
+            await generateWeatherCards();
+            
+            refreshBtn.className = 'fas fa-sync-alt';
+            refreshWeatherBtn.disabled = false;
+            
+            // 显示更新提示
+            const toast = document.createElement('div');
+            toast.textContent = '天气数据已更新';
+            toast.style.position = 'fixed';
+            toast.style.bottom = '20px';
+            toast.style.right = '20px';
+            toast.style.background = 'rgba(39, 174, 96, 0.9)';
+            toast.style.color = 'white';
+            toast.style.padding = '12px 24px';
+            toast.style.borderRadius = '8px';
+            toast.style.zIndex = '1000';
+            toast.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                document.body.removeChild(toast);
+            }, 3000);
+        }
+        
+        // 绑定天气刷新事件
+        refreshWeatherBtn.addEventListener('click', refreshWeather);
+        
+        // 返回顶部功能
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // 键盘快捷键支持
+        document.addEventListener('keydown', function(event) {
+            // 按S键旋转转盘
+            if (event.code === 'KeyS' && !isSpinning) {
+                spinWheel();
+            }
+            
+            // 按W键刷新天气
+            if (event.code === 'KeyW') {
+                refreshWeather();
+            }
+            
+            // 按T键重置转盘
+            if (event.code === 'KeyT') {
+                resetWheel();
+            }
+            
+            // 按ESC键关闭移动菜单
+            if (event.code === 'Escape') {
+                document.querySelector('.nav-links').classList.remove('active');
+            }
+            
+            // 按Home键返回顶部
+            if (event.code === 'Home') {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        });
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            createWheel(); // 初始化转盘
+            generateWeatherCards();
+            
+            // 添加滚动动画
+            const sections = document.querySelectorAll('.content-section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(section);
+            });
+            
+            // 转盘初始化提示
+            setTimeout(() => {
+                resultTitle.innerHTML = "超大美食转盘已就绪！";
+                resultDesc.textContent = "点击转盘中心或下方按钮，抽取今日推荐克拉玛依美食！";
+            }, 1500);
+            
+            // 添加文化卡片点击事件
+            document.querySelectorAll('.culture-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const title = this.querySelector('.culture-title').textContent;
+                    alert(`了解更多：${title}\n\n克拉玛依是中国石油工业的摇篮，戈壁上的现代化城市，融合了石油文化、戈壁生态和多元民族文化，形成了独特的城市风貌。`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

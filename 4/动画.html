@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <title>疯狂动物城2 - 动画视频</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="疯狂动物城2动画视频，包含预告片、精彩片段等视频内容">
+    <meta name="keywords" content="疯狂动物城2, 动画视频, 预告片, 精彩片段">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+
+    <style>
+        /* 全局样式重置与基础设置 */
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background-image: url(./img/图片/大背景.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            padding: 20px 0;
+        }
+
+        .main1 {
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        /* 轮播图优化 */
+        .carousel-inner .item {
+            width: 100%;
+            height: 380px;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .item img {
+            width: 100%;
+            height: 100% !important;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* 轮播指示器优化 */
+        /* .carousel-indicators {
+            bottom: 20px;
+            margin-bottom: 0;
+        }
+
+        .carousel-indicators li {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin: 0 5px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-indicators .active {
+            background-color: #99c6ff;
+            width: 14px;
+            height: 14px;
+            transform: translateY(-1px);
+        } */
+
+        /* 导航栏样式优化 */
+        a {
+            font-family: "SimSun", serif;
+            color: aliceblue;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        a:hover,
+        a:focus {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        nav ul {
+            margin: 15px 0 25px;
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            background-color: #2c3e50;
+            font-size: 18px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 0;
+            flex-wrap: wrap;
+        }
+
+        nav li {
+            padding: 0 20px;
+            height: 50px;
+            line-height: 50px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            white-space: nowrap;
+        }
+
+        nav li:hover {
+            background-color: #99c6ff;
+        }
+
+        nav li.active {
+            background-color: #99c6ff;
+            font-weight: bold;
+        }
+
+        /* 导航栏hover下划线动画 */
+        nav li::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: #fff;
+            transition: width 0.3s ease;
+        }
+
+        nav li:hover::after {
+            width: 100%;
+        }
+
+        /* 视频区域样式 - 重点优化部分 */
+        .video-section {
+            padding: 40px 0 60px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: #2c3e50;
+            position: relative;
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            font-family: "Microsoft Yahei", "PingFang SC", sans-serif;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #409eff, #66b1ff);
+            border-radius: 2px;
+        }
+
+        /* 顶部三视频容器 - 三列布局 */
+        .video-grid-top {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 60px;
+            padding: 0 10px;
+        }
+
+        /* 底部单视频容器 - 居中 */
+        .video-grid-bottom {
+            display: flex;
+            justify-content: center;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 10px;
+        }
+
+        /* 视频卡片样式 - 增强视觉效果 */
+        .video-card {
+            background: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border: 1px solid #f0f4fc;
+        }
+
+        /* 卡片悬浮效果 */
+        .video-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(64, 158, 255, 0.15);
+            border-color: #e6f7ff;
+        }
+
+        /* 底部视频卡片特殊样式 */
+        .video-grid-bottom .video-card {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .video-grid-bottom .video-card:hover {
+            transform: translateY(-6px);
+        }
+
+        /* 视频容器 - 16:9响应式比例 + 亮度大幅优化 */
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+            overflow: hidden;
+            background-color: #ffffff;
+            /* 纯白背景，彻底解决黑色背景问题 */
+            border-radius: 20px 20px 0 0;
+        }
+
+        /* 完全移除遮挡性遮罩 */
+        .video-container::before {
+            display: none;
+            /* 移除所有遮罩层 */
+        }
+
+        /* 核心优化：大幅提升视频亮度+清晰度，解决偏黑问题 */
+        .video-container video,
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            transition: all 0.4s ease;
+            z-index: 0;
+            /* 大幅提升亮度+对比度+锐化，让画面更亮更清晰 */
+            filter: brightness(1.2) contrast(1.1) saturate(1.1) sharpness(1.1);
+            transform: translateZ(0);
+            /* 硬件加速提升渲染清晰度 */
+            outline: none;
+        }
+
+        /* 完全移除视频覆盖层（彻底解决遮挡问题） */
+        .video-overlay {
+            display: none !important;
+        }
+
+        /* 播放按钮优化 - 更通透，不遮挡视频 */
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 88px;
+            height: 88px;
+            /* 高透明度+毛玻璃效果，几乎不遮挡视频 */
+            background: rgba(64, 158, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            z-index: 3;
+            pointer-events: auto;
+            box-shadow: 0 6px 20px rgba(64, 158, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.9);
+        }
+
+        .play-button:hover {
+            transform: translate(-50%, -50%) scale(1.08);
+            box-shadow: 0 8px 24px rgba(64, 158, 255, 0.3);
+            background: rgba(64, 158, 255, 0.9);
+        }
+
+        .play-button::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 24px solid white;
+            border-top: 16px solid transparent;
+            border-bottom: 16px solid transparent;
+            margin-left: 6px;
+        }
+
+        /* 视频加载状态提示 - 白色背景更明亮 */
+        .video-loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            z-index: 1;
+        }
+
+        .loading-spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid #e6f7ff;
+            border-top: 4px solid #409eff;
+            border-radius: 50%;
+            animation: spin 1.2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* 视频错误提示 - 更明亮的样式 */
+        .video-error {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #fafafa;
+            color: #666;
+            padding: 30px;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .error-icon {
+            font-size: 48px;
+            color: #ff7875;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        /* 视频信息区域优化 - 重点放大底部文字 */
+        .video-info {
+            padding: 28px 28px 32px;
+            flex: 1;
+            background: linear-gradient(to bottom, #f9fbff, #ffffff);
+            font-family: "Microsoft Yahei", "PingFang SC", "Helvetica Neue", sans-serif;
+        }
+
+        /* 视频标题文字美化 */
+        .video-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 16px;
+            line-height: 1.4;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        /* 标题底部装饰线 */
+        .video-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, #409eff, transparent);
+            border-radius: 1px;
+        }
+
+        .video-card:hover .video-title {
+            color: #409eff;
+        }
+
+        /* 视频描述文字美化 */
+        .video-description {
+            color: #5a6c84;
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 24px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            letter-spacing: 0.3px;
+            text-align: justify;
+        }
+
+        /* 视频元信息区域美化 - 重点放大底部文字 */
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid #f0f5ff;
+            color: #8392a5;
+            font-size: 1.1rem;
+            /* 大幅放大底部文字字号 */
+        }
+
+        /* 视频类型标签美化 - 放大文字 */
+        .video-type {
+            background: linear-gradient(135deg, #e6f7ff, #f0f9ff);
+            color: #409eff;
+            padding: 8px 18px;
+            /* 增加内边距，让标签更饱满 */
+            border-radius: 24px;
+            /* 更大圆角 */
+            font-size: 1.05rem;
+            /* 放大标签文字 */
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(64, 158, 255, 0.1);
+            letter-spacing: 0.5px;
+        }
+
+        /* 视频时长标签美化 - 放大文字 */
+        .video-duration {
+            background: linear-gradient(135deg, #409eff, #66b1ff);
+            color: white;
+            padding: 8px 20px;
+            /* 增加内边距 */
+            border-radius: 24px;
+            /* 更大圆角 */
+            font-weight: 500;
+            font-size: 1.05rem;
+            /* 放大时长文字 */
+            box-shadow: 0 2px 8px rgba(64, 158, 255, 0.2);
+            letter-spacing: 0.5px;
+        }
+
+        /* 视频进度提示 - 更细的进度条，不遮挡画面 */
+        .video-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            /* 进一步减细至2px */
+            background: linear-gradient(90deg, #409eff, #66b1ff);
+            width: 0%;
+            transition: width 0.1s linear;
+            z-index: 4;
+            box-shadow: 0 0 8px rgba(64, 158, 255, 0.3);
+        }
+
+        /* 温馨提示区域终极美化 - 极简高级风格 */
+        .video-tips {
+            max-width: 1000px;
+            margin: 50px auto 30px;
+            padding: 28px 32px;
+            background: linear-gradient(135deg, #f0f8ff 0%, #f8fbff 100%);
+            border-radius: 16px;
+            border: 1px solid #e6f7ff;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(64, 158, 255, 0.06);
+        }
+
+        /* 极简装饰点 */
+        .video-tips::before {
+            content: '';
+            position: absolute;
+            left: 32px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(to bottom, #409eff, #66b1ff);
+            border-radius: 2px;
+        }
+
+        /* 提示图标极简版 */
+        .tips-icon {
+            font-size: 1.8rem;
+            color: #409eff;
+            margin-left: 4px;
+            flex-shrink: 0;
+        }
+
+        /* 提示文字区域 */
+        .tips-content {
+            flex: 1;
+            padding-left: 8px;
+        }
+
+        .tips-text {
+            color: #5a6c84;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            font-family: "Microsoft Yahei", "PingFang SC", sans-serif;
+        }
+
+        .tips-text a {
+            color: #409eff;
+            font-weight: 500;
+            text-decoration: none;
+            padding: 2px 4px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .tips-text a:hover {
+            background-color: rgba(64, 158, 255, 0.1);
+            color: #2c81e0;
+        }
+
+        /* 浏览器提示极简标签 */
+        .browser-tags {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .browser-tag {
+            background: white;
+            color: #5a6c84;
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid #e8f4ff;
+            transition: all 0.2s ease;
+        }
+
+        .browser-tag:hover {
+            background: #f0f8ff;
+            transform: translateY(-2px);
+            border-color: #409eff;
+        }
+
+        .browser-tag span:first-child {
+            font-size: 1.1rem;
+        }
+
+        /* 响应式适配 - 极简风格适配 */
+        @media (max-width: 1200px) {
+            .carousel-inner .item {
+                height: 320px;
+            }
+
+            .video-grid-top {
+                gap: 20px;
+            }
+
+            .play-button {
+                width: 78px;
+                height: 78px;
+            }
+
+            .play-button::after {
+                border-left: 22px solid white;
+                border-top: 14px solid transparent;
+                border-bottom: 14px solid transparent;
+            }
+
+            .video-title {
+                font-size: 1.5rem;
+            }
+
+            .video-description {
+                font-size: 0.95rem;
+            }
+
+            /* 移动端底部文字适配 */
+            .video-meta {
+                font-size: 1rem;
+            }
+
+            .video-type,
+            .video-duration {
+                font-size: 1rem;
+                padding: 7px 16px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .carousel-inner .item {
+                height: 280px;
+            }
+
+            .video-grid-top {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .video-grid-bottom {
+                max-width: 700px;
+            }
+
+            .section-title {
+                font-size: 2.4rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main1 {
+                width: 96%;
+                padding: 10px;
+            }
+
+            .carousel-inner .item {
+                height: 220px;
+            }
+
+            nav ul {
+                font-size: 16px;
+            }
+
+            nav li {
+                padding: 0 15px;
+                height: 45px;
+                line-height: 45px;
+            }
+
+            .video-grid-top {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                padding: 0 5px;
+            }
+
+            .video-grid-bottom {
+                max-width: 100%;
+                padding: 0 5px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 40px;
+            }
+
+            .video-info {
+                padding: 24px 20px 28px;
+            }
+
+            .video-title {
+                font-size: 1.4rem;
+                margin-bottom: 14px;
+            }
+
+            .video-description {
+                font-size: 0.95rem;
+                line-height: 1.7;
+            }
+
+            .play-button {
+                width: 70px;
+                height: 70px;
+            }
+
+            .play-button::after {
+                border-left: 20px solid white;
+                border-top: 12px solid transparent;
+                border-bottom: 12px solid transparent;
+            }
+
+            /* 移动端底部文字适配 */
+            .video-meta {
+                font-size: 0.95rem;
+            }
+
+            .video-type,
+            .video-duration {
+                font-size: 0.95rem;
+                padding: 6px 14px;
+                border-radius: 20px;
+            }
+
+            /* 温馨提示响应式 */
+            .video-tips {
+                padding: 24px 20px;
+                gap: 16px;
+                margin-top: 40px;
+            }
+
+            .tips-text {
+                font-size: 1rem;
+            }
+
+            .tips-icon {
+                font-size: 1.6rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .carousel-inner .item {
+                height: 180px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .video-title {
+                font-size: 1.3rem;
+            }
+
+            .video-info {
+                padding: 20px 16px 24px;
+            }
+
+            .video-description {
+                font-size: 0.9rem;
+            }
+
+            .play-button {
+                width: 60px;
+                height: 60px;
+            }
+
+            .play-button::after {
+                border-left: 18px solid white;
+                border-top: 10px solid transparent;
+                border-bottom: 10px solid transparent;
+            }
+
+            /* 移动端底部文字适配 */
+            .video-meta {
+                font-size: 0.9rem;
+            }
+
+            .video-type,
+            .video-duration {
+                font-size: 0.9rem;
+                padding: 5px 12px;
+                border-radius: 18px;
+            }
+
+            /* 温馨提示移动端极简适配 */
+            .video-tips {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+                padding: 20px 16px;
+            }
+
+            .video-tips::before {
+                left: 16px;
+                top: 20px;
+                transform: none;
+            }
+
+            .tips-icon {
+                margin-left: 0;
+                margin-top: 4px;
+            }
+
+            .tips-content {
+                padding-left: 0;
+                width: 100%;
+            }
+
+            .browser-tags {
+                gap: 8px;
+            }
+
+            .browser-tag {
+                padding: 5px 12px;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* 无障碍访问优化 */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: none;
+        }
+
+        /* 视频控制栏样式优化 - 更通透 */
+        video::-webkit-media-controls {
+            background: rgba(0, 0, 0, 0.4);
+            /* 极低透明度，几乎不遮挡 */
+            border-radius: 0 0 12px 12px;
+        }
+
+        video::-webkit-media-controls-panel {
+            background: transparent;
+        }
+
+        /* 平滑滚动 */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main1">
+        <!-- 轮播图区域 -->
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- 轮播指标 -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active" aria-label="轮播图片1"></li>
+                <li data-target="#myCarousel" data-slide-to="1" aria-label="轮播图片2"></li>
+                <li data-target="#myCarousel" data-slide-to="2" aria-label="轮播图片3"></li>
+                <li data-target="#myCarousel" data-slide-to="3" aria-label="轮播图片4"></li>
+                <li data-target="#myCarousel" data-slide-to="4" aria-label="轮播图片5"></li>
+                <li data-target="#myCarousel" data-slide-to="5" aria-label="轮播图片6"></li>
+            </ol>
+
+            <!-- 轮播内容 -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <img src="./img/图片/0.png" alt="疯狂动物城2主海报" loading="lazy">
+                    <div class="sr-only">疯狂动物城2主海报</div>
+                </div>
+                <div class="item">
+                    <img src="./img/图片/1.jpg" alt="疯狂动物城2角色海报" loading="lazy">
+                    <div class="sr-only">疯狂动物城2角色海报</div>
+                </div>
+                <div class="item">
+                    <img src="./img/图片/2.png" alt="疯狂动物城2场景截图" loading="lazy">
+                    <div class="sr-only">疯狂动物城2场景截图</div>
+                </div>
+                <div class="item">
+                    <img src="./img/图片/3.png" alt="朱迪与尼克同框画面" loading="lazy">
+                    <div class="sr-only">朱迪与尼克同框画面</div>
+                </div>
+                <div class="item">
+                    <img src="./img/图片/4.png" alt="动物城全景画面" loading="lazy">
+                    <div class="sr-only">动物城全景画面</div>
+                </div>
+                <div class="item">
+                    <img src="./img/图片/5.jpg" alt="疯狂动物城2精彩画面" loading="lazy">
+                    <div class="sr-only">疯狂动物城2精彩画面</div>
+                </div>
+
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 导航栏 -->
+        <nav>
+            <ul>
+                <li><a href="./index.html" tabindex="0">首页</a></li>
+                <li><a href="./角色.html" tabindex="0">角色介绍</a></li>
+                <li><a href="./故事.html" tabindex="0">故事情节</a></li>
+                <li><a href="./精彩.html" tabindex="0">精彩图集</a></li>
+                <li class="active"><a href="./动画.html" tabindex="0">动画视频</a></li>
+            </ul>
+        </nav>
+
+        <!-- 视频展示区 - 核心优化部分 -->
+        <div class="video-section">
+            <h2 class="section-title">精彩动画视频</h2>
+
+            <!-- 顶部三个视频 -->
+            <div class="video-grid-top">
+                <!-- 视频1：官方预告片 -->
+                <div class="video-card">
+                    <div class="video-container">
+                        <!-- 加载动画 -->
+                        <div class="video-loading">
+                            <div class="loading-spinner"></div>
+                        </div>
+                        <!-- 播放覆盖层（已移除） -->
+                        <div class="video-overlay"></div>
+                        <!-- 播放按钮 -->
+                        <div class="play-button" aria-label="播放视频"></div>
+                        <!-- 进度条 -->
+                        <div class="video-progress"></div>
+                        <!-- 视频元素 -->
+                        <video controls poster="./img/图片/0.png" preload="metadata">
+                            <source src="./img/动画/VID_20251224120137.mp4" type="video/mp4">
+                            您的浏览器不支持HTML5视频播放，请尝试使用现代浏览器如Chrome、Firefox、Edge等。
+                        </video>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">官方中文预告片</h3>
+                        <p class="video-description">
+                            迪士尼《疯狂动物城2》首支官方中文预告片震撼发布！朱迪和尼克回归，开启全新冒险旅程。
+                        </p>
+                        <div class="video-meta">
+                            <span class="video-type">预告片</span>
+                            <span class="video-duration">2:30</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 视频2：角色特辑 -->
+                <div class="video-card">
+                    <div class="video-container">
+                        <div class="video-loading">
+                            <div class="loading-spinner"></div>
+                        </div>
+                        <div class="video-overlay"></div>
+                        <div class="play-button" aria-label="播放视频"></div>
+                        <div class="video-progress"></div>
+                        <video controls poster="./img/图片/3.png" preload="metadata">
+                            <source src="./img/动画/朱迪与尼克.mp4" type="video/mp4">
+                            您的浏览器不支持HTML5视频播放。
+                        </video>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">角色特辑：朱迪与尼克</h3>
+                        <p class="video-description">
+                            深入了解朱迪警官和狐狸尼克在第二部中的成长与变化。从警局搭档到最佳朋友，一起经历更多冒险。
+                        </p>
+                        <div class="video-meta">
+                            <span class="video-type">特辑</span>
+                            <span class="video-duration">4:15</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 视频3：制作花絮 -->
+                <div class="video-card">
+                    <div class="video-container">
+                        <div class="video-loading">
+                            <div class="loading-spinner"></div>
+                        </div>
+                        <div class="video-overlay"></div>
+                        <div class="play-button" aria-label="播放视频"></div>
+                        <div class="video-progress"></div>
+                        <video controls poster="./img/图片/5.jpg" preload="metadata">
+                            <source src="./img/动画/VID_20251224120137.mp4" type="video/mp4">
+                            您的浏览器不支持HTML5视频播放。
+                        </video>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">幕后制作花絮</h3>
+                        <p class="video-description">
+                            走进迪士尼动画工作室，揭秘《疯狂动物城2》的制作过程。从概念设计到动画制作，感受动画师的匠心。
+                        </p>
+                        <div class="video-meta">
+                            <span class="video-type">花絮</span>
+                            <span class="video-duration">6:45</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 底部单个视频 -->
+            <div class="video-grid-bottom">
+                <div class="video-card">
+                    <div class="video-container">
+                        <div class="video-loading">
+                            <div class="loading-spinner"></div>
+                        </div>
+                        <div class="video-overlay"></div>
+                        <div class="play-button" aria-label="播放视频"></div>
+                        <div class="video-progress"></div>
+                        <video controls poster="./img/图片/1.jpg" preload="metadata">
+                            <source src="./img/动画/精彩片段集锦.mp4" type="video/mp4">
+                            您的浏览器不支持HTML5视频播放。
+                        </video>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">精彩片段集锦</h3>
+                        <p class="video-description">
+                            《疯狂动物城2》最精彩的瞬间合集！包含动作场面、搞笑对话、感人时刻，让你一次性体验电影的所有亮点。未能在预告片中看到的独家镜头！
+                        </p>
+                        <div class="video-meta">
+                            <span class="video-type">集锦</span>
+                            <span class="video-duration">5:20</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 终极美化的温馨提示区域 - 极简高级版 -->
+            <div class="video-tips">
+                <div class="tips-icon">💡</div>
+                <div class="tips-content">
+                    <p class="tips-text">
+                        如视频无法正常播放，请使用Chrome、Firefox、Edge等现代浏览器访问。
+                        也可前往 <a href="https://www.disneyplus.com" target="_blank">Disney+</a> 观看完整影片。
+                    </p>
+                    <div class="browser-tags">
+                        <div class="browser-tag"><span>🟢</span> Chrome</div>
+                        <div class="browser-tag"><span>🔵</span> Firefox</div>
+                        <div class="browser-tag"><span>🟣</span> Edge</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 视频卡片交互效果 - 全面优化
+        document.addEventListener('DOMContentLoaded', function () {
+            // 获取所有视频相关元素
+            const videoCards = document.querySelectorAll('.video-card');
+            const videos = document.querySelectorAll('video');
+
+            // 初始化所有视频卡片交互
+            videoCards.forEach(card => {
+                const video = card.querySelector('video');
+                const playButton = card.querySelector('.play-button');
+                const loadingIndicator = card.querySelector('.video-loading');
+                const videoOverlay = card.querySelector('.video-overlay');
+                const videoProgress = card.querySelector('.video-progress');
+                const errorElement = document.createElement('div');
+
+                // 创建错误提示元素
+                errorElement.className = 'video-error';
+                errorElement.innerHTML = `
+                    <div class="error-icon">⚠️</div>
+                    <p style="font-size: 1rem; margin-bottom: 8px; font-weight: 500;">视频加载失败</p>
+                    <p style="font-size: 0.9rem;">请检查视频文件路径或网络连接</p>
+                `;
+
+                // 卡片点击反馈（排除视频区域）
+                card.addEventListener('click', function (e) {
+                    if (!e.target.closest('video') && !e.target.closest('.play-button')) {
+                        this.style.transform = 'scale(0.98) translateY(-8px)';
+                        setTimeout(() => {
+                            this.style.transform = '';
+                        }, 200);
+                    }
+                });
+
+                // 播放按钮点击事件
+                if (playButton && video) {
+                    playButton.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        if (video.paused) {
+                            video.play().catch(err => {
+                                console.error('播放失败:', err);
+                                alert('视频播放失败，请检查视频文件是否存在');
+                            });
+                        } else {
+                            video.pause();
+                        }
+                    });
+                }
+
+
+
+                // 视频事件监听
+                if (video) {
+                    // 视频开始加载
+                    video.addEventListener('loadstart', function () {
+                        loadingIndicator.style.display = 'flex';
+                    });
+
+                    // 视频元数据加载完成
+                    video.addEventListener('loadedmetadata', function () {
+                        // loadingIndicator.style.display = 'none';
+                        // 更新时长显示
+                        const duration = Math.round(video.duration);
+                        const minutes = Math.floor(duration / 60);
+                        const seconds = duration % 60;
+                        const durationSpan = card.querySelector('.video-duration');
+
+                        if (durationSpan && !isNaN(minutes) && !isNaN(seconds)) {
+                            durationSpan.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                        }
+                    });
+
+                    // 视频可以播放
+                    video.addEventListener('canplay', function () {
+                        loadingIndicator.style.display = 'none';
+                    });
+
+                    // 视频播放中
+                    video.addEventListener('play', function () {
+                        videoOverlay.style.opacity = '0';
+                        playButton.style.opacity = '0';
+                    });
+
+                    // 视频暂停
+                    video.addEventListener('pause', function () {
+                        if (!video.ended) {
+                            videoOverlay.style.opacity = '1';
+                            playButton.style.opacity = '1';
+                        }
+                    });
+
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

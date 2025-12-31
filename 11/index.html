@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 美加墨世界杯 - 足球无界，共赴盛宴</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1a2a6c;
+            /* 深蓝主色 */
+            --secondary: #ffd700;
+            /* 金色强调色 */
+            --accent: #b21f1f;
+            /* 红色点缀 */
+            --dark: #0f172a;
+            /* 深色背景 */
+            --light: #f8fafc;
+            /* 浅色文本 */
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo h2 {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* 英雄区 */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 70px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('img/场地.png') center/cover no-repeat;
+            filter: brightness(0.4);
+            z-index: -1;
+        }
+
+        .hero-content {
+            text-align: center;
+            padding: 0 20px;
+            max-width: 1200px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--light);
+            text-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            color: #ff007f;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: var(--accent);
+            color: var(--light);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            border-color: var(--secondary);
+            color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
+        }
+
+        /* 赛事亮点 */
+        .highlights {
+            padding: 100px 5%;
+            background-color: var(--primary);
+        }
+
+        a {
+            color: #f8fafc;
+            text-decoration: none;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            position: relative;
+        }
+
+        .highlight-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-10px);
+            background-color: rgba(255, 255, 255, 0.08);
+            border-color: var(--secondary);
+        }
+
+        .highlight-icon {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .highlight-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+
+        .highlight-card p {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* 主办国 */
+        .hosts {
+            padding: 100px 5%;
+            background-color: var(--dark);
+        }
+
+        .hosts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 50px;
+            margin-top: 50px;
+        }
+
+        .host-card {
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            height: 400px;
+            cursor: pointer;
+        }
+
+        .host-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .host-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .host-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .host-card:hover .host-overlay {
+            background: linear-gradient(to top, rgba(26, 42, 108, 0.9), rgba(0, 0, 0, 0));
+        }
+
+        .host-overlay h3 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        .host-overlay p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 300px;
+        }
+
+        /* 倒计时 */
+        .countdown-section {
+            padding: 80px 5%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            text-align: center;
+        }
+
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .countdown-box {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 25px 20px;
+            border-radius: 10px;
+            min-width: 120px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .countdown-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 5px;
+        }
+
+        .countdown-label {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.9;
+        }
+
+        /* 订阅 */
+        .subscribe {
+            padding: 100px 5%;
+            background-color: var(--dark);
+            text-align: center;
+        }
+
+        .subscribe-form {
+            max-width: 600px;
+            margin: 30px auto 0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .subscribe-form input {
+            flex: 1;
+            padding: 15px 20px;
+            border-radius: 50px;
+            border: 2px solid var(--primary);
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--light);
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .subscribe-form input:focus {
+            border-color: var(--secondary);
+        }
+
+        .subscribe-form button {
+            padding: 15px 30px;
+            border-radius: 50px;
+            background-color: var(--secondary);
+            color: var(--primary);
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .subscribe-form button:hover {
+            background-color: var(--light);
+            transform: translateY(-3px);
+        }
+
+        /* 页脚 */
+        .footer {
+            padding: 50px 5% 20px;
+            background-color: var(--primary);
+            border-top: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo img {
+            width: 35px;
+            height: 35px;
+        }
+
+        .footer-logo h3 {
+            font-size: 1.3rem;
+            color: var(--secondary);
+        }
+
+        .footer-about p {
+            opacity: 0.7;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--secondary);
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-links h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul li a {
+            color: var(--light);
+            opacity: 0.7;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links ul li a:hover {
+            opacity: 1;
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        .zhus {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 响应式 */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .countdown-box {
+                min-width: 100px;
+                padding: 20px 15px;
+            }
+
+            .countdown-number {
+                font-size: 2.5rem;
+            }
+
+            .subscribe-form {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .btn {
+                padding: 12px 25px;
+                font-size: 0.9rem;
+            }
+
+            .highlight-card {
+                padding: 20px;
+            }
+
+            .host-card {
+                height: 300px;
+            }
+
+            .countdown-container {
+                gap: 15px;
+            }
+
+            .countdown-box {
+                min-width: 80px;
+                padding: 15px 10px;
+            }
+
+            .countdown-number {
+                font-size: 2rem;
+            }
+
+            .countdown-label {
+                font-size: 0.8rem;
+            }
+
+
+        }
+    </style>
+    <!-- 引入图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="img/FIFA.jpg" alt="世界杯Logo">
+            <h2>FIFA WORLD CUP</h2>
+        </div>
+        <div class="nav-links">
+            <a href="#home">首页</a>
+            <a href="#highlights">赛事亮点</a>
+            <a href="#hosts">主办国</a>
+            <a href="#countdown">倒计时</a>
+            <a href="#subscribe">订阅资讯</a>
+        </div>
+        <div class="mobile-menu">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- 英雄区 -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1>足球无界，<span>共赴盛宴</span></h1>
+            <h1>2026 美加墨世界杯</h1>
+            <p>历史上首次由三国联合主办，48支球队巅峰对决，共104场精彩赛事，跨越北美大陆的足球狂欢，邀你见证传奇诞生！</p>
+            <a href="#subscribe" class="btn">订阅最新资讯</a>
+        </div>
+    </section>
+
+    <!-- 赛事亮点 -->
+    <section class="highlights" id="highlights">
+        <div class="section-title">
+            <h2>赛事亮点</h2>
+            <p>突破历史的创新与升级，为全球球迷带来前所未有的观赛体验</p>
+        </div>
+        <div class="highlights-grid">
+            <a href="网页助手/参赛队伍.html" class="highlight-card">
+                <div class="highlight-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h3>48支球队参赛</h3>
+                <p>世界杯历史上首次扩军至48支球队，更多国家和地区的球队得以亮相，足球的魅力将覆盖更广泛的人群。</p>
+            </a><br>
+            <a href="网页助手/三国.html" class="highlight-card">
+                <div class="highlight-icon">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <h3>三国联合主办</h3>
+                <p>美国、加拿大、墨西哥三国携手，23座城市共同承办，跨越北美大陆的足球盛宴，展现多元文化的碰撞与融合。</p>
+            </a><br>
+            <a href="网页助手/104场.html" class="highlight-card">
+                <div class="highlight-icon">
+                    <i class="fas fa-futbol"></i>
+                </div>
+                <h3>16座球场的赛事</h3>
+                <p>从小组赛到决赛17个球场，104场高水平赛事轮番上演，巨星云集、悬念迭起，每一场都将是视觉与情感的双重震撼。</p>
+            </a><br>
+            <a href="img/272441377.mp4" class="highlight-card">
+                <div class="highlight-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>球星故事</h3>
+                <p>普通人的英雄梦，带着热爱奔赴绿茵，独属于每个热爱足球的人， 我们的青春，足球的记忆。</p>
+            </a><br>
+            <a href="网页助手/球迷.html" class="highlight-card">
+                <div class="highlight-icon">
+                    <i class="fas fa-globe-americas"></i>
+                </div>
+                <h3>全球球迷狂欢</h3>
+                <p>预计将有超过500万球迷现场观赛，数十亿观众通过直播关注，成为连接全球的体育盛事和文化交流平台。</p>
+            </a><br>
+    </section>
+    <!-- 主办国 -->
+    <section class="hosts" id="hosts">
+        <div class="section-title">
+            <h2>主办国风采</h2>
+            <p>三个国家，三种风情，共同打造一届无与伦比的世界杯</p>
+        </div>
+        <div class="hosts-grid">
+            <div class="host-card">
+                <a href="网页助手/美国.html">
+                    <img src="img/美国.jfif" alt="美国">
+                    <div class="host-overlay">
+                        <h3>美国</h3>
+                        <p>11座城市承办赛事，包括纽约、洛杉矶、迈阿密等国际大都市，拥有世界顶级的球场设施和赛事运营能力。</p>
+                    </div>
+                </a>
+            </div>
+            <div class="host-card">
+                <a href="网页助手/加拿大.html">
+                    <img src="img/加拿大.jpg" alt="加拿大">
+                    <div class="host-overlay">
+                        <h3>加拿大</h3>
+                        <p>多伦多、蒙特利尔、温哥华三座城市携手，将北欧风情与足球热情完美融合，为球迷带来独特的观赛体验。</p>
+                    </div>
+                </a>
+            </div>
+            <div class="host-card">
+                <a href="网页助手/墨西哥.html">
+                    <img src="img/墨西哥.jpg" alt="墨西哥">
+                    <div class="host-overlay">
+                        <h3>墨西哥</h3>
+                        <p>墨西哥城、墨西哥州、瓜达拉哈拉三座城市，足球文化底蕴深厚，狂热的球迷氛围将点燃每一场赛事。</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 倒计时 -->
+    <section class="countdown-section" id="countdown">
+        <div class="section-title">
+            <h2>开幕倒计时</h2>
+            <p>距离2026年6月11日世界杯开幕还有</p>
+        </div>
+        <div class="countdown-container">
+            <div class="countdown-box">
+                <div id="days" class="countdown-number">172</div>
+                <div class="countdown-label">天</div>
+            </div>
+            <div class="countdown-box">
+                <div id="hours" class="countdown-number">06</div>
+                <div class="countdown-label">时</div>
+            </div>
+            <div class="countdown-box">
+                <div id="minutes" class="countdown-number">54</div>
+                <div class="countdown-label">分</div>
+            </div>
+            <div class="countdown-box">
+                <div id="seconds" class="countdown-number">00</div>
+                <div class="countdown-label">秒</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 订阅 -->
+    <section class="subscribe" id="subscribe">
+        <div class="section-title">
+            <h2>订阅最新资讯</h2>
+            <p>第一时间获取世界杯赛程、门票信息、球队动态和精彩亮点</p>
+        </div>
+        <form class="subscribe-form">
+            <input type="email" placeholder="输入你的邮箱地址" required>
+            <button type="submit" class="btn">立即订阅</button>
+        </form>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <img src="img/FIFA.jpg" alt="世界杯Logo">
+                    <h3>2026世界杯</h3>
+                </div>
+                <p>2026年美加墨世界杯是历史上首次由三国联合主办的世界杯赛事，将于2026年6月11日至7月19日举行，48支球队将角逐大力神杯。</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>快速链接</h4>
+                <ul>
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#highlights">赛事亮点</a></li>
+                    <li><a href="#hosts">主办国</a></li>
+                    <li><a href="#countdown">倒计时</a></li>
+                    <li><a href="#subscribe">订阅资讯</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>相关资源</h4>
+                <ul>
+                    <li><a href="https://www.fifa.com/" target="_blank">官方网站</a></li>
+                    <li><a href="#">赛程表</a></li>
+                    <li><a href="#">门票购买</a></li>
+                    <li><a href="img/杯.png">参赛球队</a></li>
+                    <li><a href="img/136728340.mp4">历届回顾</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>联系我们</h4>
+                <ul>
+                    <li><a href="./网页助手/自我介绍8.html"><i class="">关于作者</i></a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i> contact@worldcup2026.com</a></li>
+                    <li><a href="#"><i class="fas fa-phone"></i> 197-2946-2787</a></li>
+                    <li><a href="https://www.betltc.edu.cn/" target="_blank"><i
+                                class="fas fa-map-marker-alt"></i>新疆维吾尔自治区博尔塔拉蒙古自治州博乐市赛里木湖路14号 </a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026美加墨世界杯官方宣传网站. 保留所有权利.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 倒计时功能
+        const worldCupDate = new Date('2026-06-11T00:00:00Z');
+        function updateCountdown() {
+            const now = new Date();
+            const diff = worldCupDate - now;
+            if (diff <= 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                return;
+            }
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // 订阅表单提交
+        document.querySelector('.subscribe-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            alert('订阅成功！我们将第一时间为你发送世界杯最新资讯～');
+            this.reset();
+        });
+    </script>
+</body>
+
+</html>

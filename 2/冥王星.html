@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>星系</title>
+    <script src="./js/three.min.js"></script>
+    <script src="./js/OrbitControls.js"></script>
+    <link rel="stylesheet" href="./css/index.css">
+    <style>
+        /* 通用悬浮窗样式 */
+        .float-window {
+            position: fixed;
+            /* 固定定位，不随滚动移动 */
+            top: 50%;
+            /* 垂直居中 */
+            transform: translateY(-50%);
+            /* 修正垂直居中偏移 */
+            width: 200px;
+            padding: 20px;
+            background: rgba(14, 13, 13, 0.95);
+            /* 半透明白底 */
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            /* 阴影增强立体感 */
+            z-index: 9999;
+            /* 确保浮在最上层 */
+            box-sizing: border-box;
+        }
+
+        /* 左侧悬浮窗定位 */
+        .left-float {
+            left: 40px;
+        }
+
+        /* 右侧悬浮窗定位 */
+        .right-float {
+            right: 20px;
+        }
+
+        /* 浮窗内元素样式（可选） */
+        .float-window h3 {
+            margin: 0 0 15px 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .float-window p,
+        .float-window a {
+            font-size: 14px;
+            color: #666;
+            text-decoration: none;
+            line-height: 1.5;
+        }
+
+        .float-window a:hover {
+            color: #007bff;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div>
+        <canvas id="main"></canvas>
+        <script src="./js/其他星球/冥王星.js"></script>
+    </div>
+    <!-- 左侧悬浮窗 -->
+    <div class="float-window left-float" style="color: #007bff;">
+        <h3 style="font-size: 24px; color: gold;">简介</h3>
+        <span style="font-size: 17px;">
+            冥王星位于太阳系边缘的柯伊伯带，与太阳平均距离约59亿千米，2006年被正式划为矮行星，不再纳入太阳系八大行星行列。它的体积仅为地球的0.6%，质量约为地球的0.2%，是一颗体积小巧、质量极轻的冰质矮行星，通体呈淡褐色，地表被大量固态氮、甲烷与一氧化碳冰层覆盖。冥王星的公转轨道为扁长的椭圆，公转一周耗时约248个地球年，
+        </span>
+    </div>
+
+    <!-- 右侧悬浮窗 -->
+    <div class="float-window right-float" style="color: #007bff;">
+        <span>
+            轨道倾角极大，还会短暂进入海王星轨道内侧；自转周期约6天9小时，自转方向与金星相同，为自东向西逆向自转。它拥有五颗已发现的天然卫星，其中最大的冥卫一卡戎体积接近冥王星的一半，二者相互潮汐锁定，共同绕着彼此的公共质心旋转。冥王星表面温度低至-238℃，拥有稀薄的大气层，主要由氮气构成，当它运行至近日点时，大气会因升温暂时膨胀，远日点时则会冻结回落至地表，是太阳系边缘极具研究价值的矮行星。
+        </span>
+    </div>
+</body>
+
+</html>

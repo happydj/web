@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>奶茶照片与特点 - 土色风格</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            background-image: url("./img/艾特莱斯1.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(230, 210, 180, 0.95);
+            /* 浅土黄色背景 */
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(100, 80, 50, 0.3);
+            /* 土色阴影 */
+            overflow: hidden;
+        }
+
+        header {
+            background: #b07d3f;
+            /* 深土黄色 */
+            color: #fff8e0;
+            /* 浅米黄色文字 */
+            padding: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(50, 40, 20, 0.4);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .photos {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .photos img {
+            width: 350px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(100, 80, 50, 0.2);
+            /* 土色阴影 */
+            cursor: default;
+            /* 鼠标样式改为默认 */
+        }
+
+        .features {
+            padding: 30px;
+        }
+
+        .feature-item {
+            background: #e6d0a0;
+            /* 浅土黄色 */
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(100, 80, 50, 0.2);
+            /* 土色阴影 */
+        }
+
+        .feature-title {
+            background: #c08c40;
+            /* 中棕色 */
+            color: #fff8e0;
+            /* 浅米黄色文字 */
+            padding: 15px 20px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .feature-title::after {
+            content: "+";
+            font-size: 1.5rem;
+        }
+
+        .feature-item.active .feature-title::after {
+            content: "-";
+        }
+
+        .feature-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item.active .feature-content {
+            padding: 20px;
+            max-height: 1000px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #8d6e63;
+            /* 棕色文字 */
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .feature-title {
+                font-size: 1.1rem;
+            }
+
+            .photos img {
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>奶茶照片与特点</h1>
+            <p>新疆各族人民钟爱的传统饮品</p>
+        </header>
+
+        <!-- 照片展示 -->
+        <div class="photos">
+            <img src="./img/奶茶1.JPG" alt="奶茶照片1">
+            <img src="./img/奶茶2.JPG" alt="奶茶照片2">
+            <img src="./img/奶茶3.JPG" alt="奶茶照片3">
+            <img src="./img/奶茶4.JPG" alt="奶茶照片4">
+            <img src="./img/奶茶5.JPG" alt="奶茶照片5">
+            <img src="./img/奶茶6.JPG" alt="奶茶照片6">
+            <img src="./img/奶茶7.JPG" alt="奶茶照片7">
+        </div>
+
+        <!-- 特点展示 -->
+        <div class="features">
+            <div class="feature-item">
+                <div class="feature-title">浓郁醇厚</div>
+                <div class="feature-content">
+                    <p>新疆奶茶以新鲜牛奶或羊奶熬制，加入茯茶或砖茶，茶乳交融，口感醇厚香浓，回味悠长。</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-title">营养丰富</div>
+                <div class="feature-content">
+                    <p>奶茶富含蛋白质、脂肪、维生素和矿物质，既能补充水分，又能提供能量，是新疆各族人民日常饮食中不可或缺的饮品。</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-title">文化象征</div>
+                <div class="feature-content">
+                    <p>奶茶是新疆少数民族待客的重要礼节，有“无茶不成礼”的说法。无论是日常饮用还是招待客人，奶茶都是表达热情和友好的象征。</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-title">饮用方式多样</div>
+                <div class="feature-content">
+                    <p>新疆奶茶可根据个人口味加盐或糖，既可热饮也可冷饮。在牧区，人们常搭配馕、酥油、奶疙瘩等一同食用，风味独特。</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-title">历史悠久</div>
+                <div class="feature-content">
+                    <p>奶茶在新疆已有数百年的历史，是游牧民族适应自然环境的智慧结晶，也是新疆多民族文化交流融合的见证。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 点击展开/收起
+        document.querySelectorAll('.feature-title').forEach(title => {
+            title.addEventListener('click', () => {
+                const item = title.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+
+</html>

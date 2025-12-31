@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>星系</title>
+    <script src="./js/three.min.js"></script>
+    <script src="./js/OrbitControls.js"></script>
+    <link rel="stylesheet" href="./css/index.css">
+    <style>
+        /* 通用悬浮窗样式 */
+        .float-window {
+            position: fixed;
+            /* 固定定位，不随滚动移动 */
+            top: 50%;
+            /* 垂直居中 */
+            transform: translateY(-50%);
+            /* 修正垂直居中偏移 */
+            width: 200px;
+            padding: 20px;
+            background: rgba(14, 13, 13, 0.95);
+            /* 半透明白底 */
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            /* 阴影增强立体感 */
+            z-index: 9999;
+            /* 确保浮在最上层 */
+            box-sizing: border-box;
+        }
+
+        /* 左侧悬浮窗定位 */
+        .left-float {
+            left: 40px;
+        }
+
+        /* 右侧悬浮窗定位 */
+        .right-float {
+            right: 20px;
+        }
+
+        /* 浮窗内元素样式（可选） */
+        .float-window h3 {
+            margin: 0 0 15px 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .float-window p,
+        .float-window a {
+            font-size: 14px;
+            color: #666;
+            text-decoration: none;
+            line-height: 1.5;
+        }
+
+        .float-window a:hover {
+            color: #007bff;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div>
+        <canvas id="main"></canvas>
+        <script src="./js/其他星球/木星.js"></script>
+    </div>
+    <!-- 左侧悬浮窗 -->
+    <div class="float-window left-float" style="color: #007bff;">
+        <h3 style="font-size: 24px; color: gold;">简介</h3>
+        <span
+            style="font-size: 17px;">木星是太阳系八大行星中距离太阳第五近的行星，同时是太阳系体积最大、质量最大的行星，其质量约为太阳系其他七大行星质量总和的2.5倍，与太阳平均距离约7.78亿千米，属于气态巨行星，也被称作“巨行星之王”。
+
+            木星公转一周约需11.86个地球年，自转周期仅约9小时50分钟，是太阳系中自转最快的行星，快速的自转让其赤道明显隆起，整体呈现出两极稍扁、赤道略鼓的椭球形态。木星没有固态地表，主要由氢和氦构成，中心存在一个由岩石与金属组成的致密内核；
+            持续数百年的其大气层中最显著的特征是大红斑，这是一场巨型风暴，大小足以容纳数个地球。
+        </span>
+    </div>
+
+    <!-- 右侧悬浮窗 -->
+    <div class="float-window right-float" style="color: #007bff;">
+        <span>
+            木星拥有浓厚的大气层与强大的磁场，磁场强度约为地球的14倍，能形成强烈的辐射带，对周围天体产生显著影响。
+            木星的平均半径约71492千米，体积是地球的1300多倍，引力极强。它拥有数量庞大的卫星，已发现的卫星超90颗，其中木卫一、木卫二、木卫三、木卫四被称作“伽利略卫星”，是太阳系中最著名的卫星群；木卫三是太阳系体积最大的卫星，甚至比行星水星还要大。木星还拥有一圈稀薄的行星环，由碎石与尘埃组成，因亮度极低，难以被肉眼观测。作为太阳系的“巨人”，木星凭借强大引力，能有效阻挡小行星、彗星撞击内侧行星，为地球等类地行星构筑了一道重要的“保护屏障”。
+        </span>
+    </div>
+</body>
+
+</html>

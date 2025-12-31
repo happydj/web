@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>薰衣草 - 紫色浪漫花海</title>
+    <style>
+        /* 全局样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background-color: #f9f7fb;
+            /* 淡紫色背景，贴合薰衣草主题 */
+        }
+
+        /* 头部横幅 */
+        header {
+            background: url('./img/5.png') no-repeat center center;
+            background-size: cover;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+            position: relative;
+        }
+
+        /* 头部遮罩，提升文字可读性 */
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(100, 65, 165, 0.3);
+            /* 淡紫遮罩 */
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .header-title {
+            font-size: 50px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .header-subtitle {
+            font-size: 20px;
+            letter-spacing: 2px;
+        }
+
+        /* 主体容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        /* 薰衣草简介 */
+        .intro {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(100, 65, 165, 0.1);
+            margin-bottom: 50px;
+        }
+
+        .intro h2 {
+            color: #6441a5;
+            /* 薰衣草紫主色 */
+            margin-bottom: 25px;
+            font-size: 28px;
+            border-left: 5px solid #6441a5;
+            padding-left: 15px;
+        }
+
+        .intro p {
+            font-size: 16px;
+            margin-bottom: 20px;
+            text-indent: 2em;
+        }
+
+        /* 核心特色板块 */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(100, 65, 165, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(100, 65, 165, 0.2);
+        }
+
+        .feature-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .feature-content {
+            padding: 25px;
+        }
+
+        .feature-content h3 {
+            color: #6441a5;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .feature-content p {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* 观赏指南 */
+        .guide {
+            background: #6441a5;
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+        }
+
+        .guide h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .guide-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .guide-item {
+            text-align: center;
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .guide-item h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .guide-item p {
+            font-size: 15px;
+            opacity: 0.9;
+        }
+
+        /* 页脚 */
+        footer {
+            background-color: #3a2268;
+            color: #e0d6eb;
+            text-align: center;
+            padding: 25px;
+            margin-top: 50px;
+        }
+
+        footer p {
+            font-size: 14px;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            header {
+                height: 300px;
+            }
+
+            .header-title {
+                font-size: 36px;
+            }
+
+            .intro {
+                padding: 25px;
+            }
+
+            .guide {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 头部横幅 -->
+    <header>
+        <div class="header-content">
+            <h1 class="header-title">薰衣草花海</h1>
+            <p class="header-subtitle">邂逅紫色浪漫，奔赴一场温柔的花海之旅</p>
+        </div>
+    </header>
+
+    <!-- 主体内容 -->
+    <div class="container">
+        <!-- 薰衣草简介 -->
+        <section class="intro">
+            <h2>关于薰衣草</h2>
+            <p>薰衣草（拉丁学名：Lavandula angustifolia Mill.）是唇形科薰衣草属植物，原产于地中海沿岸、欧洲各地及大洋洲列岛，后被广泛栽种于英国及南斯拉夫，中国主要分布在新疆伊犁河谷地区。</p>
+            <p>薰衣草是兼具观赏与实用价值的植物，其花穗呈紫色，全株带有独特的清香，不仅是打造浪漫花海的核心花卉，还可提取精油、制作香料、入药等，有“香草之后”的美誉。</p>
+            <p>新疆伊犁是中国最大的薰衣草种植基地，种植面积占全国的95%以上，每年6-7月，伊犁的薰衣草田成片绽放，紫色花海延绵数十公里，成为新疆极具代表性的自然景观。</p>
+        </section>
+
+        <!-- 核心特色 -->
+        <section class="features">
+            <div class="feature-card">
+                <img src="./img/img/霍城薰衣草/2.png" alt="伊犁薰衣草田" class="feature-img">
+                <div class="feature-content">
+                    <h3>伊犁薰衣草基地</h3>
+                    <p>伊犁霍城县是薰衣草的核心种植区，解忧公主薰衣草园、65团薰衣草田是最热门的观赏地，每年花期吸引大量游客前来打卡。</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <img src="./img/img/霍城薰衣草/5.png" alt="薰衣草精油" class="feature-img">
+                <div class="feature-content">
+                    <h3>薰衣草实用价值</h3>
+                    <p>薰衣草精油有舒缓情绪、助眠、抗菌的作用，伊犁当地的薰衣草制品（精油、香包、香皂）是热门伴手礼。</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <img src="./img/img/霍城薰衣草/6.png" alt="薰衣草花期" class="feature-img">
+                <div class="feature-content">
+                    <h3>浪漫花期</h3>
+                    <p>薰衣草主要花期为每年6-7月（第一茬），部分基地8-9月会开第二茬，清晨或傍晚是拍摄花海的最佳时段。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 观赏指南 -->
+        <section class="guide">
+            <h2>薰衣草观赏指南</h2>
+            <div class="guide-list">
+                <div class="guide-item">
+                    <h4>最佳时间</h4>
+                    <p>6月中旬-7月上旬（盛花期）</p>
+                </div>
+                <div class="guide-item">
+                    <h4>最佳地点</h4>
+                    <p>霍城解忧公主薰衣草园、65团、芦草沟镇</p>
+                </div>
+                <div class="guide-item">
+                    <h4>穿搭建议</h4>
+                    <p>浅色系/白色服装，与紫色花海更搭</p>
+                </div>
+                <div class="guide-item">
+                    <h4>注意事项</h4>
+                    <p>做好防晒，勿随意踩踏花田</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>© 2025 薰衣草花海 | 简单网页示例</p>
+        <p>伊犁薰衣草，邂逅一场紫色的温柔</p>
+    </footer>
+</body>
+
+</html>

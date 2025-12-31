@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校园导航系统 - 某某大学</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome图标 -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 配置Tailwind自定义主题 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#36D399',
+                        neutral: '#F3F4F6',
+                        dark: '#1F2937'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .map-container {
+                height: calc(100vh - 160px);
+                min-height: 400px;
+            }
+            .nav-item-active {
+                @apply bg-primary/10 text-primary border-l-4 border-primary;
+            }
+            .card-hover {
+                @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- 顶部导航栏 -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <!-- 学校logo和名称 -->
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white">
+                    <i class="fa fa-university text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-dark">某某大学</h1>
+                    <p class="text-xs text-gray-500">校园导航系统</p>
+                </div>
+            </div>
+            
+            <!-- 搜索框 -->
+            <div class="hidden md:flex items-center flex-1 max-w-md mx-8">
+                <div class="relative w-full">
+                    <input type="text" id="search-input" placeholder="搜索建筑/地点..." 
+                        class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
+                    <i class="fa fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                </div>
+            </div>
+            
+            <!-- 功能按钮 -->
+            <div class="flex items-center space-x-4">
+                <button class="text-gray-600 hover:text-primary transition-colors md:hidden" id="mobile-search-btn">
+                    <i class="fa fa-search text-lg"></i>
+                </button>
+                <button class="text-gray-600 hover:text-primary transition-colors" id="location-btn">
+                    <i class="fa fa-map-marker text-lg"></i>
+                </button>
+                <button class="text-gray-600 hover:text-primary transition-colors" id="theme-btn">
+                    <i class="fa fa-moon-o text-lg"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 移动端搜索框 -->
+        <div class="md:hidden px-4 pb-3 hidden" id="mobile-search-container">
+            <div class="relative w-full">
+                <input type="text" placeholder="搜索建筑/地点..." 
+                    class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                <i class="fa fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-6">
+        <div class="flex flex-col lg:flex-row gap-6">
+            <!-- 左侧分类导航 -->
+            <div class="lg:w-64 shrink-0">
+                <div class="bg-white rounded-xl shadow-sm p-4 h-full">
+                    <h2 class="text-lg font-semibold mb-4 text-dark">建筑分类</h2>
+                    <nav class="space-y-1">
+                        <button class="nav-item-active w-full text-left px-4 py-2.5 rounded-lg flex items-center" data-category="all">
+                            <i class="fa fa-th-large w-5 text-center mr-2"></i>
+                            <span>全部地点</span>
+                        </button>
+                        <button class="w-full text-left px-4 py-2.5 rounded-lg flex items-center hover:bg-gray-50 transition-colors" data-category="teaching">
+                            <i class="fa fa-book w-5 text-center mr-2"></i>
+                            <span>教学楼</span>
+                        </button>
+                        <button class="w-full text-left px-4 py-2.5 rounded-lg flex items-center hover:bg-gray-50 transition-colors" data-category="library">
+                            <i class="fa fa-bookmark w-5 text-center mr-2"></i>
+                            <span>图书馆</span>
+                        </button>
+                        <button class="w-full text-left px-4 py-2.5 rounded-lg flex items-center hover:bg-gray-50 transition-colors" data-category="dormitory">
+                            <i class="fa fa-home w-5 text-center mr-2"></i>
+                            <span>宿舍楼</span>
+                        </button>
+                        <button class="w-full text-left px-4 py-2.5 rounded-lg flex items-center hover:bg-gray-50 transition-colors" data-category="canteen">
+                            <i class="fa fa-cutlery w-5 text-center mr-2"></i>
+                            <span>食堂</span>
+                        </button>
+                        <button class="w-full text-left px-4 py-2.5 rounded-lg flex items-center hover:bg-gray-50 transition-colors" data-category="sports">
+                            <i class="fa fa-futbol-o w-5 text-center mr-2"></i>
+                            <span>运动场馆</span>
+                        </button>
+                        <button class="w-full text-left px-4 py-2.5 rounded-lg flex items-center hover:bg-gray-50 transition-colors" data-category="administrative">
+                            <i class="fa fa-building w-5 text-center mr-2"></i>
+                            <span>行政楼</span>
+                        </button>
+                        <button class="w-full text-left px-4 py-2.5 rounded-lg flex items-center hover:bg-gray-50 transition-colors" data-category="medical">
+                            <i class="fa fa-medkit w-5 text-center mr-2"></i>
+                            <span>医疗中心</span>
+                        </button>
+                    </nav>
+
+                    <!-- 常用地点 -->
+                    <h2 class="text-lg font-semibold mt-8 mb-4 text-dark">常用地点</h2>
+                    <div class="space-y-3">
+                        <a href="#" class="flex items-center p-3 bg-neutral rounded-lg hover:bg-gray-100 transition-colors">
+                            <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+                                <i class="fa fa-bus"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="font-medium text-sm">校车站</p>
+                                <p class="text-xs text-gray-500">东门/南门</p>
+                            </div>
+                        </a>
+                        <a href="#" class="flex items-center p-3 bg-neutral rounded-lg hover:bg-gray-100 transition-colors">
+                            <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+                                <i class="fa fa-coffee"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="font-medium text-sm">校园超市</p>
+                                <p class="text-xs text-gray-500">生活区1号楼</p>
+                            </div>
+                        </a>
+                        <a href="#" class="flex items-center p-3 bg-neutral rounded-lg hover:bg-gray-100 transition-colors">
+                            <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+                                <i class="fa fa-wifi"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="font-medium text-sm">网络中心</p>
+                                <p class="text-xs text-gray-500">行政楼1楼</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧地图和地点列表 -->
+            <div class="flex-1">
+                <!-- 校园地图 -->
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="p-4 border-b border-gray-100 flex justify-between items-center">
+                        <h2 class="text-lg font-semibold text-dark">校园地图</h2>
+                        <div class="flex space-x-2">
+                            <button class="px-3 py-1 text-sm rounded-lg bg-neutral hover:bg-gray-200 transition-colors">
+                                <i class="fa fa-plus mr-1"></i>放大
+                            </button>
+                            <button class="px-3 py-1 text-sm rounded-lg bg-neutral hover:bg-gray-200 transition-colors">
+                                <i class="fa fa-minus mr-1"></i>缩小
+                            </button>
+                        </div>
+                    </div>
+                    <div class="map-container relative">
+                        <!-- 校园地图图片（实际项目中可替换为真实地图或地图API） -->
+                        <img src="https://picsum.photos/1200/800" alt="校园地图" class="w-full h-full object-cover">
+                        
+                        <!-- 地图标记点示例 -->
+                        <div class="absolute top-1/4 left-1/3 w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white cursor-pointer hover:scale-110 transition-transform" 
+                             data-building="第一教学楼">
+                            <i class="fa fa-map-marker"></i>
+                        </div>
+                        <div class="absolute top-1/2 left-2/3 w-6 h-6 bg-secondary rounded-full flex items-center justify-center text-white cursor-pointer hover:scale-110 transition-transform" 
+                             data-building="图书馆">
+                            <i class="fa fa-map-marker"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 地点列表 -->
+                <div class="bg-white rounded-xl shadow-sm">
+                    <div class="p-4 border-b border-gray-100 flex justify-between items-center">
+                        <h2 class="text-lg font-semibold text-dark">校园地点列表</h2>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-sm text-gray-500">排序:</span>
+                            <select class="text-sm rounded-lg border border-gray-200 px-2 py-1 bg-white">
+                                <option>默认</option>
+                                <option>距离优先</option>
+                                <option>字母顺序</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="building-list">
+                        <!-- 教学楼示例 -->
+                        <div class="border border-gray-100 rounded-lg p-4 card-hover" data-category="teaching">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-semibold">第一教学楼</h3>
+                                <span class="px-2 py-0.5 bg-primary/10 text-primary text-xs rounded-full">教学楼</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-3">地址：校园东区1号</p>
+                            <div class="flex items-center justify-between text-sm">
+                                <div class="flex items-center text-gray-500">
+                                    <i class="fa fa-clock-o mr-1"></i>
+                                    <span>开放时间: 6:00-22:00</span>
+                                </div>
+                                <button class="text-primary hover:text-primary/80 transition-colors">
+                                    <i class="fa fa-directions mr-1"></i>导航
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 图书馆示例 -->
+                        <div class="border border-gray-100 rounded-lg p-4 card-hover" data-category="library">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-semibold">主图书馆</h3>
+                                <span class="px-2 py-0.5 bg-secondary/10 text-secondary text-xs rounded-full">图书馆</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-3">地址：校园中心区</p>
+                            <div class="flex items-center justify-between text-sm">
+                                <div class="flex items-center text-gray-500">
+                                    <i class="fa fa-clock-o mr-1"></i>
+                                    <span>开放时间: 8:00-22:30</span>
+                                </div>
+                                <button class="text-primary hover:text-primary/80 transition-colors">
+                                    <i class="fa fa-directions mr-1"></i>导航
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 食堂示例 -->
+                        <div class="border border-gray-100 rounded-lg p-4 card-hover" data-category="canteen">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-semibold">第一食堂</h3>
+                                <span class="px-2 py-0.5 bg-amber-100 text-amber-600 text-xs rounded-full">食堂</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-3">地址：生活区1号</p>
+                            <div class="flex items-center justify-between text-sm">
+                                <div class="flex items-center text-gray-500">
+                                    <i class="fa fa-clock-o mr-1"></i>
+                                    <span>开放时间: 6:30-21:00</span>
+                                </div>
+                                <button class="text-primary hover:text-primary/80 transition-colors">
+                                    <i class="fa fa-directions mr-1"></i>导航
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 宿舍楼示例 -->
+                        <div class="border border-gray-100 rounded-lg p-4 card-hover" data-category="dormitory">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-semibold">学生公寓1号楼</h3>
+                                <span class="px-2 py-0.5 bg-blue-100 text-blue-600 text-xs rounded-full">宿舍楼</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-3">地址：生活区东区</p>
+                            <div class="flex items-center justify-between text-sm">
+                                <div class="flex items-center text-gray-500">
+                                    <i class="fa fa-clock-o mr-1"></i>
+                                    <span>24小时开放</span>
+                                </div>
+                                <button class="text-primary hover:text-primary/80 transition-colors">
+                                    <i class="fa fa-directions mr-1"></i>导航
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 体育馆示例 -->
+                        <div class="border border-gray-100 rounded-lg p-4 card-hover" data-category="sports">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-semibold">体育馆</h3>
+                                <span class="px-2 py-0.5 bg-green-100 text-green-600 text-xs rounded-full">运动场馆</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-3">地址：校园西区</p>
+                            <div class="flex items-center justify-between text-sm">
+                                <div class="flex items-center text-gray-500">
+                                    <i class="fa fa-clock-o mr-1"></i>
+                                    <span>开放时间: 9:00-21:00</span>
+                                </div>
+                                <button class="text-primary hover:text-primary/80 transition-colors">
+                                    <i class="fa fa-directions mr-1"></i>导航
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 行政楼示例 -->
+                        <div class="border border-gray-100 rounded-lg p-4 card-hover" data-category="administrative">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-semibold">行政楼</h3>
+                                <span class="px-2 py-0.5 bg-purple-100 text-purple-600 text-xs rounded-full">行政楼</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-3">地址：校园北区</p>
+                            <div class="flex items-center justify-between text-sm">
+                                <div class="flex items-center text-gray-500">
+                                    <i class="fa fa-clock-o mr-1"></i>
+                                    <span>开放时间: 8:00-17:30</span>
+                                </div>
+                                <button class="text-primary hover:text-primary/80 transition-colors">
+                                    <i class="fa fa-directions mr-1"></i>导航
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 底部信息 -->
+    <footer class="bg-dark text-white mt-12">
+        <div class="container mx-auto px-4 py-8">
+            <div class="flex flex-col md:flex-row justify-between gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">某某大学</h3>
+                    <p class="text-gray-400 mb-4">地址：某某市某某区某某路123号</p>
+                    <p class="text-gray-400">联系电话：0123-4567890</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">快速链接</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">学校官网</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">教务处</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">学生处</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">校园服务</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">关注我们</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="fa fa-weixin"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="fa fa-qq"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-500 text-sm">
+                © 2025 某某大学 版权所有 | 校园导航系统 v1.0
+            </div>
+        </div>
+    </footer>
+
+    <!-- 导航详情弹窗 -->
+    <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden" id="navigation-modal">
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-md p-6 transform transition-all">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold" id="modal-title">第一教学楼</h3>
+                <button class="text-gray-400 hover:text-gray-600" id="close-modal">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="mb-4">
+                <img src="https://picsum.photos/600/300" alt="建筑图片" class="w-full h-48 object-cover rounded-lg mb-4">
+                <div class="space-y-2">
+                    <p><i class="fa fa-map-marker text-primary mr-2"></i> <strong>地址：</strong>校园东区1号</p>
+                    <p><i class="fa fa-clock-o text-primary mr-2"></i> <strong>开放时间：</strong>6:00-22:00</p>
+                    <p><i class="fa fa-phone text-primary mr-2"></i> <strong>联系电话：</strong>0123-4567891</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-100 pt-4">
+                <h4 class="font-semibold mb-2">路线指引</h4>
+                <div class="bg-neutral rounded-lg p-3 mb-4">
+                    <p class="text-sm"><strong>从校门出发：</strong>进入东门后直行200米，左转进入教学区，步行约5分钟即可到达</p>
+                </div>
+                <div class="flex space-x-2">
+                    <button class="flex-1 bg-primary text-white py-2 rounded-lg hover:bg-primary/90 transition-colors">
+                        <i class="fa fa-map-o mr-2"></i>查看路线
+                    </button>
+                    <button class="flex-1 bg-white border border-gray-200 py-2 rounded-lg hover:bg-gray-50 transition-colors">
+                        <i class="fa fa-share-alt mr-2"></i>分享
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 移动端搜索框切换
+        const mobileSearchBtn = document.getElementById('mobile-search-btn');
+        const mobileSearchContainer = document.getElementById('mobile-search-container');
+        
+        mobileSearchBtn.addEventListener('click', () => {
+            mobileSearchContainer.classList.toggle('hidden');
+        });
+
+        // 分类导航切换
+        const categoryButtons = document.querySelectorAll('[data-category]');
+        const buildingItems = document.querySelectorAll('#building-list > div');
+        
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // 移除所有激活状态
+                categoryButtons.forEach(btn => btn.classList.remove('nav-item-active'));
+                // 添加当前激活状态
+                button.classList.add('nav-item-active');
+                
+                const category = button.getAttribute('data-category');
+                
+                // 筛选建筑列表
+                buildingItems.forEach(item => {
+                    if (category === 'all' || item.getAttribute('data-category') === category) {
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        // 导航弹窗控制
+        const navigationButtons = document.querySelectorAll('.card-hover button');
+        const modal = document.getElementById('navigation-modal');
+        const closeModal = document.getElementById('close-modal');
+        const modalTitle = document.getElementById('modal-title');
+        
+        navigationButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const card = button.closest('.card-hover');
+                const title = card.querySelector('h3').textContent;
+                modalTitle.textContent = title;
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        closeModal.addEventListener('click', () => {
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        });
+        
+        // 点击弹窗外区域关闭
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // 地图标记点点击
+        const mapMarkers = document.querySelectorAll('[data-building]');
+        mapMarkers.forEach(marker => {
+            marker.addEventListener('click', () => {
+                const buildingName = marker.getAttribute('data-building');
+                modalTitle.textContent = buildingName;
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // 主题切换
+        const themeBtn = document.getElementById('theme-btn');
+        themeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+            const icon = themeBtn.querySelector('i');
+            if (icon.classList.contains('fa-moon-o')) {
+                icon.classList.replace('fa-moon-o', 'fa-sun-o');
+            } else {
+                icon.classList.replace('fa-sun-o', 'fa-moon-o');
+            }
+        });
+
+        // 定位按钮
+        const locationBtn = document.getElementById('location-btn');
+        locationBtn.addEventListener('click', () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        alert(`已获取您的位置：纬度 ${position.coords.latitude}，经度 ${position.coords.longitude}`);
+                    },
+                    (error) => {
+                        alert('获取位置失败，请检查定位权限');
+                    }
+                );
+            } else {
+                alert('您的浏览器不支持地理定位');
+            }
+        });
+
+        // 搜索功能
+        const searchInput = document.getElementById('search-input');
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase().trim();
+                
+                buildingItems.forEach(item => {
+                    const title = item.querySelector('h3').textContent.toLowerCase();
+                    const address = item.querySelector('p').textContent.toLowerCase();
+                    
+                    if (title.includes(searchTerm) || address.includes(searchTerm) || searchTerm === '') {
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+            });
+        }
+        
+        // 移动端搜索框
+        const mobileSearchInput = document.querySelector('#mobile-search-container input');
+        if (mobileSearchInput) {
+            mobileSearchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase().trim();
+                
+                buildingItems.forEach(item => {
+                    const title = item.querySelector('h3').textContent.toLowerCase();
+                    const address = item.querySelector('p').textContent.toLowerCase();
+                    
+                    if (title.includes(searchTerm) || address.includes(searchTerm) || searchTerm === '') {
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>

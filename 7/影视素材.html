@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英语学习视频中心</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 2rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            position: relative; /* 新增：为返回按钮定位 */
+        }
+
+        /* 新增：返回首页链接样式 */
+        .back-home {
+            position: absolute;
+            left: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        .back-home:hover {
+            opacity: 0.9;
+            text-decoration: underline;
+        }
+
+        .back-home i {
+            font-size: 1.2rem;
+        }
+
+        header h1 {
+            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+        }
+
+        header p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 2rem;
+        }
+
+        /* 视频播放区域 */
+        .video-player {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 10;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .loading-overlay.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            background: #f5f5f5;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .video-placeholder i {
+            font-size: 3rem;
+            opacity: 0.5;
+        }
+
+        .video-info h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .video-info .meta {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .video-info .meta .category-tag {
+            background: #e8f4fd;
+            color: #3498db;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .video-info p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* 侧边栏区域 */
+        .video-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 2.5rem;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            background: white;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 6px;
+            background: #e8f4fd;
+            color: #3498db;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover {
+            background: #d4e9f8;
+        }
+
+        .filter-btn.active {
+            background: #3498db;
+            color: white;
+        }
+
+        .video-list {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            max-height: 650px;
+            overflow-y: auto;
+        }
+
+        .video-list-empty {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: #999;
+        }
+
+        .video-list-empty p {
+            margin-top: 0.5rem;
+        }
+
+        .video-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 0.5rem;
+            border: 1px solid transparent;
+        }
+
+        .video-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .video-item:hover {
+            background: #f8f9fa;
+        }
+
+        .video-item.active {
+            background: #e8f4fd;
+            border-color: #d4e9f8;
+        }
+
+        .video-thumbnail {
+            width: 100px;
+            height: 60px;
+            border-radius: 6px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .video-item-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .video-item-info h3 {
+            font-size: 0.95rem;
+            margin-bottom: 0.4rem;
+            color: #2c3e50;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .video-item-info .tags {
+            display: flex;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        .video-item-info .tags span {
+            white-space: nowrap;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .video-list {
+                max-height: 400px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            header {
+                padding: 1rem;
+                text-align: center;
+            }
+            
+            /* 响应式适配返回按钮 */
+            .back-home {
+                left: 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .back-home span {
+                display: none; /* 移动端隐藏文字，只显示图标 */
+            }
+            
+            .back-home i {
+                font-size: 1.1rem;
+            }
+            
+            header h1 {
+                font-size: 1.5rem;
+                margin-top: 0.5rem;
+            }
+            
+            .container {
+                padding: 0 1rem;
+                margin: 1rem auto;
+            }
+            
+            .video-player, .video-list {
+                padding: 1rem;
+            }
+            
+            .video-item {
+                padding: 0.8rem;
+            }
+            
+            .video-thumbnail {
+                width: 80px;
+                height: 50px;
+            }
+        }
+    </style>
+    <!-- 引入图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <!-- 新增：返回首页A标签 -->
+        <a href="index.html" class="back-home" title="返回首页">
+            <i class="fas fa-arrow-left"></i>
+            <span>返回首页</span>
+        </a>
+        
+        <h1>英语学习视频中心</h1>
+        <p>通过视频轻松学英语，提升听说读写能力</p>
+    </header>
+
+    <div class="container">
+        <div class="video-player">
+            <!-- 加载遮罩 -->
+            <div class="loading-overlay" id="loadingOverlay">
+                <div class="loading-spinner"></div>
+                <p>视频加载中，请稍候...</p>
+            </div>
+
+            <!-- 视频容器 -->
+            <div class="video-container">
+                <div class="video-placeholder" id="videoPlaceholder">
+                    <i class="fas fa-video"></i>
+                    <p>请选择右侧列表中的视频开始播放</p>
+                </div>
+                <video id="mainVideo" controls style="display: none;">
+                    <source src="" type="video/mp4">
+                    您的浏览器不支持HTML5视频播放，请升级浏览器
+                </video>
+            </div>
+
+            <!-- 视频信息 -->
+            <div class="video-info">
+                <h2 id="videoTitle">请选择一个视频开始学习</h2>
+                <div class="meta">
+                    <span class="category-tag" id="videoCategory">未选择</span>
+                    <span id="videoDuration">--:--</span>
+                </div>
+                <p id="videoDesc">选择右侧视频列表中的内容，即可在左侧播放。每个视频都配有详细的讲解，帮助你更好地掌握英语知识。</p>
+            </div>
+        </div>
+
+        <div class="video-sidebar">
+            <!-- 搜索框 -->
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="搜索视频标题或关键词...">
+            </div>
+
+            <!-- 筛选按钮 -->
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-category="all">全部</button>
+                <button class="filter-btn" data-category="grammar">语法学习</button>
+                <button class="filter-btn" data-category="conversation">日常对话</button>
+                <button class="filter-btn" data-category="vocabulary">词汇积累</button>
+                <button class="filter-btn" data-category="pronunciation">发音技巧</button>
+            </div>
+
+            <!-- 视频列表 -->
+            <div class="video-list" id="videoList">
+                <!-- 由JS动态生成 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ======================== 配置区 ========================
+        // 视频数据源 - 你可以根据实际情况修改
+        const VIDEO_DATA = [
+            {
+                id: 1,
+                title: "英语语法：一般现在时的用法",
+                description: "详细讲解一般现在时的定义、用法和常见错误，结合丰富例句帮助理解，适合英语初学者。",
+                category: "grammar",
+                categoryCn: "语法学习",
+                // 方式1: 使用公共测试视频（推荐用于测试）
+                videoUrl: "video/1.mp4",
+                // 方式2: 使用本地视频（需将视频文件放在项目目录下的videos文件夹）
+                // videoUrl: "./videos/grammar-simple-present.mp4",
+                // 方式3: 使用视频平台嵌入（需修改播放逻辑为iframe）
+                thumbnail: "一般现在时",
+                duration: "02:10"
+            },
+            {
+                id: 2,
+                title: "日常对话：餐厅点餐",
+                description: "学习餐厅点餐的常用英语表达和对话技巧，包含各种菜品名称、点餐句式和礼貌用语。",
+                category: "conversation",
+                categoryCn: "日常对话",
+                videoUrl: "video/2.mp4",
+                thumbnail: "餐厅点餐",
+                duration: "01:32"
+            },
+            {
+                id: 3,
+                title: "词汇积累：高频商务英语词汇",
+                description: "掌握职场中常用的商务英语词汇和搭配，涵盖会议、邮件、谈判等场景的核心词汇。",
+                category: "vocabulary",
+                categoryCn: "词汇积累",
+                videoUrl: "video/3.mp4",
+                thumbnail: "商务词汇",
+                duration: "04:05"
+            },
+            {
+                id: 4,
+                title: "英语语法：现在进行时详解",
+                description: "结合实例讲解现在进行时的使用场景和结构，区分与一般现在时的用法差异。",
+                category: "grammar",
+                categoryCn: "语法学习",
+                videoUrl: " video/4.mp4",
+                thumbnail: "现在进行时",
+                duration: "01:18"
+            },
+            {
+                id: 5,
+                title: "日常对话：机场出入境",
+                description: "学习机场出入境的英语对话和常用句型，包括登机、安检、海关等场景的实用表达。",
+                category: "conversation",
+                categoryCn: "日常对话",
+                videoUrl: "video/5.mp4",
+                thumbnail: "机场对话",
+                duration: "00:43"
+            },
+            {
+                id: 6,
+                title: "词汇积累：旅游英语必备词汇",
+                description: "整理旅游出行中高频使用的英语词汇，涵盖住宿、交通、景点、购物等方面。",
+                category: "vocabulary",
+                categoryCn: "词汇积累",
+                videoUrl: "video/6.mp4",
+                thumbnail: "旅游词汇",
+                duration: "01:42"
+            },
+            {
+                id: 7,
+                title: "发音技巧：美式音标入门",
+                description: "系统讲解美式英语44个音标的发音方法，纠正常见发音错误，提升口语准确性。",
+                category: "pronunciation",
+                categoryCn: "发音技巧",
+                videoUrl: "video/7.mp4",
+                thumbnail: "美式音标",
+                duration: "01:06"
+            }
+        ];
+
+        // ======================== 元素获取 ========================
+        const elements = {
+            loadingOverlay: document.getElementById('loadingOverlay'),
+            videoPlaceholder: document.getElementById('videoPlaceholder'),
+            mainVideo: document.getElementById('mainVideo'),
+            videoTitle: document.getElementById('videoTitle'),
+            videoCategory: document.getElementById('videoCategory'),
+            videoDuration: document.getElementById('videoDuration'),
+            videoDesc: document.getElementById('videoDesc'),
+            searchInput: document.getElementById('searchInput'),
+            filterButtons: document.querySelectorAll('.filter-btn'),
+            videoList: document.getElementById('videoList')
+        };
+
+        // ======================== 全局变量 ========================
+        let activeVideoId = null;
+        let currentFilter = 'all';
+        let currentSearch = '';
+
+        // ======================== 核心功能函数 ========================
+
+        /**
+         * 渲染视频列表
+         * @param {Array} videos - 要渲染的视频数组
+         */
+        function renderVideoList(videos) {
+            if (videos.length === 0) {
+                elements.videoList.innerHTML = `
+                    <div class="video-list-empty">
+                        <i class="fas fa-search"></i>
+                        <p>未找到匹配的视频，请尝试其他关键词</p>
+                    </div>
+                `;
+                return;
+            }
+
+            elements.videoList.innerHTML = '';
+            
+            videos.forEach(video => {
+                const videoItem = document.createElement('div');
+                videoItem.className = `video-item ${activeVideoId === video.id ? 'active' : ''}`;
+                videoItem.setAttribute('data-id', video.id);
+                
+                videoItem.innerHTML = `
+                    <div class="video-thumbnail">${video.thumbnail}</div>
+                    <div class="video-item-info">
+                        <h3 title="${video.title}">${video.title}</h3>
+                        <div class="tags">
+                            <span>${video.categoryCn}</span>
+                            <span>•</span>
+                            <span>${video.duration}</span>
+                        </div>
+                    </div>
+                `;
+
+                // 点击视频项播放
+                videoItem.addEventListener('click', () => {
+                    playVideo(video);
+                    // 更新选中状态
+                    document.querySelectorAll('.video-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    videoItem.classList.add('active');
+                });
+
+                elements.videoList.appendChild(videoItem);
+            });
+        }
+
+        /**
+         * 播放指定视频
+         * @param {Object} video - 视频对象
+         */
+        function playVideo(video) {
+            // 显示加载状态
+            elements.loadingOverlay.classList.add('show');
+            elements.videoPlaceholder.style.display = 'none';
+            elements.mainVideo.style.display = 'block';
+
+            // 更新视频信息
+            elements.videoTitle.textContent = video.title;
+            elements.videoCategory.textContent = video.categoryCn;
+            elements.videoDuration.textContent = video.duration;
+            elements.videoDesc.textContent = video.description;
+
+            // 设置视频源并播放
+            elements.mainVideo.src = video.videoUrl;
+            elements.mainVideo.load();
+            
+            // 视频加载完成后播放并隐藏加载状态
+            elements.mainVideo.oncanplay = function() {
+                elements.loadingOverlay.classList.remove('show');
+                elements.mainVideo.play().catch(err => {
+                    console.log('自动播放失败:', err);
+                    // 自动播放失败时不报错，等待用户手动播放
+                });
+            };
+
+            // 视频加载失败处理
+            elements.mainVideo.onerror = function() {
+                elements.loadingOverlay.classList.remove('show');
+                elements.videoPlaceholder.style.display = 'flex';
+                elements.mainVideo.style.display = 'none';
+                alert(`视频加载失败：${video.title}\n请检查视频链接是否有效`);
+            };
+
+            // 记录当前激活的视频ID
+            activeVideoId = video.id;
+            
+            // 保存播放历史到本地存储
+            savePlayHistory(video);
+        }
+
+        /**
+         * 筛选视频
+         * @param {String} category - 分类
+         * @param {String} searchText - 搜索文本
+         */
+        function filterVideos(category = currentFilter, searchText = currentSearch) {
+            currentFilter = category;
+            currentSearch = searchText.toLowerCase();
+
+            let filteredVideos = VIDEO_DATA;
+
+            // 按分类筛选
+            if (category !== 'all') {
+                filteredVideos = filteredVideos.filter(video => video.category === category);
+            }
+
+            // 按搜索关键词筛选
+            if (searchText) {
+                filteredVideos = filteredVideos.filter(video => 
+                    video.title.toLowerCase().includes(searchText) || 
+                    video.description.toLowerCase().includes(searchText) ||
+                    video.categoryCn.toLowerCase().includes(searchText)
+                );
+            }
+
+            // 渲染筛选后的列表
+            renderVideoList(filteredVideos);
+        }
+
+        /**
+         * 保存播放历史到本地存储
+         * @param {Object} video - 视频对象
+         */
+        function savePlayHistory(video) {
+            const history = JSON.parse(localStorage.getItem('videoPlayHistory') || '[]');
+            // 移除已存在的相同视频
+            const newHistory = history.filter(item => item.id !== video.id);
+            // 添加到开头
+            newHistory.unshift({
+                id: video.id,
+                title: video.title,
+                category: video.categoryCn,
+                playTime: new Date().toLocaleString()
+            });
+            // 只保留最近10条
+            if (newHistory.length > 10) {
+                newHistory.pop();
+            }
+            localStorage.setItem('videoPlayHistory', JSON.stringify(newHistory));
+        }
+
+        // ======================== 事件监听 ========================
+
+        // 筛选按钮点击事件
+        elements.filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 更新按钮激活状态
+                elements.filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // 筛选视频
+                filterVideos(btn.getAttribute('data-category'), currentSearch);
+            });
+        });
+
+        // 搜索框输入事件
+        elements.searchInput.addEventListener('input', function() {
+            filterVideos(currentFilter, this.value);
+        });
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            // 初始渲染全部视频
+            filterVideos('all', '');
+
+            // 视频错误处理
+            elements.mainVideo.addEventListener('error', (e) => {
+                console.error('视频播放错误:', e);
+            });
+        });
+
+        // ======================== 额外功能 ========================
+        // 快捷键支持：空格键暂停/播放
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && document.activeElement !== elements.searchInput) {
+                e.preventDefault();
+                if (elements.mainVideo.paused) {
+                    elements.mainVideo.play();
+                } else {
+                    elements.mainVideo.pause();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

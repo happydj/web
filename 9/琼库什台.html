@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>琼库什台 - 天山深处的世外桃源</title>
+    <style>
+        /* --- 全局和基础样式 --- */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8fb;
+            /* 淡蓝色调，呼应天空和草原 */
+            color: #333;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #2a3b4c;
+            margin-top: 0;
+        }
+
+        /* --- 头部区域样式 --- */
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            padding: 25px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.8em;
+            color: #1a2a3a;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.3em;
+            color: #6c7a89;
+            margin: 0;
+        }
+
+        /* --- 英雄/横幅区域样式 --- */
+        .hero {
+            height: 70vh;
+            background-image: url('./img/img/琼库什台/5.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            /* 半透明遮罩，提升文字可读性 */
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            padding: 20px;
+        }
+
+        .hero h2 {
+            font-size: 3.5em;
+            margin: 0 0 25px 0;
+            color: #fff;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.5em;
+            margin: 0;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* --- 主要内容区域样式 --- */
+        .main-content {
+            padding: 70px 0;
+        }
+
+        .main-content h2 {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.2em;
+            position: relative;
+        }
+
+        .main-content h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #3498db;
+            margin: 20px auto 0;
+            border-radius: 2px;
+        }
+
+        .intro-text {
+            text-align: center;
+            max-width: 850px;
+            margin: 0 auto 70px auto;
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        /* --- 信息卡片区域样式 --- */
+        .info-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 35px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+            width: 320px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover img {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 30px;
+        }
+
+        .card-content h3 {
+            margin-bottom: 20px;
+            font-size: 1.6em;
+            color: #2a3b4c;
+        }
+
+        .card-content p {
+            color: #666;
+            font-size: 1.05em;
+            line-height: 1.6;
+        }
+
+        /* --- 页脚样式 --- */
+        footer {
+            background-color: #2a3b4c;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 50px 0;
+            margin-top: 70px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1.1em;
+        }
+
+        /* --- 响应式设计：适配手机屏幕 --- */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2em;
+            }
+
+            .hero h2 {
+                font-size: 2.5em;
+            }
+
+            .hero p {
+                font-size: 1.3em;
+            }
+
+            .main-content h2 {
+                font-size: 1.9em;
+            }
+
+            .card {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 头部区域 -->
+    <header>
+        <div class="container">
+            <h1>琼库什台</h1>
+            <p>一个被时光遗忘的草原村落</p>
+        </div>
+    </header>
+
+    <!-- 英雄/横幅区域 -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>邂逅云端之上的村落</h2>
+            <p>在乌孙古道的起点，感受哈萨克族的游牧生活与极致的自然风光</p>
+        </div>
+    </section>
+
+    <!-- 主要内容区域 -->
+    <main class="main-content">
+        <div class="container">
+            <h2>村落概览</h2>
+            <p class="intro-text">
+                琼库什台村，位于新疆伊犁哈萨克自治州特克斯县喀拉达拉镇，坐落在天山山脉深处，乌孙古道的北入口。这是一个以哈萨克族为主的牧业村，村内建筑多为木结构的“木刻楞”房屋，与周围的雪山、草原、森林融为一体，宛如童话世界。2010年，琼库什台村被列为中国历史文化名村，吸引着无数游客前来探寻这份原始与宁静。
+            </p>
+
+            <div class="info-cards">
+                <!-- 卡片一：自然风光 -->
+                <div class="card">
+                    <img src="./img/img/琼库什台/8.png" alt="琼库什台的草原风光">
+                    <div class="card-content">
+                        <h3>壮美自然风光</h3>
+                        <p>这里拥有无与伦比的草原景观，夏季绿草如茵，野花遍地，牛羊成群。远处是皑皑雪山，近处是茂密的云杉林，构成一幅绝美的立体画卷。</p>
+                    </div>
+                </div>
+
+                <!-- 卡片二：历史人文 -->
+                <div class="card">
+                    <img src="./img/img/琼库什台/10.png" alt="琼库什台的木屋">
+                    <div class="card-content">
+                        <h3>独特历史人文</h3>
+                        <p>作为乌孙古道的起点，琼库什台承载着深厚的历史。村内保存完好的木质建筑是游牧民族智慧的结晶，也是研究草原文化的活化石。</p>
+                    </div>
+                </div>
+
+                <!-- 卡片三：徒步探险 -->
+                <div class="card">
+                    <img src="./img/img/琼库什台/2.png" alt="乌孙古道徒步">
+                    <div class="card-content">
+                        <h3>乌孙古道起点</h3>
+                        <p>对于徒步爱好者而言，琼库什台是挑战世界级徒步路线——乌孙古道的起点。从这里出发，将踏上一段穿越雪山、湖泊和草原的史诗级旅程。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 琼库什台探索之旅 | 网页设计与开发</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

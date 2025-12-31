@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>王者荣耀英雄列表</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            background-color: #1a2130;
+            color: #fff;
+        }
+
+        .hero-container {
+            width: 1200px;
+            margin: 50px auto;
+            display: flex;
+        }
+
+        /* 左侧职业分类栏 */
+        .category-bar {
+            width: 180px;
+            background-color: #252d40;
+            border-radius: 8px 0 0 8px;
+            padding: 20px 0;
+        }
+
+        .category-item {
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .category-item:hover,
+        .category-item.active {
+            background-color: #3b82f6;
+        }
+
+        /* 右侧英雄展示区 */
+        .hero-content {
+            flex: 1;
+            background-color: #2f3850;
+            border-radius: 0 8px 8px 0;
+            padding: 20px;
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .filter-btn {
+            padding: 8px 15px;
+            background-color: #414c6b;
+            border: none;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .filter-btn.active {
+            background-color: #3b82f6;
+        }
+
+        /* 英雄卡片网格 */
+        .hero-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+        }
+
+        .hero-card {
+            background-color: #414c6b;
+            border-radius: 6px;
+            overflow: hidden;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-tags {
+            position: absolute;
+            top: 90px;
+            color: white;
+            font-weight: bold;
+            /* display: flex; */
+            justify-content: space-around;
+            width: 100%;
+            display: none;
+        }
+
+        .hero-card:hover .hero-tags {
+            display: flex;
+        }
+
+        .hero-img {
+            width: 100%;
+            height: 120px;
+            background-color: #64749c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #ddd;
+        }
+
+        .hero-img img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-name {
+            padding: 8px 0;
+            font-size: 14px;
+        }
+
+        .free-tag {
+            position: relative;
+            top: -115px;
+            left: 60px;
+            background-color: #ff6b35;
+            font-size: 12px;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hero-container">
+        <!-- 左侧职业分类 -->
+        <div class="category-bar">
+            <div class="category-item active" onclick="changeHero(0)">全部英雄</div>
+            <div class="category-item" onclick="changeHero(1)">坦克</div>
+            <div class="category-item" onclick="changeHero(2)"> 战士</div>
+            <div class="category-item" onclick="changeHero(3)">刺客</div>
+            <div class="category-item" onclick="changeHero(4)">法师</div>
+            <div class="category-item" onclick="changeHero(5)">射手</div>
+            <div class="category-item" onclick="changeHero(6)">辅助</div>
+        </div>
+        <!-- 英雄内容 -->
+        <div class="hero-content">
+            <div class="filter-bar">
+                <button class="filter-btn active" onclick="heroDataSort(0)">全部</button>
+                <button class="filter-btn" onclick="heroDataSort(1)">熟练度</button>
+                <button class="filter-btn" onclick="heroDataSort(2)">价格</button>
+            </div>
+            <div class="hero-grid" id="hero">
+                <!-- <div class="hero-card">
+                    <div class="hero-img">阿古朵</div>
+                    <div class="hero-name">阿古朵</div>
+                </div>
+                <div class="hero-card">
+                    <div class="hero-img">阿轲</div>
+                    <div class="hero-name">阿轲</div>
+                </div>
+                <div class="hero-card">
+                    <div class="hero-img">安琪拉</div>
+                    <div class="hero-name">安琪拉</div>
+                </div>
+                <div class="hero-card">
+                    <div class="hero-img">白起</div>
+                    <div class="hero-name">白起</div>
+                </div>
+                <div class="hero-card">
+                    <div class="hero-img">百里守约</div>
+                    <div class="hero-name">百里守约</div>
+                </div>
+                <div class="hero-card">
+                    <div class="hero-img">扁鹊</div>
+                    <div class="hero-name">扁鹊</div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // javascript部分：页面动态效果
+        // 英雄数据
+        let heros = [
+            { "name": "韩信", "img": "./img/阿古朵.jpg", "type": "3", "proficiency": 5, "price": 13888 },
+            { "name": "貂蝉", "img": "./img/hero/diaochan.jpg", "type": "4", "proficiency": 4, "price": 13888 },
+            { "name": "吕布", "img": "./img/hero/lvbu.jpg", "type": "1", "proficiency": 3, "price": 18888 },
+            { "name": "公孙离", "img": "./img/hero/gongsunli.jpg", "type": "5", "proficiency": 5, "price": 13888 },
+            { "name": "牛魔", "img": "./img/hero/niumo.jpg", "type": "6", "proficiency": 2, "price": 13888 },
+            { "name": "曜", "img": "./img/hero/yao.jpg", "type": "2", "proficiency": 5, "price": 13888 },
+            { "name": "李白", "img": "./img/hero/libai.jpg", "type": "3", "proficiency": 5, "price": 18888 },
+            { "name": "王昭君", "img": "./img/hero/wangzhaojun.jpg", "type": "4", "proficiency": 3, "price": 8888 },
+            { "name": "张飞", "img": "./img/hero/zhangfei.jpg", "type": "6", "proficiency": 2, "price": 13888 },
+            { "name": "后羿", "img": "./img/hero/houyi.jpg", "type": "5", "proficiency": 1, "price": 8888 },
+            { "name": "铠", "img": "./img/hero/kai.jpg", "type": "2", "proficiency": 4, "price": 13888 },
+            { "name": "程咬金", "img": "./img/hero/chengyaojin.jpg", "type": "1", "proficiency": 2, "price": 8888 },
+            { "name": "兰陵王", "img": "./img/hero/lanlingwang.jpg", "type": "3", "proficiency": 4, "price": 13888 },
+            { "name": "不知火舞", "img": "./img/hero/buzhihuowu.jpg", "type": "4", "proficiency": 5, "price": 0 },
+            { "name": "蔡文姬", "img": "./img/hero/caiwenji.jpg", "type": "6", "proficiency": 1, "price": 13888 },
+            { "name": "鲁班七号", "img": "./img/hero/lubanqihao.jpg", "type": "5", "proficiency": 1, "price": 8888 },
+            { "name": "孙策", "img": "./img/hero/sunce.jpg", "type": "2", "proficiency": 3, "price": 13888 },
+            { "name": "庄周", "img": "./img/hero/zhuangzhou.jpg", "type": "1", "proficiency": 2, "price": 8888 },
+            { "name": "阿轲", "img": "./img/hero/ake.jpg", "type": "3", "proficiency": 4, "price": 13888 },
+            { "name": "安琪拉", "img": "./img/hero/anqila.jpg", "type": "4", "proficiency": 1, "price": 8888 },
+            { "name": "明世隐", "img": "./img/hero/mingshiyin.jpg", "type": "6", "proficiency": 3, "price": 13888 },
+            { "name": "孙尚香", "img": "./img/hero/sunshangxiang.jpg", "type": "5", "proficiency": 4, "price": 13888 },
+            { "name": "典韦", "img": "./img/hero/dianwei.jpg", "type": "2", "proficiency": 2, "price": 8888 },
+            { "name": "白起", "img": "./img/hero/baiqi.jpg", "type": "1", "proficiency": 3, "price": 13888 },
+            { "name": "孙悟空", "img": "./img/hero/sunwukong.jpg", "type": "3", "proficiency": 5, "price": 18888 },
+            { "name": "甄姬", "img": "./img/hero/zhenji.jpg", "type": "4", "proficiency": 2, "price": 8888 },
+            { "name": "瑶", "img": "./img/hero/yao_1.jpg", "type": "6", "proficiency": 4, "price": 13888 },
+            { "name": "马可波罗", "img": "./img/hero/makeboluo.jpg", "type": "5", "proficiency": 5, "price": 13888 },
+            { "name": "夏侯惇", "img": "./img/hero/xiahoudun.jpg", "type": "2", "proficiency": 3, "price": 13888 },
+            { "name": "项羽", "img": "./img/hero/xiangyu.jpg", "type": "1", "proficiency": 2, "price": 8888 },
+            { "name": "百里玄策", "img": "./img/hero/bailixuance.jpg", "type": "3", "proficiency": 5, "price": 18888 },
+            { "name": "上官婉儿", "img": "./img/hero/shangguanwaner.jpg", "type": "4", "proficiency": 5, "price": 13888 },
+            { "name": "太乙真人", "img": "./img/hero/taiyizhenren.jpg", "type": "6", "proficiency": 3, "price": 13888 },
+            { "name": "伽罗", "img": "./img/hero/jialuo.jpg", "type": "5", "proficiency": 4, "price": 13888 },
+            { "name": "李信", "img": "./img/hero/lixin.jpg", "type": "2", "proficiency": 5, "price": 13888 },
+            { "name": "廉颇", "img": "./img/hero/lianpo.jpg", "type": "1", "proficiency": 2, "price": 8888 },
+            { "name": "裴擒虎", "img": "./img/hero/peiqinhu.jpg", "type": "3", "proficiency": 5, "price": 13888 },
+            { "name": "干将莫邪", "img": "./img/hero/ganjiangmoye.jpg", "type": "4", "proficiency": 4, "price": 13888 },
+            { "name": "鬼谷子", "img": "./img/hero/guiguzi.jpg", "type": "6", "proficiency": 4, "price": 13888 },
+            { "name": "黄忠", "img": "./img/hero/huangzhong.jpg", "type": "5", "proficiency": 3, "price": 13888 },
+            { "name": "亚瑟", "img": "./img/hero/yase.jpg", "type": "2", "proficiency": 1, "price": 0 },
+            { "name": "刘禅", "img": "./img/hero/liushan.jpg", "type": "1", "proficiency": 1, "price": 8888 },
+            { "name": "橘右京", "img": "./img/hero/juyoujing.jpg", "type": "3", "proficiency": 4, "price": 0 },
+            { "name": "妲己", "img": "./img/hero/da ji.jpg", "type": "4", "proficiency": 1, "price": 0 },
+            { "name": "大乔", "img": "./img/hero/daqiao.jpg", "type": "6", "proficiency": 3, "price": 13888 },
+            { "name": "虞姬", "img": "./img/hero/yuji.jpg", "type": "5", "proficiency": 3, "price": 13888 },
+            { "name": "蒙恬", "img": "./img/hero/mengtian.jpg", "type": "2", "proficiency": 4, "price": 13888 },
+            { "name": "司马懿", "img": "./img/hero/simayi.jpg", "type": "4", "proficiency": 5, "price": 18888 }
+        ];
+
+        let heroType = 0
+        let heroSort = 0
+        let showHero = []
+        // 获取标签
+        // 英雄展示部分
+        var hreo = document.getElementById("hero")
+        var buts = document.querySelectorAll(".category-item")
+        var filterbuts = document.querySelectorAll(".filter-btn")
+        // 按钮点击方法
+        function changeHero(type) {
+            heroType = type
+            // 删除所有按钮的active
+            buts.forEach(item => item.classList.remove("active"))
+            // 给自己加active
+            buts[type].classList.add("active")
+            // 清空英雄
+            showHero = []
+            heros.forEach((item, index) => {
+                if (heroType == 0 || item.type == heroType) {
+                    showHero.push(item)
+                }
+
+            })
+            heroDataSort(heroSort)
+
+        }
+
+        // 排序的方法
+        function heroDataSort(type) {
+            heroSort = type
+            filterbuts.forEach(item => item.classList.remove("active"))
+            filterbuts[type].classList.add("active")
+
+            // 根据type不同，排序
+            if (type == 1) {
+                showHero = showHero.sort((item1, item2) => {
+                    return item2.proficiency - item1.proficiency
+                })
+
+            } else if (type == 2) {
+                showHero = showHero.sort((item1, item2) => {
+                    return item2.price - item1.price
+                })
+
+            }
+            console.log(showHero)
+            var hers_html = ""
+            showHero.forEach(item => {
+                hers_html += `
+                <div class="hero-card">
+                            <div class="hero-img">  <img src="${item.img}">    </div>
+                            <div class="hero-tags"> <span class="proficiency">熟练度：${item.proficiency}</span>   <span class="price">￥${item.price}</span>   </div>
+                            <div class="hero-name">
+                              ${item.name}
+                            </div>
+                        </div>`
+            })
+
+            hreo.innerHTML = hers_html
+        }
+
+        changeHero(0)
+
+
+
+    </script>
+</body>
+
+</html>
+</body>
+
+</html>

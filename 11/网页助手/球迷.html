@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>全球足球球迷狂欢 | 无国界的足球热爱</title>
+  <!-- 引入外部资源 -->
+  <script src="../js/3.4.17.js"></script>
+  <!-- <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script> -->
+
+  <!-- Tailwind 配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#E30613', // 足球主题红色
+            secondary: '#0A2463', // 深蓝色
+            accent: '#FFD100', // 金色
+            dark: '#1A1A1A',
+            light: '#F8F9FA'
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            display: ['Montserrat', 'sans-serif']
+          },
+        },
+      }
+    }
+  </script>
+
+  <!-- 自定义样式 -->
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .bg-gradient-fan {
+        background: linear-gradient(135deg, #E30613 0%, #0A2463 100%);
+      }
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    /* 全局样式 */
+    body {
+      scroll-behavior: smooth;
+    }
+    
+    .hero-video {
+      filter: brightness(0.6);
+    }
+    
+    .fan-card:hover {
+      transform: translateY(-8px);
+      transition: all 0.3s ease;
+    }
+    
+    .stadium-bg {
+      background-image: url('https://picsum.photos/id/1068/1920/1080');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+  </style>
+</head>
+
+
+<!-- 精彩瞬间画廊 -->
+<section id="gallery" class="py-20 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-display font-bold text-secondary mb-4">
+        球迷狂欢精彩瞬间
+      </h2>
+      <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+        定格那些令人热血沸腾的时刻，足球带来的快乐与激情
+      </p>
+    </div>
+
+    <!-- 图片画廊 -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow">
+        <img src="../img/agt.jpeg" alt="球迷庆祝"
+          class="w-full h-64 object-cover hover:scale-110 transition-transform duration-500">
+      </div>
+      <div class="overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow">
+        <img src="../img/bx.jpeg" alt="球迷庆祝"
+          class="w-full h-64 object-cover hover:scale-110 transition-transform duration-500">
+      </div>
+      <div class="overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow">
+        <img src="../img/mlg.jpeg" alt="球迷庆祝"
+          class="w-full h-64 object-cover hover:scale-110 transition-transform duration-500">
+      </div>
+      <div class="overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow">
+        <img src="../img/xby.jpg" alt="球迷庆祝"
+          class="w-full h-64 object-cover hover:scale-110 transition-transform duration-500">
+      </div>
+      <div class="overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow">
+        <img src="../img/qm.jpeg" alt="球迷庆祝"
+          class="w-full h-64 object-cover hover:scale-110 transition-transform duration-500">
+      </div>
+      <div class="overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow">
+        <img src="../img/pty.jpg" alt="球迷庆祝"
+          class="w-full h-64 object-cover hover:scale-110 transition-transform duration-500">
+      </div>
+    </div>
+
+    <!-- 互动区域 -->
+    <div class="mt-16 bg-gradient-fan rounded-xl shadow-lg p-8 text-white">
+      <div class="max-w-3xl mx-auto text-center">
+        <h3 class="font-display font-bold text-2xl mb-4">分享你的足球故事</h3>
+        <p class="mb-8">无论你来自哪里，无论你支持哪支球队，你的故事都值得被倾听</p>
+        <form class="flex flex-col md:flex-row gap-4 max-w-xl mx-auto">
+          <input type="text" placeholder="你的名字"
+            class="flex-1 px-4 py-3 rounded-full text-dark focus:outline-none focus:ring-2 focus:ring-accent">
+          <textarea placeholder="分享你的足球故事..."
+            class="flex-1 px-4 py-3 rounded-lg text-dark focus:outline-none focus:ring-2 focus:ring-accent h-12"></textarea>
+          <button type="submit"
+            class="bg-accent hover:bg-accent/90 text-secondary font-bold py-3 px-8 rounded-full transition-all transform hover:scale-105">
+            提交故事 <i class="fa fa-paper-plane ml-2"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 返回顶部按钮 -->
+<button id="backToTop"
+  class="fixed bottom-8 right-8 bg-primary hover:bg-primary/90 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg z-50 hidden transition-all">
+  <i class="fa fa-arrow-up"></i>
+</button>
+
+</script>
+</body>
+
+</html>

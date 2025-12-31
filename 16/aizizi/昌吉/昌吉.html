@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>昌吉 · 天山脚下的回族之乡</title>
+<style>
+  /* ========== 昌吉专属色彩系统优化 ========== */
+  :root {
+    --gold: #FFD166;          /* 更柔和的金黄色 */
+    --gold-glow: rgba(255, 209, 102, 0.3);
+    --green: #4CAF50;         /* 更明亮的草原绿 */
+    --green-glow: rgba(76, 175, 80, 0.2);
+    --blue: #42A5F5;          /* 更清新的天池蓝 */
+    --blue-glow: rgba(66, 165, 245, 0.2);
+    --red: #EF5350;           /* 更柔和的喜庆红 */
+    --red-glow: rgba(239, 83, 80, 0.2);
+    --snow: #F5F7FA;
+    --glass: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --blur: blur(20px);
+    --text-primary: #FFFFFF;
+    --shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 30px 90px rgba(0, 0, 0, 0.4);
+    --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  * { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+  }
+  
+  html { 
+    scroll-behavior: smooth; 
+    scroll-padding-top: 100px;
+  }
+  
+  body {
+    background: linear-gradient(135deg, #0D2818 0%, #1B5E20 25%, #01579B 75%, #0D47A1 100%);
+    background-attachment: fixed;
+    color: var(--text-primary);
+    font-family: 'Noto Serif SC', 'ZCOOL XiaoWei', 'Microsoft YaHei', serif;
+    overflow-x: hidden; 
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+  
+  /* ========== 优雅的渐变覆盖层 ========== */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(circle at 20% 50%, rgba(255, 209, 102, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 80% 20%, rgba(66, 165, 245, 0.1) 0%, transparent 40%),
+      radial-gradient(circle at 40% 80%, rgba(76, 175, 80, 0.1) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: -1;
+  }
+  
+  section { 
+    width: 100%; 
+    max-width: 1400px; 
+    margin: 0 auto; 
+    padding: 150px 40px; 
+    position: relative; 
+  }
+  
+  img { 
+    max-width: 100%; 
+    height: auto;
+    display: block; 
+    border-radius: 12px;
+  }
+  
+  /* ========== 优化的顶部导航 ========== */
+  nav { 
+    position: fixed; 
+    top: 0; 
+    width: 100%; 
+    z-index: 1000;
+    background: linear-gradient(90deg, 
+      rgba(13, 40, 24, 0.9) 0%, 
+      rgba(27, 94, 32, 0.85) 50%, 
+      rgba(13, 71, 161, 0.9) 100%);
+    backdrop-filter: var(--blur); 
+    border-bottom: 1px solid var(--glass-border);
+    transition: var(--transition); 
+    padding: 20px 0;
+  }
+  
+  nav.scrolled { 
+    padding: 12px 0; 
+    background: rgba(13, 40, 24, 0.95);
+    border-bottom: 1px solid var(--gold);
+  }
+  
+  .nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+  
+  nav ul { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    list-style: none; 
+    gap: 50px; 
+  }
+  
+  nav a { 
+    color: var(--text-primary); 
+    text-decoration: none; 
+    font-weight: 600;
+    padding: 14px 28px; 
+    border-radius: 30px; 
+    transition: var(--transition);
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+    position: relative; 
+    overflow: hidden; 
+    font-size: 1.1em;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid transparent;
+  }
+  
+  nav a::before {
+    content: ''; 
+    position: absolute; 
+    inset: 0;
+    background: linear-gradient(45deg, var(--gold), var(--red));
+    opacity: 0; 
+    transition: var(--transition); 
+    z-index: -1;
+  }
+  
+  nav a::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    transform: translateY(100%);
+    transition: var(--transition);
+  }
+  
+  nav a:hover::before,
+  nav a.active::before { 
+    opacity: 0.2; 
+  }
+  
+  nav a:hover,
+  nav a.active { 
+    transform: translateY(-5px); 
+    box-shadow: 0 15px 40px var(--gold-glow);
+    border-color: var(--gold);
+  }
+  
+  nav a:hover::after {
+    transform: translateY(0);
+  }
+  
+  nav a span {
+    transition: transform 0.3s ease;
+  }
+  
+  nav a:hover span {
+    transform: scale(1.2);
+  }
+  
+  /* ========== 优化的金花粒子系统 ========== */
+  #particles { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    pointer-events: none; 
+    z-index: 1; 
+  }
+  
+  /* ========== 优雅的首屏设计 ========== */
+  .hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 0 40px;
+    overflow: hidden;
+  }
+  
+  .hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+                url(./9.JPG) center/cover;
+    filter: brightness(0.8);
+    animation: bgPan 30s infinite alternate ease-in-out;
+  }
+  
+  @keyframes bgPan {
+    0% { transform: scale(1) rotate(0deg); }
+    100% { transform: scale(1.1) rotate(1deg); }
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 1200px;
+  }
+  
+  .hero-title h1 {
+    font-size: clamp(3rem, 8vw, 5rem);
+    margin-bottom: 30px;
+    background: linear-gradient(45deg, var(--gold), var(--snow), var(--blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900;
+    line-height: 1.2;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  .hero-subtitle {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    margin-bottom: 50px;
+    opacity: 0.9;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+  
+  .hero-scroll {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .hero-scroll span {
+    font-size: 0.9rem;
+    opacity: 0.7;
+  }
+  
+  .hero-scroll::after {
+    content: '';
+    width: 2px;
+    height: 50px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(10px); }
+  }
+  
+  /* ========== 优化的文化展示 ========== */
+  .culture-section {
+    text-align: center;
+  }
+  
+  .section-title {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    margin-bottom: 80px;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(to right, var(--gold), var(--red));
+    border-radius: 2px;
+  }
+  
+  .culture-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    margin-top: 60px;
+  }
+  
+  .culture-card {
+    background: var(--glass);
+    backdrop-filter: var(--blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .culture-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, var(--gold), var(--red));
+    transform: scaleX(0);
+    transition: transform 0.6s ease;
+  }
+  
+  .culture-card:hover::before {
+    transform: scaleX(1);
+  }
+  
+  .culture-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--gold);
+  }
+  
+  .culture-icon {
+    font-size: 3.5rem;
+    margin-bottom: 25px;
+    display: block;
+    transition: var(--transition);
+  }
+  
+  .culture-card:hover .culture-icon {
+    transform: scale(1.2) rotate(5deg);
+  }
+  
+  .culture-card h3 {
+    font-size: 1.5rem;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  
+  /* ========== 优化的景区展示 ========== */
+  .attraction-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 40px;
+    margin-top: 60px;
+  }
+  
+  .attraction-card {
+    background: var(--glass);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: var(--transition);
+    position: relative;
+    border: 1px solid var(--glass-border);
+  }
+  
+  .attraction-card:hover {
+    transform: translateY(-15px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--gold);
+  }
+  
+  .attraction-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+  }
+  
+  .attraction-card:hover .attraction-image {
+    transform: scale(1.05);
+  }
+  
+  .attraction-info {
+    padding: 30px;
+    position: relative;
+  }
+  
+  .attraction-info h3 {
+    font-size: 1.4rem;
+    color: var(--gold);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .attraction-tag {
+    display: inline-block;
+    padding: 5px 15px;
+    background: rgba(255, 209, 102, 0.1);
+    border: 1px solid var(--gold);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin-top: 15px;
+  }
+  
+  /* ========== 优化的美食展示 ========== */
+  .food-section {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .food-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, 
+      rgba(255, 209, 102, 0.05) 0%, 
+      rgba(239, 83, 80, 0.05) 100%);
+    pointer-events: none;
+  }
+  
+  .food-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin-top: 60px;
+    position: relative;
+  }
+  
+  .food-card {
+    background: var(--glass);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: var(--transition);
+    border: 1px solid var(--glass-border);
+  }
+  
+  .food-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--gold);
+  }
+  
+  .food-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .food-content {
+    padding: 25px;
+  }
+  
+  .food-content h3 {
+    color: var(--gold);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .food-price {
+    color: var(--red);
+    font-weight: bold;
+  }
+  
+  /* ========== 优化的特产展示 ========== */
+  .gift-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-top: 60px;
+  }
+  
+  .gift-card {
+    background: var(--glass);
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    transition: var(--transition);
+    border: 1px solid var(--glass-border);
+  }
+  
+  .gift-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--gold);
+    background: rgba(255, 255, 255, 0.15);
+  }
+  
+  .gift-icon {
+    font-size: 3.5rem;
+    margin-bottom: 25px;
+    transition: var(--transition);
+  }
+  
+  .gift-card:hover .gift-icon {
+    transform: scale(1.2) rotate(10deg);
+  }
+  
+  .gift-card h3 {
+    color: var(--gold);
+    margin-bottom: 15px;
+  }
+  
+  /* ========== 优化的交通信息 ========== */
+  .transport-section {
+    position: relative;
+  }
+  
+  .transport-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, 
+      rgba(255, 209, 102, 0.1), 
+      rgba(66, 165, 245, 0.1));
+    border-radius: 40px;
+    pointer-events: none;
+  }
+  
+  .transport-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin-top: 60px;
+    position: relative;
+  }
+  
+  .transport-card {
+    background: var(--glass);
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    border: 1px solid var(--glass-border);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .transport-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+  }
+  
+  .transport-card:hover::before {
+    transform: translateX(100%);
+  }
+  
+  .transport-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--blue);
+  }
+  
+  .transport-icon {
+    font-size: 3.5rem;
+    margin-bottom: 25px;
+    transition: var(--transition);
+  }
+  
+  .transport-card:hover .transport-icon {
+    transform: scale(1.2);
+  }
+  
+  .transport-card h3 {
+    color: var(--blue);
+    margin-bottom: 20px;
+  }
+  
+  /* ========== 优化的页脚 ========== */
+  footer {
+    background: linear-gradient(to bottom, rgba(13, 40, 24, 0.9), rgba(13, 40, 24, 1));
+    padding: 100px 40px 50px;
+    margin-top: 100px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, var(--gold), var(--green), var(--blue), var(--red));
+  }
+  
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 60px;
+  }
+  
+  .footer-column h3 {
+    color: var(--gold);
+    margin-bottom: 30px;
+    font-size: 1.3rem;
+  }
+  
+  .footer-column p {
+    margin-bottom: 15px;
+    opacity: 0.8;
+  }
+  
+  .social-links {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+  }
+  
+  .social-links a {
+    width: 50px;
+    height: 50px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    text-decoration: none;
+    transition: var(--transition);
+  }
+  
+  .social-links a:hover {
+    background: var(--gold);
+    color: var(--snow);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px var(--gold-glow);
+  }
+  
+  .copyright {
+    text-align: center;
+    margin-top: 80px;
+    padding-top: 30px;
+    border-top: 1px solid var(--glass-border);
+    opacity: 0.7;
+    font-size: 0.9rem;
+  }
+  
+  /* ========== 响应式设计 ========== */
+  @media (max-width: 1024px) {
+    section {
+      padding: 120px 30px;
+    }
+    
+    nav ul {
+      gap: 20px;
+    }
+    
+    nav a {
+      padding: 12px 20px;
+      font-size: 1em;
+    }
+    
+    .hero-content {
+      padding: 0 20px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    section {
+      padding: 100px 20px;
+    }
+    
+    .nav-container {
+      padding: 0 20px;
+    }
+    
+    nav ul {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    nav a {
+      padding: 10px 15px;
+      font-size: 0.9em;
+    }
+    
+    .hero-title h1 {
+      font-size: 2.5rem;
+    }
+    
+    .culture-grid,
+    .attraction-grid,
+    .food-grid,
+    .gift-grid,
+    .transport-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 60px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .hero {
+      height: 80vh;
+    }
+    
+    .hero-title h1 {
+      font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.1rem;
+    }
+    
+    section {
+      padding: 80px 15px;
+    }
+  }
+  
+  /* ========== 动画效果 ========== */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .float-animation {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .pulse {
+    animation: pulse 2s ease-in-out infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+  
+  /* ========== 加载动画优化 ========== */
+  .loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0D2818, #1B5E20, #01579B);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 1s ease-out;
+  }
+  
+  .loader.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .loader-content {
+    text-align: center;
+  }
+  
+  .loader-logo {
+    width: 120px;
+    height: 120px;
+    position: relative;
+    margin-bottom: 30px;
+  }
+  
+  .loader-logo::before {
+    content: '🌸';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    animation: spin 3s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+    50% { transform: translate(-50%, -50%) rotate(180deg) scale(1.2); }
+    100% { transform: translate(-50%, -50%) rotate(360deg) scale(1); }
+  }
+  
+  .loader-text {
+    color: var(--gold);
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+  }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600;700;900&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- 加载动画 -->
+<div class="loader" id="loader">
+  <div class="loader-content">
+    <div class="loader-logo"></div>
+    <div class="loader-text">花儿昌吉</div>
+  </div>
+</div>
+
+<canvas id="particles"></canvas>
+
+<!-- 顶部导航 -->
+<nav id="navbar">
+  <div class="nav-container">
+    <ul>
+      <li><a href="#hero" class="nav-link active" data-text="">
+        <span>🏔️</span> 天池盛景</a></li>
+      <li><a href="#culture" class="nav-link" data-text="">
+        <span>🎭</span> 回族风情</a></li>
+      <li><a href="#attractions" class="nav-link" data-text="">
+        <span>🌾</span> 天山画廊</a></li>
+      <li><a href="#food" class="nav-link" data-text="">
+        <span>🥘</span> 昌吉味道</a></li>
+      <li><a href="#gifts" class="nav-link" data-text=" ">
+        <span>🎁</span> 昌吉礼物</a></li>
+      <li><a href="#transport" class="nav-link" data-text="">
+        <span>🚗</span> 行在昌吉</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- 首屏 -->
+<section id="hero" class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-title">
+      <h1>昌吉 · 天山脚下回族乡</h1>
+    </div>
+    <p class="hero-subtitle">天池碧水映雪峰，花儿悠扬唱回疆</p>
+  </div>
+  <div class="hero-scroll">
+    <span>向下滑动探索</span>
+  </div>
+</section>
+
+<!-- 文化展示 -->
+<section id="culture" class="fade-in culture-section">
+  <h2 class="section-title">回族风情 · 非遗传承</h2>
+  <div class="culture-grid">
+    <div class="culture-card">
+      <div class="culture-icon">🎵</div>
+      <h3>新疆花儿</h3>
+      <p>国家级非物质文化遗产，回族山歌即兴对唱，高亢嘹亮，在天山南北广为传唱。</p>
+    </div>
+    
+    <div class="culture-card">
+      <div class="culture-icon">🍽️</div>
+      <h3>九碗三行宴</h3>
+      <p>回族传统宴席，九碗菜呈"三三不断"阵型，寓意吉祥团圆，体现了回族饮食文化精髓。</p>
+    </div>
+    
+    <div class="culture-card">
+      <div class="culture-icon">🧵</div>
+      <h3>回族刺绣</h3>
+      <p>"回绣"色彩清雅，以牡丹团花为纹，广泛应用于帽饰、枕顶、帐沿等生活用品。</p>
+    </div>
+    
+  </div>
+</section>
+
+<!-- 景区展示 -->
+<section id="attractions" class="fade-in">
+  <h2 class="section-title">山地草原 · 天山画廊</h2>
+  <div class="attraction-grid">
+    <div class="attraction-card">
+      <img src="./1.JPG" alt="天山天池" class="attraction-image">
+      <div class="attraction-info">
+        <h3><span>🏔️</span> 天山天池</h3>
+        <p>世界自然遗产，雪峰、云杉、碧湖同框，传说中的王母瑶池所在地。</p>
+        <div class="attraction-tag">世界遗产</div>
+      </div>
+    </div>
+    
+    <div class="attraction-card">
+      <img src="./2.JPG" alt="江布拉克" class="attraction-image">
+      <div class="attraction-info">
+        <h3><span>🌾</span> 江布拉克</h3>
+        <p>天山麦海，万亩旱田随山起伏，金色麦浪一直延伸到雪山脚下。</p>
+        <div class="attraction-tag">摄影胜地</div>
+      </div>
+    </div>
+    
+    <div class="attraction-card">
+      <img src="./3.JPG" alt="硫磺沟丹霞" class="attraction-image">
+      <div class="attraction-info">
+        <h3><span>🎨</span> 硫磺沟丹霞</h3>
+        <p>百里彩色山脊，赭红、橙黄、黛青交织，被誉为"新疆的调色板"。</p>
+        <div class="attraction-tag">自然奇观</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 美食展示 -->
+<section id="food" class="fade-in food-section">
+  <h2 class="section-title">昌吉味道 · 回疆盛宴</h2>
+  <div class="food-grid">
+    <div class="food-card">
+      <img src="./4.JPG" alt="九碗三行" class="food-image">
+      <div class="food-content">
+        <h3>九碗三行子 <span class="food-price"></span></h3>
+        <p>蒸炖烧三法并用，九碗呈"三三不断"，是回族最高待客礼仪。</p>
+      </div>
+    </div>
+    
+    <div class="food-card">
+      <img src="./5.JPG" alt="粉汤" class="food-image">
+      <div class="food-content">
+        <h3>回族粉汤 <span class="food-price"></span></h3>
+        <p>绿豆粉皮、羊肉、西红柿、木耳烩一锅，酸辣开胃，配油香一绝。</p>
+      </div>
+    </div>
+    
+    <div class="food-card">
+      <img src="./6.JPG" alt="烤包子" class="food-image">
+      <div class="food-content">
+        <h3>昌吉烤包子 <span class="food-price"></span></h3>
+        <p>馕坑炭火烤到金黄，牛肉洋葱馅汁水丰盈，一口爆汁。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 特产展示 -->
+<section id="gifts" class="fade-in">
+  <h2 class="section-title">昌吉礼物 · 回疆手信</h2>
+  <div class="gift-grid">
+    <div class="gift-card">
+      <div class="gift-icon">🌾</div>
+      <h3>江布拉克黑麦</h3>
+      <p>高原旱田黑麦，低温慢熟，石磨面粉劲道飘香。</p>
+    </div>
+    
+    <div class="gift-card">
+      <div class="gift-icon">🐝</div>
+      <h3>天山黑蜂蜜</h3>
+      <p>海拔2000米野山花蜜，波美度42+，淡淡药草香。</p>
+    </div>
+    
+    <div class="gift-card">
+      <div class="gift-icon">🍇</div>
+      <h3>昌吉葡萄干</h3>
+      <p>无核白、香妃绿、黑加仑三色套装，日照充足甜到芯。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 交通信息 -->
+<section id="transport" class="fade-in transport-section">
+  <h2 class="section-title">抵达昌吉 · 丝路北道</h2>
+  <div class="transport-grid">
+    <div class="transport-card">
+      <div class="transport-icon">✈️</div>
+      <h3>空中丝路</h3>
+      <p><strong>乌鲁木齐地窝堡机场</strong></p>
+      <p>距昌吉市区仅30公里，机场大巴/打车30分钟直达。</p>
+    </div>
+    
+    <div class="transport-card">
+      <div class="transport-icon">🚄</div>
+      <h3>高铁丝路</h3>
+      <p><strong>昌吉站 / 乌鲁木齐站</strong></p>
+      <p>兰新高铁1小时到乌鲁木齐，2小时到吐鲁番。</p>
+    </div>
+    
+    <div class="transport-card">
+      <div class="transport-icon">🚗</div>
+      <h3>天山公路</h3>
+      <p><strong>S111 天山大道</strong></p>
+      <p>昌吉—天池—阜康—奇台景观大道，全年开放。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 页脚 -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-column">
+      <h3>昌吉文旅</h3>
+      <p>探索天山脚下的回族文化之乡</p>
+      <p>体验独特的自然风光与人文魅力</p>
+      <div class="social-links">
+        <a href="#">📱</a>
+        <a href="#">📷</a>
+        <a href="#">🎬</a>
+        <a href="#">📧</a>
+      </div>
+    </div>
+    
+
+    
+    <div class="footer-column">
+      <h3>最佳旅游时间</h3>
+      <p>春季(4-5月): 山花烂漫</p>
+      <p>夏季(6-8月): 避暑胜地</p>
+      <p>秋季(9-10月): 层林尽染</p>
+    </div>
+  </div>
+  
+  <div class="copyright">
+    <p>昌吉旅游攻略</p>
+    <p>天山脚下 · 花儿昌吉</p>
+  </div>
+</footer>
+
+<script>
+  // ========== 页面加载动画 ==========
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loader').classList.add('hidden');
+    }, 1800);
+  });
+
+  // ========== 优化粒子系统 ==========
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  
+  // 设置画布尺寸
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+  
+  // 创建粒子
+  const particles = [];
+  const particleCount = window.innerWidth < 768 ? 60 : 120;
+  
+  for (let i = 0; i < particleCount; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 4 + 1,
+      d: Math.random() * 1 + 0.5,
+      a: Math.random() * 1 - 0.5,
+      o: Math.random() * 0.6 + 0.2,
+      color: Math.random() > 0.7 ? '255, 209, 102' : 
+             Math.random() > 0.5 ? '76, 175, 80' : 
+             '66, 165, 245'
+    });
+  }
+  
+  // 绘制粒子
+  function drawParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${p.color}, ${p.o})`;
+      ctx.fill();
+      
+      // 移动粒子
+      p.y += p.d;
+      p.x += p.a;
+      
+      // 边界检查
+      if (p.y > canvas.height) {
+        p.y = -10;
+        p.x = Math.random() * canvas.width;
+      }
+      if (p.x > canvas.width) p.x = 0;
+      if (p.x < 0) p.x = canvas.width;
+    });
+    
+    requestAnimationFrame(drawParticles);
+  }
+  
+  drawParticles();
+
+  // ========== 导航滚动效果 ==========
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    if (window.scrollY > 100) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+    
+    // 导航高亮
+    const sections = document.querySelectorAll('section[id]');
+    let currentSection = '';
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 100;
+      const sectionHeight = section.clientHeight;
+      
+      if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+        currentSection = section.getAttribute('id');
+      }
+    });
+    
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${currentSection}`) {
+        link.classList.add('active');
+      }
+    });
+  });
+
+  // ========== 滚动动画 ==========
+  const observerOptions = { 
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+  };
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+  
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // ========== 平滑滚动 ==========
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      const targetId = this.getAttribute('href');
+      if (targetId === '#') return;
+      
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop - 80,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
+  // ========== 卡片悬停效果 ==========
+  document.querySelectorAll('.culture-card, .attraction-card, .food-card, .gift-card, .transport-card').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      card.style.transform = 'translateY(-10px) scale(1.02)';
+    });
+    
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'translateY(0) scale(1)';
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>青春校园 - 逐梦启航</title>
+    <script src="./taiwindcss.js"></script>
+    <script>
+        // 配置Tailwind自定义主题
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#22c55e', // 校园绿
+                        secondary: '#3b82f6', // 天空蓝
+                        neutral: '#f3f4f6', // 浅灰背景
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .hover-scale {
+                transition: transform 0.3s ease;
+            }
+            .hover-scale:hover {
+                transform: scale(1.03);
+            }
+        }
+    </style>
+</head>
+<body class="font-sans bg-neutral text-gray-800">
+    <!-- 导航栏 -->
+    <header class="fixed w-full top-0 z-50 bg-white/90 backdrop-blur-sm shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-2">
+                <i class="fa fa-graduation-cap text-primary text-2xl"></i>
+                <span class="text-xl font-bold text-primary">青春校园</span>
+            </a>
+            <!-- 桌面端导航 -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#home" class="font-medium hover:text-primary transition-colors"></a>
+                <a href="#scenery" class="font-medium hover:text-primary transition-colors"></a>
+                <a href="#news" class="font-medium hover:text-primary transition-colors"></a>
+                <a href="#activity" class="font-medium hover:text-primary transition-colors"></a>
+            </nav>
+            <!-- 移动端菜单按钮 -->
+            <button id="menuBtn" class="md:hidden text-gray-700 text-xl">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+        <!-- 移动端导航菜单 -->
+        <div id="mobileMenu" class="md:hidden hidden bg-white shadow-md">
+            <div class="container mx-auto px-4 py-3 flex flex-col gap-4">
+                <a href="#home" class="py-2 border-b border-gray-100 hover:text-primary transition-colors">首页</a>
+                <a href="#scenery" class="py-2 border-b border-gray-100 hover:text-primary transition-colors">校园风光</a>
+                <a href="#news" class="py-2 border-b border-gray-100 hover:text-primary transition-colors">校园资讯</a>
+                <a href="#activity" class="py-2 border-b border-gray-100 hover:text-primary transition-colors">校园活动</a>
+                <a href="#contact" class="py-2 hover:text-primary transition-colors">联系我们</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 首页横幅 -->
+    <section id="home" class="pt-24 md:pt-0 h-screen flex items-center relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="tupian/学校.png" alt="校园全景" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30"></div>
+        </div>
+        <div class="container mx-auto px-4 z-10 text-white">
+            <h1 class="text-[clamp(2.5rem,5vw,4rem)] font-bold leading-tight text-shadow mb-4">
+                美好校园<br>创建属于自己的美好青春
+            </h1>
+            <p class="text-[clamp(1rem,2vw,1.25rem)] mb-8 max-w-lg text-gray-100">
+                在这里，我们相遇、成长、绽放，用奋斗书写最美的青春篇章
+            </p>
+            <div class="flex flex-wrap gap-4">
+                <a href="选中首页界面.html" class="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-full font-medium transition-colors shadow-lg">
+                    探索校园
+                </a>

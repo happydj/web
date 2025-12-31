@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>星辰校园 - 首页</title>
+    <style>
+        /* 全局样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* 变量定义 */
+        :root {
+            --primary-color: #5b7bda; /* 主色调：淡蓝紫，校园清新感 */
+            --secondary-color: #f0f5ff; /* 辅助色：浅蓝 */
+            --text-color: #333; /* 文本主色 */
+            --light-text: #666; /* 文本浅色 */
+            --white: #fff; /* 白色 */
+            --gray: #f5f5f5; /* 灰色背景 */
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 阴影 */
+        }
+
+        body {
+            color: var(--text-color);
+            background-color: var(--white);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 100%;
+            padding: 0 15px;
+            margin: 0 auto;
+        }
+
+        /* 响应式容器宽度 */
+        @media (min-width: 576px) {
+            .container {
+                max-width: 540px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                max-width: 720px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .container {
+                max-width: 960px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1140px;
+            }
+        }
+
+        /* 导航栏样式 */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            z-index: 999;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .logo i {
+            margin-right: 8px;
+            font-size: 1.8rem;
+        }
+
+        .menu-toggle {
+            display: block;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-color);
+        }
+
+        .nav-menu {
+            position: fixed;
+            top: 70px;
+            left: -100%;
+            width: 80%;
+            height: calc(100vh - 70px);
+            background-color: var(--secondary-color);
+            padding: 20px;
+            transition: left 0.3s ease;
+        }
+
+        .nav-menu.active {
+            left: 0;
+        }
+
+        .nav-item {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(91, 123, 218, 0.2);
+        }
+
+        .nav-link {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #3a5fc8;
+            text-decoration: underline;
+        }
+
+        /* 大屏导航样式 */
+        @media (min-width: 768px) {
+            .menu-toggle {
+                display: none;
+            }
+
+            .nav-menu {
+                position: static;
+                width: auto;
+                height: auto;
+                background-color: transparent;
+                padding: 0;
+                display: flex;
+                align-items: center;
+            }
+
+            .nav-item {
+                margin-bottom: 0;
+                padding-bottom: 0;
+                border-bottom: none;
+                margin-left: 30px;
+            }
+
+            .nav-link {
+                font-size: 1rem;
+            }
+        }
+
+        /* 轮播图样式 */
+        .carousel {
+            margin-top: 70px;
+            width: 100%;
+            height: calc(100vh - 200px);
+            min-height: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .carousel-item.active {
+            opacity: 1;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-caption {
+            position: absolute;
+            bottom: 50px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: var(--white);
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+        }
+
+        .carousel-caption h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .carousel-caption p {
+            font-size: 1rem;
+            max-width: 80%;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .carousel {
+                height: 40vh;
+            }
+
+            .carousel-caption {
+                bottom: 0;
+                padding: 10px;
+            }
+
+            .carousel-caption h3 {
+                font-size: 1.2rem;
+            }
+
+            .carousel-caption p {
+                font-size: 0.8rem;
+                display: none;
+            }
+        }
+
+        /* 校园新闻样式 */
+        .news {
+            padding: 60px 0;
+            background-color: var(--gray);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .news-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .news-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .news-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .news-content {
+            padding: 20px;
+        }
+
+        .news-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .news-desc {
+            color: var(--light-text);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .news-date {
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        @media (min-width: 768px) {
+            .news-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 992px) {
+            .news-list {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* 校园风采样式 */
+        .gallery {
+            padding: 60px 0;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item img:hover {
+            transform: scale(1.05);
+        }
+
+        @media (min-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* 页脚样式 */
+        .footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 40px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-col h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h3::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary-color);
+        }
+
+        .footer-col p, .footer-col a {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            color: #e0e6ff;
+        }
+
+        .footer-col a:hover {
+            color: var(--white);
+            text-decoration: underline;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            line-height: 36px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            margin-right: 10px;
+            font-size: 1rem;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.8rem;
+            color: #e0e6ff;
+        }
+
+        @media (min-width: 768px) {
+            .footer-content {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* 图标字体简易实现（使用Unicode） */
+        .icon-graduation::before {
+            content: "\f19d";
+            font-family: "FontAwesome";
+        }
+
+        .icon-menu::before {
+            content: "\f0c9";
+            font-family: "FontAwesome";
+        }
+    </style>
+    <!-- 引入Font Awesome图标库 -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"> -->
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="#" class="logo">
+                    <i class="fa fa-graduation-cap"></i>
+                    美丽的校园
+                </a>
+                <div class="menu-toggle" id="menuToggle">
+                    <i class="fa fa-bars"></i>
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li class="nav-item">
+                        <a href="校园概况.html" class="nav-link active">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">校园概况</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">教学科研</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">学生工作</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">校园生活</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">联系我们</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 轮播图 -->
+    <div class="carousel" id="carousel">
+        <div class="carousel-item active">
+            <img src="首页界面图片/1.png" alt="校园全景">
+            <div class="carousel-caption">
+                <h3>美丽的博尔塔拉校园</h3>
+                <p>春有百花秋有月，夏有凉风冬有雪，四季皆景的校园风光</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="首页界面图片/图书股图片.png" alt="图书馆">
+            <div class="carousel-caption">
+                <h3>书香满园的图书馆</h3>
+                <p>知识的海洋，梦想的起航点，这里有无限的可能</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="首页界面图片/操场.png" alt="运动场">
+            <div class="carousel-caption">
+                <h3>活力四射的运动场</h3>
+                <p>青春无畏，逐梦扬威，在运动中绽放青春光彩</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 校园新闻 -->
+    <section class="news">
+        <div class="container">
+            <h2 class="section-title">校园新闻</h2>
+            <div class="news-list">
+                <div class="news-card">
+                    <img src="tupian/获奖图片.jpeg" alt="竞赛获奖" class="news-img">
+                    <div class="news-content">
+                        <h3 class="news-title">我校学子在全国大学生竞赛中斩获佳绩</h3>
+                        <p class="news-desc">近日，我校参赛团队凭借创新的项目设计和扎实的专业能力，获得国家级二等奖，省级一等奖...</p>
+                        <span class="news-date"></span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <img src="首页界面图片/校园文化节开幕.jpg" alt="文化艺术节" class="news-img">
+                    <div class="news-content">
+                        <h3 class="news-title">校园文化艺术节盛大开幕</h3>
+                        <p class="news-desc">我校2025年校园文化艺术节在主教练前隆重开幕。本届艺术节以"匠心逐梦新时代，携手奋进新征程"为主题，将开展文化艺术活动...</p>
+                        <span class="news-date"></span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <img src="tupian/讲座图片.png" alt="校友讲座" class="news-img">
+                    <div class="news-content">
+                        <h3 class="news-title">知名专家在我校开展专题讲座</h3>
+                        <p class="news-desc">著名专家来我校，为师生带来了题为"新时代青年的责任与担当"的专题讲座，现场座无虚席...</p>
+                        <span class="news-date"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 校园风采 -->
+    <section class="gallery">
+        <div class="container">
+            <h2 class="section-title">校园风采</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="tupian/环境1.jpg" alt="校园建筑">
+                </div>
+                <div class="gallery-item">
+                    <img src="tupian/环境2.jpg" alt="校园绿植">
+                </div>
+                <div class="gallery-item">
+                    <img src="tupian/环境3.jpg" alt="学生活动">
+                </div>
+                <div class="gallery-item">
+                    <img src="tupian/环境4.jpg" alt="校园晚会">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>学校信息</h3>
+                    <p>地址：新疆维吾尔自治区博尔塔拉蒙古自治州博乐市南城区赛里木湖路14号</p>
+                    <p>电话：0909-2328590</p>
+                    <p>邮箱：zpyx12345@126.com</p>
+                </div>
+                <div class="footer-col">
+                </div>
+                <div class="footer-col">
+                    <h3>关注我们</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fa fa-weibo"></i></a>
+                        <a href="#"><i class="fa fa-wechat"></i></a>
+                        <a href="#"><i class="fa fa-qq"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                    </div>
+                    <p>扫码关注微信公众号</p>
+                </div>
+            </div>
+            <div class="copyright">
+                
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单切换
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // 轮播图自动切换
+        const carouselItems = document.querySelectorAll('.carousel-item');
+        let currentIndex = 0;
+        function showCarouselItem(index) {
+            carouselItems.forEach(item => item.classList.remove('active'));
+            carouselItems[index].classList.add('active');
+        }
+        function nextCarouselItem() {
+            currentIndex = (currentIndex + 1) % carouselItems.length;
+            showCarouselItem(currentIndex);
+        }
+        setInterval(nextCarouselItem, 5000);
+
+        // 点击外部关闭移动端菜单
+        document.addEventListener('click', (e) => {
+            if (!menuToggle.contains(e.target) && !navMenu.contains(e.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // 滚动时导航栏背景调整（可选）
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.backgroundColor = 'var(--white)';
+            }
+        });
+    </script>
+</body>
+</html>

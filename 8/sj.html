@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校园导航 - 明德学院</title>
+    <!-- 基础样式 + 图标 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 高德地图API（替换为自己的Key） -->
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=你的高德地图APIKey"></script>
+
+    <script>
+        // 自定义主题
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        campus: {
+                            primary: '#2A6DF8', // 校色-蓝
+                            secondary: '#36B37E', // 辅助色-绿
+                            light: '#F5F8FF', // 浅背景
+                            dark: '#1E293B' // 文字色
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .card-hover {
+                @apply transition-all duration-300 hover:translate-y-[-5px] hover:shadow-lg;
+            }
+            .nav-active {
+                @apply text-campus-primary border-b-2 border-campus-primary;
+            }
+            .btn-primary {
+                @apply bg-campus-primary text-white px-4 py-2 rounded-lg hover:bg-campus-primary/90 transition-colors;
+            }
+        }
+    </style>
+</head>
+<body class="bg-campus-light text-campus-dark">
+    <!-- 顶部导航 -->
+    <header class="sticky top-0 z-50 bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <!-- 校徽+校名 -->
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-campus-primary rounded-lg flex items-center justify-center text-white">
+                    <i class="fa-solid fa-school text-xl"></i>
+                </div>
+                <h1 class="text-lg font-bold">明德学院</h1>
+            </div>
+
+            <!-- 桌面端导航 -->
+            <nav class="hidden md:flex items-center gap-6">
+                <a href="#map" class="font-medium nav-active">校园地图</a>
+                <a href="#buildings" class="font-medium hover:text-campus-primary">楼宇导航</a>
+                <a href="#services" class="font-medium hover:text-campus-primary">校园服务</a>
+                <a href="#contact" class="font-medium hover:text-campus-primary">联系我们</a>
+            </nav>
+
+            <!-- 搜索框 -->
+            <div class="hidden md:flex items-center bg-campus-light rounded-full px-3 py-1.5 gap-2">
+                <i class="fa-solid fa-search text-gray-400"></i>
+                <input type="text" placeholder="搜索楼宇/服务" class="bg-transparent outline-none text-sm w-40" id="searchInput">
+            </div>
+
+            <!-- 移动端菜单按钮 -->
+            <button class="md:block md:hidden text-xl" id="menuBtn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- 移动端导航菜单 -->
+        <div class="md:hidden hidden bg-white absolute w-full shadow-lg py-4 px-4" id="mobileMenu">
+            <nav class="flex flex-col gap-3">
+                <a href="#map" class="py-2 border-b border-gray-100 hover:text-campus-primary">校园地图</a>
+                <a href="#buildings" class="py-2 border-b border-gray-100 hover:text-campus-primary">楼宇导航</a>
+                <a href="#services" class="py-2 border-b border-gray-100 hover:text-campus-primary">校园服务</a>
+                <a href="#contact" class="py-2 hover:text-campus-primary">联系我们</a>
+            </nav>
+            <!-- 移动端搜索 -->
+            <div class="mt-4 flex items-center bg-campus-light rounded-full px-3 py-2 gap-2">
+                <i class="fa-solid fa-search text-gray-400"></i>
+                <input type="text" placeholder="搜索楼宇/服务" class="bg-transparent outline-none text-sm flex-1">
+            </div>
+        </div>
+    </header>
+
+    <!-- 校园地图核心模块 -->
+    <section id="map" class="py-8 md:py-12">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold mb-6 text-center">交互式校园地图</h2>
+            
+            <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                <div class="flex flex-col md:flex-row">
+                    <!-- 地图侧边栏（快速定位） -->
+                    <div class="md:w-1/5 p-4 bg-gray-50 border-r border-gray-100">
+                        <h3 class="font-bold mb-4">快速定位</h3>
+                        <div class="space-y-2">
+                            <button class="w-full text-left px-3 py-2 rounded hover:bg-campus-light transition-colors" data-loc="教学楼">
+                                <i class="fa-solid fa-school mr-2 text-campus-primary"></i>第一教学楼
+                            </button>
+                            <button class="w-full text-left px-3 py-2 rounded hover:bg-campus-light transition-colors" data-loc="图书馆">
+                                <i class="fa-solid fa-book mr-2 text-campus-primary"></i>图书馆
+                            </button>
+                            <button class="w-full text-left px-3 py-2 rounded hover:bg-campus-light transition-colors" data-loc="食堂">
+                                <i class="fa-solid fa-utensils mr-2 text-campus-primary"></i>第一食堂
+                            </button>
+                            <button class="w-full text-left px-3 py-2 rounded hover:bg-campus-light transition-colors" data-loc="宿舍">
+                                <i class="fa-solid fa-bed mr-2 text-campus-primary"></i>学生宿舍区
+                            </button>
+                            <button class="w-full text-left px-3 py-2 rounded hover:bg-campus-light transition-colors" data-loc="体育馆">
+                                <i class="fa-solid fa-dumbbell mr-2 text-campus-primary"></i>体育馆
+                            </button>
+                        </div>
+
+                        <!-- 路线规划 -->
+                        <div class="mt-6">
+                            <h3 class="font-bold mb-4">路线规划</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-location-dot text-campus-primary"></i>
+                                    <input type="text" placeholder="起点" class="border border-gray-200 rounded px-3 py-2 text-sm flex-1 outline-none focus:border-campus-primary" id="startPoint">
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-flag text-red-500"></i>
+                                    <input type="text" placeholder="终点" class="border border-gray-200 rounded px-3 py-2 text-sm flex-1 outline-none focus:border-campus-primary" id="endPoint">
+                                </div>
+                                <button class="btn-primary w-full" id="routeBtn">
+                                    <i class="fa-solid fa-route mr-1"></i> 生成路线
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 地图容器 -->
+                    <div class="md:w-4/5 h-[400px] md:h-[500px]" id="campusMapContainer">
+                        <!-- 地图加载占位 -->
+                        <div class="w-full h-full flex items-center justify-center bg-gray-100" id="mapLoading">
+                            <div class="text-center">
+                                <i class="fa-solid fa-map text-4xl text-gray-400 mb-2"></i>
+                                <p class="text-gray-500">地图加载中（请替换高德API Key）</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 楼宇导航模块 -->
+    <section id="buildings" class="py-8 md:py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold mb-6 text-center">校园楼宇导航</h2>
+            
+            <!-- 楼宇分类标签 -->
+            <div class="flex flex-wrap justify-center gap-2 mb-6">
+                <button class="px-4 py-2 rounded-full bg-campus-primary text-white text-sm">全部</button>
+                <button class="px-4 py-2 rounded-full bg-gray-100 hover:bg-campus-light transition-colors text-sm">教学区</button>
+                <button class="px-4 py-2 rounded-full bg-gray-100 hover:bg-campus-light transition-colors text-sm">生活区</button>
+                <button class="px-4 py-2 rounded-full bg-gray-100 hover:bg-campus-light transition-colors text-sm">运动区</button>
+                <button class="px-4 py-2 rounded-full bg-gray-100 hover:bg-campus-light transition-colors text-sm">办公区</button>
+            </div>
+
+            <!-- 楼宇卡片列表 -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 教学楼卡片 -->
+                <div class="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm card-hover">
+                    <img src="https://picsum.photos/600/300?random=1" alt="第一教学楼" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">第一教学楼</h3>
+                        <p class="text-gray-600 text-sm mb-3">理工科核心教学区，含20间多媒体教室、5间实验室</p>
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-gray-500"><i class="fa-solid fa-location-dot mr-1 text-campus-primary"></i> 校园东区</span>
+                            <a href="#" class="text-campus-primary hover:underline">查看详情 →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 图书馆卡片 -->
+                <div class="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm card-hover">
+                    <img src="https://picsum.photos/600/300?random=2" alt="图书馆" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">图书馆</h3>
+                        <p class="text-gray-600 text-sm mb-3">馆藏200万册，开放时间8:00-22:00，设电子阅览室/自习区</p>
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-gray-500"><i class="fa-solid fa-location-dot mr-1 text-campus-primary"></i> 校园中心</span>
+                            <a href="#" class="text-campus-primary hover:underline">查看详情 →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 食堂卡片 -->
+                <div class="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm card-hover">
+                    <img src="https://picsum.photos/600/300?random=3" alt="第一食堂" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">第一食堂</h3>
+                        <p class="text-gray-600 text-sm mb-3">提供川/湘/粤菜系，支持校园卡/微信支付，可容纳800人就餐</p>
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-gray-500"><i class="fa-solid fa-location-dot mr-1 text-campus-primary"></i> 宿舍区旁</span>
+                            <a href="#" class="text-campus-primary hover:underline">查看详情 →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-8">
+                <button class="btn-primary">查看更多楼宇</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 校园服务模块 -->
+    <section id="services" class="py-8 md:py-12 bg-campus-light">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold mb-6 text-center">常用校园服务</h2>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <!-- 服务卡片1 -->
+                <div class="bg-white rounded-xl p-4 text-center card-hover">
+                    <div class="w-12 h-12 bg-campus-primary/10 rounded-full flex items-center justify-center mx-auto mb-2">
+                        <i class="fa-solid fa-graduation-cap text-campus-primary text-xl"></i>
+                    </div>
+                    <h3 class="font-medium text-sm">教务系统</h3>
+                    <p class="text-xs text-gray-500">选课/查成绩</p>
+                </div>
+
+                <!-- 服务卡片2 -->
+                <div class="bg-white rounded-xl p-4 text-center card-hover">
+                    <div class="w-12 h-12 bg-campus-primary/10 rounded-full flex items-center justify-center mx-auto mb-2">
+                        <i class="fa-solid fa-credit-card text-campus-primary text-xl"></i>
+                    </div>
+                    <h3 class="font-medium text-sm">校园卡充值</h3>
+                    <p class="text-xs text-gray-500">在线充值/挂失</p>
+                </div>
+
+                <!-- 服务卡片3 -->
+                <div class="bg-white rounded-xl p-4 text-center card-hover">
+                    <div class="w-12 h-12 bg-campus-primary/10 rounded-full flex items-center justify-center mx-auto mb-2">
+                        <i class="fa-solid fa-book-open text-campus-primary text-xl"></i>
+                    </div>
+                    <h3 class="font-medium text-sm">图书馆</h3>
+                    <p class="text-xs text-gray-500">借书/续借</p>
+                </div>
+
+                <!-- 服务卡片4 -->
+                <div class="bg-white rounded-xl p-4 text-center card-hover">
+                    <div class="w-12 h-12 bg-campus-primary/10 rounded-full flex items-center justify-center mx-auto mb-2">
+                        <i class="fa-solid fa-bus text-campus-primary text-xl"></i>
+                    </div>
+                    <h3 class="font-medium text-sm">校园班车</h3>
+                    <p class="text-xs text-gray-500">时刻表/路线</p>
+                </div>
+
+                <!-- 服务卡片5 -->
+                <div class="bg-white rounded-xl p-4 text-center card-hover">
+                    <div class="w-12 h-12 bg-campus-primary/10 rounded-full flex items-center justify-center mx-auto mb-2">
+                        <i class="fa-solid fa-hand-holding-medical text-campus-primary text-xl"></i>
+                    </div>
+                    <h3 class="font-medium text-sm">校医院</h3>
+                    <p class="text-xs text-gray-500">挂号/就诊</p>
+                </div>
+
+                <!-- 服务卡片6 -->
+                <div class="bg-white rounded-xl p-4 text-center card-hover">
+                    <div class="w-12 h-12 bg-campus-primary/10 rounded-full flex items-center justify-center mx-auto mb-2">
+                        <i class="fa-solid fa-lock text-campus-primary text-xl"></i>
+                    </div>
+                    <h3 class="font-medium text-sm">失物招领</h3>
+                    <p class="text-xs text-gray-500">登记/查找</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</header>
+    <section class="py-12 bg-white">
+
+        <div class="container mx-auto px-4">
+            
+                    <!-- 资讯卡片1 -->
+                <div class="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm card-hover">
+
+                    <div class="p-5">
+                        <div class="flex items-center justify-between  text-xs text-gray-500 mb-2">
+                            <h3 class="text-xl font-bold " style="color: #d30eb2;">我爱读书</h3>
+                            <span><i class="fa-solid fa-calendar mr-1"></i></span>
+                        </div>
+                        <img src="img/lQDPJwAyx7jzlkPNBErNAzyw5WMLkTppEqcJHyi0hQf3AA_828_1098.jpg" alt="校园活动"
+                            class="w-full h-100 object-cover">
+                        <p class="text-gray-600 text-sm mb-5 line-clamp-3">
+                           图书馆里的书是知识的源泉
+                        </p>
+
+                    </div>
+
+    </section>
+    <!-- 联系我们模块 -->
+    <section id="contact" class="py-8 md:py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold mb-6 text-center">联系我们</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 联系方式 -->
+                <div class="bg-campus-light rounded-xl p-6">
+                    <h3 class="font-bold text-lg mb-4">联系方式</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-map-marker-alt text-campus-primary mt-1"></i>
+                            <div>
+                                <h4 class="font-medium">学校地址</h4>
+                                <p class="text-sm text-gray-600">XX市XX区明德路88号</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-phone text-campus-primary mt-1"></i>
+                            <div>
+                                <h4 class="font-medium">联系电话</h4>
+                                <p class="text-sm text-gray-600">导航服务：020-88888888</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-envelope text-campus-primary mt-1"></i>
+                            <div>
+                                <h4 class="font-medium">邮箱</h4>
+                                <p class="text-sm text-gray-600">nav@mingde.edu.cn</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 留言反馈 -->
+                <div class="bg-campus-light rounded-xl p-6">
+                    <h3 class="font-bold text-lg mb-4">问题反馈</h3>
+                    <form class="space-y-4">
+                        <input type="text" placeholder="您的姓名" class="w-full px-3 py-2 border border-gray-200 rounded-lg outline-none focus:border-campus-primary">
+                        <input type="tel" placeholder="联系电话" class="w-full px-3 py-2 border border-gray-200 rounded-lg outline-none focus:border-campus-primary">
+                        <textarea rows="4" placeholder="请描述您的问题/建议" class="w-full px-3 py-2 border border-gray-200 rounded-lg outline-none focus:border-campus-primary resize-none"></textarea>
+                        <button type="submit" class="btn-primary w-full">提交反馈</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-campus-dark text-white py-6">
+        <div class="container mx-auto px-4 text-center text-sm">
+            <p>© 2025 明德学院 版权所有 | 粤ICP备12345678号</p>
+            <p class="text-gray-400 mt-2">校园导航系统 - 让校园生活更便捷</p>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="backToTop" class="fixed bottom-6 right-6 w-12 h-12 bg-campus-primary text-white rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-campus-primary/90">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- 核心交互JS -->
+    <script>
+        // 1. 移动端菜单切换
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const icon = menuBtn.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // 2. 高德地图初始化（核心）
+        window.onload = function() {
+            // 替换为自己的API Key后生效
+            if (window.AMap) {
+                const mapContainer = document.getElementById('campusMapContainer');
+                const mapLoading = document.getElementById('mapLoading');
+                
+                // 隐藏加载占位，初始化地图
+                mapLoading.remove();
+                const map = new AMap.Map('campusMapContainer', {
+                    zoom: 16, // 缩放级别
+                    center: [113.324520, 23.099994] // 替换为校园实际经纬度（示例：广州）
+                });
+
+                // 添加地图控件
+                map.addControl(new AMap.Scale());
+                map.addControl(new AMap.ToolBar());
+
+                // 校园地标点（替换为实际坐标）
+                const markers = {
+                    教学楼: [113.324520, 23.099994],
+                    图书馆: [113.325520, 23.100994],
+                    食堂: [113.323520, 23.101994],
+                    宿舍: [113.322520, 23.100994],
+                    体育馆: [113.326520, 23.100994]
+                };
+
+                // 添加地标标记
+                for (let key in markers) {
+                    const marker = new AMap.Marker({
+                        position: markers[key],
+                        title: key,
+                        map: map
+                    });
+                    // 点击标记显示信息
+                    marker.on('click', () => {
+                        new AMap.InfoWindow({
+                            content: `<div class="p-2"><h3 class="font-bold">${key}</h3><p class="text-sm">点击查看详情</p></div>`,
+                            position: markers[key]
+                        }).open(map);
+                    });
+                }
+
+                // 快速定位按钮绑定
+                document.querySelectorAll('[data-loc]').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const loc = this.dataset.loc;
+                        map.setCenter(markers[loc]);
+                        map.setZoom(17); // 放大定位
+                    });
+                });
+
+                // 路线规划按钮
+                document.getElementById('routeBtn').addEventListener('click', () => {
+                    const start = document.getElementById('startPoint').value;
+                    const end = document.getElementById('endPoint').value;
+                    if (!start || !end) {
+                        alert('请输入起点和终点');
+                        return;
+                    }
+                    // 简易路线规划（实际需对接POI搜索）
+                    if (markers[start] && markers[end]) {
+                        // 绘制路线
+                        const polyline = new AMap.Polyline({
+                            path: [markers[start], markers[end]],
+                            strokeColor: '#2A6DF8',
+                            strokeWeight: 5,
+                            strokeOpacity: 0.8
+                        });
+                        polyline.setMap(map);
+                        // 视角聚焦路线
+                        map.setFitView([polyline]);
+                        alert(`已规划从${start}到${end}的路线`);
+                    } else {
+                        alert('暂不支持该地点的路线规划');
+                    }
+                });
+            }
+        };
+
+        // 3. 搜索功能（简易版）
+        document.getElementById('searchInput').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter' && this.value) {
+                const searchVal = this.value.trim();
+                const markers = ['教学楼', '图书馆', '食堂', '宿舍', '体育馆'];
+                const match = markers.find(item => item.includes(searchVal));
+                if (match && window.AMap) {
+                    // 定位到匹配的地标
+                    const map = AMap.maps[0];
+                    const pos = {
+                        教学楼: [113.324520, 23.099994],
+                        图书馆: [113.325520, 23.100994],
+                        食堂: [113.323520, 23.101994],
+                        宿舍: [113.322520, 23.100994],
+                        体育馆: [113.326520, 23.100994]
+                    };
+                    map.setCenter(pos[match]);
+                    map.setZoom(17);
+                    alert(`已定位到：${match}`);
+                } else {
+                    alert('未找到该地点');
+                }
+            }
+        });
+
+        // 4. 返回顶部
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.remove('opacity-0', 'invisible');
+                backToTop.classList.add('opacity-100', 'visible');
+            } else {
+                backToTop.classList.add('opacity-0', 'invisible');
+                backToTop.classList.remove('opacity-100', 'visible');
+            }
+        });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // 5. 平滑滚动（锚点跳转）
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    // 关闭移动端菜单
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        menuBtn.querySelector('i').classList.replace('fa-times', 'fa-bars');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

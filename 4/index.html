@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <title>疯狂动物城2 - 官方影视作品介绍</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background-image: url(./img/图片/大背景.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            padding: 20px 0;
+        }
+
+        .main1 {
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .carousel-inner .item {
+            height: 400px;
+        }
+
+        .item img {
+            width: 100%;
+            height: 100% !important;
+            object-fit: cover;
+        }
+
+        nav {
+            margin: 20px 0;
+        }
+
+        nav ul {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            background-color: #2c3e50;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        nav li {
+            padding: 0 25px;
+            height: 50px;
+            line-height: 50px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav li a {
+            font-family: "微软雅黑", 宋体;
+            color: #fff;
+            font-size: 18px;
+            display: block;
+        }
+
+        nav li:hover {
+            background-color: #3498db;
+        }
+
+        nav li.active {
+            background-color: #3498db;
+            font-weight: bold;
+        }
+
+        .content-section {
+            margin: 40px 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .content-section h2 {
+            color: #147ec5;
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e6f7ff;
+        }
+
+        .content-section p {
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 15px;
+            text-indent: 2em;
+        }
+
+        .content-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: block;
+            margin: 0 auto;
+        }
+
+        .plot-highlights {
+            background-color: #e6f7ff;
+            border-left: 5px solid #147ec5;
+        }
+
+        .plot-highlights .highlight-item {
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+
+        .plot-highlights .highlight-item h4 {
+            color: #147ec5;
+            margin-bottom: 10px;
+        }
+
+        /* 优化后的导演背景样式 */
+        .director-section {
+            background: linear-gradient(90deg, #f5f9ff 0%, #e8f4fd 100%);
+            border-radius: 10px;
+            padding: 30px 20px;
+        }
+
+        .director-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .director-header h2 {
+            border: none;
+            margin: 0;
+            padding: 0;
+            text-align: left;
+            font-size: 24px;
+        }
+
+        .director-badge {
+            background-color: #ffc107;
+            color: #333;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .director-content {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .director-photo {
+            position: relative;
+        }
+
+        .director-photo img {
+            border: 4px solid #fff;
+            border-radius: 10px;
+        }
+
+        .director-achievement {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #147ec5;
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .director-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .director-bio {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .director-works {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .director-works h4 {
+            color: #147ec5;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .director-works ul {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .director-works li {
+            padding: 5px 10px;
+            background: #f5f9ff;
+            border-radius: 4px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .director-works li i {
+            color: #147ec5;
+            font-size: 12px;
+        }
+
+        /* 优化后的票房与评价模块样式 */
+        .box-office-section {
+            background: linear-gradient(120deg, #f0f8ff 0%, #e6f7ff 100%);
+            border-radius: 10px;
+            padding: 30px 20px;
+        }
+
+        .box-office-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .box-office-header h2 {
+            border: none;
+            margin: 0;
+            padding: 0;
+            text-align: left;
+            font-size: 24px;
+        }
+
+        .box-office-tag {
+            background-color: #147ec5;
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .box-office-content {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 25px;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .box-office-chart {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .box-office-chart img {
+            border: 3px solid #fff;
+            max-width: 100%;
+            max-height: 280px;
+            object-fit: contain;
+        }
+
+        .box-office-chart .chart-desc {
+            position: static;
+            transform: none;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px 15px;
+            border-radius: 15px;
+            font-size: 13px;
+            color: #147ec5;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .box-office-data {
+            background: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .box-office-data h4 {
+            font-size: 15px;
+            color: #147ec5;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .box-office-data ul {
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .box-office-data li {
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            padding: 3px 0;
+            border-bottom: 1px dashed #eee;
+        }
+
+        .box-office-data li span:first-child {
+            color: #666;
+        }
+
+        .box-office-data li span:last-child {
+            color: #e63946;
+            font-weight: bold;
+        }
+
+        .box-office-evaluation {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .evaluation-card {
+            background: #fff;
+            padding: 18px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #147ec5;
+        }
+
+        .evaluation-card.positive {
+            border-left-color: #28a745;
+        }
+
+        .evaluation-card.negative {
+            border-left-color: #dc3545;
+        }
+
+        .evaluation-card h4 {
+            font-size: 17px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .evaluation-card h4 i {
+            font-size: 18px;
+        }
+
+        .evaluation-card p {
+            text-indent: 0;
+            margin-bottom: 0;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .box-office-summary {
+            grid-column: 1 / 3;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .box-office-summary p {
+            text-indent: 0;
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
+
+        /* 优化后的作品背景样式 */
+        .background-section {
+            background: linear-gradient(150deg, #f9f9ff 0%, #f0f8ff 100%);
+            border-radius: 10px;
+            padding: 30px 20px;
+        }
+
+        .background-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .background-header h2 {
+            border: none;
+            margin: 0;
+            padding: 0;
+            text-align: left;
+            font-size: 24px;
+        }
+
+        .background-tag {
+            background-color: #4299e1;
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .background-content {
+            display: grid;
+            grid-template-columns: 0.7fr 1.3fr;
+            /* 缩小图片列占比 */
+            gap: 25px;
+            align-items: center;
+        }
+
+        .background-img {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* 缩小作品背景图片尺寸 */
+        .background-img img {
+            border: 3px solid #fff;
+            max-width: 100%;
+            max-height: 250px;
+            /* 限制图片高度 */
+            object-fit: contain;
+        }
+
+        .background-img .img-desc {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px 15px;
+            border-radius: 15px;
+            font-size: 13px;
+            color: #147ec5;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        /* 补充作品背景文字内容 */
+        .background-info {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .background-text {
+            background: #fff;
+            padding: 18px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .background-details {
+            background: #fff;
+            padding: 18px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #4299e1;
+        }
+
+        .background-details h4 {
+            font-size: 16px;
+            color: #147ec5;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .background-details ul {
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .background-details li {
+            margin-bottom: 8px;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .background-details li::before {
+            content: "●";
+            color: #4299e1;
+            position: absolute;
+            left: 0;
+            font-size: 10px;
+            top: 5px;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .carousel-inner .item {
+                height: 200px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+            }
+
+            nav li {
+                flex: 1;
+                text-align: center;
+                padding: 0 10px;
+            }
+
+            .content-section {
+                margin: 20px 0;
+                padding: 15px;
+            }
+
+            .director-content {
+                grid-template-columns: 1fr;
+            }
+
+            .director-works ul {
+                grid-template-columns: 1fr;
+            }
+
+            .box-office-content {
+                grid-template-columns: 1fr;
+            }
+
+            .box-office-chart img {
+                max-height: 220px;
+            }
+
+            .box-office-summary {
+                grid-column: 1;
+            }
+
+            .box-office-header,
+            .director-header,
+            .background-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            /* 移动端作品背景适配 */
+            .background-content {
+                grid-template-columns: 1fr;
+            }
+
+            .background-img img {
+                max-height: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main1">
+        <!-- 轮播图 -->
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+                <li data-target="#myCarousel" data-slide-to="3"></li>
+                <li data-target="#myCarousel" data-slide-to="4"></li>
+                <li data-target="#myCarousel" data-slide-to="5"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img src="./img/图片/0.png" alt="疯狂动物城2 主海报">
+                </div>
+                <div class="item">
+                    <img src="./img/图片/1.jpg" alt="疯狂动物城2 角色海报">
+                </div>
+                <div class="item">
+                    <img src="./img/图片/2.png" alt="疯狂动物城2 场景截图">
+                </div>
+                <div class="item">
+                    <img src="./img/图片/3.png" alt="疯狂动物城2 朱迪与尼克">
+                </div>
+                <div class="item">
+                    <img src="./img/图片/4.png" alt="疯狂动物城2 动物城全景">
+                </div>
+                <div class="item">
+                    <img src="./img/图片/5.jpg" alt="疯狂动物城2 精彩画面">
+                </div>
+            </div>
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+
+        <!-- 导航栏 -->
+        <nav>
+            <ul>
+                <li class="active"><a href="#">首页</a></li>
+                <li><a href="./角色.html">角色介绍</a></li>
+                <li><a href="./故事.html">故事情节</a></li>
+                <li><a href="./精彩.html">精彩图集</a></li>
+                <li><a href="./动画.html">动画视频</a></li>
+            </ul>
+        </nav>
+
+        <!-- 导演背景（优化版） -->
+        <div class="content-section director-section">
+            <div class="director-header">
+                <h2>导演背景</h2>
+                <span class="director-badge">奥斯卡金奖导演</span>
+            </div>
+            <div class="director-content">
+                <div class="director-photo">
+                    <img src="./img/图片/作者照片.png" alt="杰拉德·布什 导演照片">
+                    <div class="director-achievement">
+                        <i class="glyphicon glyphicon-trophy"></i> 第89届奥斯卡最佳动画长片
+                    </div>
+                </div>
+                <div class="director-info">
+                    <div class="director-bio">
+                        <p>杰拉德·布什（Jared
+                            Bush）1974年出生于美国马里兰州，是集导演、编剧、配音于一身的全能型动画创作者。他擅长以细腻的叙事手法和深刻的社会隐喻构建动画世界，作品兼具童趣与现实思考，是迪士尼动画的核心创作力量之一。
+                        </p>
+                        <p>作为《疯狂动物城2》的联合导演及编剧，布什延续了前作的创作理念，将“打破偏见”的主题升级为对“系统性歧视”的深度探讨，让动物城的世界观更具现实映射意义。</p>
+                    </div>
+                    <div class="director-works">
+                        <h4><i class="glyphicon glyphicon-film"></i> 代表作品</h4>
+                        <ul>
+                            <li><i class="glyphicon glyphicon-star"></i> 《疯狂动物城》（2016）</li>
+                            <li><i class="glyphicon glyphicon-star"></i> 《海洋奇缘》（2016）</li>
+                            <li><i class="glyphicon glyphicon-star"></i> 《疯狂动物城2》（2025）</li>
+                            <li><i class="glyphicon glyphicon-star"></i> 《无敌破坏王2》（参与编剧）</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 票房与观众评价（优化版） -->
+        <div class="content-section box-office-section">
+            <div class="box-office-header">
+                <h2>票房与观众评价</h2>
+                <span class="box-office-tag">2025年度热门动画</span>
+            </div>
+
+            <div class="box-office-content">
+                <div class="box-office-chart">
+                    <img src="./img/图片/票房.png" alt="疯狂动物城2 票房数据图">
+                    <div class="chart-desc">上映首周票房突破5亿</div>
+                    <div class="box-office-data">
+                        <h4><i class="glyphicon glyphicon-bar-chart"></i> 核心票房数据</h4>
+                        <ul>
+                            <li><span>中国内地首日票房</span><span>1.2亿</span></li>
+                            <li><span>北美首周末票房</span><span>8500万美元</span></li>
+                            <li><span>全球累计票房</span><span>6.8亿美元</span></li>
+                            <li><span>2025动画票房排名</span><span>TOP3</span></li>
+                            <li><span>观影人次</span><span>超1800万</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="box-office-evaluation">
+                    <div class="evaluation-card positive">
+                        <h4><i class="glyphicon glyphicon-thumbs-up"></i> 观众好评</h4>
+                        <p>世界观延续与主题升级获赞，影片将动画寓言与现实社会议题深度结合，通过动物城的种族矛盾映射现实中的社会问题，被评价为“儿童能看懂欢乐，成人能读懂现实”的佳作。狐兔CP的情感线刻画细腻，从搭档到灵魂伴侣的转变自然且动人，成为全片最大情感亮点。此外，新角色蛇盖瑞的反差萌设定也收获了大量观众喜爱，其呆萌的性格与关键时刻的勇敢形成强烈对比，为紧张的剧情增添了恰到好处的喜剧效果。
+                        </p>
+                    </div>
+
+                    <div class="evaluation-card negative">
+                        <h4><i class="glyphicon glyphicon-thumbs-down"></i> 争议焦点</h4>
+                        <p>部分观众诟病朱迪人设重复前作的“鲁莽冒进”，缺乏角色成长；尼克在中段剧情中缺席关键办案环节，沦为“工具狐”，角色作用被弱化。反派林雪莉家族的动机塑造较为生硬，其争夺气候墙专利权的核心矛盾缺乏足够的铺垫，最终矛盾解决仅依赖“一张专利纸”的设定被认为过于儿戏，削弱了剧情的逻辑性。此外，中文配音版本的台词适配度不足，部分台词的翻译腔和口型不匹配问题也引发了观众的吐槽。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="box-office-summary">
+                    <p>《疯狂动物城2》上映后引发两极评价，票房表现持续走高的同时，剧情争议也成为社交平台的热议话题。观众为“狐兔CP”的深情告白泪洒影院，也为影片深刻的社会隐喻点赞，但也有不少声音诟病剧情套路化、反派塑造单薄等问题。整体而言，影片虽在剧情细节上存在瑕疵，但仍凭借完整的世界观构建、鲜明的角色塑造和深刻的主题表达，成为2025年动画电影市场的标杆之作，其票房成绩也印证了《疯狂动物城》IP的强大号召力。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 作品背景（优化版） -->
+        <div class="content-section background-section">
+            <div class="background-header">
+                <h2>作品背景</h2>
+                <span class="background-tag">动物城世界观扩展</span>
+            </div>
+            <div class="background-content">
+                <div class="background-img">
+                    <img src="./img/图片/作品背景.jpg" alt="疯狂动物城2 作品背景图">
+                    <div class="img-desc">动物城百年庆典核心场景</div>
+                </div>
+                <div class="background-info">
+                    <div class="background-text">
+                        <p>《疯狂动物城2》以动物城气候墙建成百年庆典为核心叙事契机，大幅扩展了前作的世界观框架。故事背景设定在气候墙投入使用百年的关键节点，全球气候异常导致鸟类栖息地大面积骤变，大量鸟禽难民涌入动物城寻求庇护，引发了城区资源分配失衡、种族矛盾升级等一系列社会问题。
+                        </p>
+                        <p>雪上加霜的是，记载着气候墙原始设计图纸的珍稀古籍在庆典前夕离奇失窃，这一事件直接将动物城推向了生态灾难的边缘——一旦设计图落入不法分子手中，整个动物城的气候调节系统将面临被篡改的风险，不同区域的温度、湿度平衡将彻底崩塌。
+                        </p>
+                    </div>
+                    <div class="background-details">
+                        <h4><i class="glyphicon glyphicon-map-marker"></i> 动物城历史核心设定</h4>
+                        <ul>
+                            <li>气候墙由初代动物城工程师“沃尔特·羊驼”于1925年设计建造，初衷是为不同习性的动物打造适配的生存环境</li>
+                            <li>林雪猁家族曾掌控气候墙专利权长达60年，是动物城早期的顶级财阀，后因垄断行为被剥夺控制权</li>
+                            <li>爬行动物被驱逐出动物城的历史可追溯至1950年，核心原因是气候墙能源分配的利益冲突</li>
+                            <li>本次百年庆典的核心议题是“气候墙开源计划”，旨在让全动物城共享气候调节技术</li>
+                            <li>鸟禽难民问题并非偶然，而是工业化扩张导致的生态破坏在动物城世界观中的集中体现</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 精彩剧情亮点 -->
+        <div class="content-section plot-highlights">
+            <h2>精彩剧情亮点</h2>
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                    <div class="highlight-item">
+                        <h4><i class="glyphicon glyphicon-warning-sign"></i> 核心冲突：生态危机与历史对立</h4>
+                        <p>影片将前作“打破偏见”的主题升维至制度层面——气候墙百年庆典前夜，爬行动物被驱逐的尘封档案意外曝光，揭示当年驱逐并非“生态选择”而是林雪猁家族的利益操控。朱迪与尼克追查古籍失窃案时，发现气候墙专利背后藏着“温度歧视”的隐秘规则：沙漠区动物长期被分配最低能耗，极地动物却享有超额能源，这种系统性不公成为全城暴动的导火索，剧情深度远超常规动画的叙事维度。
+                        </p>
+                        <p>最具冲击力的场景是“雨夜对峙”：朱迪在废弃能源站直面林雪猁族长，对方一句“偏见从来不是个人选择，而是规则的产物”，成为全片最具现实隐喻的经典台词。</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="highlight-item">
+                        <h4><i class="glyphicon glyphicon-heart"></i> 角色情感：狐兔CP的灵魂羁绊</h4>
+                        <p>尼克与朱迪的关系从“破案搭档”进化为“灵魂伴侣”，全片设计了三场情感递进的名场面：一是朱迪因质疑尼克身世陷入自责，在动物城钟楼雨夜道歉，尼克以“你看见我的脆弱，才是真正的信任”化解矛盾；二是两人被困冰封隧道，尼克用狐尾为朱迪取暖，坦言“我伪装的玩世不恭，只为保护想守护的人”；三是最终决战前的告白，“你不是我的软肋，是我敢对抗全世界的勇气”，戳中无数观众泪点。
+                        </p>
+                        <p>值得一提的是，两人的互动摒弃了俗套的爱情桥段，而是展现成年人的相互支撑——朱迪的执着与尼克的通透形成完美互补，成为动画史上最具深度的搭档形象。</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="highlight-item">
+                        <h4><i class="glyphicon glyphicon-star"></i> 新角色登场：蛇盖瑞的反差萌</h4>
+                        <p>关继威配音的蛇盖瑞堪称全片“笑点担当+剧情关键”：作为唯一能钻进通风管道的爬行动物，它自带“社恐+路痴”属性，找证据时误闯企鹅黑帮地盘，用结巴的语气喊出“我只是想回家”的名场面，成为影院高频笑料；但在关键时刻，它却展现出惊人的勇气——用身体缠住失控的能源阀门，即便鳞片被高温灼伤也不肯松手，一句“就算被驱逐，我也爱这座城市”瞬间完成角色弧光。
+                        </p>
+                        <p>盖瑞的存在不仅填补了爬行动物视角的空白，更用“弱小者的坚守”呼应了影片“每个生命都有价值”的核心，其呆萌又勇敢的形象成为2025年动画最出圈的新角色。</p>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                    <div class="highlight-item">
+                        <h4><i class="glyphicon glyphicon-film"></i> 经典名场面：动物城大营救</h4>
+                        <p>全片高潮的“百年庆典营救战”堪称视听盛宴：失控的气候墙导致动物城瞬间出现冰火两重天——撒哈拉区骤降暴雪，苔原区却热浪滚滚，朱迪、尼克带领不同种族动物展开跨区域救援。尼克利用狐狸的机敏破解能源密码，朱迪以警官身份协调各方力量，盖瑞则带领爬行动物小分队修复地下管道，不同习性的动物放下偏见、各司其职，最终在庆典钟楼敲响和解之钟。
+                        </p>
+                        <p>这场戏融合了喜剧、动作、温情等多重元素，既展现了动物城的世界观魅力，又用具象化的画面诠释了“共生共存”的主题，成为《疯狂动物城》系列的封神场面。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(function () {
+                $('.carousel').carousel({
+                    interval: 3000,
+                    pause: "hover"
+                });
+
+                $('nav li').click(function () {
+                    $('nav li').removeClass('active');
+                    $(this).addClass('active');
+                });
+            })
+        </script>
+</body>
+
+</html>

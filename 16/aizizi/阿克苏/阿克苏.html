@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>阿克苏 · 丝路龟兹</title>
+<style>
+  /* ========== 阿克苏文化主题变量 ========== */
+  :root {
+    --desert: #D97706; /* 沙漠金 */
+    --apple: #DC2626; /* 苹果红 */
+    --apple-glow: rgba(220, 38, 38, 0.4);
+    --oasis: #10B981; /* 绿洲绿 */
+    --qiuci: #3B82F6; /* 龟兹蓝 */
+    --qiuci-glow: rgba(59, 130, 246, 0.3);
+    --glass: rgba(255, 255, 255, 0.12);
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --blur: blur(12px);
+    --text-primary: #ffffff;
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: linear-gradient(135deg, #451A03, #7C2D12, #1E3A8A); /* 沙漠到龟兹蓝的渐变 */
+    color: var(--text-primary);
+    font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+  section {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 100px 20px;
+    position: relative;
+  }
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  /* ========== 导航栏 ========== */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: var(--glass);
+    backdrop-filter: var(--blur);
+    border-bottom: 1px solid var(--glass-border);
+    transition: var(--transition);
+  }
+  nav.hidden {
+    transform: translateY(-100%);
+  }
+  nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding: 18px 20px;
+    gap: 25px;
+    flex-wrap: wrap;
+  }
+  nav a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 10px 18px;
+    border-radius: 30px;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+  }
+  nav a:hover, nav a.active {
+    background: var(--qiuci-glow);
+    box-shadow: 0 0 15px var(--qiuci-glow);
+  }
+
+  /* ========== 粒子背景（胡杨飞沙效果） ========== */
+  #particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 99;
+  }
+
+  /* ========== 首屏视差（天山托木尔峰） ========== */
+  .hero {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .hero-layer {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    will-change: transform;
+  }
+  .hero-layer.back {
+    background-image: url(./阿克苏图片/2.JPG); /* 天山雪峰 */
+  }
+  .hero-layer.mid {
+    background-image: url(); /* 胡杨林 */
+    opacity: 0.3;
+  }
+  .hero-content {
+    z-index: 10;
+    text-align: center;
+    max-width: 900px;
+    padding: 0 20px;
+  }
+  .hero h1 {
+    font-size: clamp(3em, 8vw, 6em);
+    letter-spacing: 6px;
+    text-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, var(--desert), var(--apple), var(--qiuci));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero p {
+    font-size: clamp(1.2em, 3vw, 1.8em);
+    opacity: 0.9;
+    margin-bottom: 40px;
+  }
+  .cta-button {
+    display: inline-block;
+    padding: 16px 50px;
+    background: var(--glass);
+    backdrop-filter: var(--blur);
+    border: 2px solid var(--apple);
+    border-radius: 50px;
+    color: var(--apple);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1em;
+    transition: var(--transition);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  }
+  .cta-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px var(--apple-glow);
+    background: var(--apple-glow);
+    color: white;
+  }
+  .scroll-down {
+    position: absolute;
+    bottom: 40px;
+    animation: float 2s ease-in-out infinite;
+    background: var(--glass);
+    backdrop-filter: var(--blur);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 2.5em;
+    border: 1px solid var(--glass-border);
+    cursor: pointer;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(20px); }
+  }
+
+  /* ========== 龟兹文化时间轴 ========== */
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin: 60px 0;
+  }
+  .timeline-item {
+    background: var(--glass);
+    backdrop-filter: var(--blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 30px 20px;
+    text-align: center;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--desert), transparent);
+    transition: left 0.6s;
+  }
+  .timeline-item:hover::before {
+    left: 100%;
+  }
+  .timeline-item:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow);
+  }
+  .timeline-item h3 {
+    font-size: 1.8em;
+    color: var(--oasis);
+    margin-bottom: 15px;
+  }
+  .timeline-item p {
+    opacity: 0.85;
+  }
+
+  /* ========== 通用卡片 ========== */
+  h2 {
+    font-size: clamp(2em, 5vw, 3.2em);
+    margin-bottom: 60px;
+    text-align: center;
+    letter-spacing: 3px;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+  h2::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(to right, var(--desert), var(--apple));
+    margin: 20px auto 0;
+    border-radius: 2px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 35px;
+  }
+  .card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    overflow: hidden;
+    backdrop-filter: var(--blur);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: var(--text-primary);
+    position: relative;
+  }
+  .card:hover {
+    transform: translateY(-15px) scale(1.03);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    border-color: var(--apple);
+  }
+  .card-image {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    transition: var(--transition);
+  }
+  .card:hover .card-image {
+    transform: scale(1.1);
+  }
+  .card-content {
+    padding: 25px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .card h3 {
+    font-size: 1.6em;
+    margin-bottom: 12px;
+    color: var(--apple);
+  }
+  .card p {
+    opacity: 0.85;
+    line-height: 1.7;
+    flex: 1;
+  }
+  .card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--glass-border);
+    font-size: 0.9em;
+    opacity: 0.7;
+  }
+  .rating {
+    color: var(--desert);
+    font-weight: bold;
+  }
+
+  /* ========== 刀郎木卡姆轮播 ========== */
+
+.carousel {
+  position: relative;
+  height: 500px;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 60px 0;
+  box-shadow: var(--shadow);
+}
+
+.carousel-inner {
+  display: flex;
+  width: 500%;
+  height: 100%;
+  animation: slide 40s infinite ease-in-out; /* 改为40秒，添加平滑过渡 */
+}
+
+.carousel-item {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carousel-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+  padding: 40px;
+}
+
+.carousel-caption h3 {
+  font-size: 2em;
+  margin-bottom: 10px;
+  color: var(--accent);
+}
+
+
+@keyframes slide {
+  0% { transform: translateX(0); } /* 第1张 */
+  16% { transform: translateX(0); } /* 短暂停留 */
+
+  20% { transform: translateX(-20%); } /* 开始向第2张滑动 */
+  36% { transform: translateX(-20%); } /* 第2张停留 */
+
+  40% { transform: translateX(-40%); } /* 向第3张滑动 */
+  56% { transform: translateX(-40%); } /* 第3张停留 */
+
+  60% { transform: translateX(-60%); } /* 向第4张滑动 */
+  76% { transform: translateX(-60%); } /* 第4张停留 */
+
+  80% { transform: translateX(-80%); } /* 向第5张滑动 */
+  96% { transform: translateX(-80%); } /* 第5张停留 */
+
+  /* 最关键的部分：平滑地从第5张滑回第1张 */
+  100% { transform: translateX(0); }
+}
+ 
+
+
+  /* ========== 页脚 ========== */
+  footer {
+    text-align: center;
+    padding: 60px 20px;
+    background: var(--glass);
+    backdrop-filter: var(--blur);
+    border-top: 1px solid var(--glass-border);
+    font-size: 1em;
+    margin-top: 80px;
+  }
+  footer p {
+    margin: 10px 0;
+    opacity: 0.8;
+  }
+  .social-links {
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+  }
+  .social-links a {
+    width: 50px;
+    height: 50px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    transition: var(--transition);
+    font-size: 1.5em;
+    text-decoration: none;
+    color: var(--text-primary);
+  }
+  .social-links a:hover {
+    background: var(--qiuci-glow);
+    transform: translateY(-5px);
+  }
+
+  /* ========== 响应式与动画 ========== */
+  @media (max-width: 768px) {
+    section {
+      padding: 70px 15px;
+    }
+    nav ul {
+      gap: 10px;
+      padding: 12px 15px;
+    }
+    nav a {
+      padding: 8px 12px;
+      font-size: 0.85em;
+    }
+    .carousel {
+      height: 350px;
+    }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ========== 加载动画 ========== */
+  .loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #451A03; /* 沙漠深色 */
+    z-index: 9999;
+    display: grid;
+    place-items: center;
+    transition: opacity 0.5s;
+  }
+  .loader.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .loader-spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid var(--glass);
+    border-top: 4px solid var(--apple);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+</style>
+<base target="_blank">
+</head>
+<body>
+
+<!-- 加载动画 -->
+<div class="loader" id="loader">
+  <div class="loader-spinner"></div>
+</div>
+
+<canvas id="particles"></canvas>
+
+<!-- 导航栏 -->
+<nav id="navbar">
+  <ul>
+    <li><a href="#top" class="nav-link">🏜️ 丝路龟兹</a></li>
+    <li><a href="#culture" class="nav-link">🎭 龟兹文化</a></li>
+    <li><a href="#spots" class="nav-link">🏔️ 山川峡谷</a></li>
+    <li><a href="#foods" class="nav-link">🍎 果乡美食</a></li>
+    <li><a href="#gifts" class="nav-link">🎁 阿克苏礼物</a></li>
+    <li><a href="#travel" class="nav-link">✈️ 旅行指南</a></li>
+  </ul>
+</nav>
+
+<!-- 首屏 -->
+<div class="hero" id="top">
+  <div class="hero-layer back"></div>
+  <div class="hero-layer mid"></div>
+  <div class="hero-content">
+    <h1>阿克苏 · 丝路龟兹</h1>
+    <p>龟兹古韵传千年，苹果之乡飘果香</p>
+    <a href="#culture" class="cta-button">探寻龟兹</a>
+  </div>
+  <a href="#culture" class="scroll-down" id="scrollDown">🏜️</a>
+</div>
+
+<!-- 龟兹文化时间轴 -->
+<section id="culture" class="fade-in">
+  <h2>🎭 千年龟兹 · 文化之旅</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <h3>🏺 龟兹古国</h3>
+      <p>公元前176年-公元1001年</p>
+      <p>西域三十六国之一，佛教文化鼎盛，克孜尔千佛洞见证千年辉煌</p>
+    </div>
+    <div class="timeline-item">
+      <h3>🎵 刀郎木卡姆</h3>
+      <p>世界级非遗</p>
+      <p>多浪人古老艺术，粗犷豪放的歌舞，承载着西域人民的热情</p>
+    </div>
+    <div class="timeline-item">
+      <h3>🎨 克孜尔石窟</h3>
+      <p>中国最早石窟</p>
+      <p>比敦煌早100年，"故事画之冠"，龟兹壁画艺术瑰宝</p>
+    </div>
+    <div class="timeline-item">
+      <h3>🍎 苹果之乡</h3>
+      <p>现代果业文明</p>
+      <p>冰糖心苹果享誉中外，红旗坡农场成就"果中之王"</p>
+    </div>
+  </div>
+</section>
+
+<!-- 刀郎木卡姆与风景轮播 -->
+<section class="fade-in">
+  <h2>🎵 刀郎之声 · 自然奇观</h2>
+  <div class="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item">
+        <img src="./阿克苏图片/土木尔峰.jpg" alt="天山托木尔峰">
+        <div class="carousel-caption">
+          <h3>天山之巅 · 托木尔峰</h3>
+          <p>世界自然遗产，天山最高峰，冰川奇观令人震撼</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="./阿克苏图片/克孜尔.jpg" alt="克孜尔石窟">
+        <div class="carousel-caption">
+          <h3>佛教瑰宝 · 克孜尔石窟</h3>
+          <p>中国最早石窟，壁画艺术珍品，丝路文化交流见证</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="./阿克苏图片/温宿大峡谷.jpg" alt="温宿大峡谷">
+        <div class="carousel-caption">
+          <h3>地质奇观 · 温宿大峡谷</h3>
+          <p>中国西部最美丹霞地貌，红色山崖如梦如幻</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="./阿克苏图片/塔克拉玛干.jpg" alt="塔克拉玛干沙漠">
+        <div class="carousel-caption">
+          <h3>死亡之海 · 塔克拉玛干</h3>
+          <p>世界第二大流动沙漠，胡杨林千年守望，沙漠公路奇迹</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="./阿克苏图片/刀郎.JPG" alt="刀郎木卡姆">
+        <div class="carousel-caption">
+          <h3>刀郎木卡姆 · 非遗传承</h3>
+          <p>多浪人千年歌舞，粗犷豪放，西域文化活化石</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 景点 -->
+<section id="spots" class="fade-in">
+  <h2>🏔️ 山川峡谷 · 丝路胜迹</h2>
+  <div class="grid">
+    <a class="card" href="https://mp.weixin.qq.com/s/aks1" target="_blank">
+      <img class="card-image" src="./阿克苏图片/土木尔峰1.jpg" alt="托木尔峰">
+      <div class="card-content">
+        <h3>天山托木尔峰</h3>
+        <p>世界自然遗产，天山最高峰（7435米）。冰川地貌壮观，是登山探险者的圣地，科研价值极高。</p>
+        <div class="card-meta">
+          <span>🏔️ 世界自然遗产</span>
+          <span class="rating">⭐ 4.9</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/aks2" target="_blank">
+      <img class="card-image" src="./阿克苏图片/克孜尔2.JPG" alt="克孜尔石窟">
+      <div class="card-content">
+        <h3>克孜尔千佛洞</h3>
+        <p>中国最早石窟，比敦煌早100年。壁画"故事画之冠"，反映犍陀罗艺术风格，丝路佛教瑰宝。</p>
+        <div class="card-meta">
+          <span>🏛️ 全国重点文保</span>
+          <span class="rating">⭐ 4.8</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/aks3" target="_blank">
+      <img class="card-image" src="./阿克苏图片/温宿2.JPG" alt="温宿大峡谷">
+      <div class="card-content">
+        <h3>温宿大峡谷</h3>
+        <p>中国西部最美丹霞，赤红色岩壁如火焰。峡谷幽深，奇峰林立，被誉为"活的地质教科书"。</p>
+        <div class="card-meta">
+          <span>🌋 国家地质公园</span>
+          <span class="rating">⭐ 4.7</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/aks4" target="_blank">
+      <img class="card-image" src= "./阿克苏图片/塔克拉1.JPG" alt="塔克拉玛干">
+      <div class="card-content">
+        <h3>塔克拉玛干沙漠</h3>
+        <p>世界第二大流动沙漠。沙漠公路横穿，胡杨林千年不死，展现生命顽强与大自然壮美。</p>
+        <div class="card-meta">
+          <span>🏜️ 沙漠奇观</span>
+          <span class="rating">⭐ 4.6</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/aks5" target="_blank">
+      <img class="card-image" src="./阿克苏图片/库车.JPG" alt="库车王府">
+      <div class="card-content">
+        <h3>库车王府</h3>
+        <p>清代龟兹故地政治中心，融合中原与伊斯兰建筑风格。展现龟兹王室生活与历史变迁。</p>
+        <div class="card-meta">
+          <span>🏰 历史古迹</span>
+          <span class="rating">⭐ 4.5</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/aks6" target="_blank">
+      <img class="card-image" src="./阿克苏图片/刀郎部落.JPG" alt="刀郎部落">
+      <div class="card-content">
+        <h3>阿瓦提刀郎部落</h3>
+        <p>多浪文化发源地，体验刀郎木卡姆、猎鹰文化。原始胡杨林环绕，感受古老民族风情。</p>
+        <div class="card-meta">
+          <span>🎭 非遗文化</span>
+          <span class="rating">⭐ 4.6</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/aks7" target="_blank">
+      <img class="card-image" src="./阿克苏图片/沙雅.JPG" alt="库车大峡谷">
+      <div class="card-content">
+        <h3>库车天山神秘大峡谷</h3>
+        <p>红褐色巨型岩溶地貌，曲径幽深。岩壁如火焰燃烧，被称为"天山火焰山"，摄影绝佳地。</p>
+        <div class="card-meta">
+          <span>🔥 地质奇观</span>
+          <span class="rating">⭐ 4.7</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/aks8" target="_blank">
+      <img class="card-image" src="./阿克苏图片/胡杨林.JPG" alt="沙雅胡杨林">
+      <div class="card-content">
+        <h3>沙雅胡杨林</h3>
+        <p>世界面积最大原始胡杨林保护区。千年胡杨"活化石"，秋季金黄一片，生命顽强象征。</p>
+        <div class="card-meta">
+          <span>🍂 金色海洋</span>
+          <span class="rating">⭐ 4.8</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/aks9" target="_blank">
+      <img class="card-image" src="./阿克苏图片/魔鬼城.JPG" alt="拜城克孜尔">
+      <div class="card-content">
+        <h3>拜城克孜尔魔鬼城</h3>
+        <p>雅丹地貌奇观，风蚀城堡千姿百态。日落时分光影变幻，仿佛进入异域魔幻世界。</p>
+        <div class="card-meta">
+          <span>🏰 雅丹地貌</span>
+          <span class="rating">⭐ 4.4</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- 美食 -->
+<section id="foods" class="fade-in">
+  <h2>🍎 果乡美食 · 西域风味</h2>
+  <div class="grid">
+    <a class="card" href="https://mp.weixin.qq.com/s/aksfood1" target="_blank">
+      <img class="card-image" src="./阿克苏图片/1苹果.JPG" alt="冰糖心苹果">
+      <div class="card-content">
+        <h3>阿克苏冰糖心苹果</h3>
+        <p>红旗坡核心产区，霜降后采摘，糖分凝聚成冰晶。口感脆甜多汁，果香浓郁，国家地理标志产品。</p>
+        <div class="card-meta">
+          <span>🍎 地理标志</span>
+          <span class="rating">⭐⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/aksfood2" target="_blank">
+      <img class="card-image" src="./阿克苏图片/烤包子.JPG" alt="维吾尔烤包子">
+      <div class="card-content">
+        <h3>库车烤包子</h3>
+        <p>馕坑烤制，皮薄馅大，羊肉洋葱馅料。外皮酥脆掉渣，内肉汁丰盈，是库车街头最香的味道。</p>
+        <div class="card-meta">
+          <span>🥟 非遗小吃</span>
+          <span class="rating">⭐⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/aksfood3" target="_blank">
+      <img class="card-image" src="./阿克苏图片/手抓饭.JPG" alt="羊肉抓饭">
+      <div class="card-content">
+        <h3>阿克苏抓饭</h3>
+        <p>黄萝卜、胡萝卜、羊肉、大米焖制。米粒分明油亮，羊肉酥烂，配酸奶解腻，维吾尔节庆必备。</p>
+        <div class="card-meta">
+          <span>🍚 节庆美食</span>
+          <span class="rating">⭐⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/aksfood4" target="_blank">
+      <img class="card-image" src="./阿克苏图片/核桃.JPG" alt="核桃">
+      <div class="card-content">
+        <h3>温宿纸皮核桃</h3>
+        <p>皮薄如纸，手捏即开，果仁饱满。含油量高，营养丰富，是阿克苏特产中的珍品，健脑益智。</p>
+        <div class="card-meta">
+          <span>🥜 温宿特产</span>
+          <span class="rating">⭐⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/aksfood5" target="_blank">
+      <img class="card-image" src="./阿克苏图片/红枣2.JPG" alt="红枣">
+      <div class="card-content">
+        <h3>阿克苏红枣</h3>
+        <p>若羌红枣核心产区，昼夜温差大，糖分极高。肉厚核小，甜而不腻，是滋补佳品，维生素含量高。</p>
+        <div class="card-meta">
+          <span>🌿 滋补圣品</span>
+          <span class="rating">⭐⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/aksfood6" target="_blank">
+      <img class="card-image" src="./阿克苏图片/拉面.JPG" alt="维吾尔拉面">
+      <div class="card-content">
+        <h3>拉条子</h3>
+        <p>手工拉面，浇头有羊肉、番茄、辣椒。面条筋道爽滑，配菜丰富，是阿克苏人的日常主食。</p>
+        <div class="card-meta">
+          <span>🍜 主食担当</span>
+          <span class="rating">⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/aksfood7" target="_blank">
+      <img class="card-image" src="./阿克苏图片/葡萄.JPG" alt="葡萄">
+      <div class="card-content">
+        <h3>木纳格葡萄</h3>
+        <p>秋季成熟，粒大无核，皮薄肉脆。含糖量高达20%，是制作葡萄干的上品，被誉为"珍珠玛瑙"。</p>
+        <div class="card-meta">
+          <span>🍇 果中极品</span>
+          <span class="rating">⭐⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/aksfood8" target="_blank">
+      <img class="card-image" src="./阿克苏图片/酸奶.JPG" alt="酸奶">
+      <div class="card-content">
+        <h3>阿克苏酸奶</h3>
+        <p>鲜奶自然发酵，质地浓稠，微酸回甘。配蜂蜜或白砂糖，是饭后助消化佳品，益生菌丰富健康。</p>
+        <div class="card-meta">
+          <span>🥛 健康饮品</span>
+          <span class="rating">⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/aksfood9" target="_blank">
+      <img class="card-image" src="./阿克苏图片/烤全羊.JPG" alt="烤全羊">
+      <div class="card-content">
+        <h3>阿克苏烤全羊</h3>
+      <p>选用本地羔羊，果木炭火慢烤4小时。外皮金黄酥脆，内肉鲜嫩多汁，是维吾尔节庆最高待客礼遇。</p>
+        <div class="card-meta">
+          <span>🐑 节庆大菜</span>
+          <span class="rating">⭐⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- 特产 -->
+<section id="gifts" class="fade-in">
+  <h2>🎁 阿克苏礼物 · 丝路珍品</h2>
+  <div class="grid">
+    <a class="card" href="https://mp.weixin.qq.com/s/aksgift1" target="_blank">
+      <img class="card-image" src="./阿克苏图片/苹果2.JPG" alt="冰糖心苹果">
+      <div class="card-content">
+        <h3>阿克苏冰糖心苹果</h3>
+        <p>核心产区红旗坡，霜降后采摘，糖分冰晶凝聚。甜脆多汁，果香浓郁，国家地理标志产品，送礼首选。</p>
+        <div class="card-meta">
+          <span>🍎 地理标志</span>
+          <span class="rating">⭐⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/aksgift2" target="_blank">
+      <img class="card-image" src="./阿克苏图片/核桃.JPG" alt="薄皮核桃">
+      <div class="card-content">
+        <h3>温宿薄皮核桃</h3>
+        <p>皮薄如纸手捏即开，果仁饱满含油量高。益智健脑，营养丰富，温宿县特产，送礼体面健康。</p>
+        <div class="card-meta">
+          <span>🥜 手捏即开</span>
+          <span class="rating">⭐⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/aksgift3" target="_blank">
+      <img class="card-image" src="./阿克苏图片/红枣.JPG" alt="红枣">
+      <div class="card-content">
+        <h3>若羌红枣</h3>
+        <p>肉厚核小甜而不腻，维生素含量极高。滋补养颜，是阿克苏另一张名片，女性最爱。</p>
+        <div class="card-meta">
+          <span>🌿 滋补圣品</span>
+          <span class="rating">⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/aksgift4" target="_blank">
+      <img class="card-image" src="./阿克苏图片/葡萄.JPG" alt="木纳格葡萄">
+      <div class="card-content">
+        <h3>木纳格葡萄</h3>
+        <p>粒大无核皮薄肉脆，含糖量高达20%。制作葡萄干上品，被誉为"珍珠玛瑙"，果中珍品。</p>
+        <div class="card-meta">
+          <span>🍇 无核白葡萄</span>
+          <span class="rating">⭐⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/aksgift5" target="_blank">
+      <img class="card-image" src="./阿克苏图片/名族乐器.JPG" alt="民族乐器">
+      <div class="card-content">
+        <h3>维吾尔乐器</h3>
+        <p>都塔尔、热瓦普、手鼓等手工制作。音质纯正，雕刻精美，是音乐爱好者收藏佳品，文化传承。</p>
+        <div class="card-meta">
+          <span>🎵 手工制作</span>
+          <span class="rating">⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/aksgift6" target="_blank">
+      <img class="card-image" src="./阿克苏图片/刀.JPG" alt="沙雅小刀">
+      <div class="card-content">
+        <h3>沙雅小刀</h3>
+        <p>传统手工锻打，刀刃锋利，刀柄镶嵌精美。实用与收藏兼备，是维吾尔族传统工艺代表。</p>
+        <div class="card-meta">
+          <span>🔪 非遗工艺</span>
+          <span class="rating">⭐⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/aksgift7" target="_blank">
+      <img class="card-image" src="./阿克苏图片/杏干.JPG" alt="杏干">
+      <div class="card-content">
+        <h3>库车小白杏干</h3>
+        <p>库车白杏自然晾晒，无添加剂。酸甜适口，开胃消食，富含维C，是旅途能量补充佳品。</p>
+        <div class="card-meta">
+          <span>🌞 天然晾晒</span>
+          <span class="rating">⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/aksgift8" target="_blank">
+      <img class="card-image" src="./阿克苏图片/驼戒.JPG" alt="驼绒制品">
+      <div class="card-content">
+        <h3>驼绒制品</h3>
+        <p>骆驼绒制作保暖衣物被褥，轻柔保暖。是沙漠地区特产，御寒效果极佳，纯天然的奢侈品。</p>
+        <div class="card-meta">
+          <span>🐫 沙漠之舟</span>
+          <span class="rating">⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- 旅行指南 -->
+<section id="travel" class="fade-in">
+  <h2>✈️ 丝路之旅 · 实用指南</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="card-content">
+        <h3>🚗 交通方式</h3>
+        <p><strong>飞机：</strong>阿克苏机场、库车机场，乌鲁木齐中转</p>
+        <p><strong>火车：</strong>阿克苏站、库车站，南疆铁路重要节点</p>
+        <p><strong>自驾：</strong>独库公路南段，沙漠公路体验</p>
+        <p><strong>包车：</strong>沙漠地区建议四驱越野车</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <h3>🏨 住宿推荐</h3>
+        <p><strong>阿克苏市：</strong>市区星级酒店，购物便利</p>
+        <p><strong>库车：</strong>古城区特色客栈，体验龟兹文化</p>
+        <p><strong>沙漠：</strong>塔河外滩营地，观星赏月</p>
+        <p><strong>温宿：</strong>峡谷附近民宿，亲近自然</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <h3>🎒 装备清单</h3>
+        <p><strong>防晒：</strong>高倍防晒霜、墨镜、遮阳帽必备</p>
+        <p><strong>保暖：</strong>早晚温差大，带外套、长裤</p>
+        <p><strong>沙漠：</strong>防沙鞋套、头巾、充足饮用水</p>
+        <p><strong>其他：</strong>肠胃药、风沙防护、现金</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="social-links">
+    <a href="#">📱</a>
+    <a href="#">📷</a>
+    <a href="#">🎬</a>
+    <a href="#">📧</a>
+  </div>
+  <p>© 2025 阿克苏地区文化体育广播电视和旅游局 · 丝路龟兹 秘境阿克苏</p>
+  <p>客服热线：0997-12301 | 旅游投诉：0997-2151234</p>
+  <p>地址：新疆阿克苏市南大街55号</p>
+</footer>
+
+<script>
+  // ========== 页面加载动画 ==========
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loader').classList.add('hidden');
+    }, 800);
+  });
+
+  // ========== 胡杨飞沙粒子效果 ==========
+  const canvas = document.getElementById('particles'), ctx = canvas.getContext('2d');
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+  const particles = Array.from({length: 100}, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 3 + 1,
+    d: Math.random() * 2 + 0.5,
+    a: Math.random() * 1.5 - 0.75,
+    o: Math.random() * 0.6 + 0.2,
+    color: Math.random() > 0.7 ? '217, 119, 6' : '255, 255, 255' // 沙漠金与白色
+  }));
+  function drawParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${p.color}, ${p.o})`;
+      ctx.fill();
+      p.y += p.d;
+      p.x += p.a;
+      if (p.y > canvas.height) p.y = -10;
+      if (p.x > canvas.width) p.x = 0;
+      if (p.x < 0) p.x = canvas.width;
+    });
+  }
+  setInterval(drawParticles, 30);
+  addEventListener('resize', () => { canvas.width = innerWidth; canvas.height = innerHeight; });
+
+  // ========== 视差滚动 ==========
+  const heroLayers = document.querySelectorAll('.hero-layer');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    heroLayers[0].style.transform = `translateY(${scrolled * 0.5}px)`;
+    heroLayers[1].style.transform = `translateY(${scrolled * 0.7}px)`;
+  });
+
+  // ========== 导航栏滚动隐藏 ==========
+  let lastScroll = 0;
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    if (currentScroll > 100) {
+      if (currentScroll > lastScroll) {
+        navbar.classList.add('hidden');
+      } else {
+        navbar.classList.remove('hidden');
+      }
+    }
+    lastScroll = currentScroll;
+  });
+
+  // ========== 滚动动画 ==========
+  const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // ========== 平滑滚动 ==========
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // ========== 导航高亮 ==========
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      if (pageYOffset >= sectionTop - 150) {
+        current = section.getAttribute('id');
+      }
+    });
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${current}`) {
+        link.classList.add('active');
+      }
+    });
+  });
+</script>
+
+</body></html>

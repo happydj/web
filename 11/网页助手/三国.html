@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026美加墨世界杯 - 吉祥物官方页面</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="../js/3.4.17.js"></script>
+    <!-- 引入Font Awesome -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> -->
+    <!-- 自定义配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        fifa: {
+                            red: '#E30613',
+                            blue: '#00529B',
+                            gold: '#FFD100',
+                            green: '#009639',
+                            gray: '#333333'
+                        },
+                        mexico: '#006847',
+                        canada: '#FF0000',
+                        usa: '#0052B4'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            }
+            .animate-float {
+                animation: float 3s ease-in-out infinite;
+            }
+            .bg-gradient-worldcup {
+                background: linear-gradient(135deg, #00529B 0%, #E30613 50%, #FFD100 100%);
+            }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* 平滑滚动 */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* 加载动画 */
+        .loader {
+            border-top-color: #E30613;
+            animation: spinner 0.6s linear infinite;
+        }
+
+        @keyframes spinner {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+    <!-- 引入谷歌字体 -->
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"> -->
+</head>
+
+<body class="font-sans bg-gray-50 text-fifa-gray">
+    <!-- 加载动画 -->
+    <div id="loader" class="fixed inset-0 flex items-center justify-center bg-white z-50">
+        <div class="loader w-16 h-16 border-4 border-gray-200 rounded-full"></div>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav id="navbar" class="fixed w-full z-40 transition-all duration-300">
+        <div
+            class="container mx-auto px-4 py-3 flex items-center justify-between bg-white/90 backdrop-blur-sm shadow-sm">
+            <div class="flex items-center">
+                <img src="../img/FIFA.jpg" alt="2026世界杯logo" class="h-10 mr-3">
+                <span class="text-xl font-bold text-fifa-blue hidden md:inline-block">2026 FIFA World Cup</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="font-medium hover:text-fifa-red transition-colors">首页</a>
+                <a href="#mascot" class="font-medium hover:text-fifa-red transition-colors">吉祥物介绍</a>
+                <a href="#design" class="font-medium hover:text-fifa-red transition-colors">设计理念</a>
+                <a href="#gallery" class="font-medium hover:text-fifa-red transition-colors">美加墨图片画廊</a>
+            </div>
+            <!-- 移动端菜单按钮 -->
+            <button id="menuBtn" class="md:hidden text-fifa-gray text-2xl">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <!-- 移动端菜单 -->
+        <div id="mobileMenu" class="md:hidden hidden bg-white shadow-lg absolute w-full">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+                <a href="#home" class="font-medium py-2 hover:text-fifa-red transition-colors">首页</a>
+                <a href="#mascot" class="font-medium py-2 hover:text-fifa-red transition-colors">吉祥物介绍</a>
+                <a href="#design" class="font-medium py-2 hover:text-fifa-red transition-colors">设计理念</a>
+                <a href="#countries" class="font-medium py-2 hover:text-fifa-red transition-colors">三国元素</a>
+                <a href="#gallery" class="font-medium py-2 hover:text-fifa-red transition-colors">图片画廊</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄区 -->
+    <section id="home" class="pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-worldcup text-white">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-[clamp(2.5rem,5vw,4rem)] font-bold font-display text-shadow mb-4">
+                    2026美加墨世界杯<br>官方吉祥物
+                </h1>
+                <p class="text-lg md:text-xl mb-8 max-w-lg text-white/90">
+                    融合北美三国文化特色，展现足球运动的激情与团结，传递和平、友谊与包容的世界杯精神。
+                </p>
+                <a href="#mascot"
+                    class="inline-block bg-fifa-gold text-fifa-blue font-bold py-3 px-8 rounded-full hover:bg-fifa-gold/90 transition-all transform hover:scale-105 shadow-lg">
+                    了解吉祥物 <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <div class="animate-float">
+                    <img src="../img/吉祥物.png" alt="2026世界杯吉祥物"
+                        class="rounded-full shadow-2xl border-8 border-white/80 w-64 md:w-80">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 吉祥物介绍 -->
+    <section id="mascot" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12 md:mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-fifa-blue mb-4">吉祥物介绍</h2>
+                <div class="w-20 h-1 bg-fifa-red mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    2026年美加墨世界杯吉祥物融合了三个主办国的文化特色和自然元素，成为本届世界杯的形象大使。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- 吉祥物1 -->
+                <div
+                    class="bg-gray-50 rounded-xl shadow-md hover:shadow-xl transition-shadow p-6 border border-gray-100">
+                    <div class="text-center mb-4">
+                        <img src="../img/m.png" alt="美洲豹祥物" class="w-40 h-40 object-cover rounded-full mx-auto mb-4">
+                        <h3 class="text-xl font-bold text-fifa-blue">萨尤(Zayu)</h3>
+                        <p class="text-sm text-gray-500 mb-2">代表墨西哥的美洲豹</p>
+                    </div>
+                    <p class="text-gray-600">
+                        寓意团结与欢乐，体现墨西哥文化底蕴，被视为力量与勇气的象征
+                    </p>
+                </div>
+
+                <!-- 吉祥物2 -->
+                <div
+                    class="bg-gray-50 rounded-xl shadow-md hover:shadow-xl transition-shadow p-6 border border-gray-100">
+                    <div class="text-center mb-4">
+                        <img src="../img/j.png" alt="驼鹿吉祥物" class="w-40 h-40 object-cover rounded-full mx-auto mb-4">
+                        <h3 class="text-xl font-bold text-canada">梅普尔(Maple)</h3>
+                        <p class="text-sm text-gray-500 mb-2">代表加拿大的驼鹿</p>
+                    </div>
+                    <p class="text-gray-600">
+                        寓意着自由与创造力，体现勇敢与灵活的特性，表现出精彩。
+                    </p>
+                </div>
+
+                <!-- 吉祥物3 -->
+                <div
+                    class="bg-gray-50 rounded-xl shadow-md hover:shadow-xl transition-shadow p-6 border border-gray-100">
+                    <div class="text-center mb-4">
+                        <img src="../img/mg.jpg" alt="白头海雕吉祥物" class="w-40 h-40 object-cover rounded-full mx-auto mb-4">
+                        <h3 class="text-xl font-bold text-usa"> 克拉奇(Clutch)</h3>
+                        <p class="text-sm text-gray-500 mb-2">代表美国的白头海雕</p>
+                    </div>
+                    <p class="text-gray-600">
+                        寓意着冒险精神和乐观态度，充满无畏精神，激励队友并引领团队。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 设计理念 -->
+    <section id="design" class="py-16 md:py-24 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12 md:mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-fifa-blue mb-4">设计理念</h2>
+                <div class="w-20 h-1 bg-fifa-red mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    吉祥物的设计融合了三个国家的文化符号、自然元素和足球精神，体现了北美大陆的多元与统一。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <img src="../img/sjb.png" alt="设计理念展示" class="rounded-xl shadow-lg w-full h-auto">
+                </div>
+                <div class="space-y-6">
+                    <div class="flex items-start">
+                        <div class="bg-fifa-red/10 rounded-full p-3 mr-4 mt-1">
+                            <i class="fas fa-palette text-fifa-red text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-fifa-blue mb-2">色彩设计</h3>
+                            <p class="text-gray-600">
+                                采用墨西哥国旗的绿白红、加拿大的红白、美国的红白蓝三色融合，形成独特的色彩体系，象征三国的团结与合作。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div class="bg-fifa-blue/10 rounded-full p-3 mr-4 mt-1">
+                            <i class="fas fa-feather-alt text-fifa-blue text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-fifa-blue mb-2">文化融合</h3>
+                            <p class="text-gray-600">
+                                融入阿兹特克图腾、加拿大原住民艺术、美国现代流行文化等元素，展现北美大陆丰富的文化遗产和现代气息。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div class="bg-fifa-gold/10 rounded-full p-3 mr-4 mt-1">
+                            <i class="fas fa-futbol text-fifa-gold text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-fifa-blue mb-2">足球精神</h3>
+                            <p class="text-gray-600">
+                                吉祥物的动态设计体现了足球运动的速度、力量和技巧，传递公平竞赛、团队合作和永不放弃的体育精神。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- 图片画廊 -->
+    <section id="gallery" class="py-16 md:py-24 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12 md:mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-fifa-blue mb-4">美加墨图片</h2>
+                <div class="w-20 h-1 bg-fifa-red mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    欣赏2026年美加墨世界杯吉宣传图片，感受设计的魅力和世界杯的氛围。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="overflow-hidden rounded-lg shadow-md group">
+                    <img src="../img/1.jpg" alt="吉祥物图片1"
+                        class="w-full h-60 object-cover transition-transform duration-500 group-hover:scale-110 cursor-pointer">
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-md group">
+                    <img src="../img/mxg1.png" alt="吉祥物图片2"
+                        class="w-full h-60 object-cover transition-transform duration-500 group-hover:scale-110 cursor-pointer">
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-md group">
+                    <img src="../img/jnd1.png" alt="吉祥物图片3"
+                        class="w-full h-60 object-cover transition-transform duration-500 group-hover:scale-110 cursor-pointer">
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-md group">
+                    <img src="../img/2.jpeg" alt="吉祥物图片4"
+                        class="w-full h-60 object-cover transition-transform duration-500 group-hover:scale-110 cursor-pointer">
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-md group">
+                    <img src="../img/FIFA.jpg" alt="吉祥物图片5"
+                        class="w-full h-60 object-cover transition-transform duration-500 group-hover:scale-110 cursor-pointer">
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-md group">
+                    <img src="../img/吉祥物.png" alt="吉祥物图片6"
+                        class="w-full h-60 object-cover transition-transform duration-500 group-hover:scale-110 cursor-pointer">
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-md group">
+                    <img src="../img/杯.png" alt="吉祥物图片7"
+                        class="w-full h-60 object-cover transition-transform duration-500 group-hover:scale-110 cursor-pointer">
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-md group">
+                    <img src="../img/足球.jpg" alt="吉祥物图片8"
+                        class="w-full h-60 object-cover transition-transform duration-500 group-hover:scale-110 cursor-pointer">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- 图片查看器 -->
+    <div id="imageViewer" class="fixed inset-0 bg-black/90 z-50 hidden flex items-center justify-center">
+        <button id="closeViewer"
+            class="absolute top-6 right-6 text-white text-3xl hover:text-fifa-red transition-colors">
+            <i class="fas fa-times"></i>
+        </button>
+        <img id="viewerImage" src="" alt="大图预览" class="max-w-[90%] max-h-[90vh]">
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // 加载动画
+        window.addEventListener('load', function () {
+            setTimeout(function () {
+                document.getElementById('loader').classList.add('opacity-0');
+                setTimeout(function () {
+                    document.getElementById('loader').style.display = 'none';
+                }, 500);
+            }, 800);
+        });
+
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function () {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-white', 'shadow-md');
+                navbar.classList.remove('bg-white/90');
+            } else {
+                navbar.classList.remove('bg-white', 'shadow-md');
+                navbar.classList.add('bg-white/90');
+            }
+        });
+
+        // 移动端菜单
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        menuBtn.addEventListener('click', function () {
+            mobileMenu.classList.toggle('hidden');
+            const icon = menuBtn.querySelector('i');
+            if (mobileMenu.classList.contains('hidden')) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            }
+        });
+
+        // 图片查看器
+        const galleryImages = document.querySelectorAll('#gallery img');
+        const imageViewer = document.getElementById('imageViewer');
+        const viewerImage = document.getElementById('viewerImage');
+        const closeViewer = document.getElementById('closeViewer');
+
+        galleryImages.forEach(img => {
+            img.addEventListener('click', function () {
+                viewerImage.src = this.src.replace('/400/400', '/1200/1200');
+                imageViewer.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        closeViewer.addEventListener('click', function () {
+            imageViewer.classList.add('hidden');
+            document.body.style.overflow = '';
+        });
+
+        imageViewer.addEventListener('click', function (e) {
+            if (e.target === imageViewer) {
+                imageViewer.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // 关闭移动端菜单
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                    const icon = menuBtn.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

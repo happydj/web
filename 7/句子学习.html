@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>句子学习</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            padding: 20px;
+            /* 新增：给左上角链接留出空间 */
+            position: relative;
+        }
+
+        /* 新增：返回首页链接样式 */
+        .back-home {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.2s ease;
+            z-index: 999; /* 确保在最上层 */
+        }
+
+        .back-home:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #444;
+            opacity: 0.9;
+        }
+
+        /* 进度提示 */
+        .progress {
+            font-size: 1rem;
+            color: #667eea;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .sentence-box {
+            margin-bottom: 30px;
+            position: relative;
+            /* 句子切换动画 */
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .sentence-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            /* 增加间距，让翻译显示更美观 */
+        }
+
+        .sentence {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            color: #222;
+            transition: all 0.3s ease;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: left;
+            flex: 1;
+        }
+
+        .sentence:hover {
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        /* 保留选中样式（可选，可删除） */
+        .sentence.selected {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+        }
+
+        .read-btn {
+            background: #667eea;
+            color: #fff;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .read-btn:hover {
+            background: #5a6edb;
+            transform: scale(1.05);
+        }
+
+        .read-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* 朗读中状态 */
+        .read-btn.speaking {
+            background: #ff6b6b;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* 翻译样式修改：默认显示，紧跟英文句子下方 */
+        .translation {
+            font-size: 1.1rem;
+            color: #555;
+            /* 加深颜色，提高可读性 */
+            opacity: 1;
+            /* 完全显示 */
+            margin-top: 0;
+            text-align: left;
+            padding: 10px 10px 10px 20px;
+            /* 左侧增加缩进，与英文句子形成层次 */
+            display: block;
+            /* 强制显示，无需点击触发 */
+            transition: opacity 0.3s ease;
+            background: rgba(245, 245, 250, 0.8);
+            /* 增加浅背景，区分英文句子 */
+            border-radius: 8px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            /* 修复原语法错误 */
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: none;
+            background: #764ba2;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background: #684096;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 新增：返回首页链接 -->
+    <a href="index.html" class="back-home">← 返回首页</a>
+
+    <div class="container">
+        <h1>English Sentence Learning</h1>
+        <!-- 进度显示 -->
+        <div class="progress" id="progress-text">1 / 10</div>
+        <div id="sentences-container">
+            <!-- 句子会通过 JS 动态生成 -->
+        </div>
+
+        <div class="controls">
+            <button id="prev-btn" class="btn">上一句</button>
+            <button id="next-btn" class="btn">下一句</button>
+            <button id="random-btn" class="btn">随机一句</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        点击喇叭图标朗读句子 | 翻译直接显示在英文句子下方
+    </div>
+
+    <script>
+        // 封装为模块化，避免全局污染
+        (function () {
+            // 英文句子 + 中文翻译（可单独提取为JSON文件）
+            const sentences = [
+                // 原有10组句子
+                {
+                    en: "The only way to do great work is to love what you do.",
+                    zh: "成就一番伟业的唯一途径，就是热爱自己的事业。"
+                },
+                {
+                    en: "Believe you can and you're halfway there.",
+                    zh: "相信自己，你就已经成功了一半。"
+                },
+                {
+                    en: "Don't watch the clock; do what it does. Keep going.",
+                    zh: "不要只盯着时钟，要做时钟做的事：继续前进。"
+                },
+                {
+                    en: "It does not matter how slowly you go as long as you do not stop.",
+                    zh: "只要不停下脚步，走得慢也没关系。"
+                },
+                {
+                    en: "You are never too old to set another goal or to dream a new dream.",
+                    zh: "无论年纪多大，你都可以再定一个目标，或拥有一个新的梦想。"
+                },
+                {
+                    en: "The future belongs to those who believe in the beauty of their dreams.",
+                    zh: "未来属于那些相信梦想之美的人。"
+                },
+                {
+                    en: "Dream big and dare to fail.",
+                    zh: "大胆梦想，敢于失败。"
+                },
+                {
+                    en: "Start where you are. Use what you have. Do what you can.",
+                    zh: "从你现在的位置出发，用你所拥有的，做你力所能及的事。"
+                },
+                {
+                    en: "Success is not final, failure is not fatal: it is the courage to continue that counts.",
+                    zh: "成功不是终点，失败也不是致命的，重要的是有勇气继续前行。"
+                },
+                {
+                    en: "The best time to plant a tree was 20 years ago. The second best time is now.",
+                    zh: "种树最好的时间是二十年前，其次是现在。"
+                },
+                {
+                    en: "Where there is a will, there is a way.",
+                    zh: "有志者，事竟成。"
+                },
+                {
+                    en: "Never give up, for that is just the place and time that the tide will turn.",
+                    zh: "永远不要放弃，因为此刻此地，正是时来运转的契机。"
+                },
+                {
+                    en: "Hard work beats talent when talent doesn't work hard.",
+                    zh: "当天赋不努力时，努力就能战胜天赋。"
+                },
+                {
+                    en: "The greatest glory in living lies not in never falling, but in rising every time we fall.",
+                    zh: "生命中最大的荣耀，不在于永不跌倒，而在于每次跌倒后都能重新站起。"
+                },
+                {
+                    en: "What you do today can improve all your tomorrows.",
+                    zh: "你今天所做的努力，能让你所有的明天变得更好。"
+                },
+                {
+                    en: "You miss 100% of the shots you don't take.",
+                    zh: "你不尝试的每一次机会，成功率都是零。"
+                },
+                {
+                    en: "Act as if what you do makes a difference. It does.",
+                    zh: "请坚信，你的所作所为至关重要，事实的确如此。"
+                },
+                {
+                    en: "Perseverance is not a long race; it is many short races one after another.",
+                    zh: "毅力不是一场漫长的赛跑，而是一场又一场短暂的冲刺。"
+                },
+                {
+                    en: "The only limit to our realization of tomorrow will be our doubts of today.",
+                    zh: "实现明天理想的唯一障碍，是今天的疑虑。"
+                },
+                {
+                    en: "Strive not to be a success, but rather to be of value.",
+                    zh: "不求成为成功者，但求成为有价值的人。"
+                },
+                {
+                    en: "I can't change the direction of the wind, but I can adjust my sails to always reach my destination.",
+                    zh: "我无法改变风向，但可以调整风帆，终能抵达目的地。"
+                },
+                {
+                    en: "Everything you've ever wanted is on the other side of fear.",
+                    zh: "你梦寐以求的一切，都在恐惧的另一端。"
+                },
+                {
+                    en: "Don't let yesterday take up too much of today.",
+                    zh: "别让昨天，占据了你太多的今天。"
+                },
+                {
+                    en: "Talent is God-given. Be humble. Fame is man-given. Be grateful. Conceit is self-given. Be careful.",
+                    zh: "天赋是天赐的，请保持谦逊；名声是人给的，请心怀感恩；自负是自找的，请务必谨慎。"
+                },
+                {
+                    en: "We may encounter many defeats but we must not be defeated.",
+                    zh: "我们或许会遭遇无数次挫败，但绝不能被打垮。"
+                },
+                {
+                    en: "Quality is not an act, it is a habit.",
+                    zh: "品质不是一时的行为，而是一种长久的习惯。"
+                },
+                {
+                    en: "Do one thing every day that scares you.",
+                    zh: "每天做一件让你感到恐惧的事。"
+                },
+                {
+                    en: "The mind is everything. What you think you become.",
+                    zh: "心态决定一切，你想成为什么样的人，就会成为什么样的人。"
+                },
+                {
+                    en: "Opportunities don't happen, you create them.",
+                    zh: "机遇不是等来的，而是你自己创造的。"
+                },
+                {
+                    en: "Live as if you were to die tomorrow. Learn as if you were to live forever.",
+                    zh: "像明天就要死去一样生活，像永远活着一样学习。"
+                }
+            ];
+            const container = document.getElementById('sentences-container');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const randomBtn = document.getElementById('random-btn');
+            const progressText = document.getElementById('progress-text');
+            let currentIndex = 0;
+
+            // 更新进度显示
+            function updateProgress() {
+                progressText.textContent = `${currentIndex + 1} / ${sentences.length}`;
+            }
+
+            // 渲染当前句子（翻译直接显示在下方）
+            function renderCurrent() {
+                const { en, zh } = sentences[currentIndex];
+                container.innerHTML = `
+                    <div class="sentence-box">
+                        <div class="sentence-wrapper">
+                            <div class="sentence" onclick="toggleSelect(this)">${en}</div>
+                            <button class="read-btn" onclick="handleReadSentence(this, '${en}')">🔊</button>
+                        </div>
+                        <div class="translation">${zh}</div> <!-- 翻译直接紧跟在sentence-wrapper下方 -->
+                    </div>
+                `;
+                updateProgress();
+            }
+
+            // 朗读句子（带状态提示）
+            function handleReadSentence(btn, text) {
+                if ('speechSynthesis' in window) {
+                    // 移除其他可能的朗读状态
+                    const allReadBtns = document.querySelectorAll('.read-btn');
+                    allReadBtns.forEach(b => b.classList.remove('speaking'));
+                    // 添加当前朗读状态
+                    btn.classList.add('speaking');
+
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.lang = 'en-US';
+                    // 朗读结束后移除状态
+                    utterance.onend = () => {
+                        btn.classList.remove('speaking');
+                    };
+                    speechSynthesis.speak(utterance);
+                } else {
+                    alert('您的浏览器不支持语音朗读功能。');
+                }
+            }
+
+            // 选中/取消选中（可选功能，可保留）
+            function toggleSelect(el) {
+                el.classList.toggle('selected');
+            }
+
+            // 暴露必要函数到全局（用于DOM点击事件）
+            window.toggleSelect = toggleSelect;
+            window.handleReadSentence = handleReadSentence;
+
+            // 上一句
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + sentences.length) % sentences.length;
+                renderCurrent();
+            });
+
+            // 下一句
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % sentences.length;
+                renderCurrent();
+            });
+
+            // 随机一句
+            randomBtn.addEventListener('click', () => {
+                let newIndex;
+                do {
+                    newIndex = Math.floor(Math.random() * sentences.length);
+                } while (newIndex === currentIndex && sentences.length > 1);
+                currentIndex = newIndex;
+                renderCurrent();
+            });
+
+            // 初始渲染
+            renderCurrent();
+        })();
+    </script>
+</body>
+
+</html>

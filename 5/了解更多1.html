@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大盘鸡照片与特点 - 土色风格</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            background-image: url("./img/艾特莱斯1.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(222, 210, 188, 0.95);
+            /* 浅土色背景 */
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(100, 80, 50, 0.3);
+            /* 土色阴影 */
+            overflow: hidden;
+        }
+
+        header {
+            background: #a07850;
+            /* 深土色 */
+            color: #fff8e0;
+            /* 浅米黄色文字 */
+            padding: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(50, 40, 20, 0.4);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .photos {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .photos img {
+            width: 350px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(100, 80, 50, 0.2);
+            /* 土色阴影 */
+            cursor: default;
+            /* 鼠标样式改为默认 */
+        }
+
+        .features {
+            padding: 30px;
+        }
+
+        .feature-item {
+            background: #e0d0b8;
+            /* 浅土黄色 */
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(100, 80, 50, 0.2);
+            /* 土色阴影 */
+        }
+
+        .feature-title {
+            background: #b08c60;
+            /* 中棕色 */
+            color: #fff8e0;
+            /* 浅米黄色文字 */
+            padding: 15px 20px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .feature-title::after {
+            content: "+";
+            font-size: 1.5rem;
+        }
+
+        .feature-item.active .feature-title::after {
+            content: "-";
+        }
+
+        .feature-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item.active .feature-content {
+            padding: 20px;
+            max-height: 1000px;
+        }
+
+        .feature-content p {
+            line-height: 1.8;
+            color: #5d4037;
+            /* 深棕色文字 */
+            font-size: 1rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #8d6e63;
+            /* 棕色文字 */
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .feature-title {
+                font-size: 1.1rem;
+            }
+
+            .photos img {
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>大盘鸡照片与特点</h1>
+            <p>色香味形俱全的西北特色菜肴</p>
+        </header>
+
+        <!-- 照片展示 -->
+        <div class="photos">
+            <img src="./img/大盘鸡1.jpg" alt="大盘鸡照片1">
+            <img src="./img/大盘鸡2.jpg" alt="大盘鸡照片2">
+            <img src="./img/大盘鸡3.jpg" alt="大盘鸡照片3">
+            <img src="./img/大盘鸡4.jpg" alt="大盘鸡照片4">
+            <img src="./img/大盘鸡5.JPG" alt="搭配拉条子">
+        </div>
+
+        <!-- 特点展示 -->
+        <div class="features">
+            <div class="feature-item">
+                <div class="feature-title">色泽红亮</div>
+                <div class="feature-content">
+                    <p>大盘鸡以红亮的酱汁包裹鸡块，色泽鲜艳，辣椒、土豆、鸡肉交织在一起，看起来非常有食欲。</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-title">麻辣鲜香</div>
+                <div class="feature-content">
+                    <p>大盘鸡味道浓郁，既有辣椒的麻辣，又有鸡肉的鲜香，汤汁醇厚，回味悠长。</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-title">营养均衡</div>
+                <div class="feature-content">
+                    <p>鸡肉富含蛋白质，土豆提供碳水化合物和膳食纤维，青椒、红椒等蔬菜补充维生素，是一道营养均衡的美食。</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-title">做法多样</div>
+                <div class="feature-content">
+                    <p>大盘鸡的做法有多种，可根据个人口味调整辣度，有的做法会加入洋葱、胡萝卜等配菜，也可以搭配面条或馕一起食用。</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-title">文化意义</div>
+                <div class="feature-content">
+                    <p>大盘鸡是新疆地区的特色菜肴，也是西北饮食文化的代表之一，常用于招待客人和家庭聚餐，体现了热情好客的民族风情。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 点击展开/收起
+        document.querySelectorAll('.feature-title').forEach(title => {
+            title.addEventListener('click', () => {
+                const item = title.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+
+</html>

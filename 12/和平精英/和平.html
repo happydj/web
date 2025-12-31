@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>和平精英登录页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "微软雅黑", "黑体", sans-serif;
+        }
+
+        /* 登录容器 */
+        .login-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 背景视频 */
+        .bg-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        /* 顶部版本号 */
+        .version {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            color: #fff;
+            font-size: 12px;
+            text-shadow: 0 0 3px #000;
+        }
+
+        /* 防沉迷提示 */
+        .anti-addiction {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: #fff;
+            font-size: 11px;
+            line-height: 1.4;
+            text-align: right;
+            text-shadow: 0 0 3px #000;
+            width: 300px;
+        }
+
+        /* 游戏标题 */
+        .game-title {
+            position: absolute;
+            top: 70%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .game-title h1 {
+            font-size: 5vw;
+            color: #ffd700;
+            text-shadow: 0 0 10px #000;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .game-title p {
+            font-size: 1.8vw;
+            color: #fff;
+            text-shadow: 0 0 5px #000;
+            letter-spacing: 2px;
+        }
+
+        /* 登录按钮区域 */
+        .login-btns {
+            position: absolute;
+            top: 85%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            gap: 25px;
+        }
+
+        .login-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 45px;
+            border: none;
+            border-radius: 6px;
+            font-size: 22px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .login-btn:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+
+        /* 微信/QQ登录按钮样式 */
+        .wechat-btn {
+            background-color: #07c160;
+        }
+
+        .qq-btn {
+            background-color: #12b7f5;
+        }
+
+        /* 侧边功能图标 */
+        .side-icons {
+            position: absolute;
+            top: 50%;
+            right: 25px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .side-icon {
+            width: 38px;
+            height: 38px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .side-icon:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        /* 左下角扫码登录&LOGO */
+        .left-bottom {
+            position: absolute;
+            bottom: 25px;
+            left: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .scan-login {
+            color: #fff;
+            font-size: 11px;
+            text-align: center;
+        }
+
+        .scan-login .icon {
+            width: 36px;
+            height: 36px;
+            margin: 0 auto 5px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .logos {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .logos img {
+            width: 36px;
+            height: 36px;
+            opacity: 0.8;
+        }
+
+        /* 右下角适龄提示 */
+        .age-tip {
+            position: absolute;
+            bottom: 25px;
+            right: 25px;
+            width: 50px;
+            height: 70px;
+        }
+
+        .age-tip img {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 底部版权信息 */
+        .copyright {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ccc;
+            font-size: 10px;
+            text-align: center;
+            line-height: 1.3;
+            width: 80%;
+        }
+    </style>
+    <!-- 引入字体图标（替代本地图标，更便捷） -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="login-container">
+        <!-- 背景视频：替换为你的视频路径 -->
+        <video class="bg-video" autoplay loop muted playsinline>
+            <source src="img/视频/封面.mp4" type="video/mp4">
+           
+        </video>
+
+        <!-- 顶部版本号 -->
+        <div class="version">版本号1.34.12.14619.1</div>
+
+        <!-- 防沉迷提示 -->
+        <div class="anti-addiction">
+            抵制不良游戏，拒绝盗版游戏。<br>
+            注意自我保护，谨防受骗上当。<br>
+            适度游戏益脑，沉迷游戏伤身。<br>
+            合理安排时间，享受健康生活。<br>
+            本公司积极履行《网络游戏行业防沉迷自律公约》
+        </div>
+
+        <!-- 游戏标题 -->
+        <div class="game-title">
+            <h1>和平精英</h1>
+            <p>GAME FOR PEACE</p>
+        </div>
+
+        <!-- 登录按钮 -->
+        <div class="login-btns">
+            <button class="login-btn wechat-btn">
+                <i class="fab fa-weixin"></i>
+                微信登录
+            </button>
+            <button class="login-btn qq-btn">
+                <i class="fab fa-qq"></i>
+                QQ登录
+            </button>
+        </div>
+
+        <!-- 侧边功能图标 -->
+        <div class="side-icons">
+            <div class="side-icon"><i class="fas fa-bullhorn"></i></div>
+            <div class="side-icon"><i class="fas fa-volume-mute"></i></div>
+            <div class="side-icon"><i class="fas fa-question-circle"></i></div>
+            <div class="side-icon"><i class="fas fa-wrench"></i></div>
+            <div class="side-icon"><i class="fas fa-file-upload"></i></div>
+        </div>
+
+        <!-- 左下角扫码登录&LOGO -->
+        <div class="left-bottom">
+            <div class="scan-login">
+                <div class="icon"><i class="fas fa-qrcode"></i></div>
+                扫码登录
+            </div>
+            <div class="logos">
+                <img src="https://img.icons8.com/fluency/96/000000/unreal-engine.png" alt="Unreal">
+                <img src="https://img.icons8.com/color/96/000000/tencent.png" alt="TIMI">
+            </div>
+        </div>
+
+        <!-- 右下角适龄提示 -->
+        <div class="age-tip">
+            <img src="https://img.icons8.com/color/96/000000/16-plus.png" alt="16+适龄提示">
+        </div>
+
+        <!-- 底部版权信息 -->
+        <div class="copyright">
+            国新出审[2019]1394号 ISBN 978-7-498-06474-5 粤网文[2017]6138-1456号（总）网出证（粤）字第057号<br>
+            著作权人：腾讯科技（深圳）有限公司 出版单位：深圳市腾讯计算机系统有限公司 运营单位：深圳市腾讯计算机系统有限公司<br>
+            请您确定已如实进行实名注册；为了您的健康，请合理控制游戏时间
+        </div>
+    </div>
+</body>
+</html>

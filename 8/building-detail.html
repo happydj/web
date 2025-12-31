@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校园导航 </title>
+    <!-- 引入Tailwind CSS -->
+    <script src="./js/tailwindcss.js"></script>
+    <!-- 引入Font Awesome图标 -->
+    <link rel="stylesheet" href="./css/all.min.css">
+
+
+
+    <!-- 自定义Tailwind配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF', // 主色调（校园蓝）
+                        secondary: '#36B37E', // 辅助色（校园绿）
+                        neutral: '#F5F7FA', // 中性色
+                        dark: '#1D2129', // 深色文本
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+
+    </script>
+
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .nav-shadow {
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            }
+            .card-hover {
+                transition: all 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 24px rgba(22, 93, 255, 0.12);
+            }
+        }
+
+
+        .dingwei{
+            top: 270px;
+            right: 190px;
+            /* 使用功能动画   动画名字  时间  运动曲线  次数infinite 无限次*/
+            animation: tiaodong 1s ease infinite;
+        }
+        /* 定义关键帧 */
+        @keyframes tiaodong {
+            0%,100%{
+                /* 动画，平移 */
+                transform: translateY(0px);
+            }
+            50%{
+                transform: translateY(-15px);
+            }
+        }
+      
+    </style>
+</head>
+
+<body class="bg-neutral font-sans text-dark">
+    <!-- 顶部导航栏 -->
+    <header class="sticky top-0 z-50 bg-white nav-shadow">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <!-- 校徽+校名 -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white">
+                    <i class="fa-solid fa-school text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-primary">博尔塔拉职业技术学院</h1>
+                    <p class="text-xs text-gray-500">校园导航系统</p>
+                </div>
+            </div>
+
+            <!-- 导航菜单 - 桌面端 -->
+            <nav class="hidden md:flex items-center gap-6">
+                <a href="./index.html#map"
+                    class="text-dark hover:text-primary transition-colors font-medium text-lg">校园地图</a>
+                <a href="./index.html#buildings"
+                    class="text-dark hover:text-primary transition-colors font-medium text-lg">楼宇导航</a>
+                <a href="./index.html#services"
+                    class="text-dark hover:text-primary transition-colors font-medium text-lg">校园服务</a>
+                <a href="./index.html#news"
+                    class="text-dark hover:text-primary transition-colors font-medium text-lg">校园资讯</a>
+                <a href="./index.html#contact"
+                    class="text-dark hover:text-primary transition-colors font-medium text-lg">联系我们</a>
+            </nav>
+
+            <!-- 搜索框 -->
+            <div class="hidden md:flex items-center bg-neutral rounded-full px-3 py-1.5 gap-2">
+                <i class="fa-solid fa-search text-gray-400"></i>
+                <input type="text" placeholder="搜索楼宇/服务..." class="bg-transparent outline-none text-sm w-40">
+            </div>
+
+            <!-- 移动端菜单按钮 -->
+            <button class="md:hidden text-dark text-xl" id="menuBtn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+    </header>
+    <section class="container mx-auto px-4 my-10">
+
+        <h3 class="font-bold text-2xl md:text-3xl text-center mb-4">新的开始，新的启程！</h3>
+        <p class="text-xl">走进教学楼，仿佛进入知识的殿堂，让人心生敬畏。走廊尽头，一排排书籍整齐地摆放在书架上，散发着浓郁的书香。宏伟壮观的教学楼，矗立在校园中央，见证着知识的力量。
+            那栋教学楼啊，简直就是梦想启航的地方，每次走进，都心潮澎湃！
+        </p>
+        <div class="text-center mt-8">
+            <img class="mx-auto" src="img/lQDPJxPOR99TiWPNAujNBDSwWy1ajUbolJoJJcXe2FPlAA_1076_744.jpg" alt="">
+        </div>
+        <p class="text-xl mt-8">愿你只争朝夕，不负韶华。愿你前程似锦，不服众望。愿你展翅高飞，繁华人生。学校里的走廊，永远是我们吹着晚风，谈论未来的小角落，长长的走廊，目睹了所有人的青春，
+            继续向前走吧。要始终相信，彼方尚有荣光在。</p>
+        <img class="mx-auto" src="img/lQDPJx8-2qOHzSfNAhXNAyCwDuzUaH5YiFUJG4K0EqNNAA_800_533.jpg" alt="">
+        <p class="text-xl mt-8">天空微拉美，微风吹拂，沿着宽敞的步道，逐渐接近教学楼，眼前一片开阔。踏着晨光，经过花坛和喷泉，慢慢走向那座白色的教学楼，感受着清新的空气和宁静的氛围。</p>
+        <img class="mx-auto" src="img/lQDPJwFwMWvgiGPNAujNBDiwsdgCE40BrZwJJcXd1EpIAA_1080_744.jpg" alt="">
+
+
+        </div>
+
+
+    </section>
+
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-10">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- 学校信息 -->
+                <div>
+                    <h5 class="font-bold text-lg mb-4">博尔塔拉职业技术学院</h5>
+                    <p class="text-gray-400 text-sm mb-4">
+                        立德树人，追求卓越
+                    </p>
+                    <p class="text-gray-400 text-xs">
+                        © 2025 博尔塔拉职业技术学院<br>
+
+                    </p>
+                </div>
+
+                <!-- 快速链接 -->
+                <div>
+                    <h5 class="font-bold text-lg mb-4">快速链接</h5>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">学校官网</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">教务处</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">学生处</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">招生办</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">就业指导中心</a></li>
+                    </ul>
+                </div>
+
+                <!-- 服务支持 -->
+                <div>
+                    <h5 class="font-bold text-lg mb-4">服务支持</h5>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">常见问题</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">使用指南</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">意见反馈</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">隐私政策</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">服务条款</a></li>
+                    </ul>
+                </div>
+
+                <!-- 下载APP -->
+                <div>
+                    <h5 class="font-bold text-lg mb-4">校园导航APP</h5>
+                    <p class="text-gray-400 text-sm mb-3">
+                        扫码下载APP，体验更多功能
+                    </p>
+                    <div class="w-28 h-28 bg-white rounded-lg p-1 mb-2">
+                        <img src="https://picsum.photos/100/100" alt="APP二维码" class="w-full h-full object-cover">
+                    </div>
+                    <p class="text-gray-400 text-xs">
+                        支持iOS/Android系统
+                    </p>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-xs">
+                本网站仅为校园导航使用，如有侵权请联系删除
+            </div>
+        </div>
+    </footer>
+
+
+
+
+</body>
+
+</html>

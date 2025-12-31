@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>喀拉峻 - 人体草原的秘境</title>
+    <style>
+        /* 全局重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "微软雅黑", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        /* 头部横幅 */
+        header {
+            background: url('./img/img/喀拉峻草原/3.png') no-repeat center;
+            background-size: cover;
+            height: 380px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        header::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(46, 79, 79, 0.3);
+        }
+
+        .header-text {
+            position: relative;
+            z-index: 1;
+            color: white;
+            text-align: center;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-text h1 {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .header-text p {
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+
+        /* 主体容器 */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* 喀拉峻简介 */
+        .intro {
+            background: white;
+            padding: 35px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+
+        .intro h2 {
+            color: #2e4f4f;
+            margin-bottom: 20px;
+            font-size: 26px;
+            border-bottom: 2px solid #2e4f4f;
+            padding-bottom: 10px;
+        }
+
+        .intro p {
+            font-size: 16px;
+            margin-bottom: 15px;
+            text-indent: 2em;
+        }
+
+        /* 核心景点 */
+        .spots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .spot-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .spot-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .spot-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .spot-content {
+            padding: 20px;
+        }
+
+        .spot-content h3 {
+            color: #2e4f4f;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .spot-content p {
+            color: #666;
+            font-size: 15px;
+        }
+
+        /* 页脚 */
+        footer {
+            background: #2e4f4f;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        footer p {
+            font-size: 14px;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            header {
+                height: 300px;
+            }
+
+            .header-text h1 {
+                font-size: 36px;
+            }
+
+            .intro {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 头部 -->
+    <header>
+        <div class="header-text">
+            <h1>喀拉峻草原</h1>
+            <p>天山脚下的“立体草原”，世界自然遗产</p>
+        </div>
+    </header>
+
+    <!-- 主体内容 -->
+    <div class="container">
+        <!-- 简介 -->
+        <section class="intro">
+            <h2>初识喀拉峻</h2>
+            <p>喀拉峻草原位于新疆伊犁哈萨克自治州特克斯县境内，地处天山北麓，总面积达2848平方公里，是“新疆天山”世界自然遗产的重要组成部分。</p>
+            <p>“喀拉峻”在哈萨克语中意为“黑色辽阔的莽原”，这里并非单一的草原，而是由阔克苏大峡谷、西喀拉峻、东喀拉峻、中天山雪峰等区域组成的立体草原景观，兼具雪山、草原、峡谷、森林等多重地貌。</p>
+            <p>喀拉峻最具特色的是“人体草原”，起伏的草原轮廓如人体曲线般优美，日落时分光影交错，景色堪称一绝，是摄影爱好者的天堂。</p>
+        </section>
+
+        <!-- 核心景点 -->
+        <section class="spots">
+            <div class="spot-card">
+                <img src="./img/img/喀拉峻草原/1.png" alt="阔克苏大峡谷" class="spot-img">
+                <div class="spot-content">
+                    <h3>阔克苏大峡谷</h3>
+                    <p>峡谷内有九曲十八弯、鳄鱼湾等景观，碧绿的阔克苏河蜿蜒其中，与周围的草原、雪山相映成趣，景色壮丽。</p>
+                </div>
+            </div>
+
+            <div class="spot-card">
+                <img src="./img/img/喀拉峻草原/6.png" alt="人体草原" class="spot-img">
+                <div class="spot-content">
+                    <h3>人体草原</h3>
+                    <p>位于阔克苏河南岸的草原，因地形起伏形成酷似人体的曲线，日落时阳光洒在草坡上，光影勾勒出绝美轮廓。</p>
+                </div>
+            </div>
+
+            <div class="spot-card">
+                <img src="./img/img/喀拉峻草原/7.png" alt="东喀拉峻" class="spot-img">
+                <div class="spot-content">
+                    <h3>东喀拉峻</h3>
+                    <p>核心的草原观赏区，夏季绿草如茵、繁花遍野，牛羊成群，可远眺天山雪峰，是体验原生态草原风光的绝佳之地。</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>© 2025 喀拉峻草原 | 简单网页示例</p>
+    </footer>
+</body>
+
+</html>

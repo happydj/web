@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>喀什 - 新疆的明珠</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5d76e 0%, #f5d76e 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 顶部横幅 */
+        .top-banner {
+            position: relative;
+            height: 300px;
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 30px;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .banner-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.8);
+        }
+        
+        .banner-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 2;
+            text-shadow: 0 3px 10px rgba(0, 0, 0, 0.8);
+            width: 100%;
+            padding: 0 20px;
+        }
+        
+        .banner-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            color: #fff;
+            background: none;
+            -webkit-background-clip: unset;
+            background-clip: unset;
+        }
+        
+        .banner-text p {
+            font-size: 1.3rem;
+            color: #f0f0f0;
+        }
+        
+        /* 导航栏 */
+        nav {
+            background: #f5d76e(15, 52, 96, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 10px 15px;
+            border-radius: 6px;
+            transition: all 0.3s;
+            display: block;
+        }
+        
+        .nav-links a:hover {
+            background-color: rgba(0, 219, 222, 0.2);
+            color: #00dbde;
+            transform: translateY(-2px);
+        }
+        
+        .nav-links a.active {
+            background-color: rgba(0, 219, 222, 0.3);
+            color: #00dbde;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+        
+        /* 短视频区域 */
+        .video-section {
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #fff;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #00dbde, #fc00ff);
+            border-radius: 3px;
+        }
+        
+        .video-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+        
+        .video-box {
+            background: #0f3460;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 400px; /* 短视频常见高度 */
+            position: relative;
+        }
+        
+        .video-box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .video-placeholder {
+            width: 100%;
+            height: 70%;
+            background: linear-gradient(45deg, #1a1a2e, #16213e);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #aaa;
+            font-size: 1.2rem;
+        }
+        
+        .video-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            color: #00dbde;
+        }
+        
+        .video-info {
+            padding: 20px;
+            height: 30%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .video-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        
+        .video-description {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #ccc;
+        }
+        
+        /* 景点网格 */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .game-card {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            background: #0f3460;
+            height: 320px;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+        
+        .game-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .game-card:hover .game-image {
+            transform: scale(1.05);
+        }
+        
+        .game-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 52, 96, 0.85);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            text-align: center;
+        }
+        
+        .game-card:hover .game-overlay {
+            opacity: 1;
+        }
+        
+        .game-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        
+        .game-description {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #ddd;
+            margin-bottom: 20px;
+            max-height: 120px;
+            overflow: hidden;
+        }
+        
+        .game-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .tag {
+            background: rgba(0, 219, 222, 0.2);
+            color: #00dbde;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(0, 219, 222, 0.3);
+        }
+        
+        /* 底部 */
+        footer {
+            background: linear-gradient(to right, #f5d76e, #f5d76e);
+            text-align: center;
+            margin-top: 60px;
+            color: #aaa;
+            font-size: 0.95rem;
+            padding: 30px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #00dbde;
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+
+
+
+        .diyi{
+            font-size: 2rem;
+            /* text-align: center; */
+            margin-bottom: 30px;
+            color: #fff;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .diyi:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1150px;
+            height: 3px;
+            background: linear-gradient(90deg, #00dbde, #fc00ff);
+            border-radius: 3px;
+        }
+
+
+        /* 表格 */
+            .simple-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-family: Arial, sans-serif;
+    }
+    
+    .simple-table th {
+        background: #e74c3c;
+        color: white;
+        padding: 12px;
+        text-align: center;
+    }
+    
+    .simple-table td {
+        padding: 12px;
+        border-bottom: 1px solid #c9d612;
+        text-align: center;
+    }
+    
+    .simple-table tr:nth-child(even) {
+        background: #f39c12;
+    }
+    
+    .simple-table tr:hover {
+        background: #fff3e0;
+    }
+    
+    .season-icon {
+        font-size: 18px;
+        margin-right: 5px;
+    }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .video-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .banner-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                gap: 20px;
+            }
+            
+            .nav-links a {
+                font-size: 1rem;
+                padding: 8px 12px;
+            }
+            
+            .video-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .video-box {
+                height: 350px;
+            }
+            
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            .game-card {
+                height: 280px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .top-banner {
+                height: 220px;
+            }
+            
+            .banner-text h1 {
+                font-size: 2rem;
+            }
+            
+            .banner-text p {
+                font-size: 1rem;
+            }
+            
+            .nav-container {
+                justify-content: space-between;
+            }
+            
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(15, 52, 96, 0.98);
+                flex-direction: column;
+                padding: 20px;
+                border-radius: 0 0 15px 15px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 5px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部横幅 -->
+    <div class="top-banner">
+        <img src="https://vcg02.cfp.cn/creative/vcg/nowater800/new/VCG211319267518.jpg?x-oss-process=image/format,webp" alt="喀什风景" class="banner-image">
+        <div class="banner-text">
+            <h1>新疆喀什欢迎你</h1>
+            <p>探索西域明珠，感受千年古城魅力</p>
+        </div>
+    </div>
+    
+    <!-- 导航栏 -->
+    <nav>
+        <div class="container nav-container">
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="#" class="active">首页</a></li>
+                <li><a href="#">景点介绍</a></li>
+                <li><a href="#">旅游攻略</a></li>
+                <li><a href="#">特色美食</a></li>
+                <li><a href="#">联系我们</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <!-- 短视频区域 -->
+        <section class="video-section">
+            <h2 class="section-title">喀什风光短视频</h2>
+            <div class="video-container">
+                <!-- 短视频1 -->
+                <div class="video-box">
+                    <div class="video-placeholder">
+                    <video autoplay loop muted playsinline preload="auto" poster="./posters/kashi-old-town.jpg">
+                    <source src="./mmexport1766227739614.mp4" type="video/mp4">
+            <!-- 如果是MP4视频，type应该是video/mp4 -->
+            <!-- 如果是WebM视频，type应该是video/webm -->
+                    </video>
+                    </div>
+                <div class="video-info">
+                    <h3 class="video-title">喀什古城漫步</h3>
+                    <p class="video-description">走进喀什古城，感受千年历史与现代生活的完美融合，体验浓郁的维吾尔族风情。</p>
+                    </div>
+                </div>
+                
+                <!-- 短视频2 -->
+                <div class="video-box">
+                    <div class="video-placeholder">
+                    <video autoplay loop muted playsinline preload="auto" poster="./posters/kashi-old-town.jpg">
+                    <source src="./mmexport1766227721010.mp4" type="video/mp4">
+                    </video>
+                        
+
+
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">金胡杨秋色</h3>
+                        <p class="video-description">秋季的金胡杨国家森林公园，金黄色的胡杨林与碧水相映，构成一幅绝美的自然画卷。</p>
+                    </div>
+                </div>
+                
+                <!-- 短视频3 -->
+                <div class="video-box">
+                    <div class="video-placeholder">
+                    <video autoplay loop muted playsinline preload="auto" poster="./posters/kashi-old-town.jpg">
+                    <source src="./mmexport1766227688679.mp4" type="video/mp4">
+                    </video>
+                    
+                        
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">喀什美食之旅</h3>
+                        <p class="video-description">烤包子、手抓饭、羊肉串... 探索喀什丰富的美食文化，满足您的味蕾。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 景点介绍 -->
+        <h2 class="section-title">喀什著名景点</h2>
+        <div class="games-grid">
+            <!-- 喀什古城 -->
+            <div class="game-card">
+                <img src="https://ts1.tc.mm.bing.net/th/id/R-C.417d072ddcaa95a559cce22bb26a9ae0?rik=v%2fxt66UkZR2dxQ&riu=http%3a%2f%2fdimg06.c-ctrip.com%2fimages%2f1001160000010yzbc2A22_R_1024_10000_Q90.jpg%3fproc%3dautoorient&ehk=X1%2f9vJo%2bDDrg0IrOKS3dAHaFePjNYGiuJ7kqmt2%2fDgg%3d&risl=&pid=ImgRaw&r=0" alt="喀什古城" class="game-image">
+                <div class="game-overlay">
+                    <h3 class="game-title">喀什古城</h3>
+                    <p class="game-description">被誉为"西域文化的活化石"。街巷纵横交错，保留了大量土木结构的维吾尔传统民居，2015年被评为国家5A级旅游景区，与居民生活区融为一体，兼具历史厚重与现代烟火。</p>
+                    <div class="game-tags">
+                        <span class="tag">古城</span>
+                        <span class="tag">文化</span>
+                        <span class="tag">5A景区</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 喀什金胡杨国家森林公园 -->
+            <div class="game-card">
+                <img src="https://ts1.tc.mm.bing.net/th/id/OIP-C.DiJWm0cWWL4MSgpt0R9yAQHaFj?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="金胡杨国家森林公园" class="game-image">
+                <div class="game-overlay">
+                    <h3 class="game-title">金胡杨国家森林公园</h3>
+                    <p class="game-description">被誉为"沙漠里的海"。公园总面积约2000公顷，拥有上万亩天然胡杨林，森林覆盖率76%，是中国唯一的5A级"水乡胡杨"景区。</p>
+                    <div class="game-tags">
+                        <span class="tag">胡杨林</span>
+                        <span class="tag">自然</span>
+                        <span class="tag">5A景区</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 香妃墓 -->
+            <div class="game-card">
+                <img src="https://ts2.tc.mm.bing.net/th/id/OIP-C.crH358izKghD4l2md2qKDQHaEK?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="香妃墓" class="game-image">
+                <div class="game-overlay">
+                    <h3 class="game-title">香妃墓</h3>
+                    <p class="game-description">又称阿帕克霍加墓，是新疆境内规模和影响最大的伊斯兰教"霍加"陵墓。墓中葬有明末清初喀什著名伊斯兰教"依禅派"大师阿帕克霍加及其家族5代72人。</p>
+                    <div class="game-tags">
+                        <span class="tag">历史</span>
+                        <span class="tag">文化</span>
+                        <span class="tag">建筑</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 喀什高台民居 -->
+            <div class="game-card">
+                <img src="https://img95.699pic.com/video_cover/30/17/18/a_iIz7d43bRqUX1705301718.jpg!/fw/820" alt="喀什高台民居" class="game-image">
+                <div class="game-overlay">
+                    <h3 class="game-title">喀什高台民居</h3>
+                    <p class="game-description">高台民居建筑的核心材料是当地特有的“色格孜”粘土和白杨木。为了在有限空间内容纳不断增加的家族人口，房屋采用独特的“向上生长”模式，形成了“房连房、楼连楼”的壮观景象。</p>
+                    <div class="game-tags">
+                        <span class="tag">建筑</span>
+                        <span class="tag">文化</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 喀什大巴扎 -->
+            <div class="game-card">
+                <img src="https://ts1.tc.mm.bing.net/th/id/OIP-C.hqbG9bDEUZHfHaipE_1X3QHaE8?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="喀什大巴扎" class="game-image">
+                <div class="game-overlay">
+                    <h3 class="game-title">喀什大巴扎</h3>
+                    <p class="game-description">新疆最大的国际贸易市场，有"中亚物资博览会"之称。在这里可以买到各种新疆特产，感受浓郁的商贸氛围和多元文化交流。</p>
+                    <div class="game-tags">
+                        <span class="tag">购物</span>
+                        <span class="tag">文化</span>
+                        <span class="tag">市场</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 塔什库尔干 -->
+            <div class="game-card">
+                <img src="https://ts2.tc.mm.bing.net/th/id/OIP-C.9wEHCRJqeZJrss_ayIN6BAHaE8?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="塔什库尔干" class="game-image">
+                <div class="game-overlay">
+                    <h3 class="game-title">塔什库尔干</h3>
+                    <p class="game-description">帕米尔高原上的璀璨明珠，这里有壮丽的慕士塔格峰、神秘的红其拉甫口岸和独特的塔吉克族文化，是摄影和探险爱好者的天堂。</p>
+                    <div class="game-tags">
+                        <span class="tag">高原</span>
+                        <span class="tag">自然</span>
+                        <span class="tag">探险</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- 春季 -->
+        <h2 class="section-title">喀什四季漫游指南：每个季节都有独特的风情</h2>
+
+        <h2 class="diyi">🌸 春季（3月-5月）：花开时节，气候宜人</h2>
+        <div style="display: flex; align-items: center; gap: 30px;">
+  <!-- 左侧：文字列表 -->
+        <div style="flex: 1;">
+            <ul style="font-size: 20px; color: #d35400; font-weight: bold; margin-bottom: 15px;">
+            <li><strong>杏花盛放：</strong>3月底-4月初，塔什库尔干河谷杏花如云</li>
+            <li><strong>春季（3月-5月）：</strong>花开时节，气候宜人。气温舒适：白天15-25℃，昼夜温差大</li>
+            <li><strong>节日氛围：</strong>诺鲁孜节（3月21日前后）</li>
+
+            <li><strong>推荐活动：</strong>杏花之旅</li>
+            <li><strong>📍最佳地点：</strong>大同乡、塔尔乡</li>
+            <li><strong>📸拍摄点：</strong>雪山下的杏花村落</li>
+            <li><strong>⏰建议行程：</strong>2-3天帕米尔高原杏花专线</li>
+        </ul>
+        </div>
+  
+  <!-- 右侧：自动播放循环视频 -->
+        <div style="flex-shrink: 0;">
+            <video width="250" height="270" autoplay muted loop playsinline 
+            style="border-radius: 8px; border: 2px solid #f39c12; object-fit: cover;">
+            <source src="./mmexport1766309515951.mp4" type="video/mp4">
+        </video>
+        <p style="text-align: center; font-size: 12px; color: #666; margin-top: 5px;">
+        🔄 自动循环播放中
+    </p>
+  </div>
+</div>
+
+
+<!-- 夏季 -->
+
+<h2 class="diyi">☀️ 夏季（6月-8月）：瓜果飘香，高原避暑</h2>
+        <div style="display: flex; align-items: center; gap: 30px;">
+  <!-- 左侧：文字列表 -->
+        <div style="flex: 1;">
+            <ul style="font-size: 20px; color: #d35400; font-weight: bold; margin-bottom: 15px;">
+            <li><strong>瓜果盛宴：</strong>哈密瓜、西瓜、葡萄陆续成熟</li>
+            <li><strong>帕米尔凉夏：</strong>高原地区气温舒适（15-25℃）</li>
+            <li><strong>日照充足：</strong>游玩时间长</li>
+
+            <li><strong>推荐活动：</strong>帕米尔高原避暑游</li>
+            <li><strong>🏔️慕士塔格峰：</strong>近距离观赏“冰山之父”</li>
+            <li><strong>💎卡拉库里湖：</strong>雪山倒影，摄影天堂</li>
+            <li><strong>🛣️中巴友谊公路：</strong>世界最美公路之一</li>
+            <li><strong>🏡塔县住宿：</strong>体验塔吉克族风情</li>
+        </ul>
+        </div>
+  
+  <!-- 右侧：自动播放循环视频 -->
+        <div style="flex-shrink: 0;">
+            <video width="250" height="270" autoplay muted loop playsinline 
+            style="border-radius: 8px; border: 2px solid #f39c12; object-fit: cover;">
+            <source src="./55.mp4" type="video/mp4">
+        </video>
+        <p style="text-align: center; font-size: 12px; color: #666; margin-top: 5px;">
+        🔄 自动循环播放中
+    </p>
+  </div>
+</div>
+
+
+<!-- 秋季 -->
+<h2 class="diyi">🍂 秋季（9月-11月）：金黄世界，摄影佳季</h2>
+        <div style="display: flex; align-items: center; gap: 30px;">
+  <!-- 左侧：文字列表 -->
+        <div style="flex: 1;">
+            <ul style="font-size: 20px; color: #d35400; font-weight: bold; margin-bottom: 15px;">
+            <li><strong>胡杨金黄：</strong>10月塔里木胡杨林进入最佳观赏期</li>
+            <li><strong>丰收季节：</strong>石榴、核桃、红枣成熟</li>
+            <li><strong>天空湛蓝：</strong>能见度高，摄影条件极佳</li>
+
+            <li><strong>推荐活动：</strong>胡杨林摄影之旅</li>
+            <li><strong>📍泽普金湖杨森林公园：</strong>水中的胡杨</li>
+            <li><strong>📍巴楚胡杨林：</strong>面积最大的原始胡杨</li>
+            <li><strong>⏰最佳时间：</strong>10月20日-11月5日</li>
+            <li><strong>📸黄金时间：</strong>日出后2小时，日落前2小时</li>
+        </ul>
+        </div>
+  
+  <!-- 右侧：自动播放循环视频 -->
+        <div style="flex-shrink: 0;">
+            <video width="250" height="270" autoplay muted loop playsinline 
+            style="border-radius: 8px; border: 2px solid #f39c12; object-fit: cover;">
+            <source src="./66.mp4" type="video/mp4">
+        </video>
+        <p style="text-align: center; font-size: 12px; color: #666; margin-top: 5px;">
+        🔄 自动循环播放中
+    </p>
+  </div>
+</div>
+
+<!-- 冬季 -->
+<h2 class="diyi">❄️ 冬季（12月-2月）：静谧古城，别样风情</h2>
+        <div style="display: flex; align-items: center; gap: 30px;">
+  <!-- 左侧：文字列表 -->
+        <div style="flex: 1;">
+            <ul style="font-size: 20px; color: #d35400; font-weight: bold; margin-bottom: 15px;">
+            <li><strong>游客稀少：</strong>可以独享古城宁静</li>
+            <li><strong>冬日暖阳：</strong>白天温度可达5-10℃（晴天）</li>
+            <li><strong>节庆氛围：</strong>体验不一样的冬季民俗</li>
+
+            <li><strong>推荐活动：</strong>冬季美食特别推荐：</li>
+            <li><strong>🍲缸子肉：</strong>冬季最佳暖身汤</li>
+            <li><strong>🥘抓饭：</strong>冬季羊肉最鲜美</li>
+            <li><strong>🍜过油肉拌面：</strong>补充能量</li>
+            <li><strong>药茶：</strong>维吾尔族冬季养生茶</li>
+        </ul>
+        </div>
+  
+  <!-- 右侧：自动播放循环视频 -->
+        <div style="flex-shrink: 0;">
+            <video width="250" height="270" autoplay muted loop playsinline 
+            style="border-radius: 8px; border: 2px solid #f39c12; object-fit: cover;">
+            <source src="./77.mp4" type="video/mp4">
+        </video>
+        <p style="text-align: center; font-size: 12px; color: #666; margin-top: 5px;">
+        🔄 自动循环播放中
+    </p>
+  </div>
+</div>
+
+
+<!-- 表格 -->
+
+<h2>喀什四季旅行日历表</h2>
+<table class="simple-table">
+    <thead>
+        <tr>
+            <th>月份</th>
+            <th>平均气温</th>
+            <th>推荐指数</th>
+            <th>必做事项</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><span class="season-icon">🌸</span> 3-4月</td>
+            <td><strong>5-20℃</strong></td>
+            <td><span style="color:#f39c12">★★★★☆</span></td>
+            <td>看杏花、过诺鲁孜节</td>
+        </tr>
+        <tr>
+            <td><span class="season-icon">🌺</span> 5-6月</td>
+            <td><strong>15-28℃</strong></td>
+            <td><span style="color:#f39c12">★★★★★</span></td>
+            <td>老城深度游、春末摄影</td>
+        </tr>
+        <tr>
+            <td><span class="season-icon">☀️</span> 7-8月</td>
+            <td><strong>20-35℃</strong></td>
+            <td><span style="color:#f39c12">★★★☆☆</span></td>
+            <td>帕米尔避暑、水果盛宴</td>
+        </tr>
+        <tr>
+            <td><span class="season-icon">🍂</span> 9-10月</td>
+            <td><strong>10-25℃</strong></td>
+            <td><span style="color:#f39c12">★★★★★</span></td>
+            <td>胡杨林、秋季摄影</td>
+        </tr>
+        <tr>
+            <td><span class="season-icon">🍁</span> 11月</td>
+            <td><strong>0-15℃</strong></td>
+            <td><span style="color:#f39c12">★★★☆☆</span></td>
+            <td>深秋古城、人少景美</td>
+        </tr>
+        <tr>
+            <td><span class="season-icon">❄️</span> 12-2月</td>
+            <td><strong>-5-10℃</strong></td>
+            <td><span style="color:#f39c12">★★★☆☆</span></td>
+            <td>冬日暖阳、节庆体验</td>
+        </tr>
+    </tbody>
+</table>
+        
+        <!-- 底部 -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#">关于我们</a>
+                    <a href="#">旅游服务</a>
+                    <a href="#">合作伙伴</a>
+                    <a href="#">隐私政策</a>
+                    <a href="#">使用条款</a>
+                </div>
+                <p>新疆喀什欢迎你 | 探索西域文化，体验异域风情</p>
+                <p>图片来源于网络 | 本页面仅用于展示目的</p>
+                <div class="copyright">
+                    <p>© 2023 喀什旅游宣传网 | 保留所有权利</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // 移动端菜单切换
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+        
+        // 点击页面其他地方关闭移动菜单
+        document.addEventListener('click', function(event) {
+            const navLinks = document.querySelector('.nav-links');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (!navLinks.contains(event.target) && !menuBtn.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+        
+        // 导航菜单点击效果
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // 移除所有active类
+                document.querySelectorAll('.nav-links a').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // 为当前点击的链接添加active类
+                this.classList.add('active');
+                
+                // 如果是移动端，点击后关闭菜单
+                if (window.innerWidth <= 576) {
+                    document.querySelector('.nav-links').classList.remove('active');
+                }
+            });
+        });
+        
+        // 视频框点击效果
+        document.querySelectorAll('.video-box').forEach(box => {
+            box.addEventListener('click', function() {
+                const title = this.querySelector('.video-title').textContent;
+                alert(`正在播放：${title}\n\n提示：此为演示页面，实际功能需连接视频服务。`);
+            });
+        });
+    </script>
+</body>
+</html>

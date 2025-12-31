@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="xiaomu" content="width=device-width, initial-scale=1.0">
+    <title>新疆美食 - 品味新疆美食的艺术</title>
+    <script src="./js/js.js"></script>
+    <link rel="stylesheet" href="./css/css2.css">
+
+    <!-- 自定义Tailwind配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        xinjiang: {
+                            red: '#4A90E2', // 新疆红
+                            gold: '#D4AF37', // 沙漠金
+                            blue: '#4A90E2', // 天山蓝
+                            sand: '#E8C872', // 沙色
+                            earth: '#8B4513', // 大地色
+                        },
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                        noto: ['Noto Sans SC', 'sans-serif'],
+                    },
+                }
+            }
+        }
+
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            }
+            .bg-gradient-xj {
+                background: linear-gradient(135deg, #C42021 0%, #D4AF37 50%, #4A90E2 100%);
+            }
+            .scale-hover {
+                transition: transform 0.3s ease;
+            }
+            .scale-hover:hover {
+                transform: scale(1.05);
+            }
+        }
+         
+          .bg-animate-gradient {
+           background: linear-gradient(-45deg, #C42021, #D4AF37, #4A90E2, #8B4513);
+           background-size: 400% 400%;
+           animation: gradient 15s ease infinite;
+        }
+        body{
+            background-image: url("./img/艾特莱斯1.jpg");
+            background-repeat: no-repeat;  
+            background-size: cover;       
+            background-position: center;  
+            background-attachment: fixed;
+        }
+        #meishi{
+            transform: translateY(0px);
+            transition: all 1s ease;
+        }
+        #title{
+              transition: all 1s ease;
+        }
+        .mimi{
+            float: left;
+            margin-left: 20px;
+            float: none;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+</head>
+
+<body class="font-noto bg-gray-50 text-gray-800 antialiased">
+    <header id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300 bg-transparent">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <a href="#" class="flex items-center space-x-2">
+                    <span class="text-xinjiang-red text-2xl font-bold">新疆美食</span>
+                    <span class="text-xinjiang-gold text-sm italic">品味新疆美食的艺术</span>
+                </a>
+
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#hero" class="text-white hover:text-xinjiang-gold transition-colors font-medium">首页</a>
+                    <a href="#cuisine"
+                        class="text-white hover:text-xinjiang-gold transition-colors font-medium">美食精选</a>
+                    <a href="#story"
+                        class="text-white hover:text-xinjiang-gold transition-colors font-medium">新疆美食的特点</a>
+                    <a href="#gallery"
+                        class="text-white hover:text-xinjiang-gold transition-colors font-medium">视觉盛宴</a>
+                    <a href="#reservation"
+                        class="text-white hover:text-xinjiang-gold transition-colors font-medium">预约品鉴</a>
+                </nav>
+
+                <button id="menuBtn" class="md:hidden text-white text-2xl">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobileMenu" class="md:hidden hidden bg-black/90 absolute w-full">
+            <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+                <a href="#hero"
+                    class="text-white hover:text-xinjiang-gold transition-colors py-2 border-b border-gray-700">首页</a>
+                <a href="#cuisine"
+                    class="text-white hover:text-xinjiang-gold transition-colors py-2 border-b border-gray-700">美食精选</a>
+                <a href="#story"
+                    class="text-white hover:text-xinjiang-gold transition-colors py-2 border-b border-gray-700">新疆各省美食</a>
+                <a href="#gallery"
+                    class="text-white hover:text-xinjiang-gold transition-colors py-2 border-b border-gray-700">视觉盛宴</a>
+                <a href="#reservation" class="text-white hover:text-xinjiang-gold transition-colors py-2">预约品鉴</a>
+            </div>
+        </div>
+    </header>
+    <section id="hero" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="./img/封面.jpg" alt="" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/50"></div>
+        </div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center" id="title">
+            <h1 class="text-[clamp(2.5rem,8vw,5rem)] font-bold text-white text-shadow mb-6 animate-fadeIn">
+                <span class="text-xinjiang-gold">疆</span>美食
+            </h1>
+            <p class="text-[clamp(1rem,3vw,1.5rem)] text-white text-shadow mb-8 max-w-3xl mx-auto">
+                穿越天山南北，品味西域风情，每一道美食都是对新疆文化的致敬
+            </p>
+            <a href="#cuisine"
+                class="inline-block bg-xinjiang-red hover:bg-xinjiang-gold text-white font-medium px-8 py-3 rounded-full transition-all duration-300 scale-hover">
+                探索美食 <i class="fa fa-arrow-down ml-2"></i>
+            </a>
+        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+            <i class="fa fa-angle-double-down text-3xl"></i>
+        </div>
+    </section>
+
+    <section id="cuisine" class="p-20 ">
+        <div id="meishi">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-gray-900 mb-4">
+                        美食<span class="text-xinjiang-red">精选</span>
+                    </h2>
+                    <div class="w-20 h-1 bg-xinjiang-gold mx-auto mb-6"></div>
+                    <p class="text-gray-600 max-w-2xl mx-auto">
+                        精选新疆各地特色美食，从烤全羊到手抓饭，从大盘鸡到烤包子，每一道都传承着千年的饮食文化
+                    </p>
+                </div>
+            </div>
+            <div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="bg-gray-50 rounded-xl overflow-hidden shadow-lg scale-hover">
+                        <img src="./img/烤全羊.jpg" alt="新疆大吃" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">烤全羊</h3>
+                            <p class="text-gray-600 mb-4">新疆最具代表性的美食，选用草原放养的羔羊，果木炭火慢烤，外焦里嫩，香气四溢</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xinjiang-red font-bold">非遗传承</span>
+                                <button class="text-xinjiang-gold hover:text-xinjiang-red transition-colors">
+                                    <a href="./了解更多.html">了解更多</a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl overflow-hidden shadow-lg scale-hover">
+                        <img src="./img/微信图片__2.jpg" alt="新疆大盘鸡" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">大盘鸡</h3>
+                            <p class="text-gray-600 mb-4">沙湾大盘鸡，鸡肉鲜嫩，土豆绵软，搭配手工拉条子，香辣可口，回味无穷</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xinjiang-red font-bold">新疆名菜</span>
+                                <button class="text-xinjiang-gold hover:text-xinjiang-red transition-colors">
+                                    <a href="./了解更多1.html">了解更多</a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl overflow-hidden shadow-lg scale-hover">
+                        <img src="./img/抓饭3.jpg" alt="抓饭3" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">手抓饭</h3>
+                            <p class="text-gray-600 mb-4">选用优质大米，搭配羊肉、胡萝卜、洋葱，油亮生辉，香气扑鼻，营养丰富</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xinjiang-red font-bold">民族经典</span>
+                                <button class="text-xinjiang-gold hover:text-xinjiang-red transition-colors">
+                                    <a href="./了解更多2.html">了解更多</a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl overflow-hidden shadow-lg scale-hover">
+                        <img src=" ./img/烤包子加馕.jpg" alt="烤包子" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">烤包子</h3>
+                            <p class="text-gray-600 mb-4">皮薄馅足，羊肉与洋葱的完美结合，馕坑烤制，外酥里嫩，鲜香可口</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xinjiang-red font-bold">街头名吃</span>
+                                <button class="text-xinjiang-gold hover:text-xinjiang-red transition-colors">
+                                    <a href="./了解更多3.html">了解更多</a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl overflow-hidden shadow-lg scale-hover">
+                        <img src="./img/新疆全家福3.jpg" alt="拉条子" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">拉条子</h3>
+                            <p class="text-gray-600 mb-4">手工拉制的面条，劲道爽滑，搭配各种炒菜，是新疆人日常的主食选择</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xinjiang-red font-bold">日常美味</span>
+                                <button class="text-xinjiang-gold hover:text-xinjiang-red transition-colors">
+                                    <a href="./了解更多 4.html">了解更多</a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl overflow-hidden shadow-lg scale-hover">
+                        <img src="./img/奶茶加囊.jpg" alt="新疆奶茶" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">新疆奶茶</h3>
+                            <p class="text-gray-600 mb-4">砖茶与牛奶的完美融合，咸香浓郁，驱寒暖胃，是新疆各民族的待客佳品</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xinjiang-red font-bold">民族饮品</span>
+                                <button class="text-xinjiang-gold hover:text-xinjiang-red transition-colors">
+                                    <a href="./了解更多 5.html">了解更多</a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-12">
+                    <a href="./大盘鸡 copy.html"
+                        class="inline-block border-2 border-xinjiang-red text-xinjiang-red hover:bg-xinjiang-red hover:text-white font-medium px-8 py-3 rounded-full transition-all duration-300">
+                        查看更多美食
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section id="story" class="py-20 bg-gray-900 text-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2">
+                    <img src="./img/人物加烤肉.jpg" alt="新疆美食的特点" class="w-full rounded-xl shadow-2xl">
+                </div>
+                <div class="lg:w-1/2">
+                    <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold mb-4">
+                        新疆美食<span class="text-xinjiang-gold">特点</span>
+                    </h2>
+                    <div class="w-20 h-1 bg-xinjiang-gold mb-6"></div>
+                    <p class="mb-6 text-gray-300">
+                        新疆是一个多民族聚居的地区，各民族都有自己独特的饮食文化和传统。
+                        例如，维吾尔族人喜欢使用羊肉和奶制品作为主要食材，而哈萨克族人则喜欢使用马肉和驼肉。这些不同的民族文化为新疆饮食风格带来了多样性和独特性
+                    </p>
+                    <p class="mb-6 text-gray-300">
+                        新疆地处中国西北边陲，气候干燥，日照充足，因此盛产优质的瓜果、蔬菜和肉类。当地人喜欢使用新鲜的食材，如羊肉、牛肉、马肉、驼肉等，这些肉类具有鲜美的口感和丰富的营养。
+                        此外，新疆还出产许多特色食材，如羊肉干、奶制品、烤馕
+                    <p class="mb-8 text-gray-300">
+                        新疆饮食风格与内地的主要不同体现在食材选择、烹饪方式、调味方式和饮食习惯等方面。
+                        这些不同的地方源于地理环境、民族文化和历史传承等因素的影响。
+                    </p>
+                    <a href="./各各美食的特点.html"
+                        class="inline-block bg-xinjiang-gold hover:bg-xinjiang-red text-white font-medium px-8 py-3 rounded-full transition-all duration-300">
+                        了解更多 <i class="fa fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 视觉盛宴区 -->
+    <section id="gallery" class="py-20 ">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-gray-900 mb-4">
+                    视觉<span class="text-xinjiang-red">盛宴</span>
+                </h2>
+                <div class="w-20 h-1 bg-xinjiang-gold mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    用镜头捕捉新疆美食的魅力，每一张img都讲述着一个关于美食的故事
+                </p>
+            </div>
+
+            <!-- 图片画廊 -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <a href="./新疆水果.html">
+                    <img src="./img/新疆水果.jpg" alt="新疆美食"
+                        class="w-full h-64 object-cover rounded-lg scale-hover cursor-pointer">
+                </a>
+                <a href="./大盘鸡qqq.html">
+                    <img src="./img/微信6.jpg" alt="新疆美食"
+                        class="w-full h-64 object-cover rounded-lg scale-hover cursor-pointer">
+                </a>
+                <a href="./zuafan11.html">
+                    <img src="./img/抓饭2.jpg" alt="新疆美食"
+                        class="w-full h-64 object-cover rounded-lg scale-hover cursor-pointer">
+                </a>
+                <a href="./烤肉 .html">
+                    <img src="./img/烤包子加大盘鸡.jpg" alt="新疆美食"
+                        class="w-full h-64 object-cover rounded-lg scale-hover cursor-pointer">
+                </a>
+                <a href="./heit桌子.html">
+                    <img src="./img/heit的桌子.jpg" alt="新疆美食"
+                        class="w-full h-64 object-cover rounded-lg scale-hover cursor-pointer">
+                </a>
+                <a href="./羊棒骨.html">
+                    <img src="./img/杨帮过.jpg" alt="新疆美食"
+                        class="w-full h-64 object-cover rounded-lg scale-hover cursor-pointer">
+                </a>
+            </div>
+        </div>
+        <div class="text-center mt-12">
+            <a href="./大盘鸡 copy.html"
+                class="inline-block border-2 border-xinjiang-red text-xinjiang-red hover:bg-xinjiang-red hover:text-white font-medium px-8 py-3 rounded-full transition-all duration-300">
+                浏览更多img
+            </a>
+        </div>
+    </section>
+
+    <!-- 预约品鉴区 -->
+    <section id="reservation" class="py-20 ">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-gray-900 mb-4">
+                    预约<span class="text-xinjiang-red">品鉴</span>
+                </h2>
+                <div class="w-20 h-1 bg-xinjiang-gold mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    提前预约，享受专属的新疆美食品鉴体验
+                </p>
+            </div>
+
+            <div class="flex gap-12 ">
+                <div class="lg:w-1/2 bg-gray-50 p-8 rounded-xl shadow-lg">
+                    <form action="./详情页面.html">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="name" class="block text-gray-700 mb-2">姓名</label>
+                                <input type="text" id="name"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-xinjiang-gold">
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-gray-700 mb-2">电话</label>
+                                <input type="tel" id="phone"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-xinjiang-gold">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="date" class="block text-gray-700 mb-2">日期</label>
+                                <input type="date" id="date"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-xinjiang-gold">
+                            </div>
+                            <div>
+                                <label for="time" class="block text-gray-700 mb-2">时间</label>
+                                <input type="time" id="time"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-xinjiang-gold">
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <label for="people" class="block text-gray-700 mb-2">人数</label>
+                            <select id="people"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-xinjiang-gold">
+                                <option>1人</option>
+                                <option>2人</option>
+                                <option>3-4人</option>
+                                <option>5-6人</option>
+                                <option>7人以上</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-700 mb-2">特殊要求</label>
+                            <textarea id="message" rows="4"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-xinjiang-gold"></textarea>
+                        </div>
+
+                        <button type="submit"
+                            class="w-full bg-xinjiang-red hover:bg-xinjiang-gold text-white font-medium px-8 py-3 rounded-lg transition-all duration-300">
+                            提交预约
+                        </button>
+                    </form>
+
+                </div>
+
+                <div class="lg:w-1/2">
+                    <div class="bg-gray-900 text-white p-8 rounded-xl shadow-lg h-full">
+                        <h3 class="text-2xl font-bold mb-6">品鉴信息</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <i class="fa fa-map-marker text-xinjiang-gold text-2xl mt-1 mr-4"></i>
+                                <div>
+                                    <h4 class="font-bold mb-1">地址</h4>
+                                    <p class="text-gray-300">新疆博乐市博尔塔拉职业技术学院</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <i class="fa fa-clock-o text-xinjiang-gold text-2xl mt-1 mr-4"></i>
+                                <div>
+                                    <h4 class="font-bold mb-1">营业时间</h4>
+                                    <p class="text-gray-300">周一至周日 11:00 - 22:00</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <i class="fa fa-phone text-xinjiang-gold text-2xl mt-1 mr-4"></i>
+                                <div>
+                                    <h4 class="font-bold mb-1">联系电话</h4>
+                                    <p class="text-gray-300">111-5555555</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <i class="fa fa-envelope text-xinjiang-gold text-2xl mt-1 mr-4"></i>
+                                <div>
+                                    <h4 class="font-bold mb-1">电子邮箱</h4>
+                                    <p class="text-gray-300"></p>
+                                </div>
+                            </div>
+                            <div class="right-align"></div>
+                        </div>
+
+                        <div class="mt-8 rounded-lg overflow-hidden">
+                            <img src="./img/微信11.jpg" alt="地图" class="w-full h-48 object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <script>
+            function submitForm() {
+                const name = document.querySelector('Input [name="name"]').value;
+                const phone = document.querySelector('Input [name="phone"]').value;
+                if (!name || !phone) {
+                    alert('请填写姓名和手机号');
+                    return;
+                }
+                alert('提交成功!')
+                document.querySelector('form').reset();
+            }
+        </script>
+    </section>
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+
+                <!-- 品牌信息 -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 text-xinjiang-gold">新疆美食</h3>
+                    <p class="text-gray-400 mb-6">
+                        品味新疆美食的艺术，感受西域文化的魅力
+                        新疆美食丰富多彩，每一道菜品都有着浓郁的文化味道。
+                        新疆菜的风味独特，打破一般人的味觉常规，让人大饱口福。
+                        新疆大盘鸡的豪爽、烤羊肉串的鲜美、炒面的香辣都是值得品尝的美食。
+                        新疆美食让人百吃不厌，让您在品味美食的同时，从中体验新疆独特的文化魅力。
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="" class="text-gray-400 hover:text-xinjiang-gold transition-colors">
+                            <i class="fa fa-weixin text-xl"></i>
+                        </a>
+                        <a href="" class="text-gray-400 hover:text-xinjiang-gold transition-colors">
+                            <i class="fa fa-weibo text-xl"></i>
+                        </a>
+                        <a href="" class="text-gray-400 hover:text-xinjiang-gold transition-colors">
+                            <i class="fa fa-instagram text-xl"></i>
+                        </a>
+                        <a href="" class="text-gray-400 hover:text-xinjiang-gold transition-colors">
+                            <i class="fa fa-youtube-play text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 快速链接 -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">快速链接</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#hero" class="text-gray-400 hover:text-xinjiang-gold transition-colors">首页</a>
+                        </li>
+                        <li><a href="#cuisine" class="text-gray-400 hover:text-xinjiang-gold transition-colors">美食精选</a>
+                        </li>
+                        <li><a href="#story" class="text-gray-400 hover:text-xinjiang-gold transition-colors">品牌故事</a>
+                        </li>
+                        <li><a href="#gallery" class="text-gray-400 hover:text-xinjiang-gold transition-colors">视觉盛宴</a>
+                        </li>
+                        <li><a href="#reservation"
+                                class="text-gray-400 hover:text-xinjiang-gold transition-colors">预约品鉴</a></li>
+                    </ul>
+                </div>
+
+                <!-- 联系方式 -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">联系方式</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fa fa-map-marker text-xinjiang-gold mr-2"></i>
+                            <span class="text-gray-400">新疆博乐市博尔塔拉职业技术学院</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-phone text-xinjiang-gold mr-2"></i>
+                            <span class="text-gray-400">111-5555555</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-envelope text-xinjiang-gold mr-2"></i>
+                            <span class="text-gray-400"></span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-clock-o text-xinjiang-gold mr-2"></i>
+                            <span class="text-gray-400">11:00 - 22:00</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 订阅 -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">订阅我们</h3>
+                    <p class="text-gray-400 mb-4">
+                        订阅我们的新闻通讯，获取最新的美食资讯和优惠活动
+                    </p>
+                    <form class="flex">
+                        <input type="email" placeholder="您的邮箱地址"
+                            class="flex-1 px-4 py-2 rounded-l-lg focus:outline-none text-gray-800">
+                        <button type="submit"
+                            class="bg-xinjiang-red hover:bg-xinjiang-gold text-white px-4 py-2 rounded-r-lg transition-colors">
+                            <i class="fa fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 版权信息 -->
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-500">
+                <p>设计者：木合太拜尔</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        window.onload = function () {
+            const navbar = document.getElementById('navbar');
+            const title = document.getElementById("title")
+            var meishi = document.getElementById("meishi")
+            var mimi = document.getElementById("mimi")
+            window.addEventListener('scroll', () => {
+
+                if (window.scrollY > 50) {
+                    navbar.classList.add('bg-black/80', 'shadow-lg');
+                    navbar.classList.remove('bg-transparent');
+                } else {
+                    navbar.classList.remove('bg-black/80', 'shadow-lg');
+                    navbar.classList.add('bg-transparent');
+                }
+                if (window.scrollY >= 50 && window.scrollY <= 200) {
+                    var i = window.scrollY//2
+                    title.style.transform = 'translateY(' + i + 'px)'
+                }
+                if (window.scrollY >= 100 && window.scrollY <= 500) {
+                    var i = 400 - (window.scrollY - 100)
+                    meishi.style.transform = 'translateY(' + i + 'px)' // 400  ---> 0
+
+                }
+            });
+            const menuBtn = document.getElementById('menuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                const icon = menuBtn.querySelector('i');
+                if (mobileMenu.classList.contains('hidden')) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                } else {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                }
+            });
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+
+                    mobileMenu.classList.add('hidden');
+                    const icon = menuBtn.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                });
+            });
+
+
+        }
+    </script>
+</body>
+
+</html>

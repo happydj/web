@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>阿勒泰 · 雪都天堂 - 探索北疆冰雪奇境</title>
+<style>
+  /* ========== 核心变量与重置 ========== */
+  :root {
+    --theme: #00c6ff;
+    --theme-glow: rgba(0, 198, 255, 0.4);
+    --accent: #ffd700;
+    --accent-glow: rgba(255, 215, 0, 0.3);
+    --glass: rgba(255, 255, 255, 0.12);
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --blur: blur(12px);
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.85);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: var(--text-primary);
+    font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+  section {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 100px 20px;
+    position: relative;
+  }
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  /* ========== 导航栏 ========== */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: var(--glass);
+    backdrop-filter: var(--blur);
+    border-bottom: 1px solid var(--glass-border);
+    transition: var(--transition);
+  }
+  nav.hidden {
+    transform: translateY(-100%);
+  }
+  nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding: 18px 20px;
+    gap: 30px;
+  }
+  nav a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 30px;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  nav a:hover, nav a.active {
+    background: var(--theme-glow);
+    box-shadow: 0 0 15px var(--theme-glow);
+  }
+
+  /* ========== 粒子背景 ========== */
+  #snow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 99;
+  }
+
+  /* ========== 首屏视差 ========== */
+  .parallax {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .parallax-layer {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    will-change: transform;
+  }
+  .parallax-layer.back {
+    background-image: url(https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1950&q=80);
+  }
+  .parallax-layer.mid {
+    background-image: url(./主页.jpg);
+    opacity: 0.6;
+  }
+  .parallax-content {
+    z-index: 10;
+    text-align: center;
+    max-width: 900px;
+    padding: 0 20px;
+  }
+  .parallax h1 {
+    font-size: clamp(3em, 8vw, 6em);
+    letter-spacing: 6px;
+    text-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, var(--text-primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .parallax p {
+    font-size: clamp(1.2em, 3vw, 1.8em);
+    opacity: 0.9;
+    margin-bottom: 40px;
+  }
+  .cta-button {
+    display: inline-block;
+    padding: 16px 50px;
+    background: var(--glass);
+    backdrop-filter: var(--blur);
+    border: 2px solid var(--accent);
+    border-radius: 50px;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1em;
+    transition: var(--transition);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  }
+  .cta-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px var(--accent-glow);
+    background: var(--accent-glow);
+  }
+  .scroll-down {
+    position: absolute;
+    bottom: 40px;
+    animation: float 2s ease-in-out infinite;
+    background: var(--glass);
+    backdrop-filter: var(--blur);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 2.5em;
+    border: 1px solid var(--glass-border);
+    cursor: pointer;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(20px); }
+  }
+
+  /* ========== 时间轴 ========== */
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin: 60px 0;
+  }
+  .timeline-item {
+    background: var(--glass);
+    backdrop-filter: var(--blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 30px 20px;
+    text-align: center;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--theme-glow), transparent);
+    transition: left 0.6s;
+  }
+  .timeline-item:hover::before {
+    left: 100%;
+  }
+  .timeline-item:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow);
+  }
+  .timeline-item h3 {
+    font-size: 1.8em;
+    color: var(--accent);
+    margin-bottom: 15px;
+  }
+  .timeline-item p {
+    opacity: 0.85;
+  }
+
+  /* ========== 通用卡片 ========== */
+  h2 {
+    font-size: clamp(2em, 5vw, 3.2em);
+    margin-bottom: 60px;
+    text-align: center;
+    letter-spacing: 3px;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+  h2::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 4px;
+    background: var(--theme);
+    margin: 20px auto 0;
+    border-radius: 2px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 35px;
+  }
+  .card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    overflow: hidden;
+    backdrop-filter: var(--blur);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: var(--text-primary);
+    position: relative;
+  }
+  .card:hover {
+    transform: translateY(-15px) scale(1.03);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    border-color: var(--accent);
+  }
+  .card-image {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    transition: var(--transition);
+  }
+  .card:hover .card-image {
+    transform: scale(1.1);
+  }
+  .card-content {
+    padding: 25px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .card h3 {
+    font-size: 1.6em;
+    margin-bottom: 12px;
+    color: var(--accent);
+  }
+  .card p {
+    opacity: 0.85;
+    line-height: 1.7;
+    flex: 1;
+  }
+  .card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--glass-border);
+    font-size: 0.9em;
+    opacity: 0.7;
+  }
+  .rating {
+    color: var(--accent);
+  }
+
+  /* ========== 图片轮播 ========== */
+/* = = = = = = 图片轮播 = = = = = = */
+.carousel {
+  position: relative;
+  height: 500px;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 60px 0;
+  box-shadow: var(--shadow);
+}
+
+.carousel-inner {
+  display: flex;
+  width: 500%;
+  height: 100%;
+  animation: slide 40s infinite ease-in-out; /* 改为40秒，添加平滑过渡 */
+}
+
+.carousel-item {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carousel-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+  padding: 40px;
+}
+
+.carousel-caption h3 {
+  font-size: 2em;
+  margin-bottom: 10px;
+  color: var(--accent);
+}
+
+
+@keyframes slide {
+  0% { transform: translateX(0); } /* 第1张 */
+  16% { transform: translateX(0); } /* 短暂停留 */
+
+  20% { transform: translateX(-20%); } /* 开始向第2张滑动 */
+  36% { transform: translateX(-20%); } /* 第2张停留 */
+
+  40% { transform: translateX(-40%); } /* 向第3张滑动 */
+  56% { transform: translateX(-40%); } /* 第3张停留 */
+
+  60% { transform: translateX(-60%); } /* 向第4张滑动 */
+  76% { transform: translateX(-60%); } /* 第4张停留 */
+
+  80% { transform: translateX(-80%); } /* 向第5张滑动 */
+  96% { transform: translateX(-80%); } /* 第5张停留 */
+
+  /* 最关键的部分：平滑地从第5张滑回第1张 */
+  100% { transform: translateX(0); }
+}
+ 
+
+  /* ========== 页脚 ========== */
+  footer {
+    text-align: center;
+    padding: 60px 20px;
+    background: var(--glass);
+    backdrop-filter: var(--blur);
+    border-top: 1px solid var(--glass-border);
+    font-size: 1em;
+    margin-top: 80px;
+  }
+  footer p {
+    margin: 10px 0;
+    opacity: 0.8;
+  }
+  .social-links {
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+  }
+  .social-links a {
+    width: 50px;
+    height: 50px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    transition: var(--transition);
+    font-size: 1.5em;
+  }
+  .social-links a:hover {
+    background: var(--theme-glow);
+    transform: translateY(-5px);
+  }
+
+  /* ========== 响应式与动画 ========== */
+  @media (max-width: 768px) {
+    section {
+      padding: 70px 15px;
+    }
+    nav ul {
+      gap: 15px;
+      padding: 12px 15px;
+    }
+    nav a {
+      padding: 8px 12px;
+      font-size: 0.9em;
+    }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ========== 加载动画 ========== */
+  .loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0a0a1a;
+    z-index: 9999;
+    display: grid;
+    place-items: center;
+    transition: opacity 0.5s;
+  }
+  .loader.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .loader-spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid var(--glass);
+    border-top: 4px solid var(--theme);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+</style>
+<base target="_blank">
+<base target="_blank">
+</head>
+<body>
+
+<!-- 加载动画 -->
+<div class="loader" id="loader">
+  <div class="loader-spinner"></div>
+</div>
+
+<canvas id="snow"></canvas>
+
+<!-- 导航栏 -->
+<nav id="navbar">
+  <ul>
+    <li><a href="#top" class="nav-link">🏔️ 雪都印象</a></li>
+    <li><a href="#timeline" class="nav-link">📅 四季之美</a></li>
+    <li><a href="#spots" class="nav-link">🎿 必玩景点</a></li>
+    <li><a href="#foods" class="nav-link">🍖 雪原美食</a></li>
+    <li><a href="#gifts" class="nav-link">🎁 阿勒泰礼物</a></li>
+    <li><a href="#travel" class="nav-link">✈️ 旅行指南</a></li>
+  </ul>
+</nav>
+
+<!-- 首屏 -->
+<div class="parallax" id="top">
+  <div class="parallax-layer back"></div>
+  <div class="parallax-layer mid"></div>
+  <div class="parallax-content">
+    <h1>阿勒泰 · 雪都天堂</h1>
+    <p>在祖国西北之巅，邂逅最纯净的冰雪梦境</p>
+    <a href="#spots" class="cta-button">开始探索</a>
+  </div>
+  <a href="#timeline" class="scroll-down" id="scrollDown">❄</a>
+</div>
+
+<!-- 四季时间轴 -->
+<section id="timeline" class="fade-in">
+  <h2>📅 四季阿勒泰</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <h3>❄️ 冬季</h3>
+      <p>11月-次年3月</p>
+      <p>雪期长达6个月，粉雪天堂，滑雪季、雾凇、冰雕盛宴</p>
+    </div>
+    <div class="timeline-item">
+      <h3>🌸 春季</h3>
+      <p>4月-5月</p>
+      <p>雪融花开，顶冰花、野杏花，草原初绿，候鸟归来</p>
+    </div>
+    <div class="timeline-item">
+      <h3>☀️ 夏季</h3>
+      <p>6月-8月</p>
+      <p>避暑胜地，湖泊碧蓝，山花烂漫，白昼如金</p>
+    </div>
+    <div class="timeline-item">
+      <h3>🍂 秋季</h3>
+      <p>9月-10月</p>
+      <p>金秋童话层林尽染，喀纳斯秋色封神，摄影黄金期</p>
+    </div>
+  </div>
+</section>
+
+<!-- 四季美景轮播 -->
+<section class="fade-in">
+  <h2>🖼️ 四季风景画廊</h2>
+  <div class="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item">
+        <img src="./冬季.jpg" alt="冬季雪景">
+        <div class="carousel-caption">
+          <h3>冬季 · 蓝冰奇观</h3>
+          <p>喀纳斯湖蓝冰剔透，仿佛置身于冰雪童话世界</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="./阿勒泰美景/吐尔根.jpg" alt="春季花海">
+        <div class="carousel-caption">
+          <h3>春季 · 野杏花谷</h3>
+          <p>吐尔根杏花沟，粉色花海铺满山谷</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="./阿勒泰美景/那拉提草原 (5).jpg" alt="夏季草原">
+        <div class="carousel-caption">
+          <h3>夏季 · 空中草原</h3>
+          <p>那拉提草原绿草如茵，牛羊成群，牧歌悠扬</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="./秋季.JPG" alt="秋季彩林">
+        <div class="carousel-caption">
+          <h3>秋季 · 层林尽染</h3>
+          <p>喀纳斯秋色封神，金黄与白桦交织成画</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="./日出.JPG" alt="日出晨雾">
+        <div class="carousel-caption">
+          <h3>晨雾 · 摄影天堂</h3>
+          <p>禾木村晨雾缭绕，日出光影变幻莫测</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 景点 -->
+<section id="spots" class="fade-in">
+  <h2>🎿 必玩景点</h2>
+  <div class="grid">
+    <a class="card" href="https://mp.weixin.qq.com/s/spot1" target="_blank">
+      <img class="card-image" src="./喀纳斯.jpg" alt="喀纳斯">
+      <div class="card-content">
+        <h3>喀纳斯湖</h3>
+        <p>神秘水怪传说，三湾晨雾似仙境，秋色斑斓，冬日蓝冰。观鱼台俯瞰全景，图瓦村落体验原始风情。</p>
+        <div class="card-meta">
+          <span>🏔️ 国家5A级景区</span>
+          <span class="rating">⭐ 4.9</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/spot2" target="_blank">
+      <img class="card-image" src="./阿勒泰美景/乔木村.PNG" alt="禾木">
+      <div class="card-content">
+        <h3>禾木村</h3>
+        <p>中国第一雪乡，清晨炊烟+日出+晨雾，摄影天堂。体验马拉爬犁，入住原木木屋，感受图瓦人生活。</p>
+        <div class="card-meta">
+          <span>🏡 原始村落</span>
+          <span class="rating">⭐ 4.8</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/spot3" target="_blank">
+      <img class="card-image" src="./阿勒泰美景/可可托海.PNG" alt="可可托海">
+      <div class="card-content">
+        <h3>可可托海</h3>
+        <p>世界地质公园，三号矿脉+额尔齐斯大峡谷，冬季雪墙公路。神钟山传说引人入胜，矿坑探秘红色历史。</p>
+        <div class="card-meta">
+          <span>💎 地质奇观</span>
+          <span class="rating">⭐ 4.7</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/spot4" target="_blank">
+      <img class="card-image" src="./阿勒泰美景/将军山.PNG" alt="将军山">
+      <div class="card-content">
+        <h3>将军山滑雪场</h3>
+        <p>全国唯一坐落于城市中的5S级雪场，夜滑+夕阳同屏。27条雪道满足不同水平，雪具大厅设施一流。</p>
+        <div class="card-meta">
+          <span>🎿 滑雪天堂</span>
+          <span class="rating">⭐ 4.8</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/spot5" target="_blank">
+      <img class="card-image" src="./阿勒泰美景/五.PNG" alt="五彩滩">
+      <div class="card-content">
+        <h3>五彩滩</h3>
+        <p>雅丹+河谷+落日，夕阳下色彩斑斓，额尔齐斯河对岸胡杨相伴。日落时分最美，摄影必到打卡点。</p>
+        <div class="card-meta">
+          <span>🌅 摄影圣地</span>
+          <span class="rating">⭐ 4.6</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/spot6" target="_blank">
+      <img class="card-image" src="./阿勒泰美景/白哈巴.PNG" alt="白哈巴">
+      <div class="card-content">
+        <h3>白哈巴村</h3>
+        <p>西北第一村，图瓦人原始木屋，边境线晨雾与星空。需要办理边防证，感受边境小镇的宁静与神秘。</p>
+        <div class="card-meta">
+          <span>🌌 边境秘境</span>
+          <span class="rating">⭐ 4.7</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- 美食 -->
+<section id="foods" class="fade-in">
+  <h2>🍖 雪原美食</h2>
+  <div class="grid">
+    <a class="card" href="https://mp.weixin.qq.com/s/food1" target="_blank">
+      <img class="card-image" src="./阿勒泰美景/手抓肉.PNG" alt="手抓肉">
+      <div class="card-content">
+        <h3>哈萨克手抓肉</h3>
+        <p>现宰羔羊，清水炖煮，蘸盐+皮牙子，肉质奶香四溢。传统待客最高礼遇，肉质鲜嫩入口即化。</p>
+        <div class="card-meta">
+          <span>🥩 特色推荐</span>
+          <span class="rating">⭐⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/food2" target="_blank">
+      <img class="card-image" src="./阿勒泰美景/奶茶.PNG" alt="奶茶">
+      <div class="card-content">
+        <h3>咸味奶茶</h3>
+        <p>砖茶+牛奶+盐，佐以酥油与炒面，驱寒神器。一日三顿不离手，暖胃暖心，草原生活必需品。</p>
+        <div class="card-meta">
+          <span>🧋 每日必备</span>
+          <span class="rating">⭐⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/food3" target="_blank">
+      <img class="card-image" src="./阿勒泰美景/酸奶疙瘩.PNG" alt="奶疙瘩">
+      <div class="card-content">
+        <h3>奶疙瘩 &amp; 奶皮子</h3>
+        <p>酸奶浓缩发酵，酸甜耐嚼；奶皮子奶香浓郁，泡茶即溶。高蛋白零食，游牧民族能量补充。</p>
+        <div class="card-meta">
+          <span>🧀 草原零食</span>
+          <span class="rating">⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/food4" target="_blank">
+      <img class="card-image" src="./阿勒泰美景/烤肉.PNG" alt="烤肉">
+      <div class="card-content">
+        <h3>戈壁烤肉</h3>
+        <p>红柳枝串起羔羊，果木炭火，孜然+辣子+芝麻粒。外焦里嫩，香气扑鼻，夜市必备美味。</p>
+        <div class="card-meta">
+          <span>🍢 烧烤之王</span>
+          <span class="rating">⭐⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/food5" target="_blank">
+      <img class="card-image" src="./阿勒泰美景/马肠子.PNG" alt="马肠子">
+      <div class="card-content">
+        <h3>熏马肠</h3>
+        <p>初冬宰马，灌肠+果木慢熏，切片蒸煮，脂香四溢。冬季限定美味，哈萨克族传统佳肴。</p>
+        <div class="card-meta">
+          <span>🥓 冬季限定</span>
+          <span class="rating">⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/food6" target="_blank">
+      <img class="card-image" src="./阿勒泰美景/包尔萨克.PNG" alt="包尔萨克">
+      <div class="card-content">
+        <h3>包尔萨克</h3>
+        <p>哈萨克"油条"，奶茶标配，外酥内软，奶香微甜。早餐必备，配果酱或蜂蜜更美味。</p>
+        <div class="card-meta">
+          <span>🥨 主食搭档</span>
+          <span class="rating">⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/food7" target="_blank">
+      <img class="card-image" src="./阿勒泰美景/酸奶.PNG" alt="那仁">
+      <div class="card-content">
+        <h3>那仁面</h3>
+        <p>手擀宽面+煮肉原汤，撒皮牙子&amp;黑胡椒，一碗入魂。面食与肉香的完美结合，分量十足。</p>
+        <div class="card-meta">
+          <span>🍜 主食之王</span>
+          <span class="rating">⭐⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/food8" target="_blank">
+      <img class="card-image" src="./阿勒泰美景/酸奶1.PNG" alt="酸奶">
+      <div class="card-content">
+        <h3>图瓦酸奶</h3>
+        <p>木桶自然发酵，表层金黄奶皮，口感绵密，微甜回甘。益生菌丰富，助消化健康饮品。</p>
+        <div class="card-meta">
+          <span>🥛 天然健康</span>
+          <span class="rating">⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/food9" target="_blank">
+      <img class="card-image" src="./阿勒泰美景/水.PNG" alt="冰川水">
+      <div class="card-content">
+        <h3>阿尔泰冰川水</h3>
+        <p>海拔3000米冰川融水，天然弱碱，清冽回甘。直接饮用，泡茶煮饭皆宜，大自然的馈赠。</p>
+        <div class="card-meta">
+          <span>💧 生命之源</span>
+          <span class="rating">⭐⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- 特产 -->
+<section id="gifts" class="fade-in">
+  <h2>🎁 阿勒泰礼物</h2>
+  <div class="grid">
+    <a class="card" href="https://mp.weixin.qq.com/s/gift1" target="_blank">
+      <img class="card-image" src="./阿勒泰美景/大尾羊.PNG" alt="大尾羊">
+      <div class="card-content">
+        <h3>阿勒泰大尾羊</h3>
+        <p>国家地理标志，雪原散养，肉质奶香无膻，冷链直发。每年冬季限定，送礼体面过人。</p>
+        <div class="card-meta">
+          <span>🐑 地理标志</span>
+          <span class="rating">⭐⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/gift2" target="_blank">
+      <img class="card-image" src="./阿勒泰美景/刺绣.PNG" alt="刺绣">
+      <div class="card-content">
+        <h3>哈萨克刺绣</h3>
+        <p>哈萨克妇女手工刺绣，挂毯、抱枕、围巾，图案寓意吉祥。色彩鲜艳，民族特色浓郁。</p>
+        <div class="card-meta">
+          <span>🎨 非遗传承</span>
+          <span class="rating">⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/gift3" target="_blank">
+      <img class="card-image" src="./阿勒泰美景/宝石.PNG" alt="宝石">
+      <div class="card-content">
+        <h3>海蓝宝石</h3>
+        <p>可可托海矿脉原产，冰雪般湛蓝，原石/吊坠/戒面任选。宝石中的"冰雪精灵"。</p>
+        <div class="card-meta">
+          <span>💎 宝石之王</span>
+          <span class="rating">⭐⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/gift4" target="_blank">
+      <img class="card-image" src="./阿勒泰美景/蜂蜜.PNG" alt="蜂蜜">
+      <div class="card-content">
+        <h3>阿勒泰蜂蜜</h3>
+        <p>野山花+黑蜂酿造，波美度42+，零下20℃不结晶。天然无添加，健康养生首选。</p>
+        <div class="card-meta">
+          <span>🍯 黑蜂之宝</span>
+          <span class="rating">⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/gift5" target="_blank">
+      <img class="card-image" src="./阿勒泰美景/奶糖.PNG" alt="奶酪">
+      <div class="card-content">
+        <h3>奶酪糖</h3>
+        <p>鲜奶提炼，真空小袋，奶香浓郁，旅途高能量补给。小朋友最爱，营养健康零食。</p>
+        <div class="card-meta">
+          <span>🍬 能量零食</span>
+          <span class="rating">⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="https://mp.weixin.qq.com/s/gift6" target="_blank">
+      <img class="card-image" src="./阿勒泰美景/滑雪板.PNG" alt="雪板">
+      <div class="card-content">
+        <h3>将军山限定雪板</h3>
+        <p>滑雪节纪念款，阿勒泰松木+碳纤维，限量编号收藏。滑雪爱好者梦寐以求的装备。</p>
+        <div class="card-meta">
+          <span>🏂 限量纪念</span>
+          <span class="rating">⭐⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- 旅行指南 -->
+<section id="travel" class="fade-in">
+  <h2>✈️ 旅行实用指南</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="card-content">
+        <h3>🚗 交通方式</h3>
+        <p><strong>飞机：</strong>阿勒泰机场，乌鲁木齐中转</p>
+        <p><strong>火车：</strong>阿勒泰站，北屯站</p>
+        <p><strong>自驾：</strong>乌鲁木齐出发约8小时，风景优美</p>
+        <p><strong>包车：</strong>当地司机熟悉路况，省心省力</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <h3>🏨 住宿推荐</h3>
+        <p><strong>禾木村：</strong>原木小木屋，体验图瓦生活</p>
+        <p><strong>喀纳斯：</strong>贾登峪酒店群，设施完善</p>
+        <p><strong>阿勒泰市：</strong>将军山附近酒店，滑雪便利</p>
+        <p><strong>特色：</strong>星空帐篷、雪蘑菇屋</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <h3>🎒 装备清单</h3>
+        <p><strong>冬季：</strong>防风羽绒服、保暖内衣、雪地靴</p>
+        <p><strong>防晒：</strong>高倍防晒霜、墨镜、润唇膏</p>
+        <p><strong>摄影：</strong>相机保暖套、备用电池</p>
+        <p><strong>其他：</strong>保温杯、高热量零食、现金</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="social-links">
+    <a href="#">📱</a>
+    <a href="#">📷</a>
+    <a href="#">🎬</a>
+    <a href="#">📧</a>
+  </div>
+  <p>© 2025 阿勒泰地区文化体育广播电视和旅游局 · 冬季之约 雪都等你</p>
+  <p>客服热线：0906-12345 | 旅游投诉：0906-54321</p>
+  <p>地址：新疆阿勒泰市解放路188号</p>
+</footer>
+
+<script>
+  // ========== 页面加载动画 ==========
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loader').classList.add('hidden');
+    }, 800);
+  });
+
+  // ========== 粒子雪景 ==========
+  const canvas = document.getElementById('snow'), ctx = canvas.getContext('2d');
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+  const particles = Array.from({length: 150}, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 4 + 1,
+    d: Math.random() * 1.5 + 0.5,
+    a: Math.random() * 2 - 1,
+    o: Math.random() * 0.8 + 0.2
+  }));
+  function drawSnow() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255, 255, 255, ${p.o})`;
+      ctx.fill();
+      p.y += p.d;
+      p.x += p.a;
+      if (p.y > canvas.height) p.y = -10;
+      if (p.x > canvas.width) p.x = 0;
+      if (p.x < 0) p.x = canvas.width;
+    });
+  }
+  setInterval(drawSnow, 30);
+  addEventListener('resize', () => { canvas.width = innerWidth; canvas.height = innerHeight; });
+
+  // ========== 视差滚动 ==========
+  const parallaxLayers = document.querySelectorAll('.parallax-layer');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    parallaxLayers[0].style.transform = `translateY(${scrolled * 0.5}px)`;
+    parallaxLayers[1].style.transform = `translateY(${scrolled * 0.7}px)`;
+  });
+
+  // ========== 导航栏滚动隐藏 ==========
+  let lastScroll = 0;
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    if (currentScroll > 100) {
+      if (currentScroll > lastScroll) {
+        navbar.classList.add('hidden');
+      } else {
+        navbar.classList.remove('hidden');
+      }
+    }
+    lastScroll = currentScroll;
+  });
+
+  // ========== 滚动动画 ==========
+  const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // ========== 平滑滚动 ==========
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // ========== 导航高亮 ==========
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      if (pageYOffset >= sectionTop - 150) {
+        current = section.getAttribute('id');
+      }
+    });
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${current}`) {
+        link.classList.add('active');
+      }
+    });
+  });
+
+  // ========== 图片懒加载 ==========
+  const lazyImages = document.querySelectorAll('img[data-src]');
+  const imageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        img.src = img.dataset.src;
+        img.removeAttribute('data-src');
+        imageObserver.unobserve(img);
+      }
+    });
+  });
+  // 实际应用时可添加data-src属性
+</script>
+
+</body></html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>星系</title>
+  <script src="./js/three.min.js"></script>
+  <script src="./js/OrbitControls.js"></script>
+  <link rel="stylesheet" href="./css/index.css">
+  <style>
+    /* 通用悬浮窗样式 */
+    .float-window {
+      position: fixed;
+      /* 固定定位，不随滚动移动 */
+      top: 50%;
+      /* 垂直居中 */
+      transform: translateY(-50%);
+      /* 修正垂直居中偏移 */
+      width: 200px;
+      padding: 20px;
+      background: rgba(14, 13, 13, 0.95);
+      /* 半透明白底 */
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      /* 阴影增强立体感 */
+      z-index: 9999;
+      /* 确保浮在最上层 */
+      box-sizing: border-box;
+    }
+
+    /* 左侧悬浮窗定位 */
+    .left-float {
+      left: 40px;
+    }
+
+    /* 右侧悬浮窗定位 */
+    .right-float {
+      right: 20px;
+    }
+
+    /* 浮窗内元素样式（可选） */
+    .float-window h3 {
+      margin: 0 0 15px 0;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .float-window p,
+    .float-window a {
+      font-size: 14px;
+      color: #666;
+      text-decoration: none;
+      line-height: 1.5;
+    }
+
+    .float-window a:hover {
+      color: #007bff;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div>
+    <canvas id="main"></canvas>
+    <script src="./js/其他星球/地球.js"></script>
+  </div>
+  <!-- 左侧悬浮窗 -->
+  <div class="float-window left-float" style="color: #007bff;">
+    <h3 style="font-size: 24px; color: gold;">简介</h3>
+    <span style="font-size: 17px;">地球是太阳系八大行星之一，按与太阳的距离排序为第三颗行星，也是太阳系中唯一一颗孕育出生命的天体，同时是直径、质量和密度均位列类地行星首位的星球。
+      它诞生于约46亿年前，以近正圆的椭圆轨道绕太阳公转，公转一周耗时365.2422天，即一个回归年；
+      同时围绕地轴自西向东自转，自转周期约23小时56分4秒，昼夜更替与四季更迭皆源于这两种运动。
+      地球的地轴存在约23.5°的倾斜角，这是南北半球产生四季变化的核心原因
+      地球平均半径约6371千米，赤道周长约40075千米，总质量约5.97×10²⁴千克。
+
+    </span>
+  </div>
+
+  <!-- 右侧悬浮窗 -->
+  <div class="float-window right-float" style="color: #007bff;">
+    <span> 其独特的圈层结构极具特点：外部被厚达1000千米以上的大气层包裹，氮气占78%、氧气占21%，
+      既形成了适宜生命呼吸的环境，又能阻挡宇宙射线与小行星撞击、锁住地表热量；
+      地表71%被海洋覆盖，29%为陆地；内部则分为地壳、地幔、地核三层，
+      地核的铁镍内核是地球磁场的来源，能保护地球免受太阳风的侵袭。
+      地球拥有一颗天然卫星——月球，月球绕地公转的同时引发地球潮汐现象，也稳定了地球的自转轴倾角，为地球的宜居环境奠定了重要基础。
+      地球与太阳的平均距离约1.5亿千米，这一恰到好处的距离，让地表保持着15℃左右的平均温度，成为太阳系中独一无二的宜居星球。
+    </span>
+  </div>
+</body>
+
+</html>

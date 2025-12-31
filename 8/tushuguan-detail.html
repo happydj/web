@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校园导航 </title>
+    <!-- 引入Tailwind CSS -->
+    <script src="./js/tailwindcss.js"></script>
+    <!-- 引入Font Awesome图标 -->
+    <link rel="stylesheet" href="./css/all.min.css">
+
+    <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
+    <!-- 自定义Tailwind配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF', // 主色调（校园蓝）
+                        secondary: '#36B37E', // 辅助色（校园绿）
+                        neutral: '#F5F7FA', // 中性色
+                        dark: '#1D2129', // 深色文本
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+
+
+    </script>
+
+    <style type="text/tailwindcss">
+
+
+        .dingwei{
+            top: 270px;
+            right: 190px;
+            /* 使用功能动画   动画名字  时间  运动曲线  次数infinite 无限次*/
+            animation: tiaodong 1s ease infinite;
+        }
+        /* 定义关键帧 */
+        @keyframes tiaodong {
+            0%,100%{
+                /* 动画，平移 */
+                transform: translateY(0px);
+            }
+            50%{
+                transform: translateY(-15px);
+            }
+        }
+
+        *{
+             margin: 0;
+             padding: 0;
+             box-sizing: border-box;
+             font-family: "Microsoft YaHei", sans-serif;
+         }
+         body {
+             background-color: #f5f5f5;
+             padding: 20px;
+         }
+         /* 卡片容器样式 */
+         .card {
+             width: 100px;
+             background-color: #fff;
+             border-radius: 12px;
+             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+             border: 1px solid #f3f4f6;
+             overflow: hidden;
+             margin-bottom: 20px;
+         }
+         /* 卡片图片样式 */
+         .card-img {
+             width: 100%;
+             height: 160px; /* 对应原h-40（160px） */
+             object-fit: cover; /* 裁剪图片保持比例 */
+             display: block;
+         }
+         /* 卡片文字内容区 */
+         .card-content {
+             padding: 20px;
+         }
+         /* 标题样式 */
+         .card-title {
+             font-weight: bold;
+             font-size: 18px;
+             margin-bottom: 8px;
+             color: #111827;
+         }
+         /* 描述文字样式 */
+         .card-desc {
+             font-size: 14px;
+             color: #6b7280;
+             margin-bottom: 16px;
+             line-height: 1.5;
+         }
+         /* 查看详情链接样式 */
+         .card-link {
+             font-size: 14px;
+             color: #2563eb; /* 主色调蓝色 */
+             text-decoration: none;
+             transition: color 0.3s;
+         }
+         .card-link:hover {
+             color: #7c3aed; /* hover Secondary色 */
+             text-decoration: underline;
+         }
+
+
+     </style>
+</head>
+
+<body>
+
+    </style>
+    </head>
+
+    <body class="bg-neutral font-sans text-dark">
+        <!-- 顶部导航栏 -->
+        <header class="sticky top-0 z-50 bg-white nav-shadow">
+            <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+                <!-- 校徽+校名 -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white">
+                        <i class="fa-solid fa-school text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-bold text-primary">博尔塔拉职业技术学院</h1>
+                        <p class="text-xs text-gray-500">校园导航系统</p>
+                    </div>
+                </div>
+
+                <!-- 导航菜单 - 桌面端 -->
+                <nav class="hidden md:flex items-center gap-6">
+                    <a href="./index.html#map"
+                        class="text-dark hover:text-primary transition-colors font-medium text-lg">校园地图</a>
+                    <a href="./index.html#buildings" class="text-dark hover:text-primary transition-colors font-medium text-lg">楼宇导航</a>
+                    <a href="./index.html#services" class="text-dark hover:text-primary transition-colors font-medium text-lg">校园服务</a>
+                    <a href="./index.html#news class="text-dark hover:text-primary transition-colors font-medium text-lg">校园资讯</a>
+                    <a href="./index.html#contact" class="text-dark hover:text-primary transition-colors font-medium text-lg">联系我们</a>
+                </nav>
+
+                <!-- 搜索框 -->
+                <div class="hidden md:flex items-center bg-neutral rounded-full px-3 py-1.5 gap-2">
+                    <i class="fa-solid fa-search text-gray-400"></i>
+                    <input type="text" placeholder="搜索楼宇/服务..." class="bg-transparent outline-none text-sm w-40">
+                </div>
+
+                <!-- 移动端菜单按钮 -->
+                <button class="md:hidden text-dark text-xl" id="menuBtn">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+
+        </header>
+        <section class="py-12 bg-white">
+
+            <!-- <div class="cill ">
+                <h3>文字的力量磅礴如巨浪</h3>
+                <p>低头是题海，抬头是前途。关关难过关关过，前路漫漫亦灿灿。你远比自己想象的更加强大，别轻易认输。沉下浮躁之心，稳扎稳打，
+                    不慌不忙，你心心念念的美好，定会在合适的时机，如期降临。我努力奔跑是为了追上那个曾经被寄予厚望的自己。你一定要站在自己热爱的世界里闪闪发光！</p>
+                <div class="img">
+                </div>
+                <div class="img"><img src="img/lQDPJwRiKhJFCIvNBQDNA8CwuLH5rDqf6YMJJHXLae-iAA_960_1280.jpg" alt="">
+                </div>
+                <div class="img"><img src="img/lQDPJxXCgL7huG_NAm7NAzywCwYGsbmWfnIJHKSIZ4i_AA_828_622.jpg" alt="">
+                </div>
+
+
+            </div> -->
+
+            <div class="container mx-auto px-4">
+                <h3 class="font-bold text-2xl md:text-3xl text-center mb-4">文字的力量磅礴如巨浪</h3>
+                <p class="text-xl">知识的海洋，尽在图书馆。书籍如同明灯，指引前行的方向。探索无限的可能，翻开书本的世界。培养阅读习惯，让知识之花绽放。书籍，培养永痕的友谊。
+                    图书馆，你的智慧角落。细嚼文字，品味人生。搜索一本书，收获一份智慧。
+                </p>
+                <div class="text-center mt-8">
+                    <img class="mx-auto" src="img/lQDPJwbn5_KkwKfNAijNAzywL_ljtvoUWxEJG4n_PosFAA_828_552.jpg" alt="">
+                </div>
+                <p class="text-xl mt-8">每个人都有自己的梦想和追求，你已经迈出了重要的步伐。请保持这份勇气和决心，无论面对何种挑战，都能奋力向前。你已经证明了自己，接下来的一
+                    切都将在你的掌握之中！</p>
+                <img class="mx-auto" src="img/lQDPJwRiKhJFCIvNBQDNA8CwuLH5rDqf6YMJJHXLae-iAA_960_1280.jpg" alt="">
+               <p class="text-xl mt-8">低头是题海，抬头是前途。关关难过关关过，前路漫漫亦灿灿。你远比自己想象的更加强大，别轻易认输。沉下浮躁之心，稳扎稳打，
+                    不慌不忙，你心心念念的美好，定会在合适的时机，如期降临。我努力奔跑是为了追上那个曾经被寄予厚望的自己。你一定要站在自己热爱的世界里闪闪发光！</p>
+                     <img class="mx-auto" src="img/lQDPJxXCgL7huG_NAm7NAzywCwYGsbmWfnIJHKSIZ4i_AA_828_622.jpg" alt="">
+
+
+            </div>
+
+
+        </section>
+
+        <!-- 页脚 -->
+        <footer class="bg-dark text-white py-10">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <!-- 学校信息 -->
+                    <div>
+                        <h5 class="font-bold text-lg mb-4">博尔塔拉职业技术学院</h5>
+                        <p class="text-gray-400 text-sm mb-4">
+                            立德树人，追求卓越
+                        </p>
+                        <p class="text-gray-400 text-xs">
+                            © 2025 博尔塔拉职业技术学院<br>
+
+                        </p>
+                    </div>
+
+                    <!-- 快速链接 -->
+                    <div>
+                        <h5 class="font-bold text-lg mb-4">快速链接</h5>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li><a href="#" class="hover:text-white transition-colors">学校官网</a></li>
+                            <li><a href="#" class="hover:text-white transition-colors">教务处</a></li>
+                            <li><a href="#" class="hover:text-white transition-colors">学生处</a></li>
+                            <li><a href="#" class="hover:text-white transition-colors">招生办</a></li>
+                            <li><a href="#" class="hover:text-white transition-colors">就业指导中心</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- 服务支持 -->
+                    <div>
+                        <h5 class="font-bold text-lg mb-4">服务支持</h5>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li><a href="#" class="hover:text-white transition-colors">常见问题</a></li>
+                            <li><a href="#" class="hover:text-white transition-colors">使用指南</a></li>
+                            <li><a href="#" class="hover:text-white transition-colors">意见反馈</a></li>
+                            <li><a href="#" class="hover:text-white transition-colors">隐私政策</a></li>
+                            <li><a href="#" class="hover:text-white transition-colors">服务条款</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- 下载APP -->
+                    <div>
+                        <h5 class="font-bold text-lg mb-4">校园导航APP</h5>
+                        <p class="text-gray-400 text-sm mb-3">
+                            扫码下载APP，体验更多功能
+                        </p>
+                        <div class="w-28 h-28 bg-white rounded-lg p-1 mb-2">
+                            <img src="img/lQDPKHLqu63S8CfNAoDNAoCwprh0O3GV6FwJG3UV_hhlAA_640_640.jpg" alt="APP二维码"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <p class="text-gray-400 text-xs">
+                            支持iOS/Android系统
+                        </p>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-xs">
+                    本网站仅为校园导航使用，如有侵权请联系删除
+                </div>
+            </div>
+        </footer>
+
+
+
+
+    </body>
+
+</html>

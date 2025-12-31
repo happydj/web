@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网页视频播放器</title>
+    <style>
+        /* 页面基础样式 */
+
+
+        body {
+            background-image: url("./img/艾特莱斯1.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 20px;
+        }
+
+        /* 关键：横向布局父容器（确保子元素从左到右排列） */
+        .video-list {
+            display: flex;
+            /* 开启flex横向布局，核心属性 */
+            gap: 20px;
+            /* 视频之间的间距，避免紧贴 */
+            flex-wrap: wrap;
+            /* 页面宽度不足时自动换行，可选 */
+            justify-content: flex-start;
+            /* 靠左对齐，保证视频1在左、视频2在右 */
+        }
+
+        .video-container {
+            width: 600px;
+            max-width: 600px;
+            background-color: burlywood;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .video-player {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .video-title {
+            padding: 15px;
+            color: #fff;
+            background-color: #a79c60;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .tips {
+            margin-top: 10px;
+            color: #666;
+            font-size: 14px;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 父容器包裹，确保横向布局生效 -->
+    <div class="video-list">
+        <!-- 第一步：先写美食视频1（左侧） -->
+        <div class="video-container">
+            <div class="video-title">美食视频1</div>
+            <video class="video-player" controls preload="metadata">
+                <source src="./img/视频1.mp4" type="video/mp4">
+            </video>
+            <div class="tips"></div>
+        </div>
+
+        <!-- 第二步：再写美食视频2（自动排在视频1右侧，核心是HTML顺序在前在后） -->
+        <div class="video-container">
+            <div class="video-title">美食视频2</div>
+            <video class="video-player" controls preload="metadata" muted>
+                <source src="./img/视频2.mp4" type="video/mp4">
+            </video>
+            <div class="tips"></div>
+        </div>
+
+        <!-- 美食视频3（排在视频2右侧） -->
+        <div class="video-container">
+            <div class="video-title">美食视频3</div>
+            <video class="video-player" controls preload="metadata" muted>
+                <source src="./img/视频3.mp4" type="video/mp4">
+            </video>
+            <div class="tips"></div>
+        </div>
+    </div>
+</body>
+
+</html>

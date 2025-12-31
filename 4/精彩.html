@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <title>疯狂动物城2 - 精彩图集</title>
+    <!-- 优化资源加载顺序和版本 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="疯狂动物城2精彩图集，收录经典角色、震撼场景与动人瞬间">
+    <meta name="keywords" content="疯狂动物城2, 精彩图集, 朱迪, 尼克, 动画场景">
+    <!-- 现代CDN资源 -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <style>
+        /* 基础样式优化 */
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background-image: url(./img/图片/大背景.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            font-family: "Microsoft Yahei", "SimSun", Arial, sans-serif;
+            /* 防止背景图片加载失败的兜底样式 */
+            background-color: #f8f9fa;
+        }
+
+        .main1 {
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        /* 页面标题优化 - 增强视觉效果 */
+        .page-title {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            animation: fadeIn 0.8s ease-in-out;
+            /* 渐变背景+轻微毛玻璃效果 */
+            background: linear-gradient(135deg, rgba(153, 198, 255, 0.1) 0%, rgba(98, 170, 255, 0.05) 100%);
+            border-radius: 12px;
+            border: 1px solid rgba(153, 198, 255, 0.2);
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        /* 标题装饰元素 */
+        .page-title::before {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 1px dashed rgba(153, 198, 255, 0.3);
+            border-radius: 8px;
+            pointer-events: none;
+        }
+
+        .page-title h2 {
+            color: #2c3e50;
+            font-size: 32px;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+            margin: 0 0 10px;
+            letter-spacing: 1px;
+        }
+
+        .page-title h2:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 15%;
+            width: 70%;
+            height: 4px;
+            background: linear-gradient(to right, transparent, #99c6ff, #66a8ff, #99c6ff, transparent);
+            border-radius: 2px;
+            /* 增加动画效果 */
+            animation: gradientFlow 5s infinite alternate;
+        }
+
+        .page-title p {
+            color: #4a6584;
+            font-size: 18px;
+            margin-top: 15px;
+            line-height: 1.8;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+        }
+
+        /* 轮播图深度优化 */
+        .carousel-inner .item {
+            width: 100%;
+            height: 380px;
+            overflow: hidden;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+
+        .item img {
+            width: 100%;
+            height: 100% !important;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .item:hover img {
+            transform: scale(1.05);
+        }
+
+
+        /* 轮播控制按钮优化 */
+        .carousel-control {
+            width: 8%;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-control:hover {
+            opacity: 1;
+            background: linear-gradient(to left, transparent, rgba(0, 0, 0, 0.2)) !important;
+        }
+
+        .carousel-control.right {
+            background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.2)) !important;
+        }
+
+        .carousel-control .glyphicon {
+            font-size: 30px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 导航栏优化 */
+        a {
+            font-family: "SimSun", serif;
+            color: aliceblue;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        a:hover,
+        a:focus {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        nav ul {
+            margin: 15px 0 25px;
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            background-color: #2c3e50;
+            font-size: 18px;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 0;
+            flex-wrap: wrap;
+            /* 增强响应式 */
+        }
+
+        nav li {
+            padding: 0 20px;
+            height: 50px;
+            line-height: 50px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            white-space: nowrap;
+        }
+
+        nav li:hover {
+            background-color: #99c6ff;
+        }
+
+        nav li.active {
+            background-color: #99c6ff;
+            font-weight: bold;
+        }
+
+        /* 导航栏hover动画 */
+        nav li::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: #fff;
+            transition: width 0.3s ease;
+        }
+
+        nav li:hover::after {
+            width: 100%;
+        }
+
+        /* 图集分类标题 */
+        .gallery-title {
+            color: #2c3e50;
+            font-size: 22px;
+            margin: 0 0 20px;
+            padding-left: 15px;
+            border-left: 4px solid #99c6ff;
+            line-height: 1.4;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        /* 图集分类分隔 */
+        .gallery-category {
+            margin: 40px 0 20px;
+            padding-top: 20px;
+            border-top: 1px dashed #e0e0e0;
+        }
+
+        /* 精彩图集样式优化 */
+        .cp.tu {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 10px 0 30px;
+            width: 100%;
+        }
+
+        /* 图片卡片样式增强 */
+        .img-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            position: relative;
+            /* 卡片入场动画 */
+            animation: cardFadeIn 0.6s ease-out;
+        }
+
+        /* 延迟加载动画 */
+        .img-card:nth-child(2n) {
+            animation-delay: 0.1s;
+        }
+
+        .img-card:nth-child(3n) {
+            animation-delay: 0.2s;
+        }
+
+        .img-card:nth-child(4n) {
+            animation-delay: 0.3s;
+        }
+
+        .img-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        /* 图片容器优化 */
+        .img-card .img-wrap {
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* 图片加载过渡 */
+        .img-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+            display: block;
+            /* 图片加载优化 */
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        /* 图片hover效果增强 */
+        .img-card:hover img {
+            transform: scale(1.08);
+        }
+
+        /* 大先生图片特殊调整 */
+        .img-card.mr-big img {
+            object-position: center bottom;
+        }
+
+        /* 图片卡片遮罩层 */
+        .img-wrap::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 60%, rgba(0, 0, 0, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .img-card:hover .img-wrap::after {
+            opacity: 1;
+        }
+
+        /* 文字区域优化 */
+        .img-card .img-info {
+            padding: 18px 20px;
+            flex: 1;
+            background: linear-gradient(to top, #f9f9f9 0%, #fff 100%);
+        }
+
+        .img-card .img-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            transition: color 0.3s ease;
+        }
+
+        .img-card:hover .img-title {
+            color: #99c6ff;
+        }
+
+        .img-card .img-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.7;
+            margin: 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            transition: color 0.3s ease;
+        }
+
+        .img-card:hover .img-desc {
+            color: #444;
+        }
+
+        /* 回到顶部按钮增强 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 45px;
+            height: 45px;
+            background-color: #99c6ff;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 45px;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            display: none;
+            z-index: 9999;
+            border: none;
+            outline: none;
+        }
+
+        .back-to-top:hover {
+            background-color: #66a8ff;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-to-top:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        /* 加载动画 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes cardFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes gradientFlow {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* 响应式适配增强 */
+        @media (max-width: 1200px) {
+            .carousel-inner .item {
+                height: 320px;
+            }
+
+            .img-card .img-wrap {
+                height: 260px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .carousel-inner .item {
+                height: 280px;
+            }
+
+            .cp.tu {
+                gap: 20px;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+
+            .img-card .img-wrap {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .carousel-inner .item {
+                height: 240px;
+            }
+
+            .page-title h2 {
+                font-size: 26px;
+            }
+
+            .page-title p {
+                font-size: 16px;
+                padding: 0 10px;
+            }
+
+            nav ul {
+                font-size: 16px;
+            }
+
+            nav li {
+                padding: 0 15px;
+                height: 45px;
+                line-height: 45px;
+            }
+
+            .cp.tu {
+                gap: 18px;
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            }
+
+            .img-card .img-wrap {
+                height: 230px;
+            }
+
+            .gallery-title {
+                font-size: 20px;
+            }
+
+            .img-card .img-info {
+                padding: 15px 18px;
+            }
+
+            .back-to-top {
+                width: 40px;
+                height: 40px;
+                line-height: 40px;
+                font-size: 18px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .carousel-inner .item {
+                height: 180px;
+            }
+
+            .page-title {
+                padding: 20px 15px;
+                margin-top: 30px;
+            }
+
+            .page-title h2 {
+                font-size: 22px;
+                padding-bottom: 10px;
+            }
+
+            .page-title p {
+                font-size: 14px;
+                line-height: 1.6;
+            }
+
+            nav li {
+                padding: 0 10px;
+                font-size: 15px;
+            }
+
+            .img-card .img-wrap {
+                height: 200px;
+            }
+
+            .img-card .img-title {
+                font-size: 16px;
+            }
+
+            .img-card .img-desc {
+                font-size: 13px;
+                -webkit-line-clamp: 4;
+            }
+
+            /* 移动端轮播控制按钮优化 */
+            .carousel-control .glyphicon {
+                font-size: 20px;
+            }
+        }
+
+        /* 打印样式优化 */
+        @media print {
+
+            .back-to-top,
+            nav,
+            .carousel-control,
+            .carousel-indicators {
+                display: none !important;
+            }
+
+            .main1 {
+                background: #fff !important;
+                box-shadow: none !important;
+            }
+
+            .img-card {
+                break-inside: avoid;
+                box-shadow: none !important;
+                border: 1px solid #eee;
+            }
+
+            .page-title {
+                background: #fff !important;
+                border: 1px solid #eee !important;
+            }
+        }
+
+        /* 无障碍访问优化 */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        /* 加载状态样式 */
+        .img-loading {
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .img-loading::after {
+            content: '';
+            width: 40px;
+            height: 40px;
+            border: 4px solid #eee;
+            border-top: 4px solid #99c6ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main1">
+        <!-- 轮播图 -->
+        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
+            <!-- 轮播指标 -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active" aria-label="轮播图片1"></li>
+                <li data-target="#myCarousel" data-slide-to="1" aria-label="轮播图片2"></li>
+                <li data-target="#myCarousel" data-slide-to="2" aria-label="轮播图片3"></li>
+                <li data-target="#myCarousel" data-slide-to="3" aria-label="轮播图片4"></li>
+                <li data-target="#myCarousel" data-slide-to="4" aria-label="轮播图片5"></li>
+                <li data-target="#myCarousel" data-slide-to="5" aria-label="轮播图片6"></li>
+            </ol>
+
+            <!-- 轮播项目 -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <img src="./img/图片/0.png" alt="疯狂动物城2 主海报" loading="lazy">
+                    <div class="sr-only">疯狂动物城2主海报</div>
+                </div>
+                <div class="item">
+                    <img src="./img/图片/1.jpg" alt="疯狂动物城2 角色海报" loading="lazy">
+                    <div class="sr-only">疯狂动物城2角色海报</div>
+                </div>
+                <div class="item">
+                    <img src="./img/图片/2.png" alt="疯狂动物城2 场景截图" loading="lazy">
+                    <div class="sr-only">疯狂动物城2场景截图</div>
+                </div>
+                <div class="item">
+                    <img src="./img/图片/3.png" alt="疯狂动物城2 朱迪与尼克" loading="lazy">
+                    <div class="sr-only">朱迪与尼克同框画面</div>
+                </div>
+                <div class="item">
+                    <img src="./img/图片/4.png" alt="疯狂动物城2 动物城全景" loading="lazy">
+                    <div class="sr-only">动物城全景画面</div>
+                </div>
+                <div class="item">
+                    <img src="./img/图片/5.jpg" alt="疯狂动物城2 精彩画面" loading="lazy">
+                    <div class="sr-only">疯狂动物城2精彩画面</div>
+                </div>
+            </div>
+
+            <!-- 轮播控制按钮 -->
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">上一张</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">下一张</span>
+            </a>
+        </div>
+
+        <!-- 导航栏 -->
+        <nav>
+            <ul>
+                <li><a href="./index.html" tabindex="0">首页</a></li>
+                <li><a href="./角色.html" tabindex="0">角色介绍</a></li>
+                <li><a href="./故事.html" tabindex="0">故事情节</a></li>
+                <li class="active"><a href="./精彩.html" tabindex="0">精彩图集</a></li>
+                <li><a href="./动画.html" tabindex="0">动画视频</a></li>
+            </ul>
+        </nav>
+
+        <!-- 经典角色名场面 -->
+        <h3 class="gallery-title">经典角色名场面</h3>
+        <div class="cp tu">
+            <!-- 图片卡片1 -->
+            <div class="img-card" tabindex="0" aria-label="尼克与朱迪：影片核心搭档，兔子朱迪与狐狸尼克的经典同框画面">
+                <div class="img-wrap">
+                    <img src="./img/精彩图/尼克·朱迪.png" alt="尼克与朱迪" loading="lazy">
+                </div>
+                <div class="img-info">
+                    <div class="img-title">尼克与朱迪</div>
+                    <div class="img-desc">影片核心搭档，兔子朱迪与狐狸尼克的经典同框画面，展现了跨越物种的真挚友谊与默契配合。</div>
+                </div>
+            </div>
+
+            <!-- 图片卡片2 -->
+            <div class="img-card" tabindex="0" aria-label="牛局长：动物城警察局局长，外表严肃内心温暖">
+                <div class="img-wrap">
+                    <img src="./img/精彩图/牛局长.png" alt="牛局长" loading="lazy">
+                </div>
+                <div class="img-info">
+                    <div class="img-title">牛局长</div>
+                    <div class="img-desc">动物城警察局局长，外表严肃内心温暖，这个画面捕捉到了他难得的温柔瞬间，尽显铁汉柔情。</div>
+                </div>
+            </div>
+
+            <!-- 图片卡片3 - 大先生特殊调整 -->
+            <div class="img-card mr-big" tabindex="0" aria-label="大先生：动物城黑道教父，体型虽小气场十足">
+                <div class="img-wrap">
+                    <img src="./img/精彩图/大先生.png" alt="大先生" loading="lazy">
+                </div>
+                <div class="img-info">
+                    <div class="img-title">大先生</div>
+                    <div class="img-desc">动物城黑道教父，体型虽小气场十足，这张经典镜头完美展现了他不怒自威的霸气风范。</div>
+                </div>
+            </div>
+
+            <!-- 图片卡片4 -->
+            <div class="img-card" tabindex="0" aria-label="闪电树懒：动物城车管所员工，以极致缓慢的动作成为影片的搞笑担当">
+                <div class="img-wrap">
+                    <img src="./img/精彩图/闪电树懒.png" alt="闪电树懒" loading="lazy">
+                </div>
+                <div class="img-info">
+                    <div class="img-title">闪电树懒</div>
+                    <div class="img-desc">动物城车管所员工，以极致缓慢的动作成为影片的搞笑担当，这张截图完美还原了他的经典慢动作。</div>
+                </div>
+            </div>
+
+            <!-- 图片卡片5 -->
+            <div class="img-card" tabindex="0" aria-label="羊副市长：动物城的幕后推手，温柔外表下隐藏着复杂的内心">
+                <div class="img-wrap">
+                    <img src="./img/精彩图/羊副市长.png" alt="羊副市长" loading="lazy">
+                </div>
+                <div class="img-info">
+                    <div class="img-title">羊副市长</div>
+                    <div class="img-desc">动物城的幕后推手，温柔外表下隐藏着复杂的内心，这个镜头展现了她性格的多面性。</div>
+                </div>
+            </div>
+
+            <!-- 图片卡片6 -->
+            <div class="img-card" tabindex="0" aria-label="豹警官：警察局前台接待，热情开朗又有点花痴">
+                <div class="img-wrap">
+                    <img src="./img/精彩图/豹警官.png" alt="豹警官" loading="lazy">
+                </div>
+                <div class="img-info">
+                    <div class="img-title">豹警官</div>
+                    <div class="img-desc">警察局前台接待，热情开朗又有点花痴，这张画面捕捉到了他工作时的可爱瞬间。</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 震撼场景画面 -->
+        <div class="gallery-category"></div>
+        <h3 class="gallery-title">震撼场景画面</h3>
+        <div class="cp tu">
+            <!-- 图片卡片7 -->
+            <div class="img-card" tabindex="0" aria-label="动物城全景：疯狂动物城的标志性全景镜头">
+                <div class="img-wrap">
+                    <img src="./img/精彩图/动物城全景.png" alt="动物城全景" loading="lazy">
+                </div>
+                <div class="img-info">
+                    <div class="img-title">动物城全景</div>
+                    <div class="img-desc">疯狂动物城的标志性全景镜头，融合了不同气候区的奇幻景观，展现了这座城市的包容与多元。</div>
+                </div>
+            </div>
+
+            <!-- 图片卡片8 -->
+            <div class="img-card" tabindex="0" aria-label="市中心广场：动物城繁华的市中心广场">
+                <div class="img-wrap">
+                    <img src="./img/精彩图/市中心广场.png" alt="市中心广场" loading="lazy">
+                </div>
+                <div class="img-info">
+                    <div class="img-title">市中心广场</div>
+                    <div class="img-desc">动物城繁华的市中心广场，各种动物和谐共处，完美诠释了影片"多元包容"的核心主题。</div>
+                </div>
+            </div>
+
+            <!-- 图片卡片9 -->
+            <div class="img-card" tabindex="0" aria-label="热带雨林区：动物城四大气候区之一的热带雨林区">
+                <div class="img-wrap">
+                    <img src="./img/精彩图/热带雨林区.png" alt="热带雨林区" loading="lazy">
+                </div>
+                <div class="img-info">
+                    <div class="img-title">热带雨林区</div>
+                    <div class="img-desc">动物城四大气候区之一的热带雨林区，郁郁葱葱的植被营造出神秘又充满生机的氛围。</div>
+                </div>
+            </div>
+
+            <!-- 图片卡片10 -->
+            <div class="img-card" tabindex="0" aria-label="极地区：动物城的极地气候区">
+                <div class="img-wrap">
+                    <img src="./img/精彩图/极地区.png" alt="极地区" loading="lazy">
+                </div>
+                <div class="img-info">
+                    <div class="img-title">极地区</div>
+                    <div class="img-desc">动物城的极地气候区，银装素裹的冰雪世界与热带区形成鲜明对比，展现了城市的神奇构造。</div>
+                </div>
+            </div>
+
+            <!-- 图片卡片11 -->
+            <div class="img-card" tabindex="0" aria-label="警察局大厅：动物城警察局的办公大厅">
+                <div class="img-wrap">
+                    <img src="./img/精彩图/警察局大厅.png" alt="警察局大厅" loading="lazy">
+                </div>
+                <div class="img-info">
+                    <div class="img-title">警察局大厅</div>
+                    <div class="img-desc">动物城警察局的办公大厅，各种动物警官忙碌的场景，展现了警局的日常运作状态。</div>
+                </div>
+            </div>
+
+            <!-- 图片卡片12 -->
+            <div class="img-card" tabindex="0" aria-label="火车穿越城市：贯穿动物城的专属列车">
+                <div class="img-wrap">
+                    <img src="./img/精彩图/火车穿越城市.png" alt="火车穿越城市" loading="lazy">
+                </div>
+                <div class="img-info">
+                    <div class="img-title">火车穿越城市</div>
+                    <div class="img-desc">贯穿动物城的专属列车，穿越不同气候区的震撼镜头，展现了这座城市的宏伟与独特。</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 情感瞬间画面 -->
+        <div class="gallery-category"></div>
+        <h3 class="gallery-title">动人情感瞬间</h3>
+        <div class="cp tu">
+            <!-- 图片卡片13 -->
+            <div class="img-card" tabindex="0" aria-label="朱迪的梦想：朱迪凝望动物城夜景的瞬间">
+                <div class="img-wrap">
+                    <img src="./img/精彩图/朱迪的梦想.png" alt="朱迪的梦想" loading="lazy">
+                </div>
+                <div class="img-info">
+                    <div class="img-title">朱迪的梦想</div>
+                    <div class="img-desc">朱迪凝望动物城夜景的瞬间，眼中充满对梦想的向往，这是她成为警官的初心时刻。</div>
+                </div>
+            </div>
+
+            <!-- 图片卡片14 -->
+            <div class="img-card" tabindex="0" aria-label="尼克的告白：尼克向朱迪坦露心声的感人瞬间">
+                <div class="img-wrap">
+                    <img src="./img/精彩图/尼克的告白.png" alt="尼克的告白" loading="lazy">
+                </div>
+                <div class="img-info">
+                    <div class="img-title">尼克的告白</div>
+                    <div class="img-desc">尼克向朱迪坦露心声的感人瞬间，卸下玩世不恭的伪装，展现了最真实的内心世界。</div>
+                </div>
+            </div>
+
+            <!-- 图片卡片15 -->
+            <div class="img-card" tabindex="0" aria-label="并肩作战：朱迪与尼克并肩面对危机的经典镜头">
+                <div class="img-wrap">
+                    <img src="./img/精彩图/并肩作战.png" alt="并肩作战" loading="lazy">
+                </div>
+                <div class="img-info">
+                    <div class="img-title">并肩作战</div>
+                    <div class="img-desc">朱迪与尼克并肩面对危机的经典镜头，无论遇到何种困难，他们始终是彼此最可靠的伙伴。</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 页面标题 - 底部增强版 -->
+        <div class="page-title">
+            <h2>疯狂动物城2 - 精彩图集</h2>
+            <p>收录影片经典角色、震撼场景与动人瞬间，重温动物城的奇幻冒险</p>
+        </div>
+    </div>
+
+    <!-- 回到顶部按钮 -->
+    <button class="back-to-top" id="backToTop" aria-label="回到顶部">
+        <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+    </button>
+
+    <!-- 引入脚本 -->
+
+    <script>
+        // 页面加载完成后执行
+        $(document).ready(function () {
+            // 初始化轮播图
+            $('#myCarousel').carousel({
+                interval: 5000,
+                pause: "hover",
+                wrap: true,
+                keyboard: true // 支持键盘控制
+            });
+
+            // 图片卡片交互优化
+            $('.img-card').on('click keydown', function (e) {
+                // 支持键盘回车触发
+                if (e.type === 'click' || (e.type === 'keydown' && e.key === 'Enter')) {
+                    const title = $(this).find('.img-title').text();
+                    const desc = $(this).find('.img-desc').text();
+                    // 使用更美观的弹窗替代alert（可替换为模态框）
+                    const modal = $('<div class="modal fade" tabindex="-1" role="dialog">' +
+                        '<div class="modal-dialog" role="document">' +
+                        '<div class="modal-content">' +
+                        '<div class="modal-header">' +
+                        '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+                        '<h4 class="modal-title">' + title + '</h4>' +
+                        '</div>' +
+                        '<div class="modal-body">' +
+                        '<p>' + desc + '</p>' +
+                        '</div>' +
+                        '<div class="modal-footer">' +
+                        '<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>');
+
+                    $('body').append(modal);
+                    modal.modal('show');
+
+                    // 关闭后移除模态框
+                    modal.on('hidden.bs.modal', function () {
+                        modal.remove();
+                    });
+                }
+            });
+
+            // 回到顶部按钮优化
+            $(window).on('scroll', function () {
+                if ($(this).scrollTop() > 300) {
+                    $('#backToTop').fadeIn(300);
+                } else {
+                    $('#backToTop').fadeOut(300);
+                }
+            });
+
+            $('#backToTop').click(function () {
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 800, 'easeInOutCubic');
+                return false;
+            });
+
+            // 图片加载错误处理
+            $('img').on('error', function () {
+                // 替换为默认图片
+                $(this).attr('src', 'https://via.placeholder.com/300x280?text=图片加载失败');
+                $(this).attr('alt', '图片加载失败');
+            });
+
+            // 图片懒加载增强
+            if ('IntersectionObserver' in window) {
+                const imgObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            const src = img.getAttribute('data-src') || img.getAttribute('src');
+                            img.setAttribute('src', src);
+                            imgObserver.unobserve(img);
+                        }
+                    });
+                });
+
+                $('img[loading="lazy"]').each(function () {
+                    imgObserver.observe(this);
+                });
+            }
+
+            // 平滑滚动
+            $('a[href^="#"]').click(function (e) {
+                e.preventDefault();
+                const target = $(this.hash);
+                if (target.length) {
+                    $('html, body').animate({
+                        scrollTop: target.offset().top - 20
+                    }, 500);
+                }
+            });
+
+            // 导航栏激活状态
+            $('nav li').click(function () {
+                $('nav li').removeClass('active');
+                $(this).addClass('active');
+            });
+        });
+    </script>
+</body>
+
+</html>

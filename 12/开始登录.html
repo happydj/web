@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>王者荣耀选区登录界面</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .hall-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        body {
+            overflow: hidden;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+
+        /* 左上角游戏logo */
+        .game-logo {
+            position: absolute;
+            top: 30px;
+            left: 40px;
+            width: 160px;
+        }
+
+        /* 右上角用户与退出 */
+        .user-name {
+            position: absolute;
+            top: 25px;
+            right: 100px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .exit-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            width: 65px;
+            height: 38px;
+            line-height: 38px;
+            text-align: center;
+            background-color: rgba(30, 41, 61, 0.8);
+            border: 1px solid #4e6ef2;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .exit-btn:hover {
+            background-color: rgba(45, 60, 90, 0.9);
+        }
+
+        /* 右侧钻石功能图标列 */
+        .func-icons {
+            position: absolute;
+            top: 50%;
+            right: 50px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            align-items: center;
+        }
+
+        .func-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2e3a59, #1f2a44);
+            border: 1px solid #5b73e8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            color: #fff;
+            font-size: 22px;
+            box-shadow: 0 0 10px rgba(91, 115, 232, 0.4);
+        }
+
+        .func-text {
+            color: #c0c6d8;
+            font-size: 12px;
+            margin-top: 6px;
+            text-align: center;
+        }
+
+        /* 选区栏 */
+        .server-select {
+            position: absolute;
+            left: 50%;
+            bottom: 170px;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background-color: rgba(16, 22, 38, 0.85);
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: 1px solid #3a4b88;
+            width: 420px;
+        }
+
+        .full-tag {
+            color: #ff6b6b;
+            font-size: 14px;
+            font-weight: bold;
+            background-color: rgba(255, 107, 107, 0.2);
+            padding: 3px 10px;
+            border-radius: 4px;
+            border: 1px solid #ff6b6b;
+        }
+
+        .server-name {
+            color: #e5e9f2;
+            font-size: 17px;
+            flex: 1;
+        }
+
+        .change-server {
+            color: #86909c;
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .change-server:hover {
+            color: #c0c6d8;
+        }
+
+        /* 开始游戏按钮  */
+        .start-game {
+            position: absolute;
+            left: 50%;
+            bottom: 80px;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 85px;
+            line-height: 85px;
+            text-align: center;
+            background: linear-gradient(45deg, #ffd700, #f9b826, #ffd700);
+            border-radius: 45px;
+            color: #fff;
+            font-size: 34px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.9);
+            border: 2px solid #fff;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+            background-size: 200% 200%;
+            animation: goldGradient 3s ease infinite;
+        }
+
+        @keyframes goldGradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .start-game:hover {
+            box-shadow: 0 0 35px rgba(255, 215, 0, 1);
+        }
+
+        /* 适龄提示 */
+        .age-tip {
+            position: absolute;
+            bottom: 30px;
+            right: 50px;
+            width: 70px;
+        }
+
+        /* 底部备案文字 */
+        .footer-text {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #86909c;
+            font-size: 12px;
+            text-align: center;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hall-container">
+        <!-- 背景视频标签 -->
+        <video class="bg-video" autoplay loop muted playsinline>
+            <source src="img/视频/开始视频.mp4" type="video/mp4">
+
+        </video>
+
+        <!-- 右上角用户与退出 -->
+        <div class="user-name">七安</div>
+        <div class="exit-btn" onclick="exitGame()">退出</div>
+
+        <!-- 右侧钻石功能图标 -->
+        <div class="func-icons">
+            <div class="func-icon">?</div>
+            <div class="func-text">帮助</div>
+            <div class="func-icon">⚙️</div>
+            <div class="func-text">设置</div>
+            <div class="func-icon">🔊</div>
+            <div class="func-text">声音</div>
+            <div class="func-icon">📤</div>
+            <div class="func-text">上传日志</div>
+        </div>
+
+        <!-- 选区栏 -->
+        <div class="server-select">
+            <div class="full-tag">爆满</div>
+            <div class="server-name">手Q447区 光霁月明</div>
+            <div class="change-server" onclick="changeServer()">换区 ▶</div>
+        </div>
+
+        <!-- 开始游戏按钮 -->
+        <a href="index.html">
+            <div class="start-game" onclick="startGame()">开始游戏</div>
+        </a>
+
+        <!-- 适龄提示 -->
+        <img src="img/适龄.jpg" alt="12+" class="age-tip">
+
+        <!-- 底部备案文字 -->
+        <div class="footer-text">
+            批准文号：新广出审〔2017〕6712号 ISBN:978-7-7979-8408-9<br>
+            著作权人：腾讯科技(成都)有限公司 出版/运营单位：深圳市腾讯计算机系统有限公司<br>
+            【健康系统】上线，合理安排游戏时间，享受健康生活。背景故事纯属虚构，并非真实历史故事
+        </div>
+    </div>
+
+
+</body>
+
+</html>

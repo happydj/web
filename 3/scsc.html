@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品商城</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .sort-options {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+        
+        .sort-btn {
+            background-color: brown;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            margin-left: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        .sort-btn:hover {
+            background-color: brown;
+        }
+        
+        .products-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 15px;
+        }
+        
+        .product-name {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .product-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e53935;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>周边商城</h1>
+        
+        <div class="sort-options">
+			<a href="index.html"><button class="sort-btn" >返回首页</button></a>
+            <button class="sort-btn" id="sort-asc">价格升序 ↑</button>
+            <button class="sort-btn" id="sort-desc">价格降序 ↓</button>
+        </div>
+        
+        <div class="products-container" id="products-container">
+            <!-- 商品将通过JavaScript动态加载 -->
+        </div>
+		
+    </div>
+
+    <script>
+        // 商品数据
+        const products = [
+            { id: 1, name: '哪吒', price: 78, image: 'img/05766649a21ebb6575af5ef875078e3.jpg' },
+            { id: 2, name: '敖丙', price: 78, image: 'img/0a9c337070baf2634bfca448e03af9c.jpg' },
+            { id: 3, name: '太乙真人', price: 69, image: 'img/32fa51ccda206e4bd18b4d716afc47a.jpg' },
+            { id: 4, name: '申公豹', price: 66, image: 'img/ad9f339c24a0bdf7cbf954c0bf6071d.jpg' },
+            { id: 5, name: '殷夫人', price: 48, image: 'img/mm.jpg' },
+            { id: 6, name: '李靖', price: 58, image: 'img/lq.jpg' }
+        ];
+
+        // 获取DOM元素
+        const productsContainer = document.getElementById('products-container');
+        const sortAscBtn = document.getElementById('sort-asc');
+        const sortDescBtn = document.getElementById('sort-desc');
+
+        // 渲染商品列表
+        function renderProducts(productsArray) {
+            productsContainer.innerHTML = '';
+            
+            productsArray.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <div class="product-price">¥${product.price.toFixed(2)}</div>
+                    </div>
+                `;
+                
+                productsContainer.appendChild(productCard);
+            });
+        }
+
+        // 初始渲染
+        renderProducts(products);
+
+        // 排序功能
+        sortAscBtn.addEventListener('click', () => {
+            const sortedProducts = [...products].sort((a, b) => a.price - b.price);
+            renderProducts(sortedProducts);
+        });
+
+        sortDescBtn.addEventListener('click', () => {
+            const sortedProducts = [...products].sort((a, b) => b.price - a.price);
+            renderProducts(sortedProducts);
+        });
+    </script>
+</body>
+</html>

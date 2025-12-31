@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拉条子照片与特点 - 土色风格</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            background-image: url("./img/艾特莱斯1.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(230, 210, 180, 0.95);
+            /* 浅土黄色背景 */
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(100, 80, 50, 0.3);
+            /* 土色阴影 */
+            overflow: hidden;
+        }
+
+        header {
+            background: #b07d3f;
+            /* 深土黄色 */
+            color: #fff8e0;
+            /* 浅米黄色文字 */
+            padding: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(50, 40, 20, 0.4);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .photos {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .photos img {
+            width: 350px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(100, 80, 50, 0.2);
+            /* 土色阴影 */
+            cursor: default;
+            /* 鼠标样式改为默认 */
+        }
+
+        .features {
+            padding: 30px;
+        }
+
+        .feature-item {
+            background: #e6d0a0;
+            /* 浅土黄色 */
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(100, 80, 50, 0.2);
+            /* 土色阴影 */
+        }
+
+        .feature-title {
+            background: #c08c40;
+            /* 中棕色 */
+            color: #fff8e0;
+            /* 浅米黄色文字 */
+            padding: 15px 20px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .feature-title::after {
+            content: "+";
+            font-size: 1.5rem;
+        }
+
+        .feature-item.active .feature-title::after {
+            content: "-";
+        }
+
+        .feature-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item.active .feature-content {
+            padding: 20px;
+            max-height: 1000px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #8d6e63;
+            /* 棕色文字 */
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .feature-title {
+                font-size: 1.1rem;
+            }
+
+            .photos img {
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>拉条子照片与特点</h1>
+            <p>筋道爽滑的新疆手工面食</p>
+        </header>
+
+        <!-- 照片展示 -->
+        <div class="photos">
+            <img src="./img/拉条子1.JPG" alt="拉条子照片1">
+            <img src="./img/拉条子2.JPG" alt="拉条子照片2">
+            <img src="./img/拉条子3.JPG" alt="拉条子照片3">
+            <img src="./img/拉条子4.jpg" alt="拉条子照片4">
+            <img src="./img/拉条子5.JPG" alt="拉条子照片5">
+            <img src="./img/拉条子6.JPG" alt="拉条子照片6">
+        </div>
+
+        <!-- 特点展示 -->
+        <div class="features">
+            <div class="feature-item">
+                <div class="feature-title">口感筋道爽滑</div>
+                <div class="feature-content">
+                    <p>拉条子的灵魂在于其手工揉制和拉拽的过程。面团经过反复揉搓和醒发，再由厨师高超的技艺拉制而成，确保了面条的韧性。煮熟后，口感爽滑、富有弹性，咀嚼时充满麦香。</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-title">制作工艺独特</div>
+                <div class="feature-content">
+                    <p>“拉条子”的名称本身就体现了其独特的制作工艺。它不是用刀切，而是将醒好的面团在案板上拉长、对折、再拉长，反复数次，最终形成粗细均匀的面条。这不仅是一项技术，更是一种充满观赏性的表演艺术。</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-title">配菜丰富多变</div>
+                <div class="feature-content">
+                    <p>拉条子的美味很大程度上取决于拌在上面的菜（俗称“拌面菜”）。经典的有过油肉拌面，用鲜嫩的羊肉或牛肉与洋葱、青椒爆炒；还有西红柿鸡蛋、芹菜肉、辣皮子等多种口味，可根据个人喜好选择，丰俭由人。
+                    </p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-title">食用方式豪迈</div>
+                <div class="feature-content">
+                    <p>吃拉条子最地道的方式是将面条和菜充分拌匀。在新疆，人们常说“面是筋骨，菜是灵魂”，拌匀的过程就是让筋骨与灵魂完美融合。这种豪迈、实在的吃法，正是新疆饮食文化的生动体现。</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-title">文化主食地位</div>
+                <div class="feature-content">
+                    <p>拉条子是新疆各族人民餐桌上不可或缺的主食，是衡量一个家庭或餐馆厨艺的重要标准。无论是日常三餐还是招待宾客，一碗色香味俱全的拉条子都是最受欢迎的选择，它深深植根于新疆的饮食文化之中。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 点击展开/收起
+        document.querySelectorAll('.feature-title').forEach(title => {
+            title.addEventListener('click', () => {
+                const item = title.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+
+</html>
