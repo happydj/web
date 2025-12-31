@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025-2026 "厚溥杯"网页设计大赛作品展示</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: #333;
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 头部样式 */
+        header {
+            background: linear-gradient(90deg, #1a2a6c, #2a3a9c, #3a4acc);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            border-radius: 0 0 20px 20px;
+        }
+
+        .logo {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .logo i {
+            color: #ffcc00;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* 作品列表样式 */
+        .works-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 25px;
+            justify-content: center;
+        }
+
+        .work-item {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            height: 540px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .work-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .preview-container {
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            border-bottom: 1px solid #eee;
+            position: relative;
+        }
+
+        .preview-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            transition: transform 0.5s ease;
+        }
+
+        .work-item:hover .preview-frame {
+            transform: scale(1.05);
+        }
+
+        .perview-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preview-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 42, 108, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .work-item:hover .preview-overlay {
+            opacity: 1;
+        }
+
+        .preview-overlay span {
+            color: white;
+            font-weight: 600;
+            background: #ffcc00;
+            color: #1a2a6c;
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .work-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .work-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #1a2a6c;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 3.2em;
+        }
+
+        .work-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .work-author {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            flex: 1;
+        }
+
+        .work-author i {
+            color: #1a2a6c;
+        }
+
+        .work-date {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            width: 100px;
+        }
+
+        .work-date i {
+            color: #1a2a6c;
+        }
+
+        .work-desc {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            flex-grow: 1;
+        }
+
+        .work-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .tag {
+            background: #eef2ff;
+            color: #1a2a6c;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* 弹窗样式 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 1200px;
+            max-height: 90vh;
+            overflow: hidden;
+            position: relative;
+            transform: translateY(30px);
+            transition: transform 0.4s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 25px 30px 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            color: #1a2a6c;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            background: #ffcc00;
+            color: #1a2a6c;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: #ffd633;
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            overflow: auto;
+        }
+
+        .modal-preview {
+            height: 400px;
+            width: 100%;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .modal-info {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+
+        .modal-details h3,
+        .modal-tech h3 {
+            font-size: 1.4rem;
+            color: #1a2a6c;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ffcc00;
+        }
+
+        .detail-item {
+            margin-bottom: 15px;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #1a2a6c;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .detail-label i {
+            color: #ffcc00;
+        }
+
+        .detail-content {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .modal-tech ul {
+            list-style: none;
+        }
+
+        .modal-tech li {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-tech i {
+            color: #1a2a6c;
+        }
+
+        .modal-footer {
+            padding: 20px 30px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8faff;
+        }
+
+        .modal-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .modal-tag {
+            background: #eef2ff;
+            color: #1a2a6c;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .modal-nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            background: #1a2a6c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            background: #2a3a9c;
+        }
+
+        .nav-btn.disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .empty-frame {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            background: linear-gradient(135deg, #f8faff 0%, #e4edf5 100%);
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .empty-frame i {
+            font-size: 3rem;
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            opacity: 0.7;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .works-list {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+
+            .modal-info {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .modal-preview {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .works-list {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                max-height: 95vh;
+            }
+
+            .modal-header {
+                padding: 20px 20px 15px;
+            }
+
+            .modal-title {
+                font-size: 1.5rem;
+            }
+
+            .modal-info {
+                padding: 20px;
+            }
+
+            .modal-footer {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+
+            .modal-nav {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+
+        /* 页脚样式 */
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #ddd;
+        }
+
+        /* 大赛信息区域 */
+        .contest-info {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .info-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .info-header h2 {
+            color: #1a2a6c;
+            font-size: 1.8rem;
+        }
+
+        .info-stats {
+            display: flex;
+            gap: 20px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1a2a6c;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .info-card {
+            background: #f8faff;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #ffcc00;
+        }
+
+        .info-card h3 {
+            color: #1a2a6c;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-card i {
+            color: #ffcc00;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-trophy"></i>
+                <span>厚溥杯</span>
+            </div>
+            <h1>博尔塔拉职业技术学院</h1>
+            <h1>2025-2026 "厚溥杯"网页设计大赛</h1>
+            <p class="subtitle">汇聚创新思维，展示网页设计才华。这里展示大赛参赛选手网页设计作品，涵盖了响应式设计、交互体验、视觉艺术等多个领域。</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="contest-info">
+            <div class="info-header">
+                <h2><i class="fas fa-info-circle"></i> 大赛信息</h2>
+                <div class="info-stats">
+                    <div class="stat">
+                        <div class="stat-value" id="totalWorks">16</div>
+                        <div class="stat-label">参赛作品</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">7</div>
+                        <div class="stat-label">参赛班级</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">43</div>
+                        <div class="stat-label">参赛学生</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">4</div>
+                        <div class="stat-label">专家评委</div>
+                    </div>
+                </div>
+            </div>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3><i class="far fa-calendar-alt"></i> 大赛时间</h3>
+                    <p>作品征集：2025年12月20日 - 2025年12月29日</p>
+                    <p>评审阶段：2025年12月30日 - 2025年12月30日</p>
+                    <p>结果公布：2025年12月30日</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-award"></i> 奖项设置</h3>
+                    <p>一等奖：1名（奖金 + 证书）</p>
+                    <p>二等奖：2名（奖金 + 证书）</p>
+                    <p>三等奖：3名（奖金 + 证书）</p>
+                    <p>创新奖、设计奖、技术奖若干</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-laptop-code"></i> 参赛要求</h3>
+                    <p>作品必须为原创，未在其他赛事获奖</p>
+                    <p>使用现代Web技术（HTML5, CSS3, JavaScript等）</p>
+                    <p>作品需包含完整的前端代码</p>
+                </div>
+            </div>
+        </div>
+
+
+        <h2 style="margin-bottom: 25px; color: #1a2a6c; font-size: 2rem;"><i class="fas fa-list-ul"></i> 参赛作品展示</h2>
+        <p style="margin-bottom: 30px; color: #666;">点击任意作品卡片查看详情，共 <span id="worksCount">16</span> 件作品</p>
+
+        <div class="works-list" id="worksList">
+            <!-- 作品将通过JavaScript动态生成 -->
+        </div>
+    </div>
+
+    <!-- 作品弹窗 -->
+    <div class="modal-overlay" id="workModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">作品标题</h2>
+                <button class="modal-close" id="modalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-preview">
+                    <img class="perview-img" id="modalImg" src="" alt="">
+                    <i class="modal-preview-icon" id="modalIcon"></i>
+                </div>
+                <div class="modal-info">
+                    <div class="modal-details">
+                        <h3><i class="fas fa-file-alt"></i> 作品详情</h3>
+                        <div class="detail-item">
+                            <div class="detail-label"><i class="fas fa-users"></i> 组名</div>
+                            <div class="detail-content" id="modalGroup">组名</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label"><i class="fas fa-user-friends"></i> 成员</div>
+                            <div class="members-list" id="modalMembers">
+                                <!-- 成员将通过JS动态添加 -->
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label"><i class="far fa-clock"></i> 提交时间</div>
+                            <div class="detail-content" id="modalDate">提交时间</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label"><i class="fas fa-lightbulb"></i> 设计理念</div>
+                            <div class="detail-content" id="modalConcept">设计理念描述</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label"><i class="fas fa-star"></i> 创新点</div>
+                            <div class="detail-content" id="modalInnovation">创新点描述</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label"><i class="fas fa-mobile-alt"></i> 适配性</div>
+                            <div class="detail-content" id="modalAdaptability">适配性描述</div>
+                        </div>
+                    </div>
+                    <div class="modal-tech">
+                        <h3><i class="fas fa-code"></i> 技术栈</h3>
+                        <ul id="modalTechList">
+                            <!-- 技术栈将通过JS动态添加 -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="modal-tags" id="modalTags">
+                    <!-- 标签将通过JS动态添加 -->
+                </div>
+                <div class="modal-nav">
+                    <button class="nav-btn" id="prevBtn">
+                        <i class="fas fa-chevron-left"></i> 上一个作品
+                    </button>
+                    <button class="nav-btn" id="nextBtn">
+                        下一个作品 <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <button class="nav-btn" id="checkInfo">
+                        <i class="fas "></i> 查看详情
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>2025-2026 "厚溥杯"网页设计大赛组委会 © 2025 版权所有</p>
+        </div>
+    </footer>
+
+    <script>
+        // 作品数据（根据您提供的列表生成）
+        const worksData = [
+            {
+                id: 1,
+                groupName: "第一组",
+                workName: "新疆旅游网",
+                members: [
+                    { name: "石朔南", class: "信安25101" },
+                    { name: "王瑞", class: "信安25101" },
+                    { name: "孙晨晨", class: "信安25101" }
+                ],
+                tags: ["旅游", "新疆", "网站设计", "响应式"],
+                tech: ["HTML5", "CSS3", "JavaScript", "Bootstrap"],
+                description: "展示新疆自然风光和人文景观的旅游网站，包含景点介绍、旅游路线推荐、美食文化和住宿信息。",
+                concept: "通过视觉设计展现新疆的壮丽风光和多元文化，为用户提供全面的新疆旅游信息服务。",
+                innovation: "整合旅游交互体验功能，让用户在线感受新疆美景。",
+                adaptability: "响应式设计，适配电脑、平板和手机等多种设备。",
+                date: "2025-12-28",
+                icon: "fas fa-mountain-sun"
+            },
+            {
+                id: 2,
+                groupName: "第二组",
+                workName: "太阳系3D交互",
+                members: [
+                    { name: "温恒阳", class: "信安25102" },
+                    { name: "安俞儒", class: "信安25102" }
+                ],
+                tags: ["3D交互", "天文", "WebGL", "科普"],
+                tech: ["Three.js", "WebGL", "JavaScript", "CSS3"],
+                description: "一个交互式的太阳系3D模型，用户可以探索各个行星的详细信息、轨道运行和天体特征。",
+                concept: "通过3D技术将抽象的太阳系知识可视化，提供沉浸式天文学习体验。",
+                innovation: "支持多视角切换、行星轨道模拟和天体物理参数实时计算。",
+                adaptability: "桌面端提供完整3D体验，移动端优化交互方式。",
+                date: "2025-12-28",
+                icon: "fas fa-globe"
+            },
+            {
+                id: 3,
+                groupName: "第三组",
+                workName: "哪吒2",
+                members: [
+                    { name: "马晓兰", class: "信安25102" },
+                    { name: "麦尔哈巴·马木提", class: "信安25102" }
+                ],
+                tags: ["动漫", "角色设计", "互动故事", "创意设计"],
+                tech: ["HTML5", "CSS3", "JavaScript", "Canvas"],
+                description: "以经典动漫角色'哪吒'为主题的角色设计和互动故事网站，包含角色介绍、故事线展示和互动游戏。",
+                concept: "将中国传统文化与现代网页设计结合，创造沉浸式的角色体验。",
+                innovation: "互动故事线选择系统和角色成长可视化展示。",
+                adaptability: "全平台响应式设计，特别优化移动端触控交互。",
+                date: "2025-12-28",
+                icon: "fas fa-mask"
+            },
+            {
+                id: 4,
+                groupName: "第四组",
+                workName: "疯狂动物城2",
+                members: [
+                    { name: "布热比古丽·图尔贡", class: "信安25103" },
+                    { name: "阿克姆热·达尔曼", class: "信安25103" }
+                ],
+                tags: ["动画", "角色互动", "游戏化", "创意设计"],
+                tech: ["JavaScript", "CSS3动画", "SVG", "HTML5"],
+                description: "基于电影《疯狂动物城》的互动网站，用户可以探索动物城的不同区域，与角色互动并了解故事背景。",
+                concept: "创造虚拟动物城体验，让用户沉浸在这个充满想象力的世界中。",
+                innovation: "角色对话系统和场景探索机制，增强用户参与感。",
+                adaptability: "支持多种屏幕尺寸，提供一致的视觉体验。",
+                date: "2025-12-28",
+                icon: "fas fa-paw"
+            },
+            {
+                id: 5,
+                groupName: "第五组",
+                workName: "疆美食",
+                members: [
+                    { name: "木合太拜尔·木合塔尔", class: "软件25101" },
+                    { name: "热依拉姆·克热米拉", class: "软件25101" }
+                ],
+                tags: ["美食", "新疆", "文化", "食谱"],
+                tech: ["HTML", "CSS3", "JavaScript"],
+                description: "新疆特色美食展示平台，包含美食介绍、制作教程、餐厅推荐和文化背景。",
+                concept: "通过美食展示新疆多元文化和饮食传统，促进文化交流。",
+                innovation: "互动式食谱教程和美食地图功能，帮助用户找到正宗新疆美食。",
+                adaptability: "移动优先设计，优化食谱浏览和步骤查看体验。",
+                date: "2025-12-28",
+                icon: "fas fa-utensils"
+            },
+            {
+                id: 6,
+                groupName: "第六组",
+                workName: "学校官网",
+                members: [
+                    { name: "李佳林", class: "软件25101" },
+                    { name: "杨锋", class: "软件25101" }
+                ],
+                tags: ["教育", "学校", "信息门户", "UI设计"],
+                tech: ["HTML", "CSS3", "JavaScript"],
+                description: "现代化学校官网设计，包含学校介绍、新闻动态、院系设置、招生信息和校园生活等内容。",
+                concept: "打造直观、易用的学校信息门户，提升学校形象和服务效率。",
+                innovation: "个性化内容推荐和智能搜索系统，快速定位所需信息。",
+                adaptability: "全响应式设计，确保在所有设备上提供优质浏览体验。",
+                date: "2025-12-28",
+                icon: "fas fa-school"
+            },
+            {
+                id: 7,
+                groupName: "第七组",
+                workName: "英语学习网站",
+                members: [
+                    { name: "金小棚", class: "软件25101" },
+                    { name: "王雅宣", class: "软件25101" }
+                ],
+                tags: ["教育", "英语学习", "互动", "在线课程"],
+                tech: ["HTML", "CSS3", "JavaScript"],
+                description: "互动式英语学习平台，提供词汇学习、语法练习、听力训练和口语测评等功能。",
+                concept: "通过游戏化学习方式提高英语学习效率和趣味性。",
+                innovation: "AI语音测评系统和个性化学习路径推荐。",
+                adaptability: "支持PWA，可安装到设备，提供离线学习功能。",
+                date: "2025-12-28",
+                icon: "fas fa-language"
+            },
+            {
+                id: 8,
+                groupName: "第八组",
+                workName: "校园导航",
+                members: [
+                    { name: "艾依迪娜尔·巴克提开地", class: "软件25101" },
+                    { name: "阿丽娜·努尔开勒德", class: "软件25101" }
+                ],
+                tags: ["导航", "地图", "校园", "实用性"],
+                tech: ["HTML", "CSS3", "JavaScript"],
+                description: "校园地图导航系统，提供校园建筑位置查询、路径规划和地点介绍功能。",
+                concept: "帮助新生和访客快速熟悉校园环境，提高校园生活便利性。",
+                innovation: "室内外一体化导航和AR增强现实导航功能。",
+                adaptability: "移动端优先设计，优化地图浏览和导航体验。",
+                date: "2025-12-28",
+                icon: "fas fa-map-location-dot"
+            },
+            {
+                id: 9,
+                groupName: "第九组",
+                workName: "伊犁智慧文旅",
+                members: [
+                    { name: "阿依达娜·加尔肯别克", class: "软件25102" },
+                    { name: "艾克热木·艾合木提江", class: "软件25102" },
+                    { name: "谢伊代·卡米力", class: "软件25102" }
+                ],
+                tags: ["智慧旅游", "伊犁", "文化", "数据可视化"],
+                tech: ["HTML", "CSS3", "JavaScript"],
+                description: "伊犁地区智慧旅游平台，整合旅游资源、文化展示、旅游数据和智能推荐功能。",
+                concept: "通过数字化手段提升伊犁旅游体验，展示当地文化和自然资源。",
+                innovation: "旅游大数据可视化分析和智能行程规划系统。",
+                adaptability: "响应式设计，支持多语言界面，适配国际游客需求。",
+                date: "2025-12-28",
+                icon: "fas fa-monument"
+            },
+            {
+                id: 10,
+                groupName: "第十组",
+                workName: "海贼王",
+                members: [
+                    { name: "阿卜杜哈力克·阿卜杜热西提", class: "信安25103" },
+                    { name: "阿卜杜巴斯提·阿卜杜喀迪尔", class: "信安25103" }
+                ],
+                tags: ["动漫", "海贼王", "粉丝社区", "互动"],
+                tech: ["HTML", "CSS3", "JavaScript"],
+                description: "《海贼王》动漫主题网站，包含角色介绍、剧情时间线、漫画章节浏览和粉丝社区功能。",
+                concept: "为《海贼王》粉丝打造沉浸式的互动体验和社区交流平台。",
+                innovation: "剧情时间线可视化浏览和角色关系图谱展示。",
+                adaptability: "适配多种设备，优化漫画阅读体验。",
+                date: "2025-12-28",
+                icon: "fas fa-ship"
+            },
+            {
+                id: 11,
+                groupName: "第十一组",
+                workName: "世界杯",
+                members: [
+                    { name: "巴青文次", class: "软件25101" }
+                ],
+                tags: ["体育", "世界杯", "数据统计", "赛事"],
+                tech: ["HTML", "CSS3", "JavaScript"],
+                description: "世界杯足球赛信息平台，提供赛事日程、球队数据、球员统计和历史记录查询功能。",
+                concept: "为足球爱好者提供全面的世界杯赛事信息和数据统计服务。",
+                innovation: "实时赛事数据更新和交互式数据可视化展示。",
+                adaptability: "响应式设计，优化赛事直播和信息浏览体验。",
+                date: "2025-12-28",
+                icon: "fas fa-futbol"
+            },
+            {
+                id: 12,
+                groupName: "第十二组",
+                workName: "王者荣耀",
+                members: [
+                    { name: "李金雪", class: "软件25101" },
+                    { name: "伊再提古丽·艾合麦提", class: "软件25101" }
+                ],
+                tags: ["游戏", "王者荣耀", "英雄数据", "攻略"],
+                tech: ["HTML", "CSS3", "JavaScript"],
+                description: "《王者荣耀》游戏辅助网站，提供英雄数据、装备信息、游戏攻略和战绩查询功能。",
+                concept: "为游戏玩家提供专业的数据分析和游戏策略支持。",
+                innovation: "英雄数据对比分析和个性化出装推荐系统。",
+                adaptability: "移动端优先设计，方便玩家随时查看游戏信息。",
+                date: "2025-12-28",
+                icon: "fas fa-gamepad"
+            },
+            {
+                id: 13,
+                groupName: "第十三组",
+                workName: "仿马蜂窝app",
+                members: [
+                    { name: "加米拉·艾来木", class: "软件25104" },
+                    { name: "艾斯玛·玉素甫", class: "软件25104" },
+                    { name: "祖丽皮耶姆·穆合塔尔", class: "软件25104" },
+                    { name: "麦妮孜热·麦麦提", class: "软件25104" }
+                ],
+                tags: ["旅游", "社交", "UGC", "移动端"],
+                tech: ["HTML", "CSS3", "JavaScript"],
+                description: "仿马蜂窝旅游社交应用，提供旅游攻略分享、行程规划、景点评价和旅行社交功能。",
+                concept: "打造用户生成内容的旅游社交平台，分享真实旅行体验。",
+                innovation: "智能行程规划算法和个性化内容推荐系统。",
+                adaptability: "原生应用体验，支持iOS和Android平台。",
+                date: "2025-12-28",
+                icon: "fas fa-hotel"
+            },
+            {
+                id: 14,
+                groupName: "第十四组",
+                workName: "个人页面",
+                members: [
+                    { name: "木斯丽曼·依马木", class: "软件25101" }
+                ],
+                tags: ["个人作品集", "简历", "设计", "展示"],
+                tech: ["HTML", "CSS3", "JavaScript"],
+                description: "个人作品集展示网站，包含个人简介、技能展示、项目案例和联系方式。",
+                concept: "展示个人设计和技术能力，打造专业形象和品牌。",
+                innovation: "动态视觉设计和交互式作品展示方式。",
+                adaptability: "响应式设计，确保在各种设备上完美展示。",
+                date: "2025-12-28",
+                icon: "fas fa-user-circle"
+            },
+            {
+                id: 15,
+                groupName: "第十五组",
+                workName: "千年喀什",
+                members: [
+                    { name: "阿米娜·萨伍尔", class: "软件25101" },
+                    { name: "谢伊代·艾衣沙", class: "软件25101" }
+                ],
+                tags: ["文化", "喀什", "历史", "3D展示"],
+                tech: ["HTML", "CSS3", "JavaScript"],
+                description: "喀什历史文化展示平台，通过3D技术展示喀什古城风貌、历史遗迹和文化传统。",
+                concept: "数字化保存和展示喀什千年历史文化，促进文化传承。",
+                innovation: "3D古城漫游和历史时间轴可视化展示。",
+                adaptability: "桌面端提供完整3D体验，移动端优化浏览方式。",
+                date: "2025-12-28",
+                icon: "fas fa-landmark"
+            },
+            {
+                id: 16,
+                groupName: "第十六组",
+                workName: "新疆地图旅游",
+                members: [
+                    { name: "魏云飞", class: "软件25104" },
+                    { name: "李佳城", class: "软件25104" },
+                    { name: "阿布都里艾孜子·吐尔地", class: "软件25104" },
+                    { name: "图尔迪·艾力", class: "软件25104" }
+                ],
+                tags: ["地图", "新疆旅游", "交互", "数据可视化"],
+                tech: ["Echar.js", "JavaScript", "CSS3"],
+                description: "新疆旅游地图交互平台，提供景点分布、路线规划、天气信息和旅游数据可视化功能。",
+                concept: "通过地图交互方式展示新疆旅游资源，帮助游客规划完美旅程。",
+                innovation: "多图层地图叠加和智能路线规划算法。",
+                adaptability: "响应式设计，优化地图在移动设备上的交互体验。",
+                date: "2025-12-28",
+                icon: "fas fa-map"
+            }
+        ];
+
+        // 当前查看的作品ID
+        let currentWorkId = null;
+
+        // DOM元素
+        const modal = document.getElementById('workModal');
+        const modalClose = document.getElementById('modalClose');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalImg = document.getElementById('modalImg');
+        const modalGroup = document.getElementById('modalGroup');
+        const modalMembers = document.getElementById('modalMembers');
+        const modalDate = document.getElementById('modalDate');
+        const modalConcept = document.getElementById('modalConcept');
+        const modalInnovation = document.getElementById('modalInnovation');
+        const modalAdaptability = document.getElementById('modalAdaptability');
+        const modalTechList = document.getElementById('modalTechList');
+        const modalTags = document.getElementById('modalTags');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const worksList = document.getElementById('worksList');
+        const worksCount = document.getElementById('worksCount');
+        const butInfo = document.getElementById("checkInfo")
+
+        // 初始化作品列表
+        function initWorksList() {
+            worksList.innerHTML = '';
+            worksCount.textContent = worksData.length;
+
+            worksData.forEach((work, index) => {
+                const workItem = document.createElement('div');
+                workItem.className = 'work-item';
+                workItem.setAttribute('data-id', work.id);
+
+                // 获取成员列表字符串
+                const membersString = work.members.map(m => m.name).join('、');
+
+                // 创建作品卡片
+                workItem.innerHTML = `
+                    <div class="preview-container">
+                          <img class="perview-img" src="./img/${index + 1}.png"></iframe>
+                        <div class="preview-overlay">
+                            <span><i class="fas fa-search-plus"></i> 点击查看详情</span>
+                        </div>
+                    </div>
+                    <div class="work-info">
+                        <h3 class="work-title">${work.workName}</h3>
+                        <div class="work-group">
+                            <i class="fas fa-users"></i> ${work.groupName}
+                        </div>
+                        <div class="work-meta">
+                            <div class="work-author">
+                                <i class="fas fa-user-friends"></i>
+                                <span>${membersString}</span>
+                            </div>
+                            <div class="work-date">
+                                <i class="far fa-clock"></i>
+                                <span>${work.date}</span>
+                            </div>
+                        </div>
+                        <p class="work-desc">${work.description}</p>
+                        <div class="work-tags">
+                            ${work.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+
+                // 添加点击事件
+                workItem.addEventListener('click', () => {
+                    openModal(work.id);
+                });
+
+                worksList.appendChild(workItem);
+            });
+        }
+
+        // 打开弹窗
+        function openModal(workId) {
+            currentWorkId = workId;
+            const work = worksData.find(w => w.id === workId);
+
+            if (!work) return;
+
+            // 更新弹窗内容
+            modalTitle.textContent = work.workName;
+            modalImg.setAttribute("src", "./img/" + workId + ".png")
+            modalGroup.textContent = work.groupName;
+            modalDate.textContent = work.date;
+            modalConcept.textContent = work.concept;
+            modalInnovation.textContent = work.innovation;
+            modalAdaptability.textContent = work.adaptability;
+
+            // 更新成员列表
+            modalMembers.innerHTML = '';
+            work.members.forEach(member => {
+                const memberSpan = document.createElement('span');
+                memberSpan.className = 'member';
+                memberSpan.textContent = `${member.name} (${member.class})`;
+                modalMembers.appendChild(memberSpan);
+            });
+
+            // 更新技术栈
+            modalTechList.innerHTML = '';
+            work.tech.forEach(techItem => {
+                const li = document.createElement('li');
+                li.innerHTML = `<i class="fas fa-cog"></i> ${techItem}`;
+                modalTechList.appendChild(li);
+            });
+
+            // 更新标签
+            modalTags.innerHTML = '';
+            work.tags.forEach(tag => {
+                const span = document.createElement('span');
+                span.className = 'modal-tag';
+                span.textContent = tag;
+                modalTags.appendChild(span);
+            });
+
+            // 显示弹窗
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+
+            // 更新导航按钮状态
+            updateNavButtons();
+        }
+
+        // 关闭弹窗
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto'; // 恢复背景滚动
+        }
+
+        // 更新导航按钮状态
+        function updateNavButtons() {
+            const totalWorks = worksData.length;
+
+            // 上一个按钮
+            if (currentWorkId === 1) {
+                prevBtn.classList.add('disabled');
+                prevBtn.disabled = true;
+            } else {
+                prevBtn.classList.remove('disabled');
+                prevBtn.disabled = false;
+            }
+
+            // 下一个按钮
+            if (currentWorkId === totalWorks) {
+                nextBtn.classList.add('disabled');
+                nextBtn.disabled = true;
+            } else {
+                nextBtn.classList.remove('disabled');
+                nextBtn.disabled = false;
+            }
+        }
+
+        // 导航到上一个作品
+        function goToPrevWork() {
+            if (currentWorkId > 1) {
+                openModal(currentWorkId - 1);
+            }
+        }
+
+        // 导航到下一个作品
+        function goToNextWork() {
+            if (currentWorkId < worksData.length) {
+                openModal(currentWorkId + 1);
+            }
+        }
+
+        // 事件监听
+        modalClose.addEventListener('click', closeModal);
+        prevBtn.addEventListener('click', goToPrevWork);
+        nextBtn.addEventListener('click', goToNextWork);
+
+        butInfo.addEventListener("click", () => {
+            window.location.href = "./" + currentWorkId + "/index.html"
+        })
+        // 点击模态框背景关闭弹窗
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // 键盘事件支持
+        document.addEventListener('keydown', (e) => {
+            if (!modal.classList.contains('active')) return;
+
+            if (e.key === 'Escape') {
+                closeModal();
+            } else if (e.key === 'ArrowLeft') {
+                goToPrevWork();
+            } else if (e.key === 'ArrowRight') {
+                goToNextWork();
+            }
+        });
+
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', () => {
+            initWorksList();
+            console.log('页面加载完成！点击作品卡片查看详细信息。使用键盘左右箭头可以在作品间导航。');
+        });
+    </script>
+</body>
+
+</html>
